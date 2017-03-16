@@ -1,6 +1,6 @@
 # Getting started with aah framework
 
-It is easy to start and work with aah framework. Let's make sure you have [Go environment ready](/goto?doc=prerequisites).
+It is easy to start and work with aah framework. Let's make sure you have [Go environment ready](prerequisites.html).
 
 Here you will be learning-
 
@@ -39,9 +39,9 @@ Version Info:
 
 Congratulations, you have successfully installed aah framework and ready to use :).
 
-## Let's Create your First aah application
+## Let's create your first aah application
 
-It is very easy to use aah framework CLI tool. [Learn more about aah CLI tool](/goto?doc=aah_cli).
+It is very easy to use aah framework CLI tool. [Learn more about aah CLI tool](aah-cli-tool.html).
 
 ```bash
 aah new -importPath=github.com/jeevatkm/aah-first-app

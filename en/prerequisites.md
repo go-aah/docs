@@ -14,13 +14,13 @@ Follow the Go official [installation guide](https://golang.org/doc/install). The
 
 Understanding [GOPATH](https://github.com/golang/go/wiki/GOPATH) environment variable.
 
-** *nix Platform **
+**[*]nix Platform**
 
-For example: `/Users/jeeva/go-path` and adding $GOPATH into `$HOME/.profile`
+For example: Adding directory `/Users/jeeva/go-path` as `$GOPATH` into `$HOME/.profile`
 
 ```bash
 echo 'export GOROOT=/usr/local/go' >> $HOME/.profile
-echo 'export GOPATH=$HOME/go' >> $HOME/.profile
+echo 'export GOPATH=$HOME/go-path' >> $HOME/.profile
 echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >> $HOME/.profile
 ```
 
