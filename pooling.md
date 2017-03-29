@@ -8,4 +8,4 @@ aah framework allocates the fixed number of channel size from `App Config`. It o
 
 Pooled objects are not removed during garbage collection.
 
-aah framework does Pooling for these types `aah.Controller`, `ahttp.Request`, and `bytes.Buffer`.
+aah framework does Pooling for these types `aah.Context`, `ahttp.Request`, and `bytes.Buffer`.
