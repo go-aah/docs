@@ -17,7 +17,7 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
       * If custom not found controller is defined, server calls that controller action.
   * Route Found: `aah.Context` is update with targeted controller and action information. If controller or action is not found in the registry. Flow skips to `OnPreReply` server extension point with `404 Not Found` and writing response on the wire.
     * Path Variables are parsed and available at this point.
-  * Parse Request Cookies **`upcoming`**.
+  * Parse Session Cookie if the session mode is `stateful`
   * `OnPreAuth` server extension point **`upcoming`**.
   * Authenticate request **`upcoming`**.
   * `OnPostAuth` server extension point **`upcoming`**.
