@@ -15,5 +15,4 @@ import "aahframework.org/aah.v0"
 
 aah codebase is hosted on [Github](https://github.com/go-aah) and Development happens on branch `vX-unstable` for example: `v0-unstable`, `v1-unstable`, etc. and branch `master` is tidy codebase of each release. Github `tags` are stable and production ready releases.
 
-  * [Learn more about aah release process](release-process.html)
-  * [Learn more about aah development process](development-process.html)
+  * [Learn more about aah release and development process](release-and-development-process.html)

@@ -8,7 +8,7 @@ Here you will be learning-
 * [Verifying your aah installation](#verify-your-aah-installation)
 * [Creating your first aah application](#let-s-create-your-first-aah-application)
 * [Running your aah application](#run-your-aah-application)
-* [Next to app configuration](app-config.html)
+* [Next move onto app configuration](app-config.html)
 
 ## Installing aah framework and CLI tool
 
@@ -61,10 +61,11 @@ for you.
 
 Enter your application import path: github.com/jeevatkm/aah-first-app
 
-Choose your application type (web or api), default is 'web': web
+Enter your application type (web or api), default is 'web': web
 
-Do you want session management (Y/n): Y
-	Choose your session scope 'stateless' or 'stateful', default is 'stateless': stateful
+Do you want 'stateful' HTTP session management, default is 'stateless' (Y/n): Y
+
+Choose your session store (cookie or file), default is 'cookie': file
 
 Your aah web application created successfully at '/Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app'
 You shall run your application: 'aah run -importPath=github.com/jeevatkm/aah-first-app'
@@ -73,7 +74,10 @@ You shall run your application: 'aah run -importPath=github.com/jeevatkm/aah-fir
 ## Run your aah application
 
 ```bash
-aah run -p=github.com/jeevatkm/aah-first-app
+aah run -importPath=github.com/jeevatkm/aah-first-app
+
+# OR
+aah run -ip=github.com/jeevatkm/aah-first-app
 
 # OR
 cd $GOPATH/src/github.com/jeevatkm/aah-first-app
@@ -101,6 +105,6 @@ aah run
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.
 
-## Next move on to application configuration
+## Next move onto application configuration
 
 Learn more about [application configuration](app-config.html) and customize your application.
