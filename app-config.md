@@ -4,7 +4,7 @@ The configuration syntax is used by aah framework is similar to HOCON syntax, no
 
 aah configuration structure is very flexible, you can override every config settings in environment profiles.
 
-Reference to [Routes Config](routes-config.html), [Security Config](security-config.html).
+Reference to [Routes Config](routes-config.html), [Security Config](security-config.html), [Logging Config](logging-config.html).
 
 ### Table of Contents
 
