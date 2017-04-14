@@ -2,7 +2,7 @@
 
 aah Security configuration to configure Session, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is similar to HOCON syntax, not 100%. To learn more about **[configuration syntax](configuration.html)**.
 
-Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Logging Config](logging-config.html).
+Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Log Config](log-config.html).
 
 ### Table of Contents
 
@@ -40,7 +40,7 @@ type = "cookie"
 ### filepath
 Filepath is used for file store to store session data in the file system. This is only applicable for `type="file"`, make sure application has Read/Write access to the directory. Provide absolute path.
 
-No default value, it is mandatory for file system type store.
+Default value is `<app-base-dir>/sessions`.
 ```bash
 filepath = "/path/to/store/session/files"
 ```

@@ -3,31 +3,35 @@
 The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern. After a first successful run, a aah application layout looks like below:
 
 ```bash
-app                    ⇒ Application Go source codes directory
- └ controllers         ⇒ Application controllers
- └ models              ⇒ Application business layer
- └ aah.go              ⇒ aah application main entry point (generated code)
-config                 ⇒ Configurations files
- └ aah.conf            ⇒ Application configuration file
- └ routes.conf         ⇒ Application Routes configuration file
-i18n                   ⇒ Internalization and Localization message files
- └ messages.en         ⇒ Message file
- └ messages.en-US      ⇒ Message file
- └ messages.en-CA      ⇒ Message file
-views                  ⇒ Template files (aah supports partial inheritance with Go template engine)
-  └ common             ⇒ Common view template files, it can be imported to any page template
-  └ layouts            ⇒ Application view layout template files, master template for page template
-  └ pages              ⇒ Page view template files, corresponding view template for controllers action
-static                 ⇒ Static public assets
- └ css                 ⇒ CSS files
- └ js                  ⇒ Javascript files
- └ img                 ⇒ Image files
-logs                   ⇒ Logs directory (based log configuration, default is console on 'dev' profile)
- └ app-name.log        ⇒ Application log file
-tests                  ⇒ Go source codes directory for functional tests, use Go conventional way for unit tests
-.gitignore             ⇒ Typical Go .gitignore file and aah project ignore files
-aah.project            ⇒ aah project configuration; name, build config, etc.
-app-name.pid           ⇒ Application PID file
+app                     ⇒ Application Go source codes directory
+  └ controllers         ⇒ Application controllers
+  └ models              ⇒ Application business layer
+  └ aah.go              ⇒ aah application main entry point (generated code)
+config                  ⇒ Configurations files
+  └ aah.conf            ⇒ Application configuration file
+  └ routes.conf         ⇒ Application Routes configuration file
+  └ security.conf       ⇒ Application Security configuration file
+  env                   ⇒ Environment profile configurations
+    └ dev.conf          ⇒ Dev - Environment profile config
+    └ prod.conf         ⇒ Prod - Environment profile config
+i18n                    ⇒ Internalization and Localization message files
+  └ messages.en         ⇒ Message file
+  └ messages.en-US      ⇒ Message file
+  └ messages.en-CA      ⇒ Message file
+views                   ⇒ Template files (aah supports partial inheritance with Go template engine)
+  └ common              ⇒ Common view template files, it can be imported to any page template
+  └ layouts             ⇒ Application view layout template files, master template for page template
+  └ pages               ⇒ Page view template files, corresponding view template for controllers action
+static                  ⇒ Static public assets
+  └ css                 ⇒ CSS files
+  └ js                  ⇒ Javascript files
+  └ img                 ⇒ Image files
+logs                    ⇒ Logs directory (based log configuration, default is console on 'dev' profile)
+  └ app-name.log        ⇒ Application log file
+tests                   ⇒ Go source codes directory for functional tests, use Go conventional way for unit tests
+.gitignore              ⇒ Typical Go .gitignore file and aah project ignore files
+aah.project             ⇒ aah project configuration; name, build config, etc.
+app-name.pid            ⇒ Application PID file
 ```
 
 #### Packaged aah application will have following directories/files

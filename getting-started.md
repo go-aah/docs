@@ -69,6 +69,9 @@ Choose your session store (cookie or file), default is 'cookie': file
 
 Your aah web application created successfully at '/Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app'
 You shall run your application: 'aah run -importPath=github.com/jeevatkm/aah-first-app'
+
+Go to https://docs.aahframework.org to learn more and customize your aah application.
+
 ```
 
 ## Run your aah application
