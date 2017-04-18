@@ -8,6 +8,7 @@ Here you will learn aah CLI tool usage and available commands. It comes very han
   * [new](#command-new)
   * [run](#command-run)
   * [build](#command-build)
+  * [Cross Compile Build](#cross-compile-build)
 
 ## Command: version
 
@@ -66,7 +67,7 @@ aah run -importPath=github.com/username/name -config=/path/to/config/external.co
 
 ## Command: build
 
-`build` command is used to create aah application build artifact for deployment. By default after successful, artifact will be available under directory `<app-base-dir>/aah-build`.
+`build` command is used to create aah application build artifact for deployment. By default after successful, artifact will be available under directory `<app-base-dir>/build`.
 
 It has these parameters-
 
@@ -85,4 +86,25 @@ aah build -artifactPath=/Users/jeeva  # you can use short flag -ap
 aah build -importPath=github.com/user/appname # you can use short flag -ip
 
 aah build -importPath=github.com/user/appname -artifactPath=/Users/jeeva
+```
+
+## Cross Compile Build
+Set environment variables `GOOS` and `GOARCH` before executing `aah build` command. List of available GOOS and GOARCH values, [click here](https://golang.org/doc/install/source#environment)
+
+#### Building linux binary on Mac OS
+```bash
+env GOOS=linux GOARCH=amd64 aah build -ap=/Users/jeeva/build
+
+#Output:
+...
+Your application artifact is here: /Users/jeeva/build/myapp-99bf7df-linux-amd64.zip
+```
+
+#### Building windows exe on Mac OS
+```bash
+env GOOS=windows GOARCH=amd64 aah build -ap=/Users/jeeva/build
+
+#Output:
+...
+Your application artifact is here: /Users/jeeva/build/myapp-99bf7df-windows-amd64.zip
 ```

@@ -29,6 +29,7 @@ static                  ⇒ Static public assets
 logs                    ⇒ Logs directory (based log configuration, default is console on 'dev' profile)
   └ app-name.log        ⇒ Application log file
 tests                   ⇒ Go source codes directory for functional tests, use Go conventional way for unit tests
+build                   ⇒ Application build directory
 .gitignore              ⇒ Typical Go .gitignore file and aah project ignore files
 aah.project             ⇒ aah project configuration; name, build config, etc.
 app-name.pid            ⇒ Application PID file
