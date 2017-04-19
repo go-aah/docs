@@ -14,6 +14,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)
+        - [lets_encrypt { ... }](#section-lets-encrypt)
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
     - [store { ... }](#section-store)
@@ -33,7 +34,7 @@ Have a look at [aahframework.org app configuration](https://github.com/go-aah/we
 ## name
 Application name, non-whitespace is recommend.
 
-Default value is base directory of application import path.
+Default value is `basename` of import path.
 ```bash
 name = "mysampleapp"
 ```
@@ -41,15 +42,7 @@ name = "mysampleapp"
 ## description
 A friendly description of application purpose.
 ```bash
-description = "aah framework web application"
-```
-
-## pidfile
-aah application process ID aka PID. A path to save `pid` file.
-
-Default location is `<app-base-dir>/appname.pid`.
-```bash
-pidfile = "mysampleapp.pid"
+desc = "aah framework web application"
 ```
 
 ---
@@ -144,6 +137,60 @@ HTTP server key file. Path to the key file. It is mandatory if `server.ssl.enabl
 Default value is `empty` string.
 ```bash
 key = ""
+```
+
+### Section: lets_encrypt { ... }
+
+### enable
+To enable Let's Encrypt CA auto SSL/TLS certs on the aah server.
+
+Let’s Encrypt is a free, automated, and open certificate authority (CA), they provide free digital certificates in order to enable HTTPS (SSL/TLS) for websites to create a more secure and privacy-respecting Web.
+
+Default value is `false`. Don't forget to enable `server.ssl.enable = true`.
+```bash
+enable = true
+```
+
+### host_policy
+Host policy controls which domains the `autocert` will attempt to retrieve new certificates for. It does not affect cached certs. It is array of domain/sub-domain names.
+
+It is required, no default value.
+```bash
+host_policy = ["example.org", "docs.example.org"]
+```
+
+### renew_before
+Renew before optionally specifies how early certificates should be renewed before they expire.
+
+Default value is `10` days.
+```bash
+renew_before = 10
+```
+
+### email
+Email optionally specifies a contact email address. This is used by CAs, such as Let's Encrypt, to notify about problems with issued certificates. If the Client's account key is already registered, Email is not used.
+
+Default value is `empty` string.
+```bash
+email = "jeeva@myjeeva.com"
+```
+
+### force_rsa
+Force RSA makes the `autocert` generate certificates with 2048-bit RSA keys. If false, a default is used.
+
+Default is `EC`-based keys using the `P-256` curve.
+```bash
+force_rsa = false
+```
+
+### cache_dir
+Cache optionally stores and retrieves previously-obtained certificates autocert manager. By default certs will only be cached for the lifetime of the autocert manager.
+
+Autocert manager passes the Cache certificates data encoded in PEM, with private/public parts combined in a single Cache.Put call, private key first.
+
+Default value is `empty` string.
+```bash
+cache_dir = "/path/to/store/cache/certs"
 ```
 
 ---

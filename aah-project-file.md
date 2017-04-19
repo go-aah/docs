@@ -2,29 +2,25 @@
 
 aah project holds configuration values for application build. The configuration are-
 
-## name
-Name of the project, it is used for binary name if `build.binary_name` is not present. Whitespace is not recommend in the `name` field. If present whitespace will be replaced with `_`.
+### Table of Contents
 
-Default value is base directory name from application import path.
-```bash
-name = "mysampleapp"
-```
-
-## version
-Used as fallback if git versioning or `AAH_APP_VERSION` environment value is not available.
-```bash
-version = "0.0.1"
-```
+  * [build { ... }](#section-build)
 
 ## Section: build { ... }
 Build section is used during aah application compile and build command.
 
 ### binary_name
-If not supplied or empty then 'name' attribute is used for binary name.
+Application binary name.
 
-Default value is `empty` string.
+Default value is `name` attribute value from `aah.conf`.
 ```bash
 binary_name = ""
+```
+
+### version
+Used as fallback if `git commit sha` or `AAH_APP_VERSION` environment value is not available.
+```bash
+version = "0.0.1"
 ```
 
 ### go_get
