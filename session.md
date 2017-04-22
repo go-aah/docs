@@ -19,8 +19,8 @@ Reference to [Session Configuration](security-config.html#section-session).
 ### Table of Contents
 
   * [`session.Storer` Interface](#session-storer-interface)
-  * [Adding Custom Store into aah](#adding-custom-store-into-aah)
-  * [Configuring Custom Store into aah](#configuring-custom-store-into-aah)
+  * [Adding User-Defined Store into aah](#adding-user-defined-store-into-aah)
+  * [Configuring User-Defined Store into aah](#configuring-user-defined-store-into-aah)
 
 ## `session.Storer` Interface
 
@@ -36,9 +36,9 @@ Storer interface {
 }
 ```
 
-## Adding Custom Store into aah
+## Adding User-Defined Session Store into aah
 
-Add the user-defined custom into aah framework.
+Add the user-defined custom session store into aah framework.
 ```go
 // Refer `session.FileStore` for implementation sample
 func init() {
@@ -46,7 +46,7 @@ func init() {
 }
 ```
 
-## Configuring Custom Store into aah
+## Configuring User-Defined Session Store into aah
 
 Configuring user-defined custom store for session data storage in the `security.conf`.
 ```bash

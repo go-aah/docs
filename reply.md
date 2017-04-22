@@ -4,12 +4,13 @@ Framework provides `Reply` builder to compose your response effectively. You can
 
 ### Table of Contents
 
-  * Response Status Codes
-  * Response Content
-  * Redirect
-  * Cookie
-  * Done()
-  * Sample
+  * [Response Status Codes](#response-status-codes)
+  * [Response Content](#response-content)
+  * [Redirect](#redirect)
+  * [Replying HTTP Headers](#replying-http-headers)
+  * [Cookie](#cookies)
+  * [Done()](#done)
+  * [Sample](#samples)
 
 ## Response Status Codes
 As per RFC7231, provides method for frequently used ones.
@@ -37,7 +38,7 @@ Replying various content types
 
   * `HTML(data)`
   * `HTMLl(layout, data)`
-  * `HTMLlf(layout, file, data)`
+  * `HTMLlf(layout, filename, data)`
   * `JSON(data)`
   * `JSONP(data, callback)`
   * `XML(data)`

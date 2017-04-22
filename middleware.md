@@ -10,7 +10,9 @@ aah framework provides a way to create user-defined `Middleware` for your applic
 
 ## Writing Middleware
 
-To create your own custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function, you can add your middleware into aah in three ways-
+To create your own custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function.
+
+You can add your middleware into aah in three ways-
 
   * Using standard `func init()`
   * Using `OnInit` event
@@ -74,7 +76,8 @@ func customMiddleware(ctx *Context, m *Middleware) {
   // ...
 
 
-  // Even though Next method is called, framework won't proceed further
+  // Even though `Next(..)` method is called, framework won't proceed further
+  // because `Abort()` have called before
   m.Next(ctx)
 }
 ```
