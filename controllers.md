@@ -36,7 +36,10 @@ type User struct {
 
 ## Request
 
-Request contains processed incoming request details such as `Params`, `Content Type`, `Locale`, `Client IP` (aka Remote IP/Address) `Accept Content Type`, `Accept Encoding`, `Raw` request object, etc. To learn more [click here](request.html).
+Request contains processed incoming request details such as `Params`, `Content Type`, `Locale`, `Client IP` (aka Remote IP/Address) `Accept Content Type`, `Accept Encoding`, `Raw` request object, etc.
+
+  * To learn more about `Request` attributes and methods [click here](https://godoc.org/aahframework.org/ahttp.v0#Request).
+  * To learn more about `Params` attributes and methods [click here](https://godoc.org/aahframework.org/ahttp.v0#Params)
 
 ## Response
 
