@@ -10,6 +10,7 @@ Reference to [View Config](app-config.html#section-view).
 
   * [Directory Structure](#view-directory-structure-and-usage)
   * [Template Auto Resolve OR User-Defined Inputs](#template-auto-resolve-or-user-defined-inputs)
+  * [Supplying View Argument](#supplying-view-arguments)
   * [Adding User-Defined View Engine into aah](#adding-user-defined-view-engine-into-aah)
 
 
@@ -68,6 +69,15 @@ Understood the framework default behavior, now how I can use it my way? Of-cours
   * `Reply().HTML(data)` - framework resolves layout and view template file.
   * `Reply().HTMLl(layout, data)` - layout is user input and framework resolve only view template file.
   * `Reply().HTMLlf(layout, filename, data)` - layout and view template file is user input.
+
+## Supplying View Arguments
+
+aah provides following ways to add value into `ViewArgs`, it is used using while rendering view template.
+
+  * `ctx.AddViewArg(key, value)` this method is available in entire request life cycle. For e.g.: adding value via middleware or in the controller.
+  * Via `Reply().HTML*` methods as a `aah.Data{ ... }`
+
+Framework provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` from view template via template function.
 
 ## Adding User-Defined View Engine into aah
 
