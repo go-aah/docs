@@ -67,7 +67,8 @@ func init() {
 
 ### Example: To improve SSL score
 ```go
-func init() {  
+func init() {
+  // You can use `aah.OnStart` event too.
   aah.OnInit(func(e *aah.Event) {
     // `aah.AppConfig()` values available for you
 
@@ -78,6 +79,7 @@ func init() {
       PreferServerCipherSuites: true,
       CipherSuites: []uint16{
         tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+        tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, // Required for HTTP/2
         tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
         tls.TLS_RSA_WITH_AES_256_GCM_SHA384,
         tls.TLS_RSA_WITH_AES_256_CBC_SHA,

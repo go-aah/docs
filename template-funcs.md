@@ -11,6 +11,7 @@ Default Go lang provides [template functions](https://golang.org/pkg/text/templa
 ## aah Template Funcs
 
   * [config](#func-config)
+  * [import](#func-import)
   * [rurl](#func-rurl)
   * [rurlm](#func-rurlm)
   * [i18n](#func-i18n)
@@ -20,6 +21,7 @@ Default Go lang provides [template functions](https://golang.org/pkg/text/templa
   * [session](#func-session)
   * [isauthenticated](#func-isauthenticated)
   * [flash](#func-flash)
+  * [safeHTML](#func-safehtml)
 
 #### Func: config
 
@@ -27,6 +29,14 @@ Accessing application configuration from `aah.AppConfig()`.
 
 ```go
 {{ config "format.datetime" }}
+```
+
+#### Func: import
+
+Renders the common file from `view/common` with ViewArgs and imports into called template file.
+
+```go
+{{ import "sidebar.html" . }}
 ```
 
 #### Func: rurl
@@ -115,6 +125,17 @@ Access Flash values. Note: Flash value is deleted after accessing once.
 
 ```go
 {{ session . "Username" }}
+```
+
+#### Func: safeHTML
+
+Go template strips the HTML comment while rendering the template file. To preserve HTML comment or any special char use `safeHTML` template func.
+
+```go
+{{ safeHTML `<!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->` }}
 ```
 
 ## Adding your custom Funcs or Third-Party Funcs

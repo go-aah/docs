@@ -77,9 +77,7 @@ func init() {
 
 ## Event: OnShutdown
 
-`OnShutdown` event is published on receiving OS Signals `SIGINT` or `SIGTERM`. Basically before application shutdown/exits.
-
-**Note:** `go1.8` and above; after receiving OS Signals, aah server does graceful shutdown based on config value `server.timeout.grace_shutdown = 5m` and then it publishes the `OnShutdown` event.
+On receiving OS Signals `SIGINT` or `SIGTERM`, aah server does graceful shutdown based on config value `server.timeout.grace_shutdown` and then it publishes the `OnShutdown` event.
 
 **Supports Multiple:** Yes
 
