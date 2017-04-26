@@ -1,3 +1,3 @@
-# What's new in v0.5 release?
+## What's new?
 
-Well, aah framework come to the public audience with v0.5 (Official birthday of framework).
+Well, aah framework released to the public audience with `v0.5` (Official birthday of aah framework).
