@@ -1,4 +1,4 @@
-# aah Event Publisher
+# Event Publisher/Emitter
 
 Event Publisher provides an idiomatic asynchronous event-driven architecture that able to Publish asynchronous and synchronous events. Subscribe and Unsubscribe to those events.
 

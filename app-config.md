@@ -124,7 +124,7 @@ enable = true
 ```
 
 ### cert
-HTTP server certificate file. Path to the cert file. It is mandatory if `server.ssl.enable` is `true`.
+HTTP server certificate file. Path to the cert file. It is required if `server.ssl.enable` is `true`.
 
 Default value is `empty` string.
 ```bash
@@ -132,11 +132,20 @@ cert = ""
 ```
 
 ### key
-HTTP server key file. Path to the key file. It is mandatory if `server.ssl.enable` is `true`.
+HTTP server key file. Path to the key file. It is required if `server.ssl.enable` is `true`.
 
 Default value is `empty` string.
 ```bash
 key = ""
+```
+
+### disable_http2
+Go lang by default enables the HTTP/2 on TLS. For some reason your use case needs disabling HTTP/2; not to worry, aah framework covers you. Just set this config value to false.
+
+Default value is `false`.
+
+```bash
+disable_http2 = true
 ```
 
 ### Section: lets_encrypt { ... }

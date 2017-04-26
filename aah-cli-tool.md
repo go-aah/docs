@@ -74,6 +74,11 @@ It has these parameters-
   * `-importPath | -ip` - aah application import path.
   * `-artifactPath | -ap` - Output location application build artifact.
 
+Build artifact naming convention-
+
+  * `<app-binary-name>-<version>-<goos>-<goarch>.zip`
+      - For e.g.: `aahwebsite-381eaa8-darwin-amd64.zip`
+
 ```bash
 # build command usages
 

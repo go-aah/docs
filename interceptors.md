@@ -1,4 +1,4 @@
-# aah Interceptors
+# Interceptors
 
 An interceptor pattern is offer a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that the change is transparent and used automatically.
 

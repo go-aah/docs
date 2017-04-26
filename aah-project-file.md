@@ -74,7 +74,7 @@ ast_excludes = ["*_test.go", ".*", "*.bak", "*.tmp", "vendor"]
 ### excludes
 Packing excludes is used to exclude file/directory during aah application build archive. Valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
 
-Default value is `["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests"]`
+Default value is `["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests", "logs"]`
 ```bash
-excludes = ["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests"]
+excludes = ["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests", "logs"]
 ```

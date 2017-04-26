@@ -1,4 +1,4 @@
-# aah Reply Builder
+# Reply Builder (aka Response Builder)
 
 Framework provides `Reply` builder to compose your response effectively. You can do Chained call.
 

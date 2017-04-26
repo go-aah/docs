@@ -110,4 +110,4 @@ Open up your browser, navigate to address [http://localhost:8080](http://localho
 
 ## Next move onto application configuration
 
-Learn more about [application configuration](app-config.html) and customize your application.
+Learn more about [aah application configuration](app-config.html) and customize your application.

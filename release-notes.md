@@ -1,3 +1,3 @@
-# Release Notes v0.1
+# Release Notes v0.5
 
-Initial pre-release of aah web framework for Go.
+Initial public release of aah web framework for Go.

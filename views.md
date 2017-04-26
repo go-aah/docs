@@ -1,4 +1,4 @@
-# aah Views
+# Views - HTML UI
 
 View is present user interface for particular application flow and action. For e.g.: login.html, home.html, etc.
 
@@ -12,6 +12,7 @@ Reference to [View Config](app-config.html#section-view).
   * [Template Auto Resolve OR User-Defined Inputs](#template-auto-resolve-or-user-defined-inputs)
   * [Supplying View Argument](#supplying-view-arguments)
   * [Adding User-Defined View Engine into aah](#adding-user-defined-view-engine-into-aah)
+  * [Values made available in `ViewArgs` by framework](#)
 
 
 ## View Directory Structure and Usage
@@ -110,3 +111,18 @@ view {
   engine = "enginename"
 }
 ```
+
+## Values made available in `ViewArgs` by framework
+
+Framework adds following value into `ViewArgs`.
+
+  * `Host`
+  * `HTTPMethod`
+  * `HTTPReferer`
+  * `RequestPath`
+  * `Locale`
+  * `ClientIP`
+  * `IsJSONP`
+  * `AahVersion`
+  * `AppVersion`
+  * `AppBuildDate`

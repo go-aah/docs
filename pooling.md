@@ -1,4 +1,4 @@
-# aah Pooling
+# Object Pooling
 
 aah framework uses the channel based `Pooling` to reduce overhead for heap allocation and garbage collection.
 

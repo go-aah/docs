@@ -1,4 +1,4 @@
-# aah Middleware
+# Middlewares
 
 aah framework provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware.
 

@@ -1,4 +1,4 @@
-# aah Template Function
+# View Template Functions
 
 Default Go lang provides [template functions](https://golang.org/pkg/text/template/#hdr-Functions). aah provides template functions to access configuration, request parameters, session data, flash, etc.
 
@@ -43,14 +43,31 @@ Renders the common file from `view/common` with ViewArgs and imports into called
 
 Creates the Reverse URL for given route name with arguments. Additional arguments are discarded.
 
+  * How to access sub-domain URL for reverse route on root domain template file?
+      - Ans: Use sub-domain (the one use have used in `routes.conf`) prefix before the route name
+  * How to access root-domain URL for reverse route on sub-domain template file?
+      - Ans: Use `root.` as prefix before the route name
+  * How to I get host url for root domain or sub-domain on template file?
+      - Ans: `host` is the keyword or virtual route name
+          - For example: this is applicable to `rurlm` func too.
+              - `{{ rurl "host" }}` - on root domain template file
+              - `{{ rurl "root.host" }}` - on sub-domain template file
+              - `{{ rurl "docs.host" }}` - on root domain template file access sub-domain host URL
+
 ```go
 // route name and arguments
-// Path: /v1/users/:userId/addresses/:addressId
+// Path: /users/:userId/addresses/:addressId
 {{ rurl . "user_address_info"  .UserId .Addresses.AddressId }}
 
 // route name
 // Path: /login.html
 {{ rurl . "login" }}
+
+==================================
+// How to access sub-domain url by route name?
+// Ans: use
+{{ rurl . "docs.index"}}
+
 ```
 
 #### Func: rurlm

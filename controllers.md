@@ -1,4 +1,4 @@
-# aah Controllers
+# Controllers
 
 `Controller` is responsible for handling incoming request, validate user inputs, call appropriate application logic behind and returns the response for that request. The response would be different content types based on request such as `HTML`, `JSON`, `XML`, `Text`, etc.
 

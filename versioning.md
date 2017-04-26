@@ -1,8 +1,8 @@
-# aah Versioning
+# Versioning and Package
 
 aah framework release versions according to [Semantic Versioning](http://semver.org/).
 
-aah commits to provide stable release of framework and it's libraries. aah framework uses gopkg.in service codebase internally to provide versioning.
+aah commits to provide stable release of framework and it's libraries. aah framework uses `gopkg.in` service codebase internally to provide versioning.
 
 `aahframework.org/<library-name>.vX` points to appropriate tag versions; `X` denotes version number and it's a stable release for production use.
 

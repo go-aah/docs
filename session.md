@@ -1,6 +1,6 @@
-# aah Session
+# Session Management
 
-aah Session provides HTTP state management for web application.
+aah Session library provides HTTP state management for web application and Stateless Session for API application.
 
 **Features:**
 
