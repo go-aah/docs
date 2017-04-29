@@ -114,8 +114,9 @@ view {
 
 ## Values made available in `ViewArgs` by framework
 
-Framework adds following value into `ViewArgs`.
+Framework provides following values on `ViewArgs`, so you use it templates.
 
+  * `Scheme`
   * `Host`
   * `HTTPMethod`
   * `HTTPReferer`
@@ -124,5 +125,5 @@ Framework adds following value into `ViewArgs`.
   * `ClientIP`
   * `IsJSONP`
   * `AahVersion`
-  * `AppVersion`
-  * `AppBuildDate`
+  * `EnvProfile`
+  * `AppBuildInfo`

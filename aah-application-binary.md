@@ -6,6 +6,7 @@ Page describe the aah application binary details.
 
   * [Flags](#flags)
   * [Start/Stop script](#start-stop-script)
+  * [OS Signals](#os-signals)
   * [Cross Compile Build](#cross-compile-build)
   * [Build Artifact Naming Convention](#build-artifact-naming-convention)
 
@@ -52,6 +53,10 @@ aah application build artifact contains two startup scripts named `aah` and `aah
 
   * `*NIX` script supports `{start|stop|restart|version}`
   * `Windows` script supports `{start|stop|version}`
+
+## OS Signals
+
+aah application binary listens to `SIGINT` and `SIGTERM` OS signal and then performs the graceful shutdown with timeout of config value `server.timeout.grace_shutdown` from `aah.conf`.
 
 ## Cross Compile Build
 

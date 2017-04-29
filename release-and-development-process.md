@@ -25,7 +25,7 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
 
 ## Release Cycle
 
-  * Security Issue - addressed as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security.html).
+  * Security Issue - addressed as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
   * Features, Enhancements, Bug fixes is planned to release every 3 months cycle (being realistic).
       - Take a look on [Roadmap](https://github.com/go-aah/aah/projects/3).
 
