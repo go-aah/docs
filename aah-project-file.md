@@ -1,6 +1,10 @@
+Title: aah.project Configuration File
+Desc: aah.project file holds configuration values for aah application project. It is used in build, project info, etc.
+Keywords: aah.project, project file, build config, build file, flags, ldflags, tags, build excludes
+---
 # aah project file - `aah.project`
 
-aah project holds configuration values for application build. The configuration are-
+aah.project file holds configuration values for aah application project.  It is used in build, project info, etc. The configuration are-
 
 ### Table of Contents
 

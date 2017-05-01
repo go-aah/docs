@@ -1,3 +1,7 @@
+Title: aah CLI Tool
+Desc: aah CLI tool is development buddy for developers to take advantage aah framework capabilities.
+Keywords: aah CLI tool, ClI tool, cross compile, commands, run, new, build, version
+---
 # aah CLI Tool
 
 Here you will learn aah CLI tool usage and available commands. It comes very handy for development, Continuous Integration (CI) and deployment.
