@@ -1,5 +1,5 @@
 Title: Controllers
-Desc: `Controller` is responsible for handling incoming request, validate user inputs, call appropriate application logic behind and returns the response for that request.
+Desc: Controller is responsible for handling incoming request, validate user inputs, call appropriate application logic behind and returns the response for that request.
 Keywords: controller, request, response, reply, view arg, cookies, extending controller
 ---
 # Controllers

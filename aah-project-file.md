@@ -4,7 +4,7 @@ Keywords: aah.project, project file, build config, build file, flags, ldflags, t
 ---
 # aah project file - `aah.project`
 
-aah.project file holds configuration values for aah application project.  It is used in build, project info, etc. The configuration are-
+aah.project file holds configuration values for aah application project. It is used in build, project info, etc. The configuration are-
 
 ### Table of Contents
 
