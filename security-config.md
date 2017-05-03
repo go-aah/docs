@@ -1,3 +1,7 @@
+Title: aah Security Configuration
+Desc: aah Security configuration to configure Session, Authentication (upcoming),  CORS (upcoming), CSRF (upcoming), Security Headers (upcoming), etc.
+Keywords: security config, security configuration, session config, auth config, cors, csrf, HOCON
+---
 # aah Security Configuration
 
 aah Security configuration to configure Session, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is similar to HOCON syntax, not 100%. To learn more about **[configuration syntax](configuration.html)**.

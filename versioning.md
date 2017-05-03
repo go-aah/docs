@@ -1,3 +1,7 @@
+Title: Versioning and Package Management
+Desc: aah framework release versions according to Semantic Versioning. aah commitment to provide stable versioned release of framework and it's libraries.
+Keywords: versioning, package management, stable version, release version
+---
 # Versioning and Package
 
 aah framework release versions according to [Semantic Versioning](http://semver.org/).

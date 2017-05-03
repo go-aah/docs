@@ -1,3 +1,7 @@
+Title: Static File's Delivery
+Desc: To serve static files, it can be directory or individual file. This section optional one, for e.g: RESTful APIs doesn't need this section. Static files are delivered via http.ServeContent.
+Keywords: static file delivery, static file, serve file, directory listing, listing directory, individual file, static routes configuration
+---
 # Static File's Delivery
 
 To serve static files, it can be directory or individual file. This section optional one, for e.g: RESTful APIs doesn't need this section. Static files are delivered via `http.ServeContent`.

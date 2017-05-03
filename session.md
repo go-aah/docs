@@ -1,3 +1,7 @@
+Title: Session Management
+Desc: aah Session provides HTTP state management for web application and Stateless Session for API application. HMAC Signed session data, AES Encrypted session data, Extensible session.Storer interface.
+Keywords: session, stateless session, stateful session, http state management, hmac signed, aes encrypted, external store
+---
 # Session Management
 
 aah Session library provides HTTP state management for web application and Stateless Session for API application.

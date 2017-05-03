@@ -1,3 +1,7 @@
+Title: Routing URL
+Desc: aah framework routing implementation is Radix tree algorithm.
+Keywords: routing url, routing algorithm, routing
+---
 # Routing URL
 
 aah framework supports domain and subdomains seamlessly and reverse route lookup by route name effectively.

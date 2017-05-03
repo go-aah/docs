@@ -1,3 +1,7 @@
+Title: Release & Development Process
+Desc: Insight into aah framework project Release and Development Process.
+Keywords: release process, development process, dev process, release cycle
+---
 # Release & Development Process
 
 This page would give an idea how aah framework project Release and Development Process. I will be improving process efficiency  iteratively as project moves on. For now this set is to begin with.
@@ -26,8 +30,8 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
 ## Release Cycle
 
   * Security Issue - addressed as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
-  * Features, Enhancements, Bug fixes is planned to release every 3 months cycle (being realistic).
-      - Take a look on [Roadmap](https://github.com/go-aah/aah/projects/3).
+  * Features, Enhancements, Bug fixes is planned to release every 3 to 4 months cycle (being realistic).
+      - Take a look on [Roadmap](https://github.com/go-aah/aah/projects/3) upcoming features.
 
 ## Process to Release Framework/Library
 

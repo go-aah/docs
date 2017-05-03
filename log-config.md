@@ -1,3 +1,7 @@
+Title: aah Logging Configuration
+Desc: aah log implements a simple, flexible & powerful logger. Currently it supports `console`, `file` (rotation by daily, size,  lines), logging receivers and logging stats. It also has a predefined 'standard' Logger accessible through helper functions `Error{f}`, `Warn{f}`, `Info{f}`, `Debug{f}`, `Trace{f}`.
+Keywords: log, logger, aah logger, console log, file log, console logger, file logger
+---
 # aah Logging Configuration
 
 aah log implements a simple, flexible & powerful logger. Currently it supports `console`, `file` (rotation by daily, size,  lines), logging receivers and logging stats. It also has a predefined 'standard' Logger accessible through helper functions `Error{f}`, `Warn{f}`, `Info{f}`, `Debug{f}`, `Trace{f}` which are easier to use than creating a Logger manually. That logger writes to standard error and prints log `Entry` details as per `DefaultPattern`.

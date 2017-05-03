@@ -1,3 +1,7 @@
+Title: Middlewares
+Desc: aah framework provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware. Bring Go lang native middleware into aah.
+Keywords: middleware, writing middleware, abort middleware, native middleware into aah
+---
 # Middlewares
 
 aah framework provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware.

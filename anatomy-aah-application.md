@@ -1,3 +1,7 @@
+Title: Anatomy of a aah application
+Desc: The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern.
+Keywords: anatomy, layout, mvc, architectural, directories, aah application layout, aah application anatomy
+---
 # Anatomy of a aah application
 
 The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern. After a first successful run, a aah application layout looks like below:

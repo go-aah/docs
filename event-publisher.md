@@ -1,3 +1,7 @@
+Title: Event Publisher/Emitter
+Desc: Event Publisher provides an idiomatic asynchronous event-driven architecture that able to Publish asynchronous and synchronous events. Subscribe and Unsubscribe to those events. aah Server events built around this Event Publisher.
+Keywords: events, event publisher, event emitter, subscribe event, unsubscribe event, event callback
+---
 # Event Publisher/Emitter
 
 Event Publisher provides an idiomatic asynchronous event-driven architecture that able to Publish asynchronous and synchronous events. Subscribe and Unsubscribe to those events.

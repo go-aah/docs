@@ -1,3 +1,7 @@
+Title: Views - HTML UI
+Desc: View is present user interface for particular application flow and action. Out-of-the-box of the aah provides Partial Inheritance capability using Go built-in template engine. Custom View engine support.
+Keywords: views, templates, html, partial inheritance, user-defined view engine, view directory structure
+---
 # Views - HTML UI
 
 View is present user interface for particular application flow and action. For e.g.: login.html, home.html, etc.

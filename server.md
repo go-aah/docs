@@ -1,3 +1,7 @@
+Title: aah Server
+Desc: aah server is in-built web server provided by Go lang. HTTP, HTTPS, UNIX Socket, Let's Encrypt, Custom TLS Config, etc. Server provides flexible configuration on aah.conf.
+Keywords: aah server, go http server, aah go server, http server, web server, let's encrypt, unix socket
+---
 # aah Server
 
 aah server is in-built web server provided by Go lang. It provides flexible configuration `server { ... }` on `aah.conf` for the users.

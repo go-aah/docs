@@ -1,3 +1,7 @@
+Title: Getting started with aah framework
+Desc: It is easy to start and work with aah framework. Installing aah framework and CLI tool, Creating your first aah application, Running your aah application, etc.
+Keywords: getting started, aah framework, aah first application
+---
 # Getting started with aah framework
 
 It is easy to start and work with aah framework. Let's make sure you have [Go environment ready](prerequisites.html).

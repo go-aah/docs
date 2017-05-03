@@ -1,3 +1,7 @@
+Title: View Template Functions
+Desc: aah provides template functions to access configuration, request parameters, session data, flash, etc. In addition to default go lang template funcs. Add custom or third party Template Funcs.
+Keywords: template funcs, funcmap, template func map, aah template funcs
+---
 # View Template Functions
 
 Default Go lang provides [template functions](https://golang.org/pkg/text/template/#hdr-Functions). aah provides template functions to access configuration, request parameters, session data, flash, etc.

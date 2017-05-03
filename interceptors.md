@@ -1,3 +1,7 @@
+Title: Interceptors
+Desc: An interceptor pattern is offer a way to change, or augment, their usual processing cycle. aah framework provides per `Controller` and per `Action` level. Key aspects of the pattern are that the change is transparent and used automatically.
+Keywords: interceptor, per controller interceptor, per action interceptor, before, after, finally, panic
+---
 # Interceptors
 
 An interceptor pattern is offer a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that the change is transparent and used automatically.

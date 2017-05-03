@@ -1,3 +1,7 @@
+Title: aah Server Extension
+Desc: aah server exposes the App and Request life cycle stages as server events, i.e. called Server Extension Point. Function signature is same as events (aah.EventCallbackFunc signature).
+Keywords: server extension point, aah server extension, extension point, server events, callback, events
+---
 # aah Server Extension
 
 aah server exposes the App and Request life cycle stages as server events, i.e. called Server Extension Point. Function signature is same as events (`aah.EventCallbackFunc` signature). By default given function executed as they are added sequence unless `priority` is specified.

@@ -1,3 +1,7 @@
+Title: aah Request Lifecycle
+Desc: Incoming requests are handled by the server via routes. Each incoming request passes through a pre-defined list of steps, user-defined steps and optional server extensions. Each route describes an HTTP endpoint with a `path`, `method`, `controller`, and `action`.
+Keywords: aah request lifecycle, request lifecycle, incoming request, lifecycle
+---
 # aah Request Lifecycle
 
 Incoming requests are handled by the server via routes. Each route describes an HTTP endpoint with a `path`, `method`, `controller`, and `action`. Each incoming request passes through a pre-defined list of steps, user-defined steps and optional server extensions.

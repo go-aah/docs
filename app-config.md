@@ -1,3 +1,7 @@
+Title: aah Application Configuration
+Desc: aah configuration structure is very flexible, you can override every config settings in environment profiles. Learn about aah application configuration.
+Keywords: app config, application configuration, aah.conf, HOCON, configuration
+---
 # aah Application Configuration
 
 The configuration syntax is used by aah framework is similar to HOCON syntax, not 100%. To learn more about **[configuration syntax](configuration.html)**.
