@@ -77,10 +77,11 @@ It has these parameters-
 
   * `-importPath | -ip` - aah application import path.
   * `-artifactPath | -ap` - Output location application build artifact.
+  * `-profile | -p` - Environment profile name to activate for startup scripts. Default value is `prod`.
 
 Build artifact naming convention-
 
-  * `<app-binary-name>-<version>-<goos>-<goarch>.zip`
+  * `<app-binary-name>-<app-version>-<goos>-<goarch>.zip`
       - For e.g.: `aahwebsite-381eaa8-darwin-amd64.zip`
 
 ```bash
@@ -89,12 +90,16 @@ Build artifact naming convention-
 # if you're in app base dir, just execute
 aah build
 
+aah build -profile=qa # you can use short flag -ap
+
 aah build -artifactPath=/Users/jeeva  # you can use short flag -ap
 
 # anywhere you can execute
 aah build -importPath=github.com/user/appname # you can use short flag -ip
 
 aah build -importPath=github.com/user/appname -artifactPath=/Users/jeeva
+
+aah build -importPath=github.com/user/appname -artifactPath=/Users/jeeva -profile=qa
 ```
 
 ## Cross Compile Build

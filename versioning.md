@@ -25,22 +25,24 @@ aah codebase is hosted on [Github](https://github.com/go-aah) and Development ha
 
 aah framework doesn't provide explict package management tool. Feel free to use your choice of tool.
 
-Just to make sure, aah application is tested with govendor and glide package management tools. It is doing alright.
+Just to make sure, aah application is tested with glide and govendor package management tools. It is doing alright.
 
 #### How to use it?
 
 It is simple, go to your application base directory and execute the commands from respective tool which you're using.
+
+For example: aahframework.org [website codebase](https://github.com/go-aah/website) uses glide package management tool.
 
 ```bash
 # as an example, application base directory
 # refer respective tool documentation for the usage.
 cd $GOPATH/src/aah-first-app
 
-# govendor tool
-govendor init
-govendor add +external
-
 # glide tool
 glide init
 glide update
+
+# govendor tool
+govendor init
+govendor add +external
 ```

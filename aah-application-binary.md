@@ -53,10 +53,18 @@ aahwebsite -profile=qa
 
 ## Start/Stop script
 
-aah application build artifact contains two startup scripts named `aah` and `aah.cmd` for `*NIX` and `Windows`
+aah build artifact contains two startup scripts named `aah` and `aah.cmd` for `*NIX` and `Windows`. However you can create your own startup scripts as per your need with supported [flags](#flags).
 
   * `*NIX` script supports `{start|stop|restart|version}`
   * `Windows` script supports `{start|stop|version}`
+
+Note: `start` command accepts profile and external config as arguments.
+
+```bash
+# Just a sample of `aah` *NIX start script with arguments.
+./aahwebsite start qa
+./aahwebsite start qa /Users/jeeva/external-config.conf
+```
 
 ## OS Signals
 

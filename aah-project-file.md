@@ -27,12 +27,12 @@ Used as fallback if `git commit sha` or `AAH_APP_VERSION` environment value is n
 version = "0.0.1"
 ```
 
-### go_get
-If application is missing any dependencies during a compile and build, aah CLI will do `go get <package>`. If it's false build will show error with list of dependencies is not available in `GOPATH`.
+### dep_get
+If application is missing any dependencies in `build import path` during a compile and build, aah CLI executes `go get <package>`. If it's false then build shows error with list of dependencies which are not available.
 
-Default value is `true`.
+Default value is `false`.
 ```bash
-go_get = true
+dep_get = true
 ```
 
 ### log_level
