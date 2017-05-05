@@ -58,7 +58,7 @@ aah build artifact contains two startup scripts named `aah` and `aah.cmd` for `*
   * `*NIX` script supports `{start|stop|restart|version}`
   * `Windows` script supports `{start|stop|version}`
 
-Note: `start` command accepts profile and external config as arguments.
+Note: `start` command accepts profile and config arguments.
 
 ```bash
 # Just a sample of `aah` *NIX start script with arguments.

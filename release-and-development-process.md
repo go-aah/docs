@@ -29,9 +29,12 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
 
 ## Release Cycle
 
-  * Security Issue - addressed as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
-  * Features, Enhancements, Bug fixes is planned to release every 3 to 4 months cycle (being realistic).
-      - Take a look on [Roadmap](https://github.com/go-aah/aah/projects/3) upcoming features.
+  * Security fix is gets addressed and released as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
+  * Bug fixes are planned to release every month on 3rd week
+      - Please Note: If zero bug fixes then this release may not happen.
+  * Feature and Enhancement is planned to release every 3 to 4 months cycle (being realistic)
+      - Smaller feature or enhancement may get released earlier.
+      - Have a look on [Roadmap](https://github.com/go-aah/aah/projects/3).
 
 ## Process to Release Framework/Library
 

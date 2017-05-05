@@ -14,7 +14,6 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
     - [domain { ... }](#section-unique-keyname-user-defined)
       * [name](#name)
       * [host](#host)
-      * [port](#port)
       * [subdomain](#subdomain)
       * [redirect_trailing_slash](#redirect-trailing-slash)
       * [method_not_allowed](#method-not-allowed)
@@ -34,7 +33,7 @@ Pick your choice of an `unique keyname` to define your domain section in the rou
 
 No default value.
 ```bash
-localhost_8080 {
+localhost {
   # domain config goes here
 }
 
@@ -61,16 +60,6 @@ It is required value, no default value.
 host = "localhost"
 
 host = "aahframework.org"
-```
-
-### port
-aah framework supports multi-domain routes configuration out-of-the-box. `port` used to determine domain routes for the incoming request.
-
-For port `80`, `443`, just put empty string or `80` as a value.
-
-Default value is `8080`.
-```bash
-port = "80"
 ```
 
 ### subdomain
@@ -176,11 +165,13 @@ method = "PUT,PATCH"
 Mapping the controller to be called for mapped URL path.
 
 * `controller` attribute supports with or without package prefix. For e.g.: `v1.User` or `User`
+    * Best Practices: choose one form of controller value format and stick to it.
 * `controller` attribute supports both naming conventions. For e.g.: `User` or `UserController`
 
 It is required, no default value.
 ```bash
 # Usages
+# Best Practices: choose one form of controller value format and stick to it.
 controller = "User"
 
 controller = "UserController"
