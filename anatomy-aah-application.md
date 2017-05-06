@@ -42,7 +42,7 @@ app-name.pid            ⇒ Application PID file
 #### Packaged aah application will have following directories/files
 ```bash
 bin                    ⇒ Application binary file
-aah                    ⇒ *nix startup file
+aah.sh                 ⇒ *nix startup file
 aah.cmd                ⇒ Windows startup file
 ```
 

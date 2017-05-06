@@ -53,7 +53,7 @@ aahwebsite -profile=qa
 
 ## Start/Stop script
 
-aah build artifact contains two startup scripts named `aah` and `aah.cmd` for `*NIX` and `Windows`. However you can create your own startup scripts as per your need with supported [flags](#flags).
+aah build artifact contains two startup scripts named `aah.sh` is for `*NIX` and `aah.cmd` is for `Windows`. However you can create your own startup scripts as per your need with supported [flags](#flags).
 
   * `*NIX` script supports `{start|stop|restart|version}`
   * `Windows` script supports `{start|stop|version}`
