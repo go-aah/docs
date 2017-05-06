@@ -4,7 +4,7 @@ Keywords: security config, security configuration, session config, auth config, 
 ---
 # aah Security Configuration
 
-aah Security configuration to configure Session, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is similar to HOCON syntax, not 100%. To learn more about **[configuration syntax](configuration.html)**.
+aah Security configuration to configure Session, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
 
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Log Config](log-config.html).
 

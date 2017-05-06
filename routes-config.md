@@ -4,7 +4,7 @@ Keywords: routes config, routes configuration, namespace routes, group routes, r
 ---
 # aah Routes Configuration
 
-aah Routes configuration flexible and effective. The configuration syntax is used by aah framework is similar to HOCON syntax, not 100%. To learn more about **[configuration syntax](configuration.html)**.
+aah Routes configuration flexible and effective. The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
 
 Reference to [App Config](app-config.html), [Security Config](security-config.html), [Log Config](log-config.html).
 
