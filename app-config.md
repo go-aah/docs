@@ -358,9 +358,9 @@ enable = true
 ### level
 Used to control Gzip compression levels. Valid levels are `1 = BestSpeed` to `9 = BestCompression`.
 
-Default value is `1` BestSpeed.
+Default value is `5`.
 ```bash
-level = 1
+level = 3
 ```
 
 ---

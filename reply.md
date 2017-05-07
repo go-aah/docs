@@ -13,6 +13,7 @@ Framework provides `Reply` builder to compose your response effectively. You can
   * [Redirect](#redirect)
   * [Replying HTTP Headers](#replying-http-headers)
   * [Cookie](#cookies)
+  * [Disable Gzip](#disable-gzip)
   * [Done()](#done)
   * [Sample](#samples)
 
@@ -62,6 +63,13 @@ Replying various content types
 
 ## Cookies
   * `Cookie(cookie)`
+
+## Disable Gzip
+`DisableGzip` method provides an option to disable `gzip` compression for a particular response.
+
+```go
+Reply().DisableGzip()
+```
 
 ## Done()
 Done method indicates to framework that reply has already been sent via `aah.Context.Res` and that no further action is needed.
