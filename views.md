@@ -71,8 +71,9 @@ For E.g.:
 
 Understood the framework default behavior, now how I can use it my way? Of-course you can via [Reply Builder](reply.html#response-content).
 
-  * `Reply().HTML(data)` - framework resolves layout and view template file.
+  * `Reply().HTML(data)` - `master.html` layout and framework resolves view template file.
   * `Reply().HTMLl(layout, data)` - layout is user input and framework resolve only view template file.
+  * `Reply().HTMLf(filename, data)` - view filename is user input and `master.html` layout.
   * `Reply().HTMLlf(layout, filename, data)` - layout and view template file is user input.
 
 ## Supplying View Arguments

@@ -37,14 +37,13 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * ***Note:*** If any `panic` happens around controller action interceptor `Panic` is called on that controller.
   * User-defined middleware(s) execution (basically after `m.Next(ctx)` call).
   * If Response is already sent via `ctx.Res` and called `ctx.Reply().Done()` the request completes here.
-  * If it's a Redirects reply then redirects it.
+  * If it's a Redirects reply then it redirects.
   * Determines response content-type if not set in reply instance.
   * If it's HTML content-type then
     * Finds a view and master layout if provided in the reply instance it uses that.
     * Populates view args.
   * `OnPreReply` server extension point: Always called, you're allowed to modified `ctx.Reply()` it will reflect on response. Except when-
-    * Static file request.
-    * `ctx.Reply().Done()` called, refer godoc for more info.
+    * `ctx.Reply().Done()` is called, refer godoc for more info.
     * `ctx.Reply().Redirect(...)` is called.
   * Render reply instance based on content-type, if any errors it logs and sends meaningful error message.
   * Writing reply on the wire-
@@ -52,6 +51,5 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
     * Write Status - default is 200 OK, if not provided.
     * Write rendered bytes.
   * `OnAfterReply` server extension point: Always called. Response is already written on the wire. Don't bother `ctx.Reply()`, however `ctx.Res` holds valuable information (bytes written, status). Except when-
-    * Static file request.
-    * `ctx.Reply().Done()` called, refer godoc for more info.
+    * `ctx.Reply().Done()` is called, refer godoc for more info.
     * `ctx.Reply().Redirect(...)` is called.

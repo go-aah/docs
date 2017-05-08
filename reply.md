@@ -43,19 +43,21 @@ Replying various content types
 
   * `HTML(data)`
   * `HTMLl(layout, data)`
+  * `HTMLf(filename, data)`
   * `HTMLlf(layout, filename, data)`
   * `JSON(data)`
   * `JSONP(data, callback)`
   * `XML(data)`
   * `Text(str)`
   * `Text(str, args)`
-  * `Bytes(contentType, bytes)`
-  * `File(filename, readCloser)` - as an attachment
-  * `FileInline(filename, readCloser)` - as an inline
+  * `Readfrom(reader)`
+  * `File(filename)`
+  * `FileDownload(filename, readCloser)` - Content-Disposition is attachment
+  * `FileInline(filename, readCloser)` - Content-Disposition is inline
 
 ## Redirect
   * `Redirect(url)`
-  * `Redirects(url, statusCode)`
+  * `RedirectSts(url, statusCode)`
 
 ## Replying HTTP Headers
   * `Header(hdr, value)`
