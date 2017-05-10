@@ -16,16 +16,15 @@ Follow the Go official [installation guide](https://golang.org/doc/install). The
 
 ## Setting up $GOPATH
 
-Understanding [GOPATH](https://github.com/golang/go/wiki/GOPATH) environment variable.
+  * Understanding [GOPATH](https://github.com/golang/go/wiki/GOPATH) and it's purpose.
+  * Setting [GOPATH](https://golang.org/wiki/SettingGOPATH) on UNIX systems and Windows.
 
-**[*]nix Platform**
-
-For example: Adding directory `/Users/jeeva/go-path` as `$GOPATH` into `$HOME/.profile`
+Don't forget to add your `bin` directory on the `PATH`.
 
 ```bash
-echo 'export GOROOT=/usr/local/go' >> $HOME/.profile
-echo 'export GOPATH=$HOME/go-path' >> $HOME/.profile
-echo 'export PATH=$PATH:$GOROOT/bin:$GOPATH/bin' >> $HOME/.profile
+# On *nix systems
+# Set and then open new terminal session to reflect your change.
+echo 'export PATH=$PATH:$GOPATH/bin' >> $HOME/.profile
 ```
 
 ## Git Installation

@@ -304,17 +304,17 @@ Pooling configuration is used to reduce GC overhead from framework. Tune these v
 ### global
 Used for `aah.Context`, `ahttp.Request`, `session.Session`.
 
-Default value is `0`.
+Default value is `500`.
 ```bash
-global = 150
+global = 500
 ```
 
 ### buffer
 Used for `bytes.Buffer`.
 
-Default value is `0`.
+Default value is `200`.
 ```bash
-buffer = 60
+buffer = 200
 ```
 
 ---

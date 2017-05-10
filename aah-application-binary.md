@@ -4,11 +4,11 @@ Keywords: aah binary, aah app binary, flgas, os signals, cross compile, artifact
 ---
 # Learn About aah Application Binary
 
-Page describe the aah application binary details.
+Page describe the aah application binary artifact details.
 
 ## Table of Contents
 
-  * [Flags](#flags)
+  * [Input Flags](#flags)
   * [Start/Stop script](#start-stop-script)
   * [OS Signals](#os-signals)
   * [Cross Compile Build](#cross-compile-build)
@@ -16,17 +16,18 @@ Page describe the aah application binary details.
 
 ## Flags
 
-Application binary supports following flags.
+Application binary supports following input flags.
 
   * `-version` - display the binary name, version and build date.
-  * `-config` - absolute path of external configuration file, gets merge into application before initialize.
+  * `-config` - absolute path of external configuration file, it gets merge into application config before the initialize.
   * `-profile` - environment profile name to activate. e.g: dev, qa, prod.
 
 ### version
 
-Let's say application binary name is `aahwebsite`. Also build information is available via `aah.AppBuildInfo()` method at runtime.
+`version` flag outputs the binary name, version, and build date. Also build information is available via `aah.AppBuildInfo()` method at runtime.
 
 ```bash
+# For e.g.: application binary name is `aahwebsite`
 aahwebsite -version
 
 # output
@@ -37,7 +38,7 @@ Build Date  : 2017-04-25T21:00:45-07:00
 
 ### config
 
-Supplying external configuration file.
+Supplying external configuration file. It gets merged into application configuration before the initialize.
 
 ```bash
 aahwebsite -config=/etc/aahwebsite/site.conf
@@ -45,7 +46,7 @@ aahwebsite -config=/etc/aahwebsite/site.conf
 
 ### profile
 
-Environment profile name to active.
+Environment profile name to active on startup.
 
 ```bash
 aahwebsite -profile=qa
@@ -53,7 +54,7 @@ aahwebsite -profile=qa
 
 ## Start/Stop script
 
-aah build artifact contains two startup scripts named `aah.sh` is for `*NIX` and `aah.cmd` is for `Windows`. However you can create your own startup scripts as per your need with supported [flags](#flags).
+aah build artifact contains two startup scripts named `aah.sh` is for `*NIX` and `aah.cmd` is for `Windows`. However you can create your own startup scripts as per your need with supported input [flags](#flags).
 
   * `*NIX` script supports `{start|stop|restart|version}`
   * `Windows` script supports `{start|stop|version}`
@@ -61,14 +62,18 @@ aah build artifact contains two startup scripts named `aah.sh` is for `*NIX` and
 Note: `start` command accepts profile and config arguments.
 
 ```bash
-# Just a sample of `aah` *NIX start script with arguments.
-./aahwebsite start qa
-./aahwebsite start qa /Users/jeeva/external-config.conf
+# For e.g: `aah.sh` *NIX start script with arguments.
+./aah.sh start qa
+./aah.sh start qa /Users/jeeva/external-config.conf
+
+
+# To stop
+./aah.sh stop
 ```
 
 ## OS Signals
 
-aah application binary listens to `SIGINT` and `SIGTERM` OS signal and then performs the graceful shutdown with timeout of config value `server.timeout.grace_shutdown` from `aah.conf`.
+aah application binary listens to `SIGINT` and `SIGTERM` OS signal. On receiving these signals application performs the graceful shutdown with timeout of config value `server.timeout.grace_shutdown` from `aah.conf` and then fires the `OnShutdown` server event.
 
 ## Cross Compile Build
 

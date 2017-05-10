@@ -24,7 +24,7 @@ Starts the server based on provided `address` and `port` with HTTP protocol.
 
 ## HTTPS
 
-Starts the server if `server.ssl.enable` set to `true` with given SSL cert and key.
+Starts the server if `server.ssl.enable` set to `true` with given SSL cert and key. In the HTTPS mode framework sets the header `Strict-Transport-Security` with `max-age=31536000; includeSubDomains`, know more about [STS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet).
 
 ### Let's Encrypt Auto Cert
 

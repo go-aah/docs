@@ -22,7 +22,7 @@ A `Controller` is any `struct` type that embeds the `aah.Context`. The controlle
   * [i18n Message](#i18n-message)
   * [Reverse URL](#reverse-url)
   * [View Arg](#view-arg)
-  * [Cookies](#cookies)
+  * [Is Static Route](#is-static-route)
 
 ```go
 // Examples
@@ -64,8 +64,8 @@ In aah framework by default session mode is `stateless`, of-course via [configur
 
 It is perfect for Web and API application-
 
-  * `Web` requires to persist state info between HTTP request
-  * `API` doesn't requires state between HTTP request.
+  * `Web` requires to persist state info between the HTTP request
+  * `API` doesn't requires state info between the HTTP request.
 
 To learn more about `Session` object [click here](session.html).
 
@@ -114,12 +114,15 @@ u.AddViewArg("Username", "Jeevanandam M.").
   AddViewArg("UserId", "e5f0396dfc504a949d9f9e2c511a779c")
 ```
 
-## Cookies
+## Is Static Route
 
-Accessing request cookies by Name and get all the cookies.
+Context is enables you to identify the current incoming request is static or application route using `IsStaticRoute` method. For example if you have register custom `NotFound` handler in the route config, this method becomes very handy.
 
-  * `Cookie(name)` - returns the cookie for the given name otherwise not found error.
-  * `Cookies()` - returns all the cookies from the request.
+```go
+// true - static route
+// false - application route
+a.IsStaticRoute()
+```
 
 ## Extending aah Controller
 

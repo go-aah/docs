@@ -4,14 +4,14 @@ Keywords: aah.project, project file, build config, build file, flags, ldflags, t
 ---
 # aah project file - `aah.project`
 
-aah.project file holds configuration values for aah application project. It is used in build, project info, etc. The configuration are-
+aah.project file holds the application info and build configuration values.
 
 ### Table of Contents
 
   * [build { ... }](#section-build)
 
 ## Section: build { ... }
-Build section is used during aah application compile and build command.
+Build section is used during aah application compile and build process.
 
 ### binary_name
 Application binary name.
@@ -28,7 +28,7 @@ version = "0.0.1"
 ```
 
 ### dep_get
-If application is missing any dependencies in `build import path` during a compile and build, aah CLI executes `go get <package>`. If it's false then build shows error with list of dependencies which are not available.
+If application is missing any dependencies in `build import path` during a compile and build process, aah CLI executes `go get <package>`. If it's false then build shows error with list of dependencies which are not available.
 
 Default value is `false`.
 ```bash
@@ -68,7 +68,7 @@ tags = ""
 ```
 
 ### ast_excludes
-AST excludes is used for `aah.Context` inspection and generating aah application main Go file. Valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
+AST excludes is used for `aah.Context` inspection and generating aah application main Go file. For valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
 
 Default value is `["*_test.go", ".*", "*.bak", "*.tmp", "vendor"]`
 ```bash
@@ -76,7 +76,7 @@ ast_excludes = ["*_test.go", ".*", "*.bak", "*.tmp", "vendor"]
 ```
 
 ### excludes
-Packing excludes is used to exclude file/directory during aah application build archive. Valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
+Packing excludes is used to exclude file/directory during aah application build archive. For valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
 
 Default value is `["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests", "logs"]`
 ```bash

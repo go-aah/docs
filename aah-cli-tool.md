@@ -4,7 +4,7 @@ Keywords: aah CLI tool, ClI tool, cross compile, commands, run, new, build, vers
 ---
 # aah CLI Tool
 
-Here you will learn aah CLI tool usage and available commands. It comes very handy for development, Continuous Integration (CI) and deployment.
+Here you will learn aah CLI tool usage and available sub-commands. It comes very handy for development, Continuous Integration (CI) and deployment preparation.
 
 ### Available Commands
   * [version](#command-version)
@@ -39,7 +39,7 @@ aah help build
 
 ## Command: new
 
-`new` command is helps you to quick start new aah Web and API application. It is interactive command. Just provide appropriate inputs to make use of it.
+`new` command is helps you to quick start new aah Web and API application. It is interactive command. Just provide appropriate inputs.
 
 ```bash
 aah new
@@ -47,13 +47,13 @@ aah new
 
 ## Command: run
 
-`run` command is used to run the aah application for development purpose. It is recommended to use `build` command for deployments.
+`run` command is used to run the aah application. It is recommended to use `build` command to create and deployments it.
 
 It has these parameters-
 
   * `-importPath | -ip` - aah application import path
   * `-config | -c` - External config for overriding aah.conf
-  * `-profile | -p` - Environment profile name to activate. For e.g: dev, qa, prod. Default value is `dev`.
+  * `-profile | -p` - Environment profile name to activate. For e.g: dev, qa, prod. Default value is `dev`
 
 ```bash
 # run command usages
@@ -77,7 +77,7 @@ It has these parameters-
 
   * `-importPath | -ip` - aah application import path.
   * `-artifactPath | -ap` - Output location application build artifact.
-  * `-profile | -p` - Environment profile name to activate for startup scripts. Default value is `prod`.
+  * `-profile | -p` - target Environment profile name to activate for startup scripts. Default value is `prod`.
 
 Build artifact naming convention-
 
@@ -90,7 +90,7 @@ Build artifact naming convention-
 # if you're in app base dir, just execute
 aah build
 
-aah build -profile=qa # you can use short flag -ap
+aah build -profile=qa # you can use short flag -p
 
 aah build -artifactPath=/Users/jeeva  # you can use short flag -ap
 
@@ -103,7 +103,7 @@ aah build -importPath=github.com/user/appname -artifactPath=/Users/jeeva -profil
 ```
 
 ## Cross Compile Build
-Set environment variables `GOOS` and `GOARCH` before executing `aah build` command. List of available GOOS and GOARCH values, [click here](https://golang.org/doc/install/source#environment)
+Set environment variables `GOOS` and `GOARCH` before executing `aah build` command. List of available GOOS and GOARCH values, [click here](https://golang.org/doc/install/source#environment).
 
 #### Building linux binary on Mac OS
 ```bash

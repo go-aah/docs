@@ -101,7 +101,7 @@ auto_options = true
 ### Section: not_found { ... }
 Mapping your custom `NotFound` implementation. It is when no matching route is found. If it is not set framework default is called. This is optional one.
 
-Create your controller and action method with param called `isStatic bool`. Framework tells you whether route is `static route` or `application route`.
+Create your controller and action of your choice. Then register in the routes config. You may call `IsStaticRoute()` in the NotFound action to know whether the incoming request is `static or application route`.
 
 `controller` and `action` is required value if `not_found` section is defined.
 ```bash
