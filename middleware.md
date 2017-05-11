@@ -81,14 +81,14 @@ func customMiddleware(ctx *Context, m *Middleware) {
 
 
   // Even though `Next(..)` method is called, framework won't proceed further
-  // because `Abort()` have called before
+  // because `Abort()` have been called before
   m.Next(ctx)
 }
 ```
 
 ## Bring Go lang native middleware into aah
 
-aah framework expands the possibilities via reuse/existing middleware.
+aah framework expands the possibilities via reuse/existing middlewares.
 
   * [http.Handler](https://golang.org/pkg/net/http/#Handler)
   * [http.HandlerFunc](https://golang.org/pkg/net/http/#HandlerFunc)

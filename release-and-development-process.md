@@ -4,7 +4,7 @@ Keywords: release process, development process, dev process, release cycle
 ---
 # Release & Development Process
 
-This page would give an idea how aah framework project Release and Development Process. I will be improving process efficiency iteratively as project moves on. For now this set is to begin with.
+This page would give an idea how aah framework Development and Release Process. I will be improving process efficiency iteratively as project moves on.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ This page would give an idea how aah framework project Release and Development P
 
 ## Insights
 
-aah framework internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to stable release version in-additional to user choice of package management.
+aah framework internally uses `gopkg.in` service for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to user choice of package management.
 
   * Github `Tag` is Stable and Production ready.
   * Default branch is `v0-unstable`, `v1-unstable`, and so on. Development, Bug fix, Pull Request, happens on that.
@@ -25,15 +25,15 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
   * In the release preparation package references are updated from `v0-unstable` to `v0` (v1, etc.)
   * Travis build, test cases and few manual dry-testing to ensure codebase is stable & ready for the release.
   * PR created from `v0-unstable` branch (v1, etc.) to `master` branch.
-  * Release tag gets created from latest `commit sha`, typically readme file update commit for the release.
+  * Release tag gets created from latest `commit sha`, typically readme file update commit of the release.
 
 ## Release Cycle
 
   * Security fix is gets addressed and released as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
-  * Bug fixes are planned to release every month on 3rd week
+  * Bug fixes and minor enhancements are planned to release every month on 3rd week
       - Please Note: If zero bug fixes then this release may not happen.
-  * Feature and Enhancement is planned to release every 3 to 4 months cycle (being realistic)
-      - Smaller feature or enhancement may get released earlier.
+  * Feature and Enhancement is planned to release every 3 to 4 months cycle
+      - Smaller feature or enhancement might get released earlier.
       - Have a look on [Roadmap](https://github.com/go-aah/aah/projects/3).
 
 ## Process to Release Framework/Library
@@ -54,15 +54,15 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
   * Update the Documentation on `go-aah/docs` repo.
       - On `go-aah/docs` branch `master` is always the latest release.
       - Create a branch from master for previous release.
+          - These previous release branch docs are accessible from https://docs.aahframework.org by version-number.
           - For e.g.: new release `v0.6` so create branch called `v0.5` from master (preserving previous release docs).
-      - Those previous release branch docs are accessible from https://docs.aahframework.org by version-number.
-      - Update the documentation for release and add Release Notes, Changelogs and Migration Info.
+      - Update the documentation on the branch `master` for the release and add Release Notes, Changelog and Migration Info.
       - Push it `go-aah/docs` repo.
-  * Create Release Tag and Publish
+  * Create a Release Tag and Publish
       - Tag name must comply with `SemVer` For example: v0.1, v1.0, v1.0.1 etc.
       - Release Title is `v<version-number> Release`.
-      - In Describe release text box, put the links to official website for release notes, changelogs, migration info.
-      - Hit the Publish release button.
+      - In `Describe` release text box, put the links to official website for release notes, changelog, migration info.
+      - Hit the `Publish` release button.
   * Refer Broadcast section about making release announcement.
 
 ## Broadcast Framework Release

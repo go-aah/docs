@@ -4,7 +4,7 @@ Keywords: interceptor, per controller interceptor, per action interceptor, befor
 ---
 # Interceptors
 
-An interceptor pattern is offer a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that the change is transparent and used automatically.
+An interceptor pattern is offers a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that, the change is transparent and used automatically.
 
 aah framework provides per `Controller` and per `Action` level.
 
@@ -21,9 +21,9 @@ In the order of execution/calling in the request life cycle-
   * `Finally()` - Always called if present, except `Context.Abort()`
 
 #### Note
-  * `Panic` interceptors has parameter.
+  * `Panic` interceptors method has a parameter.
   * If `Context.Abort()` is called, subsequent interceptors and Targeted `Action` won't be called. Control goes to framework.
-      * Let's say you do some logic check and call `Abort()` in `Before()` remaining request life cycle skipped and control goes to framework.  
+      * Let's say you do some logic check and call `Abort()` in the interceptor `Before()` the remaining request life cycle skipped and control goes to framework.  
       * Let's say you call `Abort()` in the Targeted Action then remaining request life cycle skipped and control goes to framework.
 
 
@@ -56,7 +56,8 @@ func (u *User) Finally() {
 
 // Panic is called for every action in the Controller except `Context.Abort()`,
 // if action level Panic interceptor present
-func (u *User) Panic() {
+// Note: Panic interceptor has parameter
+func (u *User) Panic(r interface{}) {
   log.Info("User panic interceptor called")
 }
 

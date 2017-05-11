@@ -8,13 +8,13 @@ Event Publisher provides an idiomatic asynchronous event-driven architecture tha
 
 aah Server events built around this Event Publisher.
 
-On each each named event you can attach one or more callbacks to it. The call is have to be compliant with `aah.EventCallback` and callback is `aah.EventCallbackFunc`.
+On each named event you can attach one or more callbacks to it. The callback have to be compliant with `aah.EventCallback` or callback func is `aah.EventCallbackFunc`.
 
 ### Table of Contents
 
   * [Event Structure](#event-structure)
-  * [Subscribe to Event](#subscribe-to-event)
-  * [Unsubscribe from Event](#unsubscribe-from-event)
+  * [Subscribe to the Event](#subscribe-to-the-event)
+  * [Unsubscribe from the Event](#unsubscribe-from-the-event)
   * [Publish Event Asynchronously](#publish-event-asynchronously)
   * [Publish Event Synchronously](#publish-event-synchronously)
 
@@ -22,14 +22,14 @@ On each each named event you can attach one or more callbacks to it. The call is
 ## Event Structure
 
 ```go
-// Event type holds the details of event generated.
+// Event type holds the details of single event.
 Event struct {
 	Name string
 	Data interface{}
 }
 ```
 
-## Subscribe to Event
+## Subscribe to the Event
 ```go
 // compliant with aah.EventCallbackFunc
 func productUpdated(e *aah.Event)  {
@@ -49,7 +49,7 @@ aah.SubscribeEvent("ProductUpdated", subscribe)
 aah.SubscribeEventf("ProductUpdated", productUpdated)
 ```
 
-## Unsubscribe from Event
+## Unsubscribe from the Event
 ```go
 // compliant with aah.EventCallbackFunc
 func productUpdated(e *aah.Event)  {

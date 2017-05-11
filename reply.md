@@ -39,7 +39,7 @@ As per RFC7231, provides method for frequently used ones.
 ohh, I do not find status method, just use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
 
 ## Response Content
-Replying various content types
+Rich reply methods for the response.
 
   * `HTML(data)`
   * `HTMLl(layout, data)`
@@ -51,9 +51,10 @@ Replying various content types
   * `Text(str)`
   * `Text(str, args)`
   * `Readfrom(reader)`
-  * `File(filename)`
-  * `FileDownload(filename, readCloser)` - Content-Disposition is attachment
-  * `FileInline(filename, readCloser)` - Content-Disposition is inline
+  * `File(file)`
+  * `FileDownload(file, targetName)` - Content-Disposition is attachment
+  * `FileInline(file, targetName)` - Content-Disposition is inline
+  * `Binary(bytes)`
 
 ## Redirect
   * `Redirect(url)`
@@ -81,12 +82,13 @@ Done method indicates to framework that reply has already been sent via `aah.Con
 ## Samples
 ```go
 // Replying JSON with status 200
-c.Reply().
-  Ok().
-  JSON(data)
+// Default status code is 200
+c.Reply().Ok().JSON(data)
+// OR
+c.Reply().JSON(data)
 
-// Replying file as attachment
-c.Reply().File("report.pdf", readCloser) // default status code is 200 OK
+// Replying file as an attachment
+c.Reply().FileDownload("/User/jeeva/songs/nice.mp3", "name-nice.mp3") // default status code is 200 OK
 
 // Replying redirect login page using `route name`
 c.Reply().Redirect(c.ReverseURL("user_login"))
@@ -99,5 +101,5 @@ c.Reply().
   HTML(data)
 
 // Replying HTML response with custom layout and data
-c.Reply().HTMLl("master-docs", data)
+c.Reply().HTMLl("master-docs.html", data)
 ```

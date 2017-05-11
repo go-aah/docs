@@ -4,7 +4,7 @@ Keywords: environment readiness, prerequisites, golang environment
 ---
 # Standard Go Environment Readiness
 
-aah framework does not have any specific prerequisites, it's a standard Go language environment.
+aah framework does not have any specific prerequisites, it's a standard Go language environment readiness.
 
 ## Go Installation
 
@@ -14,7 +14,7 @@ Follow the Go official [installation guide](https://golang.org/doc/install). The
   * [Mac OS Installer](https://golang.org/doc/install#osx)
   * [Windows](https://golang.org/doc/install#windows)
 
-## Setting up $GOPATH
+## Setting up the $GOPATH
 
   * Understanding [GOPATH](https://github.com/golang/go/wiki/GOPATH) and it's purpose.
   * Setting [GOPATH](https://golang.org/wiki/SettingGOPATH) on UNIX systems and Windows.
@@ -23,7 +23,7 @@ Don't forget to add your `bin` directory on the `PATH`.
 
 ```bash
 # On *nix systems
-# Set and then open new terminal session to reflect your change.
+# Set value and then open new terminal session to reflect your change.
 echo 'export PATH=$PATH:$GOPATH/bin' >> $HOME/.profile
 ```
 

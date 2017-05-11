@@ -4,7 +4,7 @@ Keywords: aah config, aah configuration, HOCON, forge, config syntax, configurat
 ---
 # aah framework Configuration
 
-The configuration syntax is used by aah framework is `forge` developed by [@brettlangdon](https://github.com/brettlangdon") very similar to HOCON syntax and not 100%. Enhanced by author of aah framework [@jeevatkm](https://github.com/jeevatkm). Syntax applies to `aah.conf`, `routes.conf`, `i18n` message files and `aah.project` file.
+The configuration syntax is used by aah framework is `forge` developed by [@brettlangdon](https://github.com/brettlangdon") very similar to HOCON syntax and not 100%. Enhanced by author of aah framework [@jeevatkm](https://github.com/jeevatkm). Syntax applies to `aah.conf`, `routes.conf`, `security.conf`, `i18n` message files and `aah.project` file.
 
 ### Table of Contents
 
@@ -18,7 +18,7 @@ The configuration syntax is used by aah framework is `forge` developed by [@bret
 ## Comments
 
   * The line starts with `#` considered as comment.
-  * You can have same line comment after `;`. For example: ` identifier = "value"; # comment here`
+  * You can have same line comment after `;`. For e.g: ` identifier = "value"; # comment here`
 
 ## Braces
 
@@ -40,7 +40,7 @@ The configuration syntax is used by aah framework is `forge` developed by [@bret
 
 ## Includes
 
-An include statement tells the config parser to include the contents of another config file where the include statement is defined. Includes are in the format `include "<pattern>"`. The `<pattern>` can be any glob like pattern which is compatible with [path.filepath.Match](http://golang.org/pkg/path/filepath/#Match). It has be absolute path or relative path to `config` directory.
+An include statement tells the config parser to include the contents of another config file where the include statement is defined. Includes are in the format `include "<pattern>"`. The `<pattern>` can be any glob like pattern which is compatible with [path.filepath.Match](http://golang.org/pkg/path/filepath/#Match). It can be absolute path or relative path to `config` directory.
 
 ## Substitutions/Reference
 

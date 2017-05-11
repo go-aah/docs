@@ -8,8 +8,6 @@ aah framework uses the channel based `Pooling` and `sync.Pool` to reduce overhea
 
 A Pool set of objects that may be individually saved and retrieved. A Pool is safe for use by multiple goroutines simultaneously.
 
-aah framework allocates the fixed number of channel size from `App Config`. It only allocates new object using `New` function when necessary even though pool size is higher in config. It effectively reuse objects from pool.
+aah framework allocates the fixed number of channel size from `aah.conf`. It only allocates new object using `New` function when required even though defined pool size is higher. It effectively reuses the objects from pool.
 
-Channel pooled objects are not removed during garbage collection, however sync.Pool objects may get collected by GC.
-
-aah framework does Pooling for these types `aah.Context`, `ahttp.Request`, `aah.Reply` and `bytes.Buffer`.
+Channel pooled objects are not removed during garbage collection, however sync.Pool objects may get collected by the GC.

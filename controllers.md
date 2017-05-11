@@ -4,7 +4,7 @@ Keywords: controller, request, response, reply, view arg, cookies, extending con
 ---
 # Controllers
 
-`Controller` is responsible for handling incoming request, validate user inputs, call appropriate application logic behind and returns the response for that request. The response would be different content types based on request such as `HTML`, `JSON`, `XML`, `Text`, etc.
+`Controller` is responsible for handling incoming request, validate user inputs, call appropriate application logic behind and returns the response for that request. The response would be different content types based on request such as `HTML`, `JSON`, `XML`, `Text`, `Binary`, `File`, etc.
 
 ### Table of Contents
 
@@ -47,20 +47,20 @@ Request contains processed incoming request details such as `Params`, `Content T
 
 ## Response
 
-Response implements interface of `http.CloseNotifier`, `http.Flusher`, `http.Hijacker`, for go1.8 and above `http.Pusher`) and handy methods.
+Response implements interface of `http.CloseNotifier`, `http.Flusher`, `http.Hijacker`, `http.Pusher` and handy methods.
 
 **Note:**
 
-  * It is recommend to use [`Reply`](reply-aka-response.html) builder to compose your response.
+  * It is recommend to use [`Reply`](reply.html) builder to compose your response.
   * If you're using `cxt.Res` directly to send reply/response, don't forget to call `Reply().Done()` so that framework will not intervene with your response.
 
 ## Reply Builder
 
-aah provides intuitive way to compose response using `Reply()` builder in chained method calls. To learn more [click here](reply-aka-response.html)
+aah provides intuitive way to compose response using `Reply()` builder in chained method calls. To learn more [click here](reply.html)
 
 ## Session
 
-In aah framework by default session mode is `stateless`, of-course via [configuration](security-config.html#mode) you can enable `stateful`. Framework does `HMAC` sign and `AES` encryption to secure session data.
+In aah framework default session mode is `stateless`, of-course via [configuration](security-config.html#mode) you can enable `stateful`. Framework does `HMAC` sign and `AES` encryption to secure session data.
 
 It is perfect for Web and API application-
 
@@ -71,14 +71,14 @@ To learn more about `Session` object [click here](session.html).
 
 ## i18n Message
 
-i18n messages is for internalization and localization. To learn more [click here](i18n.html).
+i18n messages is for internationalization and localization. To learn more [click here](i18n.html).
 
 ## Reverse URL
 
 aah framework provides a convenient way to create reverse route URL via two methods.
 
-  * `ReverseURL` - method generates the URL for given route name (defined in the routes.conf) and arguments.
-  * `ReverseURLm` - method generates the URL for given route name (defined in the routes.conf) and `map` of named arguments. Remaining provided values added as URL Query parameters.
+  * `ReverseURL` - method generates the URL for given route name (defined in the `routes.conf`) and arguments.
+  * `ReverseURLm` - method generates the URL for given route name (defined in the `routes.conf`) and `map` of named arguments. Remaining provided values added as URL Query parameters.
 
 ```go
 // let's say route named `login` has path `/login.html`
@@ -107,7 +107,7 @@ ReverseURLm("product_info", map[string]interface{}{
 
 ## View Arg
 
-`AddViewArg` method adds the given `key` and `value` into `viewArgs`. These values are accessible on templates. Chained call is possible. Also you can supply bunch of values via `Reply().Ok().HTML(aah.Data{ ... })`.
+`AddViewArg` method adds the given `key` and `value` into View Arguments. These values are accessible on templates. Chained call is possible. Also you can supply bunch of values via `Reply().Ok().HTML(aah.Data{ ... })`.
 
 ```go
 u.AddViewArg("Username", "Jeevanandam M.").
@@ -116,7 +116,7 @@ u.AddViewArg("Username", "Jeevanandam M.").
 
 ## Is Static Route
 
-Context is enables you to identify the current incoming request is static or application route using `IsStaticRoute` method. For example if you have register custom `NotFound` handler in the route config, this method becomes very handy.
+aah.Context enables you to identify the current incoming request is static or application route using `IsStaticRoute()` method. For e.g: if you have register custom `NotFound` handler in the route config, this method is very handy.
 
 ```go
 // true - static route
@@ -128,7 +128,7 @@ a.IsStaticRoute()
 
 A `Controller` is any `struct` type that embeds the `aah.Context` directly or indirectly. You can extend the controller for your need.
 
-***Note: when extending a controller via indirectly, embedding is not pointer.***
+***Note: when extending a controller via indirectly, embedding is not a pointer.***
 
 **Example**
 ```go

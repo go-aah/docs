@@ -90,7 +90,7 @@ Creates the Reverse URL for given route name with `map` arguments. Additional ar
 
 #### Func: i18n
 
-Access internalization and localization message on view templates.
+Access internationalization and localization message on view templates.
 
 ```go
 {{ i18n . "label.pages.site.get_involved.title" }}

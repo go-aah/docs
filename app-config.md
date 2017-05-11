@@ -6,7 +6,9 @@ Keywords: app config, application configuration, aah.conf, HOCON, configuration
 
 The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
 
-aah configuration structure is very flexible, you can override every config settings in environment profiles.
+aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles.
+
+You can add your custom config values into app config. Also it can be overridden in the environment profiles.
 
 Reference to [Routes Config](routes-config.html), [Security Config](security-config.html), [Log Config](log-config.html).
 
@@ -66,15 +68,21 @@ address = "unix:/tmp/aahframework.sock"
 ```
 
 ### port
-Server `port` number is used to bind on particular port number. For port `80`, put empty string or `80` as a value.
+Server `port` number is used to bind on particular port number. For port `80` and `443`, put empty string or actual value.
 
 Default value is `8080`
 ```bash
 port = "8080"
+
+# for 80
+port = "80" # port = ""
+
+# for 443
+port = "443" # port = ""
 ```
 
 ### max_header_bytes
-HTTP server max header bytes size. It is mapped `http.Server.MaxHeaderBytes`.
+HTTP server max header bytes size. It is mapped to `http.Server.MaxHeaderBytes`.
 
 Default value is `1mb`
 ```bash
@@ -109,7 +117,7 @@ write = "90s"
 ```
 
 ### grace_shutdown
-Server grace shutdown timeout. Applicable only to `go1.8` and above. Valid time units are `s -> seconds`, `m -> minutes`.
+Server grace shutdown timeout. Used when app receive the SIGINT, SIGTERM and does graceful shutdown. Valid time units are `s -> seconds`, `m -> minutes`.
 
 Default value is `60s`
 ```bash
@@ -120,7 +128,7 @@ grace_shutdown = "60s"
 HTTP server SSL/TLS configuration values. By default it is disabled.
 
 ### enable
-To enable SSL/TLS on the aah server.
+To enable SSL/TLS on the aah go server.
 
 Default value is `false`.
 ```bash
@@ -128,7 +136,7 @@ enable = true
 ```
 
 ### cert
-HTTP server certificate file. Path to the cert file. It is required if `server.ssl.enable` is `true`.
+HTTPS server certificate file. Path to the cert file. It is required value if `server.ssl.enable = true`.
 
 Default value is `empty` string.
 ```bash
@@ -136,7 +144,7 @@ cert = ""
 ```
 
 ### key
-HTTP server key file. Path to the key file. It is required if `server.ssl.enable` is `true`.
+HTTPS server cert key file. Path to the key file. It is required value if `server.ssl.enable = true`.
 
 Default value is `empty` string.
 ```bash
@@ -144,7 +152,7 @@ key = ""
 ```
 
 ### disable_http2
-Go lang by default enables the HTTP/2 on TLS. For some reason your use case needs disabling HTTP/2; not to worry, aah framework covers you. Just set this config value to false.
+Go lang by default enables the HTTP/2 on TLS. For some reason if your use case needs disabling HTTP/2; not to worry, aah framework covers it for you. Just set this config value to `true`.
 
 Default value is `false`.
 
@@ -155,7 +163,7 @@ disable_http2 = true
 ### Section: lets_encrypt { ... }
 
 ### enable
-To enable Let's Encrypt CA auto SSL/TLS certs on the aah server.
+To enable Let's Encrypt CA auto SSL/TLS certs on the aah go server.
 
 Let’s Encrypt is a free, automated, and open certificate authority (CA), they provide free digital certificates in order to enable HTTPS (SSL/TLS) for websites to create a more secure and privacy-respecting Web.
 
@@ -165,7 +173,7 @@ enable = true
 ```
 
 ### host_policy
-Host policy controls which domains the `autocert` will attempt to retrieve new certificates for. It does not affect cached certs. It is array of domain/sub-domain names.
+Host policy controls which domains the `autocert` will attempt to retrieve new certificates for. It does not affect cached certs. It is array of domain and sub-domain names.
 
 It is required, no default value.
 ```bash
@@ -220,9 +228,9 @@ multipart_size = "32mb"
 ```
 
 ### Section: id { ... }
-aah framework encourages to have unique `Request Id` for each incoming request, it helps in tracebility. If request has already `X-Request-Id` HTTP header then it does not generate one.
+aah framework encourages to have unique `Request Id` for each incoming request, it is helpful for traceability. If request already has `X-Request-Id` HTTP header then it does not generate one.
 
-Global unique identifier (GUID) generate implementation is based on [Mango DB ObjectId algorithm](https://docs.mongodb.com/manual/reference/method/ObjectId/).
+Global Unique Identifier (GUID) generate implementation is based on [Mango DB ObjectId algorithm](https://docs.mongodb.com/manual/reference/method/ObjectId/).
 
 * 4-byte value representing the seconds since the Unix epoch,
 * 3-byte machine identifier,
@@ -238,7 +246,7 @@ enable = true
 ```
 
 ### header
-HTTP header name to set generated Request ID. If request has already has HTTP header then it does not generate one.
+HTTP header name for generated Request ID. If request already has HTTP header then it does not generate one.
 
 Default value is `X-Request-Id`.
 ```bash
@@ -248,10 +256,10 @@ header = "X-Request-Id"
 ---
 
 ## Section: i18n { ... }
-Internalization and Localization configuration values.
+Internationalization and Localization configuration values.
 
 ### default
-It is used as fallback value if framework is unable to determine the locale information from HTTP Request as per RFC7231.
+It is used as fallback value if framework is unable to determine the locale information from HTTP Request as per RFC7231 and `lang` Query parameter is not present.
 
 Default value is `en`.
 ```bash
@@ -261,7 +269,7 @@ default = "en"
 ---
 
 ## Section: format { ... }
-Application date and time format values. This is applicable to HTTP request param parsing and DB store/retrieve operation `(upcoming)`.
+Date and time format values. This is used by framework while parsing HTTP request parameters and DB store/retrieve operation `(upcoming)`.
 
 ### date
 Default value is `2006-01-02`.
@@ -302,7 +310,7 @@ all_goroutines = false
 Pooling configuration is used to reduce GC overhead from framework. Tune these value based on your use case. Pool doesn't create object unless it's needed.
 
 ### global
-Used for `aah.Context`, `ahttp.Request`, `session.Session`.
+Used for `aah.Context`, `ahttp.Request`, `bytes.Buffer`.
 
 Default value is `500`.
 ```bash
@@ -322,12 +330,12 @@ buffer = 200
 ## Section: render { ... }
 
 ### default
-aah framework chooses the `Content-Type` value automatically based on configuration if `aah.Reply()` builder value is not set. It selects in the order of:
+aah framework identifies the `Content-Type` value automatically. If `aah.Reply()` builder value is not set. It identifies in the order of:
 
   * Based on URL file extension, supported `.html`, `.htm`, `.json`, `.js`, `.xml` and `.txt`
   * Request Accept Header - Most Qualified one as per [RFC7321](https://tools.ietf.org/html/rfc7231#section-5.3)
-  * Based `render.default` value supported types are `html`, `json`, `xml` and `text`
-  * Finally aah framework uses `http.DetectContentType` API
+  * Config `render.default` value supported types are `html`, `json`, `xml` and `text`
+  * Finally aah framework uses `http.DetectContentType` method
 
 Default value is `empty` string.
 ```bash
@@ -335,7 +343,7 @@ default = "json"
 ```
 
 ### pretty
-Pretty print option is helpful in `dev` environment profile. It is only applicable to JSON and XML.
+Pretty print option is very helpful in `dev` environment profile. It is only applicable to JSON and XML Content-Type.
 
 Default value is `false`.
 ```bash
@@ -346,9 +354,9 @@ pretty = true
 Gzip compression configuration for HTTP response.
 
 ### enable
-By default Gzip compression is enabled in aah framework, however framework ensures HTTP client does accepts Gzip response otherwise it won't use Gzip compression.
+By default Gzip compression is enabled in aah framework, however framework ensures HTTP client does accepts Gzip response otherwise it won't use the Gzip compression.
 
-Tips: If you have `nginx` or `apache` web server enabled with gzip in-front of aah server then set this value to `false`.
+**Tips:** If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`.
 
 Default value is `true`.
 ```bash
@@ -368,7 +376,7 @@ level = 3
 ## Section: view { ... }
 
 ### engine
-Choosing view engine for aah application. In the `upcoming` release framework will provide support to amber, pongo2, and jade. However you can implement on your own with simple `view.Enginer` interface.
+Choosing view engine for aah application. In the `upcoming` releases framework will provide support to amber, pongo2, and jade. However you can implement on your own with very simple `view.Enginer` interface.
 
 Default value is `go`. Only `go` view engine is supported as of now.
 ```bash
@@ -376,7 +384,7 @@ engine = "go"
 ```
 
 ### ext
-Choosing your own view file extension.
+Choosing your own view file extension. It is used while parsing view template files.
 
 Default value is `html`.
 ```bash
@@ -393,7 +401,7 @@ case_sensitive = false
 ```
 
 ### delimiters
-To use custom Go template delimiters for view files.
+To use custom Go template delimiters on view files.
 
 Default value is `{{.}}`
 ```bash
@@ -403,7 +411,7 @@ delimiters = "{{.}}"
 ---
 
 ## Section: env { ... }
-Application environment profile overrides for `dev`, `qa`, `prod` etc.
+Application environment profiles, to override app config for respective environment. For e.g: `dev`, `qa`, `prod` etc.
 
 ## active
 Indicates active profile name for application configuration.
@@ -413,8 +421,8 @@ Default value is `dev`.
 active = "dev"
 ```
 
-## include - This is for example purpose, you can use `include` at levels
-Including all the environment profile overrides from `env` directory within config.
+## include - This is for example purpose, you can use `include` at any levels
+Including all the environment profile overrides from `env` directory within `config` directory.
 ```bash
 include "./env/*.conf"
 ```

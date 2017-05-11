@@ -20,7 +20,7 @@ log.Infof("%v, %v, & %v", "simple", "flexible", "powerful logger")
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Security Config](security-config.html).
 
 ## receiver
-Receiver is where is log values gets logged. Currently framework supports `console` and `file` as a receivers.
+Receiver is where the log values gets logged. Currently framework supports `console` and `file` receivers.
 
 Default value is `console`.
 ```bash
@@ -36,7 +36,7 @@ level = "info"
 ```
 
 ## pattern
-Pattern config defines the message flags and formatting while logging into receivers. aah framework logger supports following `format flags`-
+Pattern config defines the message flags and formatting while logging into receivers. aah framework logger supports the following `format flags`-
 ```bash
 Format flags: Usage of flag order is up to your pattern composition in the config.
   level     - outputs INFO, DEBUG, ERROR, so on
@@ -57,7 +57,7 @@ pattern = "%time:2006-01-02 15:04:05 %level:-5 %shortfile %line %custom:- %messa
 ```
 
 ## file
-File config attribute is applicable only to `file` receiver type.
+File config attribute is applicable only to **`file`** receiver type.
 
 Default value is `aah-log-file.log`.
 ```bash
@@ -91,7 +91,7 @@ rotate {
 ```
 
 ### size
-This is applicable only to if `mode` is `size`.
+This is applicable only to if **`mode`** is `size`.
 
 Default value is 100MB.
 ```bash
@@ -100,7 +100,7 @@ size = 500
 ```
 
 ### lines
-This is applicable only to if `mode` is `lines`.
+This is applicable only to if **`mode`** is `lines`.
 
 Default value is unlimited.
 ```bash
