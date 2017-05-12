@@ -68,8 +68,6 @@ Enter your application import path: github.com/jeevatkm/aah-first-app
 
 Choose your application type (web or api), default is 'web': web
 
-Do you want 'stateful' HTTP session management, default is 'stateless' (Y/n): Y
-
 Choose your session store (cookie or file), default is 'cookie': file
 
 Your aah web application created successfully at '/Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app'
