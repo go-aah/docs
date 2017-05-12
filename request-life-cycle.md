@@ -49,16 +49,16 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * If it's HTML content-type then
       - Finds a view based on controller & action and master layout if it's not overridden in the reply builder.
       - Populates view args with framework provided values.
+  * Renders reply body based on content-type, if any errors it logs and sends meaningful error message.
+  * If HTTP client supports the Gzip compression and it's enabled in the config then Gzip response writer is used.
   * `OnPreReply` server extension point: Always called, you're allowed to modified `ctx.Reply()` it will reflect on response. Except when-
       - `ctx.Reply().Done()` is called, refer godoc for more info.
       - `ctx.Reply().Redirect(...)` is called.
-  * Renders reply instance based on content-type, if any errors it logs and sends meaningful error message.
-  * If HTTP client supports the Gzip compression and it's enabled in the config then Gzip response writer is used.
   * Writing reply on the wire-
-      - Write Header(s).
+      - Response Header(s).
       - Cookies
-      - Write Status - default is 200 OK, if not provided.
-      - Write rendered bytes.
-  * `OnAfterReply` server extension point: Always called. Response is already written on the wire. Don't bother with `ctx.Reply()`. However `ctx.Res` holds the valuable information (bytes written, status). Except when-
+      - Response Status - default is 200 OK, if not provided.
+      - Response body bytes.
+  * `OnAfterReply` server extension point: Always called. Response is already written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc. Except when-
       - `ctx.Reply().Done()` is called, refer godoc for more info.
       - `ctx.Reply().Redirect(...)` is called.

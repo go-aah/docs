@@ -13,6 +13,7 @@ The configuration syntax is used by aah framework is `forge` developed by [@bret
   * [Supported value types](#supported-value-types)
   * [Key-value separator](#key-value-separator)
   * [Includes](#includes)
+  * [Environment Variables](#environment-variables)
   * [Substitutions/Reference](#substitutions-reference)
 
 ## Comments
@@ -34,13 +35,18 @@ The configuration syntax is used by aah framework is `forge` developed by [@bret
   * `Null` - null
   * `List/Array` - string, integer, float supported. Values are separated by commas and surrounded by brackets. It can be multi line too
 
-## Key-value separator
+## Key-value and separator
 
   * The `=` character used to separate keys from values.
+  * The key can have `underscore` in it.
 
 ## Includes
 
 An include statement tells the config parser to include the contents of another config file where the include statement is defined. Includes are in the format `include "<pattern>"`. The `<pattern>` can be any glob like pattern which is compatible with [path.filepath.Match](http://golang.org/pkg/path/filepath/#Match). It can be absolute path or relative path to `config` directory.
+
+## Environment Variable
+
+An environment is a way to pull in environment variables into your config. Environment variables are identifiers which start with a dollar sign (For example: `$PATH`). Environment variables are always represented as strings and are evaluated at parse time. Adapted to supported value type.
 
 ## Substitutions/Reference
 
@@ -48,4 +54,3 @@ Substitutions/Reference are a way of referring to other parts of the configurati
 
   * **Global Reference** - An identifier which may contain periods, the references are resolved from the global section. For example: `global_value`, `section.sub_section.value`.
   * **Local Reference** - An identifier which main contain periods which starts with a period, the references are resolved from the settings current section. For example: `.value`, `.sub_section.value`.
-  * **Environment Variable** - An environment is a way to pull in environment variables into your config. Environment variables are identifiers which start with a dollar sign (For example: `$PATH`). Environment variables are always represented as strings and are evaluated at parse time. Adapt to supported value type.

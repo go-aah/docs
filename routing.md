@@ -6,7 +6,7 @@ Keywords: routing url, routing algorithm, routing
 
 aah framework supports domain and subdomains seamlessly and reverse route lookup by route name effectively.
 
-aah framework uses routing algorithm implementation from [httprouter](https://github.com/julienschmidt/httprouter) developed by [@julienschmidt](https://github.com/julienschmidt). Customized by author of aah framework [@jeevatkm](https://github.com/jeevatkm). Router supports variables in the routing pattern and matches against the request method and scales better.
+aah framework uses routing algorithm implementation from [httprouter](https://github.com/julienschmidt/httprouter) developed by [@julienschmidt](https://github.com/julienschmidt). Customized by author of aah framework [@jeevatkm](https://github.com/jeevatkm). Router supports path variables in the routing pattern and matches against the request method and scales better.
 
 The router is optimized for high performance and a small memory footprint. It scales well even with very long paths and a large number of routes. A compressing dynamic trie (radix tree) structure is used for efficient matching.
 
@@ -23,7 +23,7 @@ Router config is very flexible in nature with default values for effective usage
 
   * Domain and sub-domains supported seamlessly.
   * **Static Files** - Serve static file or directory via `http.ServeContent`.
-  * **Directory Listing** - Clean and beautiful directory listing supported.
+  * **Directory Listing** - Directory listing is supported, presented clean and nicely.
   * **Custom NotFound** - Register your custom controller `not found` action to handle this behavior.
   * **Only explicit matches** - By design of this router, a request can only match exactly one or no route. As a result, there are also no unintended matches, which makes it great for SEO and improves the user experience.
   * **Stop caring about trailing slashes** - Choose the URL style you like, the router automatically redirects the client if a trailing slash is missing or if there is one extra. Of course it only does so, if the new path has a handler. If you don't like it, you can turn off this behavior `redirect_trailing_slash = false` in the [routes config](routes-config.html).

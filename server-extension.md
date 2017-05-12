@@ -4,9 +4,9 @@ Keywords: server extension point, aah server extension, extension point, server 
 ---
 # aah Server Extension
 
-aah server exposes the App and Request life cycle stages as server events, i.e. called Server Extension Point. Function signature is same as events (`aah.EventCallbackFunc` signature). By default given function executed as they are added sequence unless `priority` is specified.
+aah go server exposes the App and Request life cycle stages as server events. It is called as Server Extension Point. Function signature is same as events (`aah.EventCallbackFunc`). By default given function executed as they are added sequence unless `priority` is specified.
 
-aah Server events are executed in a synchronous way.
+aah Server events are executed synchronously.
 
 **Note:** For `OnRequest`, `OnPreReply`, `OnAfterReply` you can only register/add one event callback function.
 
@@ -25,7 +25,7 @@ Reference to [Event Emitter/Publisher](event-publisher.html).
 
 ## Event: OnInit
 
-`OnInit` event is published right after the `aah.AppConfig()` is initialized. Only `aah.conf` config is initialized at this stage, such as App Variables, Routes, i18n, Security, View Engine, Logs are not initialized.
+`OnInit` event is published right after the `aah.AppConfig()` is loaded. Only `aah.conf` config is initialized at this stage, such as App Variables, Routes, i18n, Security, View Engine, Logs are not yet initialized.
 
 **Supports Multiple:** Yes
 
@@ -53,7 +53,7 @@ func init() {
 
 ## Event: OnStart
 
-`OnStart` event is published right before the start of `aah Server`. At this stage entire application is initialized, just server is not yet started.
+`OnStart` event is published right before the start of `aah go Server`. At this stage application is completely initialized, just server is not yet started.
 
 **Supports Multiple:** Yes
 
@@ -109,11 +109,11 @@ func init() {
 
 ## Event: OnRequest
 
-`OnRequest` event is published for each incoming request to the aah server.
+`OnRequest` event is published for each incoming request to the aah go server.
 
-  * At the point request `Route` is not yet populated/evaluated
+  * At this point request `Route` is not yet populated/evaluated.
 
-**Special Case:** The `aah.Context` object passed to the extension functions is decorated with the `ctx.SetURL()` and `ctx.SetMethod()` methods. Calls to these methods will impact how the request is routed.
+**Note:** The `aah.Context` object passed to the extension functions is decorated with the `ctx.SetURL()` and `ctx.SetMethod()` methods. Calls to these methods will have an impact how the request is routed.
 
 **Supports Multiple:** No
 
@@ -129,11 +129,10 @@ func init() {
 
 ## Event: OnPreReply
 
-`OnPreReply` event is published right before writing an reply/response on the wire. At this point response writer is clean nothing is written i.e. Rendering, Headers, Cookies, Status Code and Response Body.
+`OnPreReply` event is published right before writing an reply/response on the wire. At this point response writer is clean nothing is written i.e. Headers, Cookies, Status Code and Response Body not written.
 
 **Note:** `OnPreReply` is not called when-
 
-  * Static file request
   * `Reply().Done()` is called
   * `Reply().Redirect(...)` is called
 
@@ -151,22 +150,21 @@ func init() {
 
 ## Event: OnAfterReply
 
-`OnAfterReply` event is published right after the response is written on the wire. Nothing you can do about the response, however it has valuable information such as response bytes size, response status code, etc.
+`OnAfterReply` event is published right after the response is written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc.
 
 **Note:** `OnAfterReply` is not called when-
 
-  * Static file request
   * `Reply().Done()` is called
   * `Reply().Redirect(...)` is called
 
-  **Supports Multiple:** No
+**Supports Multiple:** No
 
-  ```go
-  func init() {
-    aah.OnAfterReply(func(e *aah.Event)  {
-      ctx := e.Data.(*aah.Context)
+```go
+func init() {
+  aah.OnAfterReply(func(e *aah.Event)  {
+    ctx := e.Data.(*aah.Context)
 
-      // logic goes here
-    })
-  }
-  ```
+    // logic goes here
+  })
+}
+```

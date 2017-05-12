@@ -4,7 +4,7 @@ Keywords: template funcs, funcmap, template func map, aah template funcs
 ---
 # View Template Functions
 
-Default Go lang provides [template functions](https://golang.org/pkg/text/template/#hdr-Functions). aah provides template functions to access configuration, request parameters, session data, flash, etc.
+By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah framework provides template functions to access configuration, request parameters, session values, flash values, etc.
 
 ### Table of Contents
 
@@ -37,7 +37,7 @@ Accessing application configuration from `aah.AppConfig()`.
 
 #### Func: import
 
-Renders the common file from `view/common` with ViewArgs and imports into called template file.
+Renders the common file from `views/common` with ViewArgs and imports into caller template file.
 
 ```go
 {{ import "sidebar.html" . }}
@@ -45,7 +45,7 @@ Renders the common file from `view/common` with ViewArgs and imports into called
 
 #### Func: rurl
 
-Creates the Reverse URL for given route name with arguments. Additional arguments are discarded.
+Creates the Reverse URL for the given route name with arguments. Additional arguments are discarded.
 
   * How to access sub-domain URL for reverse route on root domain template file?
       - Ans: Use sub-domain (the one use have used in `routes.conf`) prefix before the route name
@@ -90,10 +90,10 @@ Creates the Reverse URL for given route name with `map` arguments. Additional ar
 
 #### Func: i18n
 
-Access internationalization and localization message on view templates.
+Access internationalization and localization message from view templates.
 
 ```go
-{{ i18n . "label.pages.site.get_involved.title" }}
+{{ i18n . "label.pages.title.get_involved" }}
 ```
 
 #### Func: pparam
@@ -130,7 +130,7 @@ Access Session object values.
 
 #### Func: isauthenticated
 
-Returns the value of `Session.IsAuthenticated` from session.
+Returns the value of `Session.IsAuthenticated` from current session.
 
 ```go
 // show logout option if user is authenticated
@@ -145,12 +145,12 @@ Returns the value of `Session.IsAuthenticated` from session.
 Access Flash values. Note: Flash value is deleted after accessing once.
 
 ```go
-{{ session . "Username" }}
+{{ flash . "Username" }}
 ```
 
 #### Func: safeHTML
 
-Go template strips the HTML comment while rendering the template file. To preserve HTML comment or any special char use `safeHTML` template func.
+Go template strips the HTML comment while rendering the template file. To preserve HTML comment or any special char use `safeHTML` template func. Of-course use it with care.
 
 ```go
 {{ safeHTML `<!--[if lt IE 9]>
@@ -161,13 +161,13 @@ Go template strips the HTML comment while rendering the template file. To preser
 
 ## Adding your custom Funcs or Third-Party Funcs
 
-You add custom template using `aah.AddTemplateFunc`.
+You add custom template func using `aah.AddTemplateFunc`.
 
 ```go
 func init() {
 	aah.AddTemplateFunc(template.FuncMap{
 		"myfuncname": func() string {
-			return "mycustom function"
+			return "mycustom function value"
 		},
 	})
 }

@@ -4,7 +4,7 @@ Keywords: static file delivery, static file, serve file, directory listing, list
 ---
 # Static File's Delivery
 
-To serve static files, it can be directory or individual file. This section optional one, for e.g: RESTful APIs doesn't need this section. Static files are delivered via `http.ServeContent`.
+Framework provides flexible way to serve static files. It can be set of files from directory or individual file. This section optional one, for e.g: RESTful APIs typically this section is not needed. Static file is delivered using `http.ServeContent`.
 
 **Supported features:**
 
@@ -12,7 +12,7 @@ To serve static files, it can be directory or individual file. This section opti
   * Serve individual file
   * Directory listing
 
-Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called `route name`.
+Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
 
 ## Section: static { ... }
 
@@ -26,6 +26,8 @@ It is required, No default value.
 # Mapping directory path
 # This path means `/assets/**`
 path = "/assets"
+
+# OR
 
 # Mapping individual file path
 path = "/favicon.png"
@@ -50,12 +52,13 @@ list = true
 ```
 
 ### file
-File config attribute is used to map individual file will be served for mapped URL path.
+File config attribute is used to map individual file that will be served for mapped URL path.
 
 It can be absolute directory path or relative to application base directory. If it's relative path `/static/` is prefixed automatically.
 
 No default value.
 ```bash
+# it means /static/img/favicon.png
 file = "img/favicon.png"
 ```
 

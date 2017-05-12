@@ -51,7 +51,7 @@ Format flags: Usage of flag order is up to your pattern composition in the confi
 The usage is %flagname:formating
 ```
 
-Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %custom:- %message`.
+Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %message`.
 ```bash
 pattern = "%time:2006-01-02 15:04:05 %level:-5 %shortfile %line %custom:- %message"
 ```

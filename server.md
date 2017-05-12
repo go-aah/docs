@@ -4,7 +4,7 @@ Keywords: aah server, go http server, aah go server, http server, web server, le
 ---
 # aah Server
 
-aah server is in-built web server provided by Go lang. It provides flexible configuration `server { ... }` on `aah.conf` for the users.
+aah server is a in-built HTTP server provided by Go lang. Framework provides flexible configuration `server { ... }` in the `aah.conf` for the users.
 
 Reference to [Server Config](app-config.html#section-server), [Server Extension](server-extension.html).
 
@@ -12,11 +12,11 @@ Reference to [Server Config](app-config.html#section-server), [Server Extension]
 
   * [HTTP](#http)
   * [HTTPS](#https)
-      * [Let's Encrypt Auto Cert](#let-s-encrypt-auto-cert)
+      - [Let's Encrypt Auto Cert](#let-s-encrypt-auto-cert)
   * [UNIX Socket](#unix-socket)
   * [Custom TLS Config](#custom-tls-config)
-      * [How to do?](#how-to-do)
-      * [Example: To improve SSL score](#example-to-improve-ssl-score)
+      - [How to do?](#how-to-do)
+      - [Example: To improve SSL score](#example-to-improve-ssl-score)
 
 ## HTTP
 
@@ -45,8 +45,8 @@ aah provides flexible way to provide custom TLS configuration for the server via
 
 ### How to do?
 
-There are you ways you can add the custom TLS config-
-  * Via `aah.OnInit` event - It is `recommended` approach. Also you have `aah.AppConfig()` values available for you.
+There are two ways you can add the custom TLS config-
+  * Via `aah.OnInit` event - It is `recommended` approach. Since you have access to `aah.AppConfig()` values.
   * Via `func init()`
 
 ```go
@@ -69,7 +69,7 @@ func init() {
 }
 ```
 
-### Example: To improve SSL score
+### Example: Just to raise SSL score
 ```go
 func init() {
   // You can use `aah.OnStart` event too.

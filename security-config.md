@@ -1,10 +1,10 @@
 Title: aah Security Configuration
-Desc: aah Security configuration to configure Session, Authentication (upcoming),  CORS (upcoming), CSRF (upcoming), Security Headers (upcoming), etc.
+Desc: aah Security configuration to configure Session Management, Authentication (upcoming),  CORS (upcoming), CSRF (upcoming), Security Headers (upcoming), etc.
 Keywords: security config, security configuration, session config, auth config, cors, csrf, HOCON
 ---
 # aah Security Configuration
 
-aah Security configuration to configure Session, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
+aah Security configuration is to configure Session Management, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
 
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Log Config](log-config.html).
 
@@ -17,7 +17,7 @@ Reference to [App Config](app-config.html), [Routes Config](routes-config.html),
 To configure application security related configuration in the section.
 
 ### Section: session { ... }
-HTTP state management across multiple requests.
+HTTP state management across HTTP requests.
 
 ### mode
 Session mode is to choose whether HTTP session should be persisted or destroyed at the end of each request. Supported values are -
@@ -25,24 +25,24 @@ Session mode is to choose whether HTTP session should be persisted or destroyed 
 * `stateless` - Session data is destroyed at end of each request
 * `stateful` - Session data is persisted based on store type config
 
-Default value is `stateless`
+Default value is `stateless` for API and `stateful` for Web application.
 ```bash
 mode = "stateful"
 ```
 
 ### Section: store { ... }
-Session store is to choose where session values should be persisted. Currently aah framework supports `cookie` and `file` as a store type. Also framework provide extensible `session.Storer` interface to add custom session store.
+Session store is to configure where session values should be persisted. Currently aah framework supports `cookie` and `file` as a store type. Also framework provides extensible `session.Storer` interface to add your custom session store.
 
 ### type
 Currently aah framework supports `cookie` and `file` as a store type.
 
-Default store type value is `cookie`
+Default store type value is `cookie`.
 ```bash
 type = "cookie"
 ```
 
 ### filepath
-Filepath is used for file store to store session data in the file system. This is only applicable for `type="file"`, make sure application has Read/Write access to the directory. Provide absolute path.
+Filepath is used for file store to store session data in the file system. This is only applicable for `store.type = "file"`, make sure application has Read/Write access to the directory. Provide absolute path.
 
 Default value is `<app-base-dir>/sessions`.
 ```bash
@@ -90,7 +90,7 @@ path = "/"
 ```
 
 ### http_only
-HTTP session cookie HTTPOnly value. This option prevents XSS (Cross Site Scripting) attacks, basically it disallows access of cookie to scripts like JavaScript.
+HTTP session cookie HTTPOnly value. This option is to prevents XSS (Cross Site Scripting) attacks, basically it disallows access of cookie to scripts like JavaScript.
 
 Default value is `true`.
 ```bash
@@ -114,7 +114,7 @@ sign_key = "generated-value"
 ```
 
 ### enc_key
-HTTP session cookie value encryption and decryption using `AES`. For server farm this value should be same in all instance. AES algorithm is used, valid lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
+HTTP session cookie value encryption and decryption using `AES`. For server farm this value should be same in all the instances. AES algorithm is used, valid lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
 
 Default value is `32` bytes (generated when application gets created using `aah new` command).
 ```bash
@@ -122,7 +122,7 @@ enc_key = "generated-value"
 ```
 
 ### cleanup_interval
-Cleanup Interval is used to clean the expired session objects from store. This is only applicable for non-cookie store type. Cleanup performed in dedicated goroutine. Valid time units are `m -> minutes`, `h -> hours`.
+Cleanup Interval is used to clean the expired session data from the store. This is only applicable for non-cookie store type. Cleanup performed in dedicated goroutine. Valid time units are `m -> minutes`, `h -> hours`.
 
 Default value is `30m`.
 ```bash
