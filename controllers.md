@@ -13,7 +13,7 @@ Keywords: controller, request, response, reply, view arg, cookies, extending con
 
 ## How to create a `Controller` in aah framework?
 
-A `Controller` is any `struct` type that embeds the `aah.Context`. The controller gets access to -
+A `Controller` is any `struct` type that embeds the `aah.Context` (Note: this is not a standard package `context.Context`). The controller gets access to -
 
   * [Request](#request)
   * [Response](#response)
