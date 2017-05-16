@@ -1,20 +1,22 @@
 Title: aah Logging Configuration
-Desc: aah log implements a simple, flexible & powerful logger. Currently it supports `console`, `file` (rotation by daily, size,  lines), logging receivers and logging stats. It also has a predefined 'standard' Logger accessible through helper functions Error{f}, Warn{f}, Info{f}, Debug{f}, Trace{f}.
+Desc: aah log implements a simple, flexible, non-blocking logger. Tt supports `console`, `file` (rotation by daily, size,  lines). It also has a predefined 'standard' Logger. It can be used as drop-in replacement for standard go logger with features.
 Keywords: log, logger, aah logger, console log, file log, console logger, file logger
 ---
 # aah Logging Configuration
 
-aah log implements a simple, flexible & powerful logger. Currently it supports `console`, `file` (rotation by daily, size,  lines), logging receivers and logging stats. It also has a predefined 'standard' Logger accessible through helper functions `Error{f}`, `Warn{f}`, `Info{f}`, `Debug{f}`, `Trace{f}` which are easier to use than creating a Logger manually. That logger writes to standard error and prints log `Entry` details as per `DefaultPattern`.
+aah log package implements a simple, flexible, non-blocking logger. It supports `console`, `file` (rotation by daily, size, lines). It also has a predefined 'standard' Logger accessible through helper functions `Error{f}`, `Warn{f}`, `Info{f}`, `Debug{f}`, `Trace{f}`, `Print{f,ln}`, `Fatal{f,ln}`, `Panic{f,ln}` which are easier to use than creating a Logger manually. Default logger writes to standard error and prints log `Entry` details as per `DefaultPattern`.
+
+aah log package can be used as drop-in replacement for standard go logger with features.
 
 ```go
 log.Info("Welcome ", "to ", "aah ", "logger")
-log.Infof("%v, %v, & %v", "simple", "flexible", "powerful logger")
+log.Infof("%v, %v, %v", "simple", "flexible", "non-blocking logger")
 ```
 
 ```bash
 # Output:
-2017-02-03 19:22:11.504 INFO  - Welcome to aah logger
-2017-02-03 19:22:11.504 INFO  - simple, flexible, & powerful logger
+2017-05-03 19:22:11.504 INFO  - Welcome to aah logger
+2017-05-03 19:22:11.504 INFO  - simple, flexible, non-blocking logger
 ```
 
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Security Config](security-config.html).
@@ -35,6 +37,14 @@ Default value is `debug`.
 level = "info"
 ```
 
+## format
+To define log entry output format. Supported formats are `text` and `json`.
+
+Default value is `text`.
+```bash
+format = "json"
+```
+
 ## pattern
 Pattern config defines the message flags and formatting while logging into receivers. aah framework logger supports the following `format flags`-
 ```bash
@@ -48,8 +58,10 @@ Format flags: Usage of flag order is up to your pattern composition in the confi
   message   - outputs given message along supplied arguments if they present
   custom    - outputs string as-is into log entry
 
-The usage is %flagname:formating
+The usage is %flagname:format
 ```
+
+***Note: Pattern is not is applicable for JSON format.***
 
 Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %message`.
 ```bash
@@ -67,42 +79,41 @@ file = "myapp.log"
 ## Section: rotate { ... }
 Rotate config section is applicable only to **`file`** receiver type.
 
-### mode
-Mode is used to determine rotate mode. Currently it supports `daily`, `lines` and `size`.
+### policy
+Policy is used to determine rotate policy. Currently it supports `daily`, `lines` and `size`.
 
 Default value is `daily`.
 ```bash
 # daily rotation, it's default one.
 rotate {
-  mode = "daily"
+  policy = "daily"
 }
 
 # size based rotation
 rotate {
-  mode = "size"
-  size = 500
+  policy = "size"
+  size = "512mb"
 }
 
 # line based rotation
 rotate {
-  mode = "lines"
+  policy = "lines"
   lines = 100000
 }
 ```
 
 ### size
-This is applicable only to if **`mode`** is `size`.
+This is applicable only to if **`policy`** is `size`.
 
-Default value is 100MB.
+Default value is 512mb.
 ```bash
-# value is in MB, it is 500MB
-size = 500
+size = "100mb"
 ```
 
 ### lines
-This is applicable only to if **`mode`** is `lines`.
+This is applicable only to if **`policy`** is `lines`.
 
-Default value is unlimited.
+Default value is 100000.
 ```bash
-lines = 100000
+lines = 50000
 ```
