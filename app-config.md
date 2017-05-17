@@ -32,7 +32,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
   * [render { ... }](#section-render)
     - [gzip { ... }](#section-gzip)
   * [view { ... }](#section-view)
-  * [log { ... }](logging.html)
+  * [log { ... }](log-config.html)
   * [env { ... }](#section-env) - Environment profile overrides
 
 Have a look at [aahframework.org app configuration](https://github.com/go-aah/website/blob/master/config/aah.conf). It is moderate one, it gives an idea on how you can do it for your application.

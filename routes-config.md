@@ -14,6 +14,7 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
     - [domain { ... }](#section-unique-keyname-user-defined)
       * [name](#name)
       * [host](#host)
+      * [port](#port)
       * [subdomain](#subdomain)
       * [redirect_trailing_slash](#redirect-trailing-slash)
       * [method_not_allowed](#method-not-allowed)
@@ -55,11 +56,22 @@ name = "mysampleapp routes"
 ### host
 aah framework supports multi-domain routes configuration out-of-the-box. `host` used to determine routes of domain and processing the incoming request.
 
-It is required value, no default value.
+It is required, no default value.
 ```bash
 host = "localhost"
 
 host = "aahframework.org"
+```
+
+### port
+
+aah framework supports multi-domain routes configuration out-of-the-box. Port is used to determine domain routes for the incoming request. This is useful when you have proxy server in-front of aah application.
+
+For port `80` and `443`, put empty string or actual value.
+
+Default value is 8080.
+```bash
+port = "80"
 ```
 
 ### subdomain

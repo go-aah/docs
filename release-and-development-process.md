@@ -9,7 +9,7 @@ This page would give an idea how aah framework Development and Release Process. 
 ## Table of Contents
 
   * [Insights](#insights)
-  * [Release Cycle](release-cycle)
+  * [Release Cycle](#release-cycle)
   * [Process to Release Framework/Library](#process-to-release-framework-library)
   * [Broadcast Framework Release](#broadcast-framework-release)
 
@@ -74,6 +74,7 @@ We have to broadcast new release of Framework on -
   * Twitter: https://twitter.com/aahframework
   * Gitter Online Chat: https://gitter.im/aahframework/community
   * Google Groups: https://groups.google.com/forum/#!forum/aahframework
+  * Google+: https://plus.google.com/u/0/102130029195315523240
 
 **Global Audience:** Only Framework release.
 
