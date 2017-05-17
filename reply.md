@@ -36,7 +36,7 @@ As per RFC7231, provides method for frequently used ones.
   * `InternalServerError()`
   * `ServiceUnavailable()`
 
-ohh, I do not find status method, just use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
+ohh, the response status I need is not in the above list, no problem; just use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
 
 ## Response Content
 Rich reply methods for the response.
