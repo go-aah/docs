@@ -62,7 +62,7 @@ The `app` directory contains all the Go source codes for the application. Initia
 
 ### The `config` directory
 
-The `config` directory contains the application's configuration files. aah configuration file syntax is very similar to HOCON syntax and not 100%. The quick start application will have the following config files. Organize the way you want.
+The `config` directory contains the application's configuration files. aah configuration file syntax is very similar to HOCON syntax. The quick start application will have the following config files. Organize the way you want it.
 
   * `aah.conf` - the main configuration file for the application, [know more](app-config.html).
   * `routes.conf` - the routing configuration file for the application, [know more](routes-config.html).

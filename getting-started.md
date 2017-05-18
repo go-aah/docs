@@ -49,15 +49,15 @@ Congratulations, you have successfully installed aah framework and ready to use 
 It is very easy to use aah framework CLI tool. [Learn more about aah CLI tool](aah-cli-tool.html).
 
 ```bash
-# new sub-command is interactive one to create application for quick start
+# new sub-command is an interactive one to create aah application for quick start
 aah new
 ```
 
 **Output:**
 ```bash
-–––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––
+   aah framework v0.5 -  https://aahframework.org
+––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
 

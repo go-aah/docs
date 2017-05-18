@@ -4,7 +4,7 @@ Keywords: app config, application configuration, aah.conf, HOCON, configuration
 ---
 # aah Application Configuration
 
-The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
+The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
 aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles.
 

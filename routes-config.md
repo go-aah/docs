@@ -1,10 +1,10 @@
 Title: aah Routes Configuration
-Desc: Route configuration is to map controller and action with request URL. Supports path variables, domain and sub-domains. The configuration syntax is used by aah framework is similar to HOCON syntax, not 100%.
+Desc: Route configuration is to map controller and action with request URL. Supports path variables, domain and sub-domains. The configuration syntax is used by aah framework is similar to HOCON syntax.
 Keywords: routes config, routes configuration, namespace routes, group routes, routes
 ---
 # aah Routes Configuration
 
-aah Routes configuration is flexible and effective. The configuration syntax is used by aah framework is very similar to HOCON syntax and not 100%. To learn more about **[configuration syntax](configuration.html)**.
+aah Routes configuration is flexible and effective. The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
 Reference to [App Config](app-config.html), [Security Config](security-config.html), [Log Config](log-config.html).
 
