@@ -1,6 +1,6 @@
 Title: Getting started with aah framework
-Desc: It is easy to start and work with aah framework. Installing aah framework and CLI tool, Creating your first aah application, Running your aah application, etc.
-Keywords: getting started, aah framework, aah first application
+Desc: It is very easy to start and work with aah framework. Installing aah framework and CLI tool, Creating your first aah application, Running your aah application, etc.
+Keywords: getting started, aah framework, aah first application, web framework for Go lang
 ---
 # Getting started with aah framework
 
@@ -32,9 +32,9 @@ aah version
 
 **Output:** (you will get similar output with aah and Go version)
 ```bash
-–––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––
+––––––––––––––––––––––––––––––––––––––––––––––––––––
+   aah framework v0.5 -  https://aahframework.org
+––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 Version Info:
 	aah framework     v0.5
@@ -113,6 +113,12 @@ aah run
 ```
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.
+
+You will see a page with text-
+
+```bash
+Welcome to aah framework - Web Application
+```
 
 ## Next move onto application configuration
 
