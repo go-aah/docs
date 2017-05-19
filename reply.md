@@ -75,9 +75,9 @@ Reply().DisableGzip()
 ```
 
 ## Done()
-Done method indicates to framework that reply has already been sent via `aah.Context.Res` and that no further action is needed.
+Done method indicates that reply has already been sent via `aah.Context.Res` and that no further action is needed.
 
-**Note:** Framework doesn't intervene with response if `Done()` method is called.
+**Note:** Framework doesn't intervene with response if `Done()` method was called.
 
 ## Samples
 ```go
