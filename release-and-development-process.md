@@ -29,10 +29,10 @@ aah framework internally uses `gopkg.in` service for [Package Versioning](versio
 
 ## Release Cycle
 
-  * Security fix is gets addressed and released as soon as possible, refer [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
-  * Bug fixes and minor enhancements are planned to release every month on 3rd week
+  * Security fix is gets addressed and released as soon as possible, refer to [how to report security vulnerabilities?](https://aahframework.org/security/vulnerabilities.html).
+  * Bug fixes and minor enhancements are planned to release on monthly basis.
       - Please Note: If zero bug fixes then this release may not happen.
-  * Feature and Enhancement is planned to release every 3 to 4 months cycle
+  * Feature and Enhancement is planned to release every 3 to 6 months cycle.
       - Smaller feature or enhancement might get released earlier.
       - Have a look on [Roadmap](https://github.com/go-aah/aah/projects/3).
 
