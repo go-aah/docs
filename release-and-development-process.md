@@ -10,12 +10,13 @@ This page would give an idea how aah framework Development and Release Process. 
 
   * [Insights](#insights)
   * [Release Cycle](#release-cycle)
+  * [API Stability](#api-stability)
   * [Process to Release Framework/Library](#process-to-release-framework-library)
   * [Broadcast Framework Release](#broadcast-framework-release)
 
 ## Insights
 
-aah framework internally uses `gopkg.in` service for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to user choice of package management.
+aah framework internally uses `gopkg.in` service for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
 
   * Github `Tag` is Stable and Production ready.
   * Default branch is `v0-unstable`, `v1-unstable`, and so on. Development, Bug fix, Pull Request, happens on that.
@@ -35,6 +36,10 @@ aah framework internally uses `gopkg.in` service for [Package Versioning](versio
   * Feature and Enhancement is planned to release every 3 to 6 months cycle.
       - Smaller feature or enhancement might get released earlier.
       - Have a look on [Roadmap](https://github.com/go-aah/aah/projects/3).
+
+## API Stability
+
+aah framework and it's libraries will be maintained in a compatible way `between major version` unless some vital bugs prevent me from doing so. I don't take API changes lightly.
 
 ## Process to Release Framework/Library
 

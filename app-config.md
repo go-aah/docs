@@ -29,6 +29,8 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
   * [runtime { ... }](#section-runtime)
     - [debug { ... }](#section-debug)
     - [pooling { ... }](#section-pooling)
+  * cache { ... }
+    - [static { ... }](/static-files.html#cache-control)
   * [render { ... }](#section-render)
     - [gzip { ... }](#section-gzip)
   * [view { ... }](#section-view)
@@ -406,6 +408,16 @@ To use custom Go template delimiters on view files.
 Default value is `{{.}}`
 ```bash
 delimiters = "{{.}}"
+```
+
+### default_layout
+By default aah framework chooses the default app layout as `master.html` if you do not provide one. However you may have a need that certain pages without layout. So use this option to disable the default layout for HTML rendering.
+
+_**Note:**_ With this setting you can still use layouts, just provide layout name via `Reply().HTMLlf` or `Reply().HTMLl` methods.
+
+Default value is `true`. Available since `v0.6`.
+```bash
+default_layout = false
 ```
 
 ---

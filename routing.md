@@ -21,7 +21,7 @@ Router config is very flexible in nature with default values for effective usage
 
 [Learn more about routes configuration](routes-config.html), how to advantage of these features.
 
-  * Domain and sub-domains supported seamlessly.
+  * Domain, sub-domains and wildcard sub-domains supported seamlessly.
   * **Static Files** - Serve static file or directory via `http.ServeContent`.
   * **Directory Listing** - Directory listing is supported, presented clean and nicely.
   * **Custom NotFound** - Register your custom controller `not found` action to handle this behavior.

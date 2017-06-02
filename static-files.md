@@ -11,6 +11,7 @@ Framework provides flexible way to serve static files. It can be set of files fr
   * Serve directory and it's subtree files
   * Serve individual file
   * Directory listing
+  * [`Cache-Control` by `mime` types and default one](#cache-control). `Since v0.6`
 
 Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
 
@@ -80,6 +81,45 @@ static {
 
     # If it's relative path '/static/' prefixed automatically
     file = "img/favicon.png"
+  }
+}
+```
+
+## Cache-Control
+
+`Since v0.6`, aah framework provides flexible way to configure static file `Cache-Control` header by `mime` types. Default cache header if mime type is not configured.
+
+_**Note:**_ This configuration goes to `aah.conf`
+
+**Example Configuration**
+
+```ini
+# -------------------------------------------------------------------
+# Cache configuration
+# Doc: https://docs.aahframework.org/static-files.html#cache-control
+# -------------------------------------------------------------------
+cache {
+  static {
+    # Default `Cache-Control` for all static files,
+    # if specific mime type is not defined.
+    default_cache_control = "public, max-age=31536000"
+
+    # Define by mime types, if mime is not present then default is applied.
+    # Config is very flexible to define by mime type.
+    #
+    # Create a unique name and provide `mime` with comma separated value
+    # and `cache_control`.
+    mime_types {
+      css_js {
+       mime = "text/css, application/javascript"
+       cache_control = "public, max-age=604800, must-revalidate, proxy-revalidate"
+      }
+
+      images {
+       mime = "image/jpeg, image/png, image/gif, image/svg+xml, image/x-icon"
+       cache_control = "public, max-age=2628000, must-revalidate, proxy-revalidate"
+      }
+    }
   }
 }
 ```

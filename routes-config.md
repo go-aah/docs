@@ -176,8 +176,8 @@ method = "PUT,PATCH"
 ### controller
 `controller` attribute is used to map controller to be called for the mapped URL definition in the `path`.
 
-* `controller` attribute supports with or without package prefix. For e.g.: `v1.User` or `User`
-    * Best Practices: choose one format of definition style and stick to it.
+* `controller` attribute supports with or without package prefix. For e.g.: `v1/User` or `User`
+    * Best Practices: choose one format definition style and stick to it.
 * `controller` attribute supports both naming conventions. For e.g.: `User` or `UserController`
 
 It is required, no default value.
@@ -188,9 +188,9 @@ controller = "User"
 
 controller = "UserController"
 
-controller = "v1.User"
+controller = "v1/User"
 
-controller = "v1.UserController"
+controller = "v1/UserController"
 ```
 
 ### action
