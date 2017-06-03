@@ -8,7 +8,8 @@ Here you will learn aah CLI tool usage and available sub-commands. It comes very
 
 ### Available Commands
   * [version](#command-version)
-  * [help](#command-help)  
+  * [help](#command-help)
+  * [list](#command-list) <span class="badge lb-xs">since v0.6</span>
   * [new](#command-new)
   * [run](#command-run)
   * [build](#command-build)
@@ -35,6 +36,23 @@ aah help
 
 # to know one command
 aah help build
+```
+
+## Command: list
+`list` command scans GOPATH and lists the aah projects with import path. <span class="badge lb-sm">since v0.6</span>.
+
+```
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
+   aah framework v0.6 -  https://aahframework.org
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
+
+Scanning GOPATH: /Users/jeeva/go-home/...
+
+4 aah projects were found, import paths are-
+    github.com/go-aah/tutorials/domain-subdomain
+    github.com/go-aah/tutorials/html-minify
+    github.com/go-aah/tutorials/i18n    
+    github.com/go-aah/website
 ```
 
 ## Command: new

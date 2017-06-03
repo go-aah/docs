@@ -61,7 +61,7 @@ By default aah framework resolve and render view templates based on-
   * View extension `view.ext`
   * Case-sensitive `view.case_sensitive`
   * Default layout is `master.html` if not provided
-  * Since `v0.6` config option to disable default layout.
+  * <span class="badge lb-sm">Since v0.6</span> Config option to disable default layout.
 
 Reference to [View Config](app-config.html#section-view).
 
@@ -82,7 +82,7 @@ Ok, I understood the framework default behavior, now how I can use it my way? Of
   * `Reply().HTML(data)` - `master.html` layout and framework resolves view template file.
   * `Reply().HTMLl(layout, data)` - layout is user input and framework resolve only view template file.
   * `Reply().HTMLf(filename, data)` - view filename is user input and `master.html` layout.
-      - Since v0.6, `filename` starts with `/`; framework uses as-is from `pages` directory.
+      - <span class="badge lb-sm">Since v0.6</span> `filename` starts with `/`; framework uses as-is from `pages` directory.
           - For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
   * `Reply().HTMLlf(layout, filename, data)` - layout and view template file is user input.
 

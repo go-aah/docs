@@ -415,7 +415,7 @@ By default aah framework chooses the default app layout as `master.html` if you 
 
 _**Note:**_ With this setting you can still use layouts, just provide layout name via `Reply().HTMLlf` or `Reply().HTMLl` methods.
 
-Default value is `true`. Available since `v0.6`.
+Default value is `true`. <span class="badge lb-sm">Since v0.6</span>
 ```bash
 default_layout = false
 ```

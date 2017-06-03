@@ -11,7 +11,7 @@ Framework provides flexible way to serve static files. It can be set of files fr
   * Serve directory and it's subtree files
   * Serve individual file
   * Directory listing
-  * [`Cache-Control` by `mime` types and default one](#cache-control). `Since v0.6`
+  * [`Cache-Control` by `mime` types and default one](#cache-control). <span class="badge lb-xs">since v0.6</span>
 
 Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
 
@@ -85,13 +85,13 @@ static {
 }
 ```
 
-## Cache-Control
+## Cache Control
 
-`Since v0.6`, aah framework provides flexible way to configure static file `Cache-Control` header by `mime` types. Default cache header if mime type is not configured.
+<span class="badge lb-sm">Since v0.6</span> aah framework provides flexible way to configure static file `Cache-Control` header by `mime` types. Default cache header is used if mime type is not configured.
 
 _**Note:**_ This configuration goes to `aah.conf`
 
-**Example Configuration**
+**Sample Cache Configuration**
 
 ```ini
 # -------------------------------------------------------------------
