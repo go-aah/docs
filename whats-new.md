@@ -1,3 +1,6 @@
 ## What's new?
 
-Well, aah framework released to the public audience with `v0.5` (Official birthday of aah framework).
+* HTML Minify.
+* Wildcard Subdomain.
+* Static files Cache-Control header configuration by MIME-Type.
+* `aah list` command.
