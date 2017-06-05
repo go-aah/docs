@@ -4,7 +4,7 @@ Keywords: tutorial, domain, Subdomain, wildcard subdomain, aah framework
 ---
 # Tutorial - Domain, Subdomain and Wildcard Subdomain
 
-Goal of this tutorial application is to give you an idea how to use Domain, Subdomain and Wildcard Subdomain using aah framework.
+Goal of this tutorial application is to give you an idea how to use Domain, Subdomain and Wildcard Subdomain using aah framework. Reference to [Routes Config](/routes-config.html).
 
 ### How to get the tutorial application?
 

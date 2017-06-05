@@ -77,14 +77,17 @@ For E.g.:
 
 ### User-Defined Inputs
 
-Ok, I understood the framework default behavior, now how I can use it my way? Of-course you can via [Reply Builder](reply.html#response-content).
+Ok, I understood the framework default behavior, now how I can use it my way?.
 
-  * `Reply().HTML(data)` - `master.html` layout and framework resolves view template file.
-  * `Reply().HTMLl(layout, data)` - layout is user input and framework resolve only view template file.
-  * `Reply().HTMLf(filename, data)` - view filename is user input and `master.html` layout.
-      - <span class="badge lb-sm">Since v0.6</span> `filename` starts with `/`; framework uses as-is from `pages` directory.
-          - For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
-  * `Reply().HTMLlf(layout, filename, data)` - layout and view template file is user input.
+Besides the framework auto view resolve when use method `HTML(data)`. Framework gives you full-control of view rendering via [Reply Builder](reply.html#response-content)-
+
+  * `Reply().HTMLl(layout, data)` - layout is user input and framework resolves view template file.
+  * `Reply().HTMLf(filename, data)` - view filename is user input and default `master.html` layout.
+  * `Reply().HTMLlf(layout, filename, data)` - layout and view filename is user input.
+
+<span class="badge lb-sm">Since v0.6</span> if `filename` starts with `/`; framework uses as-is from `pages` directory.
+  * For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
+  * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<controller-name>/mydir/file.html`
 
 ## Supplying View Arguments
 
@@ -101,7 +104,7 @@ Currently aah framework supports Go view engine. Don't feel bad, you can added y
 
 In the `upcoming` release, I will try provide support to amber, pongo2, and jade.
 
-#### Create your view in compliant to `view.Enginer` interface.
+#### Create your own view engine using `view.Enginer` interface.
 
 ```go
 // Enginer interface defines a methods for pluggable view engine.
@@ -119,7 +122,9 @@ func init()  {
 }
 ```
 
-#### Configuring view engine into aah
+#### Configuring your custom view engine into aah
+
+Goto `view {...}` section in `aah.conf`.
 
 ```bash
 view {

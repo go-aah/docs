@@ -36,6 +36,8 @@ Session store is to configure where session values should be persisted. Currentl
 ### type
 Currently aah framework supports `cookie` and `file` as a store type.
 
+_**Note:** If you're using cookie session store, you have to be mindful about cookie size limit `4kb`._
+
 Default store type value is `cookie`.
 ```bash
 type = "cookie"

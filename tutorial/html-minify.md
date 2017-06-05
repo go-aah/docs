@@ -2,7 +2,7 @@ Title: Tutorial of How to use HTML Minify
 Desc: Tutorial of How to use Pluggable HTML Minify into aah framework application.
 Keywords: tutorial, html minify, html minifier, pluggable html minify, aah framework
 ---
-# Pluggable HTML Minify
+# Tutorial of Pluggable HTML Minify
 
 `MinifierFunc` interface and pluggable option of `aah.SetMinifier(...)` is introduced in `v0.6` release.
 
@@ -21,11 +21,11 @@ Just focus on this file `controllers/app.go`.
 
 ```bash
 # First let's run the sample application in `dev` environment profile
-# Take a look at the page source
+# Take a moment to look at the page source
 aah run -ip=github.com/go-aah/tutorials/html-minify
 
 # Now, let's run the sample application in `prod` environment profile
-# Take a look at the page source
+# Take a moment look at the page source
 aah run -ip=github.com/go-aah/tutorials/html-minify -p=prod
 ```
 

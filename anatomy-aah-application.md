@@ -6,48 +6,48 @@ Keywords: anatomy, layout, mvc, architectural, directories, aah application layo
 
 The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern.
 
-```bash
-app                     ⇒ Application Go source codes directory
-  └ controllers         ⇒ Application controllers
-  └ models              ⇒ Application business layer
-  └ aah.go              ⇒ aah application main entry point (generated code)
-config                  ⇒ Configurations files
-  └ aah.conf            ⇒ Application configuration file
-  └ routes.conf         ⇒ Application Routes configuration file
-  └ security.conf       ⇒ Application Security configuration file
-  env                   ⇒ Environment profile configurations
-    └ dev.conf          ⇒ Dev - Environment profile config
-    └ prod.conf         ⇒ Prod - Environment profile config
-i18n                    ⇒ Internationalization and Localization message files
-  └ messages.en         ⇒ Message file
-  └ messages.en-US      ⇒ Message file
-  └ messages.en-CA      ⇒ Message file
-views                   ⇒ Template files (aah supports partial inheritance with Go template engine)
-  └ common              ⇒ Common view template files, it can be imported to any page template
-  └ layouts             ⇒ Application view layout template files, master template for page template
-  └ pages               ⇒ Page view template files, corresponding view template for controllers action
-static                  ⇒ Static public assets
-  └ css                 ⇒ CSS files
-  └ js                  ⇒ Javascript files
-  └ img                 ⇒ Image files
-logs                    ⇒ Logs directory (based log configuration, default is console on 'dev' profile)
-  └ app-name.log        ⇒ Application log file
-tests                   ⇒ Go source codes directory for functional tests, use Go conventional way for unit tests
-build                   ⇒ Application build directory
-.gitignore              ⇒ Typical Go .gitignore file and aah project ignore files
-aah.project             ⇒ aah project configuration; build config, etc.
-app-name.pid            ⇒ Application PID file (created during app startup)
+```
+app                   ⇒ Application Go source codes directory
+  └ controllers       ⇒ Application controllers
+  └ models            ⇒ Application business layer
+  └ aah.go            ⇒ aah application main entry point (generated code)
+config                ⇒ Configurations files
+  └ aah.conf          ⇒ Application configuration file
+  └ routes.conf       ⇒ Application Routes configuration file
+  └ security.conf     ⇒ Application Security configuration file
+  env                 ⇒ Environment profile configurations
+    └ dev.conf        ⇒ Dev - Environment profile config
+    └ prod.conf       ⇒ Prod - Environment profile config
+i18n                  ⇒ Internationalization and Localization message files
+  └ messages.en       ⇒ Message file
+  └ messages.en-US    ⇒ Message file
+  └ messages.en-CA    ⇒ Message file
+views                 ⇒ Template files - not created for API (aah supports partial inheritance)
+  └ common            ⇒ Common view template files, it can be imported to any page template
+  └ layouts           ⇒ Application view layout template files, master template for page template
+  └ pages             ⇒ Page view template files, corresponding view template for controllers action
+static                ⇒ Static public assets - not created for API
+  └ css               ⇒ CSS files
+  └ js                ⇒ Javascript files
+  └ img               ⇒ Image files
+logs                  ⇒ Logs directory (based log configuration, default is console on 'dev' profile)
+  └ app-name.log      ⇒ Application log file
+tests                 ⇒ Go source codes directory for functional tests, use Go standard way for unit tests
+build                 ⇒ Application build directory
+.gitignore            ⇒ Typical Go .gitignore file and aah project ignore files
+aah.project           ⇒ aah project configuration; build config, etc.
+app-name.pid          ⇒ Application PID file (created during app startup)
 ```
 
 #### Packaged aah application will have following directories/files
-```bash
+```
 bin                    ⇒ Application binary file
 aah.sh                 ⇒ *nix startup file
 aah.cmd                ⇒ Windows startup file
 ```
 
 #### Packaged aah application won't have following directories/files
-```bash
+```
 app                    ⇒ Application Go source codes directory (compiled into binary file kept under `bin` directory)
 logs                   ⇒ Logs directory (created during app startup)
 tests                  ⇒ Go source codes directory (not for production)
@@ -86,7 +86,7 @@ The `static` directory contains static assets that are served directly. It conta
   * By default `static` directory mapped as `/static` in [routes.conf](routes-config.html). You can customize it in the config.
   * You can use several directories under `static` directory as per your need. Just organize it appropriately :)
 
-***Note: If you want you can use `static` directory for file delivery for API application.***
+***Note: If you want you can use `static` directory for file delivery for your API application.***
 
 ### The `logs` directory
 
