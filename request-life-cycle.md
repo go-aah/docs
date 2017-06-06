@@ -32,7 +32,7 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * Read and Parse Request
       - For `GET` method request parse Query parameters
       - For not `GET` method. Query parameters and Payload, Form, Multi-part based on content-type.
-      - Sanitize request values to prevent XSS [know more](https://www.owasp.org/index.php/XSS_(Cross_Site_Scripting)_Prevention_Cheat_Sheet) **`upcoming`**
+      - Sanitize request values to prevent XSS **`upcoming`**
   * Validate request values **`upcoming`**
   * User-defined middleware(s) execution (basically before `m.Next(ctx)` call).
   * Controller interceptor `Before` is called if exists.
@@ -44,6 +44,7 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * ***Note:*** If any `panic` happens around controller action interceptor `Panic` is called on that controller.
   * User-defined middleware(s) execution (basically after `m.Next(ctx)` call).
   * If the Response is already sent via `ctx.Res` and `ctx.Reply().Done()` is called then request completes here.
+  * Write Response Header(s) and set Cookies (session cookie, etc.)
   * If it's a Redirect reply then framework redirects it.
   * Determines response content-type if it's not set in the reply builder.
   * If it's HTML content-type then
@@ -55,8 +56,6 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
       - `ctx.Reply().Done()` is called, refer godoc for more info.
       - `ctx.Reply().Redirect(...)` is called.
   * Writing reply on the wire-
-      - Response Header(s).
-      - Cookies
       - Response Status - default is 200 OK, if not provided.
       - Response body bytes.
   * `OnAfterReply` server extension point: Always called. Response is already written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc. Except when-

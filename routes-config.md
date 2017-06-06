@@ -56,11 +56,16 @@ name = "mysampleapp routes"
 ### host
 aah framework supports multi-domain routes configuration out-of-the-box. `host` used to determine routes of domain and processing the incoming request.
 
+<span class="badge lb-sm">Since v0.6</span> Wildcard subdomain is supported.
+
 It is required, no default value.
 ```bash
 host = "localhost"
 
 host = "aahframework.org"
+
+# this is for wildcard Subdomain, don't forget mention `subdomain = true`
+host = "*.aahframework.org"
 ```
 
 ### port
@@ -76,6 +81,8 @@ port = "80"
 
 ### subdomain
 Indicates the current domain section is a sub-domain.
+
+<span class="badge lb-sm">Since v0.6</span> Wildcard subdomain supported.
 
 Default value is `false`.
 ```bash

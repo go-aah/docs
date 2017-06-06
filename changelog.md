@@ -12,9 +12,10 @@
 * [#55](https://github.com/go-aah/aah/issues/55) Bind Go Logger to aah log receiver. You can have unified log of third-party libs to one log file.
 * [#50](https://github.com/go-aah/aah/issues/50) Improved handling of controllers sub-packages in auto view resolve. Take full-control over view rendering.
 * [#51](https://github.com/go-aah/aah/issues/51) Config option `default_layout = false` to disable to default layout.
-* [#55](https://github.com/go-aah/aah/issues/55) HTTP server error logs goes to aah log receiver, unified.
+* [#55](https://github.com/go-aah/aah/issues/55) HTTP server error log goes to aah log receiver, unified.
 * Code Improvements, Doc, Logging.
 
 #### Bug Fixes
 
 * [#50](https://github.com/go-aah/aah/issues/50) View auto resolve bug fix.
+* [#59](https://github.com/go-aah/aah/issues/59) session clear fix while redirect happens.

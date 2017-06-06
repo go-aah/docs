@@ -87,7 +87,7 @@ Besides the framework auto view resolve when use method `HTML(data)`. Framework 
 
 <span class="badge lb-sm">Since v0.6</span> if `filename` starts with `/`; framework uses as-is from `pages` directory.
   * For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
-  * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<controller-name>/mydir/file.html`
+  * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<packages>/<controller>/mydir/file.html`
 
 ## Supplying View Arguments
 
