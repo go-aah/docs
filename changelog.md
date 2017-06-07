@@ -20,4 +20,3 @@
 
 * [#50](https://github.com/go-aah/aah/issues/50) View auto resolve bug fix.
 * [#59](https://github.com/go-aah/aah/issues/59) session clear fix while redirect happens.
-* [#60](https://github.com/go-aah/aah/issues/60) Corrected typo mistake of Request.Schema -> Request.Scheme - PR by [@adelowo](https://github.com/adelowo)
