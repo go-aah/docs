@@ -22,6 +22,11 @@ Execute below `go get` on your terminal/command prompt.
 go get -u aahframework.org/tools.v0/aah
 ```
 
+_**Please Note:** if you ran into error `RPC failed; HTTP 301 curl 22 The requested URL returned error: 301` then set the below git config and try again._
+```
+git config --global http.https://aahframework.org.followRedirects true
+```
+
 ## Verify your aah installation
 
 Execute below command.
