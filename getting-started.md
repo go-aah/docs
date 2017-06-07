@@ -18,7 +18,7 @@ Here you will be learning-
 
 Execute below `go get` on your terminal/command prompt.
 
-```bash
+```
 go get -u aahframework.org/tools.v0/aah
 ```
 
@@ -26,7 +26,7 @@ go get -u aahframework.org/tools.v0/aah
 
 Execute below command.
 
-```bash
+```
 aah version
 ```
 
@@ -48,7 +48,7 @@ Congratulations, you have successfully installed aah framework and ready to use 
 
 It is very easy to use aah framework CLI tool. [Learn more about aah CLI tool](aah-cli-tool.html).
 
-```bash
+```
 # new sub-command is an interactive one to create aah application for quick start
 aah new
 ```
@@ -78,7 +78,7 @@ Go to https://docs.aahframework.org to learn more and customize your aah applica
 
 ## Run your aah application
 
-```bash
+```
 aah run -importPath=github.com/jeevatkm/aah-first-app
 
 # OR
@@ -115,7 +115,7 @@ Open up your browser, navigate to address [http://localhost:8080](http://localho
 
 You will see a page with text-
 
-```bash
+```
 Welcome to aah framework - Web Application
 ```
 

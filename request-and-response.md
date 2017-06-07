@@ -8,16 +8,16 @@ This page gives you an insights about aah `Request` and `Response` capabilities.
 
 ### Request
 
-aah Request object improved from standard request object. For typical application usage for e.g.: Parsing HTTP headers as per RFC's (Content-type, Accept content-type, Locale, Gzip), identifying Request Scheme, etc.
+aah Request object improved from standard request object. For typical application usage for e.g.: Parsing HTTP headers per RFC's (Content-type, Accept content-type, Locale, Gzip), identifying Request Scheme, etc.
 
 #### Fields
 
   * <u>Scheme</u> - protocol value `https` or `http`; it's a derived value from `X-Forwarded-Proto` if present used as-is, `http` if TLS is nil and `https` if TLS is not nil.
   * <u>Host, Method, Path, Header</u> - it is typically same as standard one, provided here for conventional access.
-  * <u>ContentType</u> - the parsed value of HTTP header `Content-Type`. Partial implementation as per `RFC1521`.
-  * <u>AcceptContentType</u> - it is negotiated value from HTTP Header `Accept`. In the order of URL extension, Accept header as per `RFC7231` and Vendor Types as per `RFC4288` (**`upcoming`**)
-  * <u>AcceptEncoding</u> - it is negotiated value from HTTP Header the `Accept-Encoding` as per `RFC7231`.
-  * <u>Locale</u> - it is negotiated value from HTTP Header `Accept-Language` as per `RFC7231`.
+  * <u>ContentType</u> - the parsed value of HTTP header `Content-Type` per `RFC1521`.
+  * <u>AcceptContentType</u> - it is negotiated value from HTTP Header `Accept`. In the order of URL extension, Accept header per `RFC7231` and Vendor Types per `RFC4288`
+  * <u>AcceptEncoding</u> - it is negotiated value from HTTP Header the `Accept-Encoding` per `RFC7231`.
+  * <u>Locale</u> - it is negotiated value from HTTP Header `Accept-Language` per `RFC7231`.
   * <u>Params</u> - it contains values from Path, Form, Query and File.
   * <u>Payload</u> - it holds the value from HTTP request body in bytes slice for `Content-Type` JSON and XML otherwise nil.
   * <u>ClientIP</u> - remote client IP address aka Remote IP. Parsed in the order of `X-Forwarded-For`, `X-Real-IP` and finally `http.Request.RemoteAddr`.
