@@ -57,6 +57,7 @@ aah provides flexible and effective directory structure to organize your view fi
 
 By default aah framework resolve and render view templates based on-
 
+  * Namespace `Controller` package path
   * Path `Controller` and `Action`
   * View extension `view.ext`
   * Case-sensitive `view.case_sensitive`
@@ -67,12 +68,13 @@ Reference to [View Config](app-config.html#section-view).
 
 ```bash
 For E.g.:
+    Namespace: admin
     Controller: App
     Action: Login
     view.ext: html
     view.case_sensitive: false
 
-    template ===> /views/pages/app/login.html == /views/pages/App/Login.html
+    template ===> /views/pages/admin/app/login.html == /views/pages/admin/App/Login.html
 ```
 
 ### User-Defined Inputs
@@ -86,6 +88,7 @@ Besides the framework auto view resolve when use method `HTML(data)`. Framework 
   * `Reply().HTMLlf(layout, filename, data)` - layout and view filename is user input.
 
 <span class="badge lb-sm">Since v0.6</span> if `filename` starts with `/`; framework uses as-is from `pages` directory.
+
   * For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
   * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<packages>/<controller>/mydir/file.html`
 
