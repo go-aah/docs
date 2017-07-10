@@ -4,47 +4,30 @@ Keywords: aah CLI tool, ClI tool, cross compile, commands, run, new, build, vers
 ---
 # aah CLI Tool
 
-Here you will learn aah CLI tool usage and available sub-commands. It comes very handy for development, Continuous Integration (CI) and deployment preparation.
+Here you will learn aah CLI flags, commands and it's usage. It's very handy for development, Continuous Integration (CI) and deployment preparation.
+
+aah CLI is fully POSIX compliant flags (includes short and long versions) and command aliases.
 
 ### Available Commands
-  * [version](#command-version)
-  * [help](#command-help)
+  * Global Flags
+      - `-h, --help` - show help
+      - `-v, --version` - print aah framework versions and go version
   * [list](#command-list) <span class="badge lb-xs">since v0.6</span>
   * [new](#command-new)
   * [run](#command-run)
   * [build](#command-build)
+  * [clean](#command-clean) <span class="badge lb-xs">since v0.7</span>
+  * [help](#command-help)
   * [Cross Compile Build](#cross-compile-build)
 
-## Command: version
-
-To know about aah framework you're using and it's library versions.
-```bash
-# to know aah framework and CLI version
-aah version
-
-# to know all the version information
-aah version -all
-```
-
-## Command: help
-
-`help` command helps you to learn aah command usage.
-
-```bash
-# list of available commands
-aah help
-
-# to know one command
-aah help build
-```
-
 ## Command: list
-`list` command scans GOPATH and lists the aah projects with import path. <span class="badge lb-sm">since v0.6</span>.
+`list` command, alias `l` - scans GOPATH and lists all the import paths of aah project. <span class="badge lb-sm">since v0.6</span>.
 
 ```
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.6 -  https://aahframework.org
+   aah framework v0.7 -  https://aahframework.org
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues
 
 Scanning GOPATH: /Users/jeeva/go-home/...
 
@@ -55,69 +38,73 @@ Scanning GOPATH: /Users/jeeva/go-home/...
     github.com/go-aah/website
 ```
 
+
 ## Command: new
 
-`new` command is helps you to quick start new aah Web and API application. It is interactive command. Just provide appropriate inputs.
+`new` command, alias `n` - helps you to quick start new aah Web and API application. It is interactive command. Just provide an appropriate inputs.
 
 ```bash
 aah new
 ```
 
+
 ## Command: run
 
-`run` command is used to run the aah application. It is recommended to use `build` command to create and deployments it.
+`run` command, alias `r` - is used to run the aah application.
 
-It has these parameters-
+_Note: It is recommended to use `build` command to create build artifact and deploy it._
 
-  * `-importPath | -ip` - aah application import path
-  * `-config | -c` - External config for overriding aah.conf
-  * `-profile | -p` - Environment profile name to activate. For e.g: dev, qa, prod. Default value is `dev`
-
-```bash
-# run command usages
-
-# if you're in app base dir, just execute
-aah run
-
-# anywhere you can execute
-aah run -importPath=github.com/username/name
-
-aah run -importPath=github.com/username/name -profile=qa
-
-aah run -importPath=github.com/username/name -config=/path/to/config/external.conf -profile=qa
+Supported options are-
 ```
+-i value, --importpath value  Import path of aah application
+-p value, --profile value       Environment profile name to activate. e.g: dev, qa, prod (default: "dev")
+-c value, --config value        External config for overriding aah.conf values
+```
+
+Use `aah help run` to learn more.
+
 
 ## Command: build
 
-`build` command is used to create aah application build artifact for deployment. By default after successful, artifact will be available under directory `<app-base-dir>/build`.
+`build` command, alias `b` - is used to create aah application build artifact for deployment. By default successful build produces an artifact under directory `<app-base-dir>/build`.
 
-It has these parameters-
+Supported options are-
+```
+-i value, --importpath value    Import path of aah application
+-p value, --profile value         Environment profile name to activate. e.g: dev, qa, prod (default: "prod")
+-a value, --artifactpath value, -o value, --output value  Output directory of aah application build artifact. Default directory is '<app-base>/aah-build'
+```
 
-  * `-importPath | -ip` - aah application import path.
-  * `-artifactPath | -ap` - Output location application build artifact.
-  * `-profile | -p` - target Environment profile name to activate for startup scripts. Default value is `prod`.
-
-Build artifact naming convention-
+Artifact naming convention-
 
   * `<app-binary-name>-<app-version>-<goos>-<goarch>.zip`
       - For e.g.: `aahwebsite-381eaa8-darwin-amd64.zip`
 
-```bash
-# build command usages
+Use `aah help build` to learn more.
 
-# if you're in app base dir, just execute
-aah build
 
-aah build -profile=qa # you can use short flag -p
+## Command: clean
 
-aah build -artifactPath=/Users/jeeva  # you can use short flag -ap
+`clean` command, alias `c` - is to clean generated files and build directory of the aah project.
 
-# anywhere you can execute
-aah build -importPath=github.com/user/appname # you can use short flag -ip
+Supported options are-
+```
+-i value, --importpath value  Import path of aah application
+```
 
-aah build -importPath=github.com/user/appname -artifactPath=/Users/jeeva
+Use `aah help clean` to learn more.
 
-aah build -importPath=github.com/user/appname -artifactPath=/Users/jeeva -profile=qa
+
+## Command: help
+
+`help` command alias `h` - helps you to learn aah command usage.
+
+```
+# list of available commands
+aah help
+
+# to know one command
+aah help build
 ```
 
 ## Cross Compile Build
@@ -125,7 +112,7 @@ Set environment variables `GOOS` and `GOARCH` before executing `aah build` comma
 
 #### Building linux binary on Mac OS
 ```bash
-env GOOS=linux GOARCH=amd64 aah build -ap=/Users/jeeva/build
+env GOOS=linux GOARCH=amd64 aah build --artifactpath=/Users/jeeva/build
 
 #Output:
 ...
@@ -134,7 +121,7 @@ Your application artifact is here: /Users/jeeva/build/myapp-99bf7df-linux-amd64.
 
 #### Building windows exe on Mac OS
 ```bash
-env GOOS=windows GOARCH=amd64 aah build -ap=/Users/jeeva/build
+env GOOS=windows GOARCH=amd64 aah build --artifactpath=/Users/jeeva/build
 
 #Output:
 ...

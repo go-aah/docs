@@ -12,6 +12,7 @@ Here you will be learning-
 * [Verifying your aah installation](#verify-your-aah-installation)
 * [Creating your first aah application](#let-s-create-your-first-aah-application)
 * [Running your aah application](#run-your-aah-application)
+* [Learning aah project structure](anatomy-aah-application.html)
 * [Next move onto app configuration](app-config.html)
 
 ## Installing aah framework and CLI tool
@@ -32,29 +33,33 @@ git config --global http.https://aahframework.org.followRedirects true
 Execute below command.
 
 ```
-aah version
+aah --version
 ```
 
-**Output:** (you will get similar output with aah and Go version)
+**Output:** (you will get similar output)
 ```
-––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.5 -  https://aahframework.org
-––––––––––––––––––––––––––––––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
+   aah framework v0.7 -  https://aahframework.org
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues
 
-Version Info:
-	aah framework     v0.5
-	aah cli tool      v0.5
-	go[darwin/amd64]  v1.8
+Version(s):
+	aah framework     v0.7
+	aah cli tool      v0.7
+	Modules:          config v0.4.1, essentials v0.5, ahttp v0.7, router v0.7, security v0.6
+	                  i18n v0.2, view v0.3, log v0.4, test v0.2, aruntime v0.2.2
+
+	go[darwin/amd64]  1.8.1
 ```
 
-Congratulations, you have successfully installed aah framework and ready to use :).
+Congratulations, you have successfully installed aah framework and it's ready to use :).
 
 ## Let's create your first aah application
 
 It is very easy to use aah framework CLI tool. [Learn more about aah CLI tool](aah-cli-tool.html).
 
 ```
-# new sub-command is an interactive one to create aah application for quick start
+# `new` command, alias `n` - is an interactive one to create aah application for quick start
 aah new
 ```
 
@@ -75,7 +80,7 @@ Choose your application type (web or api), default is 'web': web
 Choose your session store (cookie or file), default is 'cookie': file
 
 Your aah web application was created successfully at '/Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app'
-You shall run your application via the command: 'aah run -importPath=github.com/jeevatkm/aah-first-app'
+You shall run your application via the command: 'aah run --importpath github.com/jeevatkm/aah-first-app'
 
 Go to https://docs.aahframework.org to learn more and customize your aah application.
 
@@ -84,10 +89,10 @@ Go to https://docs.aahframework.org to learn more and customize your aah applica
 ## Run your aah application
 
 ```
-aah run -importPath=github.com/jeevatkm/aah-first-app
+aah run --importpath github.com/jeevatkm/aah-first-app
 
 # OR
-aah run -ip=github.com/jeevatkm/aah-first-app
+aah run -i github.com/jeevatkm/aah-first-app
 
 # OR
 cd $GOPATH/src/github.com/jeevatkm/aah-first-app
@@ -123,6 +128,10 @@ You will see a page with text-
 ```
 Welcome to aah framework - Web Application
 ```
+
+## Learning aah project structure
+
+Learn more [aah project structure](anatomy-aah-application.html).
 
 ## Next move onto application configuration
 
