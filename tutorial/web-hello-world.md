@@ -28,7 +28,7 @@ Choose your application type (web or api), default is 'web': web
 Choose your session store (cookie or file), default is 'cookie': cookie
 
 Your aah web application was created successfully at '/Users/jeeva/go-home/src/web-hello-world'
-You shall run your application via the command: 'aah run -importPath=web-hello-world'
+You shall run your application via the command: 'aah run --importpath web-hello-world'
 
 
 Go to https://docs.aahframework.org to learn more and customize your aah application.
@@ -52,7 +52,7 @@ After modification greet message will look like -
 Let's run your hello world Web application.
 
 ```
-aah run -ip=web-hello-world
+aah run -i web-hello-world
 ```
 
 Goto this URL http://localhost:8080 in your browser.

@@ -22,9 +22,9 @@ aah Request object improved from standard request object. For typical applicatio
   * <u>Payload</u> - it holds the value from HTTP request body in bytes slice for `Content-Type` JSON and XML otherwise nil.
   * <u>ClientIP</u> - remote client IP address aka Remote IP. Parsed in the order of `X-Forwarded-For`, `X-Real-IP` and finally `http.Request.RemoteAddr`.
   * <u>IsGzipAccepted</u> - whether client supported Gzip compression or not.
-  * <u>Referer</u> - value of HTTP header `Referer` or `Referrer`
-  * <u>UserAgent</u> - value of HTTP header `User-Agent`
-  * <u>Raw</u> - standard Go HTTP request object.
+  * <u>Referer</u> - value of HTTP header `Referer` or `Referrer`.
+  * <u>UserAgent</u> - value of HTTP header `User-Agent`.
+  * <u>Raw</u> - standard Go HTTP request object. Note: this field to be unexported on v1 release, use `Unwarp` method instead.
 
 #### Methods
 

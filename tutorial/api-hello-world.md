@@ -26,7 +26,7 @@ Enter your application import path: api-hello-world
 Choose your application type (web or api), default is 'web': api
 
 Your aah api application was created successfully at '/Users/jeeva/go-home/src/api-hello-world'
-You shall run your application via the command: 'aah run -importPath=api-hello-world'
+You shall run your application via the command: 'aah run --importpath api-hello-world'
 
 
 Go to https://docs.aahframework.org to learn more and customize your aah application.
@@ -50,7 +50,7 @@ After modification greet message will look like -
 Let's run your hello world API application.
 
 ```
-aah run -ip=api-hello-world
+aah run -i api-hello-world
 ```
 
 Goto this URL http://localhost:8080 in your browser.
