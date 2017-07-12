@@ -18,8 +18,8 @@ Reference to [Event Emitter/Publisher](event-publisher.html).
   * [OnStart](#event-onstart)
   * [OnShutdown](#event-onshutdown)
   * [OnRequest](#event-onrequest)
-  * OnPreAuth **`upcoming`**
-  * OnPostAuth **`upcoming`**
+  * [OnPreAuth](#event-onpreauth) <span class="badge lb-xs">since v0.7</span>
+  * [OnPostAuth](#event-onpostauth) <span class="badge lb-xs">since v0.7</span>
   * [OnPreReply](#event-onprereply)
   * [OnAfterReply](#event-onafterreply)
 
@@ -120,6 +120,38 @@ func init() {
 ```go
 func init() {
   aah.OnRequest(func(e *aah.Event)  {
+    ctx := e.Data.(*aah.Context)
+
+    // logic goes here
+  })
+}
+```
+
+## Event: OnPreAuth
+
+<span class="badge lb-xs">Since v0.7</span> `OnPreAuth` event is published right before the Authentication by aah go server.
+
+**Supports Multiple:** No
+
+```go
+func init() {
+  aah.OnPreAuth(func(e *aah.Event)  {
+    ctx := e.Data.(*aah.Context)
+
+    // logic goes here
+  })
+}
+```
+
+## Event: OnPostAuth
+
+<span class="badge lb-xs">Since v0.7</span> `OnPostAuth` event is published right after the Authentication and Authorization info gets populated into Subject by aah go server.
+
+**Supports Multiple:** No
+
+```go
+func init() {
+  aah.OnPostAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic goes here
