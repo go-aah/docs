@@ -22,9 +22,17 @@ Reference to [Session Configuration](security-config.html#section-session).
 
 ### Table of Contents
 
+  * [How to access current Session?](#)
   * [`session.Storer` Interface](#session-storer-interface)
   * [Adding User-Defined Store into aah](#adding-user-defined-store-into-aah)
   * [Configuring User-Defined Store into aah](#configuring-user-defined-store-into-aah)
+
+## How to access current Session?
+
+You can access current in two ways from `aah.Context`.
+
+  * `ctx.Subject().Session`
+  * `ctx.Session()` - it internally uses the above call.
 
 ## `session.Storer` Interface
 

@@ -4,17 +4,28 @@ Keywords: security config, security configuration, session config, auth config, 
 ---
 # aah Security Configuration
 
-aah Security configuration is to configure Session Management, Authentication **`(upcoming)`**, Authorization **`(upcoming)`**, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
+aah Security configuration is to configure Authentication, Authorization, Session Management, CORS **`(upcoming)`**, CSRF **`(upcoming)`**, Security Headers **`(upcoming)`**, etc. The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Log Config](log-config.html).
 
 ### Table of Contents
 
 * [security { ... }](#section-security)
+  - [auth_schemes { ... }](authentication.html#auth-schemes)
+      - [form auth](authentication.html#form-authentication)
+      - [basic auth](authentication.html#basic-authentication)
+      - [api auth](authentication.html#api-authentication)
   - [session { ... }](#section-session)
 
 ## Section: security { ... }
 To configure application security related configuration in the section.
+
+### Section: auth_schemes { ... }
+`auth_schemes` section is used to configure application authentication and authorization. Out-of-the-box aah framework supports following schemes-
+
+  * [FormAuth](#) - Register your own dynamic integration of Authentication and Authorization.
+  * [BasicAuth](#) - File realm or implement your own dynamic integration of Authentication and Authorization.
+  * [ApiAuth](#) - has extended possibilities.
 
 ### Section: session { ... }
 HTTP state management across HTTP requests.

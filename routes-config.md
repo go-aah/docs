@@ -19,6 +19,7 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [redirect_trailing_slash](#redirect-trailing-slash)
       * [method_not_allowed](#method-not-allowed)
       * [auto_options](#auto-options)
+      * [default_auth](#default-auth)
       * [not_found { ... }](#section-not-found)
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
@@ -115,6 +116,14 @@ method_not_allowed = true
 Default value is `true`.
 ```bash
 auto_options = true
+```
+
+### default_auth
+Default auth is used when route does not have attribute `auth` defined. If you don't define attribute `auth` then framework treats that route as `anonymous` auth scheme.
+
+Default value is empty string.
+```bash
+default_auth = "form_auth"
 ```
 
 ### Section: not_found { ... }
@@ -216,6 +225,24 @@ Default values are mapped based on `HTTP` method. ***Note: for multiple HTTP met
 
 ```bash
 action = "EditUser"
+```
+
+### auth
+Auth config attribute is used to assign auth scheme for the route. If you do not this attribute then framework acquire value as follows.
+
+  * Inherits the parent route `auth` attribute if present.
+  * Inherits the `default_auth` attribute config value if defined.
+  * Otherwise it becomes not defined.
+
+**Note:**
+
+When routes `auth` attribute is not defined; two possible actions are taken:
+  * If one or more auth schemes are defined in `security.auth_schemes { ... }` and routes `auth` attribute is not defined then framework treats that route as `403 Forbidden`.
+  * Else framework treats that route as `anonymous`.
+
+Default value is empty string.
+```
+auth = "form_auth"
 ```
 
 ---
