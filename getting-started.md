@@ -33,10 +33,12 @@ git config --global http.https://aahframework.org.followRedirects true
 Execute below command.
 
 ```
-aah --version
+aah -v   
+
+# OR aah --version
 ```
 
-**Output:** (you will get similar output)
+**Output:** (you will get similar output, this is sample)
 ```
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
