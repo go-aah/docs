@@ -121,6 +121,8 @@ auto_options = true
 ### default_auth
 Default auth is used when route does not have attribute `auth` defined. If you don't define attribute `auth` then framework treats that route as `anonymous` auth scheme.
 
+Available <span class="badge lb-xs">since v0.7</span>.
+
 Default value is empty string.
 ```bash
 default_auth = "form_auth"
@@ -233,6 +235,8 @@ Auth config attribute is used to assign auth scheme for the route. If you do not
   * Inherits the parent route `auth` attribute if present.
   * Inherits the `default_auth` attribute config value if defined.
   * Otherwise it becomes not defined.
+
+Available <span class="badge lb-xs">since v0.7</span>.
 
 **Note:**
 

@@ -17,16 +17,20 @@ Here you will be learning-
 
 ## Installing aah framework and CLI tool
 
-Execute below `go get` on your terminal/command prompt.
+Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs">Since v0.7</span> aah CLI is fully POSIX flags (short & long) for commands. Also commands has `alias` too.
 
 ```
 go get -u aahframework.org/tools.v0/aah
 ```
 
-_**Please Note:** if you ran into error `RPC failed; HTTP 301 curl 22 The requested URL returned error: 301` then set the below git config and try again._
-```
+<div class="alert alert-info alert-info-blue">
+<p><strong>Please Note:</strong></p>
+<p>If you get an error "<u>RPC failed; HTTP 301 curl 22 The requested URL returned error: 301</u>" then set the below git config and try again.</p>
+<p><pre>
 git config --global http.https://aahframework.org.followRedirects true
-```
+</pre></p>
+</div>
+
 
 ## Verify your aah installation
 
@@ -68,7 +72,7 @@ aah new
 **Output:**
 ```
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.5 -  https://aahframework.org
+   aah framework v0.7 -  https://aahframework.org
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
@@ -78,6 +82,8 @@ Based on your inputs, aah CLI tool generates the aah application structure for y
 Enter your application import path: github.com/jeevatkm/aah-first-app
 
 Choose your application type (web or api), default is 'web': web
+
+Choose your application Auth Scheme (form, basic, or api), default is 'none': form
 
 Choose your session store (cookie or file), default is 'cookie': file
 

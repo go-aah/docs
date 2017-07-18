@@ -79,7 +79,7 @@ Users are allowed to perform certain actions in your application through their a
 
 For more information on Users, aka Subjects, please check out the [Understanding Subject in aah](security-subject.html) documentation.
 
-<div class="alert alert-info alert-info-light">
+<div class="alert alert-info alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>Ultimately, your <code>authz.Authorizer</code> interface implementation is what communicates with your data source (RDBMS, NoSQL, LDAP, etc). So your <code>authorizer</code> is what will tell aah framework whether or not roles or permissions exist. You have full control over how your authorization model works.</p>
 </div>

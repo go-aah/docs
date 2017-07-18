@@ -4,13 +4,25 @@ Keywords: deployment, build, binary
 ---
 # aah Deployment
 
-Recommended way to deploy aah application is to create platform targeted binary. Use the build archive file on the server.
+Recommended way to deploy aah application is to create platform targeted binary. Use the build archive file on the server instead of `aah run`.
 
-  * Ensure all the necessary configuration have been done for targeted profile (for e.g: `prod`).
+### Table of Contents
+
+  * [Checklist](#checklist)
+  * [How to: Docker](#how-to-docker)
+  * Many more to come...
+
+### Checklist
+
+  * Ensure all the necessary configuration have been done for targeted profile (for e.g: `prod`)
+      - **Note:** It is recommended to have sensitive configuration outside the version control.
+          * You can use flag `-config /path/to/configfile.conf` on aah binary during a startup
+          * You can use Environment variables
+          * etc.
+  * Ensure you have configured `prod.routes { ... }`
       - aah supports domains and sub-domains routing out-of-the-box. You have to define route `host` name in the environment profile. [Refer to below example](#sample-route-host-name-config-in-environment-profile).
-      - **Note:** It is recommend to have sensitive configuration outside version control. Use aah provided external configuration loading, Environment variables, etc.
-  * Refer [Cross Compile Build](aah-cli-tool.html#cross-compile-build) to create platform targeted build artifact.
-  * Refer [aah application binary](aah-application-binary.html) to know startup script.
+  * Refer to [Cross Compile Build](aah-cli-tool.html#cross-compile-build) to create platform targeted build artifact.
+  * Refer to [aah application binary](aah-application-binary.html) to know startup script.
 
 Deploy the application.
 
@@ -47,3 +59,9 @@ env {
   }
 }
 ```
+
+### How to: Docker
+
+For now create your own docker file refer to [doc](https://blog.golang.org/docker) and deploy your aah application.
+
+**`Upcoming`** Easy to way deploy your aah application using docker.

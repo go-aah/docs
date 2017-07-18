@@ -36,7 +36,7 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
   * Configure auth related settings in `routes.conf`
   * For Authorization refer to [authorization guide](authorization.html)
 
-<div class="alert alert-info alert-info-light">
+<div class="alert alert-info alert-info-blue">
 <p><strong>Security Tip:</strong></p>
 <p>Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</p>
 </div>
