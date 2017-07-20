@@ -18,7 +18,7 @@ To manage aah server effectively it is necessary to know details about the reque
 * `resstatus` - Response Status Code
 * `ressize` - Bytes sent, excluding response HTTP headers, otherwise it logs `-` if no bytes were sent
 * `reshdr:<header_name>` - Response header, if present otherwise `-` is logged
-* `restime` - Request processing time (in milliseconds), time elapsed between the request received by server and the last bytes were written on the wire by server
+* `restime` - Request processing time in `milliseconds`. The time elapsed between the request received by server and the last bytes were written on the wire by server
 
 Access log processing handled in separate routine, it won't stand in way.
 

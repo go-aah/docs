@@ -11,9 +11,12 @@ Framework provides flexible way to serve static files. It can be set of files fr
   * Serve directory and it's subtree files
   * Serve individual file
   * Directory listing
-  * [`Cache-Control` by `mime` types and defaults](#cache-control). <span class="badge lb-xs">since v0.6</span>
+  * [HTTP Cache-Control: By `mime` types and defaults](#cache-control) <span class="badge lb-xs">since v0.6</span>
+  * [Cache Busting: JS and CSS on `prod` env profile](#cache-busting) <span class="badge lb-xs">since v0.7</span>
 
 Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
+
+## Static Routes Configuration
 
 ## Section: static { ... }
 
@@ -122,4 +125,43 @@ cache {
     }
   }
 }
+```
+
+## Cache Busting
+
+<span class="badge lb-sm">Since v0.7</span> aah provides simple filename `Cache Busting` support.
+
+_Note: I will be adding asset pipeline capability later on (such as minify, cache bust, update HTML template with minified version file and package that)._
+
+### How simple cache bust works?
+
+Simple cache bust works with filename (prefix or suffix) using `AppBuildInfo().Version` value.
+
+* Prefix: `813e524-aah.css` or
+* Suffix: `aah-813e524.css`
+
+Typically you choose/select files for `Cache Busting`.
+
+#### For example: using Suffix approach
+
+##### CSS File
+```html
+<!-- CSS file -->
+<link href="/assets/css/aah-{{ .AppBuildInfo.Version }}.css" rel="stylesheet" />
+
+<!-- Would result as, so browser caches new CSS file, old file no longer used. -->
+<link href="/assets/css/aah-813e524.css" rel="stylesheet" />
+
+<!-- Now framework delivers an actual file /static/css/aah.css for the above request -->
+```
+
+##### JS File
+```html
+<!-- JS file -->
+<script src="/assets/js/aah-{{ .AppBuildInfo.Version }}.js" type="text/javascript"></script>
+
+<!-- Would result as, so browser caches new JS file, old file no longer used. -->
+<script src="/assets/js/aah-813e524.js" type="text/javascript"></script>
+
+<!-- Now framework delivers an actual file /static/js/aah.js for the above request -->
 ```

@@ -83,5 +83,6 @@ We have to broadcast new release of Framework on -
 
 **Global Audience:** Only Framework release.
 
-  * Golang-nuts: https://groups.google.com/forum/#!forum/golang-nuts
+  * Golang Nuts: https://groups.google.com/forum/#!forum/golang-nuts
   * Golang Reddit: https://www.reddit.com/r/golang/
+  * Golang Google+: https://plus.google.com/communities/114112804251407510571

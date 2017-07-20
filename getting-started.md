@@ -34,28 +34,34 @@ git config --global http.https://aahframework.org.followRedirects true
 
 ## Verify your aah installation
 
-Execute below command.
+Just execute `aah` command on your terminal/command prompt. Learn more about [aah CLI](aah-cli-tool.html).
 
 ```
-aah -v   
-
-# OR aah --version
+aah
 ```
 
-**Output:** (you will get similar output, this is sample)
+**Output:** (you will get similar output)
 ```
+jeeva@mb-pro:~$ aah
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
 # Report improvements/bugs at https://github.com/go-aah/aah/issues
 
-Version(s):
-	aah framework     v0.7
-	aah cli tool      v0.7
-	Modules:          config v0.4.1, essentials v0.5, ahttp v0.7, router v0.7, security v0.6
-	                  i18n v0.2, view v0.3, log v0.4, test v0.2, aruntime v0.2.2
+Usage:
+  aah [global options] command [command options] [arguments...]
 
-	go[darwin/amd64]  1.8.1
+Commands:
+  new, n       Create new aah 'web' or 'api' application (interactive)
+  run, r       Run aah framework application
+  build, b     Build aah application for deployment
+  list, l      List all aah projects in GOPATH
+  clean, c     Cleans the aah generated files and build directory
+  help, h      Shows a list of commands or help for one command
+
+Global Options:
+  -h, --help     show help
+  -v, --version  print aah framework version and go version
 ```
 
 Congratulations, you have successfully installed aah framework and it's ready to use :).
