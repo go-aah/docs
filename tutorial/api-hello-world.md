@@ -68,3 +68,5 @@ JSON response:
 ### Step 4
 
 Congratulations, you have successfully created and executed the hello world API aah application.
+
+Spread the word - aah web framework for Go.

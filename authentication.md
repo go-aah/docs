@@ -1,6 +1,6 @@
 Title: Authentication
 Desc: Understanding aah authentication design, implementation
-Keywords: authentication, security, subject, principals, credentials, form auth, basic auth, api auth, oauth, jwt
+Keywords: authentication, security, subject, principals, credentials, form auth, basic auth, generic auth, oauth, jwt
 ---
 # aah Authentication
 
@@ -11,8 +11,8 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
 ### Table of Contents
 
   * [Terminology you’ll need](#terminology-you-ll-need)
-  * [How to Authenticate in aah framework](#how-to-authenticate-in-aah-framework)
-  * [How to check Subject is Authenticated in view/template](#how-to-check-subject-is-authenticated-in-view-template)
+  * [How to: Authentication in aah framework](#how-to-authentication-in-aah-framework)
+  * [How to: Check Subject is Authenticated in view/template](#how-to-check-subject-is-authenticated-in-view-template)
   * [Auth Schemes](#auth-schemes)
       - [Form-based Auth](#form-based-auth)
       - [Basic Auth](#basic-auth)
@@ -26,7 +26,9 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
   * **Credential** - secret data that are used to verify identities. Passwords, x509 certificates, etc.
   * **Authenticator** - An application implements the interface `authc.Authenticator` to provide authentication information to framework
 
-## How to Authenticate in aah framework
+## How to: Authentication in aah framework
+
+By nature of aah security implementation, you can have one or more `Auth Scheme` defined and can be mapped in the `routes.conf` per route basis.
 
   * Choose your auth schemes and configure in `security.conf`, out-of-the-box framework supports
         - [Form-based Auth](#form-based-auth)
@@ -41,7 +43,7 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
 <p>Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</p>
 </div>
 
-## How to check Subject is Authenticated in view/template
+## How to: Check Subject is Authenticated in view/template
 
 aah provides function `isauthenticated` to check whether subject is authenticated or not.
 
@@ -74,7 +76,7 @@ security {
     # It is custom defined name, this is used in the routes `auth` attribute.
     form_auth {
       # Auth scheme name.
-      # Supported values are `form`, `basic` and `api`.
+      # Supported values are `form`, `basic` and `generic`.
       # It is required value, no default.
       scheme = "form"
 
@@ -164,6 +166,8 @@ aah framework supports basic auth in two ways. You can use either one.
   * Using File realm - This is good for when you have known set of users, roles and permissions (roles and permissions are optional though).
   * Dynamic way implementing interface `authc.Authenticator` and `authz.Authorizer`
 
+Refer to [Tutorial - REST API Basic Auth](/tutorial/rest-basic-auth.html). You can doing for web app too for certain routes. This is an example for REST API application.
+
 ```conf
 security {
   auth_schemes {
@@ -171,7 +175,7 @@ security {
     # It is custom defined name, this is used in the routes `auth` attribute.
     basic_auth {
       # Auth scheme name.
-      # Supported values are `form`, `basic` and `api`.
+      # Supported values are `form`, `basic` and `generic`.
       # It is required value, no default.
       scheme = "basic"
 
@@ -257,24 +261,24 @@ mark {
 ```conf
 security {
   auth_schemes {
-    # REST API Authentication Scheme
+    # Generic Auth Scheme
     # It is custom defined name, this is used in the routes `auth` attribute.
-    api_auth {
+    generic_auth {
       # Auth scheme name.
-      # Supported values are `form`, `basic` and `api`.
+      # Currently supported values are `form`, `basic` and `generic`.
       # It is required value, no default.
-      scheme = "api"
+      scheme = "generic"
 
       # Framework calls `Authenticator` to get the Subject's authentication
       # information. The credential validation is not done by framework, it is
       # left interface implementation.
       # It is required value, no default.
-      authenticator = "security/Authentication"
+      #authenticator = "security/Authentication"
 
       # Framework calls `Authorizer` to get Subject's authorization information,
       # such as Roles and Permissions. Then it populates the Subject instance.
       # It is required value, no default.
-      authorizer = "security/Authorization"
+      #authorizer = "security/Authorization"
 
       # Header names are used to extract `AuthenticationToken` from request.
       header {
