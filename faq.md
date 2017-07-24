@@ -54,7 +54,7 @@ I have responded to aah user on [Github Issue #81](https://github.com/go-aah/aah
 
 ### Does aah supports Hot-Reload for Development?
 
-Yes, aah detects the file change(s) on aah project then it automatically stops the server, builds and start the server with updated codebase.
+Yes, aah detects the file change(s) on aah project then it automatically stops the server, builds and start the server with updated codebase. I'm sure it needs an improvement, so keep me posted. Thanks.
 
 <div class="alert alert-info alert-info-blue">
 <p><strong>Note:</strong></p>

@@ -8,25 +8,25 @@ Keywords: tutorial, html minify, html minifier, pluggable html minify, aah frame
 
 Ready to use pluggable implementation is here https://github.com/aah-cb/minify.
 
-### How to get the tutorial application?
+### How to get the aah tutorials source code?
 [HTML Minify tutorial application](https://github.com/go-aah/tutorials/tree/master/html-minify) is very simple one. It's a quick start app using `aah new` command and applied the below steps.
 
 ```bash
-go get -u github.com/go-aah/tutorials/html-minify
+go get -u -d github.com/go-aah/tutorials/...
 ```
 
-Just focus on this file `controllers/app.go`.
+Just focus on this file `html-minify/app/controllers/app.go`.
 
 ### Let's see it in the action
 
 ```bash
 # First let's run the sample application in `dev` environment profile
 # Take a moment to look at the page source
-aah run -ip=github.com/go-aah/tutorials/html-minify
+aah run -i github.com/go-aah/tutorials/html-minify
 
 # Now, let's run the sample application in `prod` environment profile
 # Take a moment look at the page source
-aah run -ip=github.com/go-aah/tutorials/html-minify -p=prod
+aah run -i github.com/go-aah/tutorials/html-minify -p prod
 ```
 
 ## Steps to integrate HTML Minify

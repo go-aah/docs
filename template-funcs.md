@@ -4,7 +4,7 @@ Keywords: template funcs, funcmap, template func map, aah template funcs
 ---
 # View Template Functions
 
-By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah framework provides template functions to access configuration, request parameters, session values, flash values, etc.
+By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah framework provides template functions to access configuration, request parameters, security check, session values, flash values, etc.
 
 ### Table of Contents
 
@@ -22,9 +22,14 @@ By default Go lang provides set of [template functions](https://golang.org/pkg/t
   * [pparam](#func-pparam)
   * [fparam](#func-fparam)
   * [qparam](#func-qparam)
+  * [flash](#func-flash)
   * [session](#func-session)
   * [isauthenticated](#func-isauthenticated)
-  * [flash](#func-flash)
+  * [hasrole](#func-hasrole)
+  * [hasanyrole](#func-hasanyrole)
+  * [hasallroles](#func-hasallroles)
+  * [ispermitted](#func-ispermitted)
+  * [ispermittedall](#func-ispermittedall)
   * [safeHTML](#func-safehtml)
 
 #### Func: config
@@ -120,6 +125,14 @@ Access URL Query parameter values.
 {{ qparam . "lang" }}
 ```
 
+#### Func: flash
+
+Access Flash values. Note: Flash value is deleted after accessing once.
+
+```go
+{{ flash . "Username" }}
+```
+
 #### Func: session
 
 Access Session object values.
@@ -130,29 +143,71 @@ Access Session object values.
 
 #### Func: isauthenticated
 
-Returns the value of `Session.IsAuthenticated` from current session.
+Returns the value of `ctx.Subject().IsAuthenticated` from current request subject.
 
-```go
-// show logout option if user is authenticated
+```html
+<!-- show logout option if user is authenticated -->
 {{ if isauthenticated . }}
   <a href="/logout">Logout</a>
 {{ end }}
-
 ```
 
-#### Func: flash
+#### Func: hasrole
 
-Access Flash values. Note: Flash value is deleted after accessing once.
+Returns `true`, if Subject (aka User) has given role otherwise `false`.
+```html
+{{ if hasrole . "manager" }}
+  <!-- You have a role "manager" -->
+{{ end }}
+```
 
-```go
-{{ flash . "Username" }}
+#### Func: hasanyrole
+
+Returns `true`, if Subject (aka User) has any of the given roles otherwise `false`.
+```html
+{{ if hasanyrole . "manager" "dayshift" }}
+  <!-- You have any one of the above role -->
+{{ end }}
+```
+
+#### Func: hasallroles
+
+Returns `true`, if Subject (aka User) has all the given roles otherwise `false`.
+```html
+{{ if hasallroles . "role1" "role2" "role3" }}
+  <!-- You have all the roles, congrats -->
+{{ end }}
+```
+
+#### Func: ispermitted
+
+Returns `true` if Subject (aka User) has given [permission](/security-permissions.html) otherwise `false`.
+```html
+{{ if ispermitted . "newsletter:read,write" }}
+   <!-- You have permission, you may read or write newsletter -->
+{{ end }}
+```
+
+#### Func: ispermittedall
+
+Returns `true` if Subject (aka User) has all the given [permissions](/security-permissions.html) otherwise `false`.
+```html
+{{ if ispermittedall . "newsletter:read,write" "newsletter:12345" }}
+   <!-- You have permission, you may read or write newsletter of 12345 -->
+{{ end }}
 ```
 
 #### Func: safeHTML
 
 Go template strips the HTML comment while rendering the template file. To preserve HTML comment or any special char use `safeHTML` template func. Of-course use it with care.
 
-```go
+<div class="alert alert-info alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>Use only if you trust the HTML source, since it preserves the HTML content without escaping.</p>
+</div>
+
+```html
+<!-- For example: -->
 {{ safeHTML `<!--[if lt IE 9]>
     <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>

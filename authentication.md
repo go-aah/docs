@@ -14,9 +14,9 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
   * [How to Authenticate in aah framework](#how-to-authenticate-in-aah-framework)
   * [How to check Subject is Authenticated in view/template](#how-to-check-subject-is-authenticated-in-view-template)
   * [Auth Schemes](#auth-schemes)
-      - [Form Authentication](#form-authentication)
-      - [Basic Authentication](#basic-authentication)
-      - [API Authentication](#api-authentication)
+      - [Form-based Auth](#form-based-auth)
+      - [Basic Auth](#basic-auth)
+      - [Generic Auth](#generic-auth)
 
 
 ## Terminology you’ll need
@@ -29,9 +29,9 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
 ## How to Authenticate in aah framework
 
   * Choose your auth schemes and configure in `security.conf`, out-of-the-box framework supports
-      - [Form Authentication](#form-authentication)
-      - [Basic Authentication](#basic-authentication)
-      - [REST API Authentication](#api-authentication) - it has many possibilities such as JWT, OAuth, etc.
+        - [Form-based Auth](#form-based-auth)
+        - [Basic Auth](#basic-auth)
+        - [Generic Auth](#generic-auth) - it has many possibilities such as JWT, OAuth, etc.
   * Implement `authc.Authenticator` interface, aah recommends the package name as `security`
   * Configure auth related settings in `routes.conf`
   * For Authorization refer to [authorization guide](authorization.html)
@@ -63,9 +63,9 @@ security {
 }
 ```
 
-### Form Authentication
+### Form-based Auth
 
-aah provides easy to use form authentication. Following is the configuration.
+aah provides easy to use form-based auth. Following is the configuration. You have to implement `authc.Authenticator` and `authz.Authorizer` then register it the config. Refer to [Tutorial - Form-based Auth](/tutorial/form-based-auth.html)
 
 ```conf
 security {
@@ -157,12 +157,12 @@ ctx.Subject().Logout()
 ```
 
 
-### Basic Authentication
+### Basic Auth
 
 aah framework supports basic auth in two ways. You can use either one.
 
-  * Using File realm - This is good for when you have known set of users, roles and permissions.
-  * Dynamic way using interface `authc.Authenticator` and `authz.Authorizer`
+  * Using File realm - This is good for when you have known set of users, roles and permissions (roles and permissions are optional though).
+  * Dynamic way implementing interface `authc.Authenticator` and `authz.Authorizer`
 
 ```conf
 security {
@@ -210,9 +210,9 @@ security {
 }
 ```
 
-#### Basic File Realm format/structure
+#### Basic Auth - File Realm format/structure
 
-Repeat this configuration for every user.
+Repeat this configuration block/section for every user.
 
 ```conf
 <username> {
@@ -245,11 +245,14 @@ mark {
 }
 ```
 
-### API Authentication
+### Generic Auth
 
-**Note:** REST API authentication has more possibilities, so credential validation is not done by framework. That is left up to `authc.Authenticator` implementation. It is kept open for extensions such as JWT, OAuth, etc.
+<div class="alert alert-info alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>Generic auth has more possibilities, so credential validation is not done by framework. That is left up to you on <code>authc.Authenticator</code> implementation. It's kept open for extensions such as JWT, OAuth, etc.</p>
+</div>
 
-For example, Authenticator is responsible for credential validation and return `authc.AuthenticationInfo` to the framework. If subject is not exists or credential doesn't match return `nil`; then framework responds with `401 Unauthorized`.
+**For example:** Authenticator is responsible for credential validation and return `authc.AuthenticationInfo` to the framework. If subject is not exists or credential doesn't match return appropriate error such as `authc.ErrAuthenticationFailed` or `authc.ErrSubjectNotExists`; then framework responds caller with `401 Unauthorized`.
 
 ```conf
 security {

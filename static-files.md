@@ -12,7 +12,7 @@ Framework provides flexible way to serve static files. It can be set of files fr
   * Serve individual file
   * Directory listing
   * [HTTP Cache-Control: By `mime` types and defaults](#cache-control) <span class="badge lb-xs">since v0.6</span>
-  * [Cache Busting: JS and CSS on `prod` env profile](#cache-busting) <span class="badge lb-xs">since v0.7</span>
+  * [Cache Busting: By filename](#cache-busting) <span class="badge lb-xs">since v0.7</span>
 
 Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
 

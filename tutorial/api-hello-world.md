@@ -13,8 +13,9 @@ Create API application using `aah new` command.
 ```
 jeeva@mb-pro:~$ aah new
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.6 -  https://aahframework.org
+   aah framework v0.7 -  https://aahframework.org
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues
 
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
@@ -24,6 +25,8 @@ Based on your inputs, aah CLI tool generates the aah application structure for y
 Enter your application import path: api-hello-world
 
 Choose your application type (web or api), default is 'web': api
+
+Choose your application Auth Scheme (basic, generic), default is 'none': none
 
 Your aah api application was created successfully at '/Users/jeeva/go-home/src/api-hello-world'
 You shall run your application via the command: 'aah run --importpath api-hello-world'

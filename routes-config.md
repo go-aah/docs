@@ -119,7 +119,7 @@ auto_options = true
 ```
 
 ### default_auth
-Default auth is used when route does not have attribute `auth` defined. If you don't define attribute `auth` then framework treats that route as `anonymous` auth scheme.
+Default auth is used when route does not have attribute `auth` defined.
 
 Available <span class="badge lb-xs">since v0.7</span>
 

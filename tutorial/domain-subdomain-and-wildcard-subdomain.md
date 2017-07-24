@@ -6,16 +6,17 @@ Keywords: tutorial, domain, Subdomain, wildcard subdomain, aah framework
 
 Goal of this tutorial application is to give you an idea how to use Domain, Subdomain and Wildcard Subdomain using aah framework. Reference to [Routes Config](/routes-config.html).
 
-### How to get the tutorial application?
+### How to get the aah tutorials source code?
 
 ```bash
-go get -u github.com/go-aah/tutorials/domain-subdomain
+go get -u -d github.com/go-aah/tutorials/...
 ```
-Just focus on following files-
 
-* `domain-subdomain/config/routes.conf`
-* `domain-subdomain/app/controllers/wildcard/app.go`
-* `domain-subdomain/app/controllers/admin/app.go`
+Just focus on following files:
+
+  * `domain-subdomain/config/routes.conf`
+  * `domain-subdomain/app/controllers/wildcard/app.go`
+  * `domain-subdomain/app/controllers/admin/app.go`
 
 ### Let's see it in the action
 

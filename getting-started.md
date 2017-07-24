@@ -80,6 +80,8 @@ aah new
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues
+
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
 
@@ -89,7 +91,7 @@ Enter your application import path: github.com/jeevatkm/aah-first-app
 
 Choose your application type (web or api), default is 'web': web
 
-Choose your application Auth Scheme (form, basic, or api), default is 'none': form
+Choose your application Auth Scheme (form, basic), default is 'none': form
 
 Choose your session store (cookie or file), default is 'cookie': file
 

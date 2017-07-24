@@ -2,21 +2,18 @@
 
 #### Features
 
-* [#52](https://github.com/go-aah/aah/issues/52) Pluggable Minifier, HTML Minify, refer to [tutorial](/tutorial/html-minify.html).
-* [#42](https://github.com/go-aah/aah/issues/42) `aah list` command, ability to [list](aah-cli-tool.html#command-list) currently existing aah projects from `GOPATH` - PR by [@adelowo](https://github.com/adelowo).
+  * Security - [Authentication](/authentication.html) & [Authorization](/authorization.html) [#37]({{aah_github_issues_url}}/37).
+  * Server Access Log [#69]({{aah_github_issues_url}}/69).
+  * Hot-Reload for development [#4]({{aah_github_issues_url}}/4).
 
 #### Enhancements
 
-* [#49](https://github.com/go-aah/aah/issues/49) Wildcard Subdomain support, refer to [tutorial](/tutorial/domain-subdomain-and-wildcard-subdomain.html).
-* [#53](https://github.com/go-aah/aah/issues/53) Configurable `Cache-Control` header by [MIME-Type](static-files.html#cache-control) for static files.
-* [#62](https://github.com/go-aah/aah/issues/62) Accept Header Vendor media types support for REST API Versioning
-* [#55](https://github.com/go-aah/aah/issues/55) Bind Go Logger to aah log receiver. You can have unified log of third-party libs to one log file.
-* [#50](https://github.com/go-aah/aah/issues/50) Improved handling of controllers sub-packages in auto view resolve. Take full-control over view rendering.
-* [#51](https://github.com/go-aah/aah/issues/51) Config option `default_layout = false` to disable to default view layout.
-* [#55](https://github.com/go-aah/aah/issues/55) HTTP server error log goes to aah log receiver, unified.
-* Code Improvements, Doc, Logging.
+  * Added i18n URL Path Variable support e.g. `/en/index.html` [#71]({{aah_github_issues_url}}/71).
+  * Added aah Logger Hook support, so that you can send logs to external systems like `kibana`, `splunk`, etc. [#66]({{aah_github_issues_url}}/66).
+  * Logger Level and convenient methods exposed [#61]({{aah_github_issues_url}}/61).
+  * Added `aah clean` command [#78]({{aah_github_issues_url}}/78).
+  * Code Improvements, Documentation.
 
 #### Bug Fixes
 
-* [#50](https://github.com/go-aah/aah/issues/50) View auto resolve bug fix.
-* [#59](https://github.com/go-aah/aah/issues/59) session clear fix while redirect happens.
+  * Fix - method `config.IsExists` for key handling on environment profile [#70]({{aah_github_issues_url}}/70).

@@ -13,8 +13,9 @@ Create web application using `aah new` command.
 ```
 jeeva@mb-pro:~$ aah new
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.6 -  https://aahframework.org
+   aah framework v0.7 -  https://aahframework.org
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues
 
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
@@ -24,6 +25,8 @@ Based on your inputs, aah CLI tool generates the aah application structure for y
 Enter your application import path: web-hello-world
 
 Choose your application type (web or api), default is 'web': web
+
+Choose your application Auth Scheme (form, basic), default is 'none': none
 
 Choose your session store (cookie or file), default is 'cookie': cookie
 

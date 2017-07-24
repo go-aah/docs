@@ -45,7 +45,9 @@ A `security.Subject` security-specific 'view' of the entity (user, 3rd-party ser
 
 ### Schemer
 
-The interface `security.Schemer` is way aah framework provides pluggable and configurable auth scheme for the application. You can configure one or more schemes and map it in the routes.
+The interface `scheme.Schemer` is way aah framework provides pluggable and configurable auth scheme for the application. You can configure one or more schemes and map it in the routes.
+
+Currently ready to use schemes are `scheme.FormAuth`, `scheme.BasicAuth` and `scheme.GenericAuth` direct implementation of interface `scheme.Schemer`.
 
 ```go
 Schemer interface {
@@ -69,13 +71,11 @@ Schemer interface {
 	// information.
 	DoAuthorizationInfo(authcInfo *authc.AuthenticationInfo) *authz.AuthorizationInfo
 
-	// ExtractAuthenticationToken method called by SecurityManager to extract idenity details
+	// ExtractAuthenticationToken method called by SecurityManager to extract identity details
 	// from the HTTP request.
 	ExtractAuthenticationToken(r *ahttp.Request) *authc.AuthenticationToken
 }
 ```
-
-`scheme.FormAuth`, `scheme.BasicAuth` and `scheme.ApiAuth` direct implementation of interface `scheme.Schemer`.
 
 
 ### Authenticator
@@ -91,7 +91,7 @@ type Authenticator interface {
 
 	// GetAuthenticationInfo method gets called when authentication happens for
 	// user provided credentials.
-	GetAuthenticationInfo(authcToken *AuthenticationToken) *AuthenticationInfo
+	GetAuthenticationInfo(authcToken *AuthenticationToken) (*AuthenticationInfo, error)
 }
 ```
 
@@ -127,8 +127,8 @@ Currently aah framework supports `bcrypt` password encoder, remaining encoders a
 //
 // Currently `bcrypt` is supported by aah framework, remaining encoders are `upcoming`.
 //
-// Caution: If you're using an unsecure hashing it may not be secured for your
-// application. Consider using `bcrypt`, `scrypt`, or `pbkdf2`. Good read about
+// Caution: If you're using an unsecure hashing, your application is exposed to security
+// issues. Consider using `bcrypt`, `scrypt`, or `pbkdf2`. Good read about
 // hashing security - https://crackstation.net/hashing-security.htm
 type PasswordEncoder interface {
 	Compare(hash, password []byte) bool
