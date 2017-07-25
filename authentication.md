@@ -166,7 +166,7 @@ aah framework supports basic auth in two ways. You can use either one.
   * Using File realm - This is good for when you have known set of users, roles and permissions (roles and permissions are optional though).
   * Dynamic way implementing interface `authc.Authenticator` and `authz.Authorizer`
 
-Refer to [Tutorial - REST API Basic Auth](/tutorial/rest-basic-auth.html). You can doing for web app too for certain routes. This is an example for REST API application.
+Refer to [Tutorial - REST API Basic Auth](/tutorial/rest-api-basic-auth.html). You can doing for web app too for certain routes. This is an example for REST API application.
 
 ```conf
 security {

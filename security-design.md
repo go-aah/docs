@@ -54,7 +54,7 @@ Schemer interface {
 	// Init method gets called by framework during an application start.
 	Init(appCfg *config.Config, keyName string) error
 
-	// Scheme method returns the auth scheme name. For e.g.: form, basic, api.
+	// Scheme method returns the auth scheme name. For e.g.: form, basic, generic, etc.
 	Scheme() string
 
 	// SetAuthenticator method is used to set user provided Authentication implementation.

@@ -1,7 +1,12 @@
 ## Migration Guide
 
+<div class="alert alert-info alert-info-blue">
+<p><strong>Tip:</strong></p>
+<p>To adapt to latest configuration from release. Create a new project, compare new configurations (under `config/*`) with yours then merge it. Bingo! you're on to new configurations.</p>
+</div>
 
 ### aah CLI tool
+
 aah CLI tool is improved a lot in `v0.7` release. It supports POSIX flags (long & short), command alias for quick use. No change command names except `version` command, it become flag i.e. `aah -v` or `aah --version`.
 
 **Run** aah to see an improved CLI.
@@ -45,6 +50,11 @@ Only update required is, configuration. Add the following config into `aah.conf`
 # --------------------------------------------------------------
 include "./security.conf"
 ```
+
+### aah.conf Configuration
+
+In aah.conf `runtime.pooling { ... }` configuration is no longer required, so please remove it. Since aah automatically manages the memory pooling effectively without any settings.
+
 
 ### aah framework
 

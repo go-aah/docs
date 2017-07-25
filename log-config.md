@@ -22,7 +22,7 @@ log.Infof("%v, %v, %v", "simple", "flexible", "non-blocking logger")
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Security Config](security-config.html).
 
 ## receiver
-Receiver is where the log values gets logged. Currently framework supports `console` and `file` receivers. And you can add `Hooks` into aah logger.
+Receiver is where the log values gets logged. Currently framework supports `console` and `file` receivers. And you can add `Hooks` into aah logger, for sending log data to splunk, kibana, etc.
 
 Default value is `console`.
 ```bash
