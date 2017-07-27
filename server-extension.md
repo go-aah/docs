@@ -1,14 +1,14 @@
-Title: aah Server Extension
+Title: aah Server Extension Point
 Desc: aah server exposes the App and Request life cycle stages as server events, i.e. called Server Extension Point. Function signature is same as events (aah.EventCallbackFunc signature).
-Keywords: server extension point, aah server extension, extension point, server events, callback, events
+Keywords: server extension point, aah server extensions, extension point, server events, callback, events
 ---
-# aah Server Extension
+# aah Server Extension Point
 
 aah go server exposes the App and Request life cycle stages as server events. It is called as Server Extension Point. Function signature is same as events (`aah.EventCallbackFunc`). By default given function executed as they are added sequence unless `priority` is specified.
 
 aah Server events are executed synchronously.
 
-**Note:** For `OnRequest`, `OnPreReply`, `OnAfterReply` you can only register/add one event callback function.
+**Note:** For `OnRequest`, `OnPreAuth`, `OnPostAuth`, `OnPreReply`, `OnAfterReply` you can only register/add one event callback function.
 
 Reference to [Event Emitter/Publisher](event-publisher.html).
 
@@ -37,7 +37,7 @@ func init() {
 	})
 }
 
-// Or define a func and supply it
+// Or define a func and supply it [recommended, name gets logged in log]
 func loadUserConfig(e *aah.Event)  {
   // loading user config from /etc/myapp/myapp.conf
   // merge it to aah.AppConfig().Merge(...)
@@ -129,7 +129,7 @@ func init() {
 
 ## Event: OnPreAuth
 
-<span class="badge lb-xs">Since v0.7</span> `OnPreAuth` event is published right before the Authentication by aah go server.
+<span class="badge lb-sm">Since v0.7</span> `OnPreAuth` event is published right before the Authentication by security manager.
 
 **Supports Multiple:** No
 
@@ -145,7 +145,7 @@ func init() {
 
 ## Event: OnPostAuth
 
-<span class="badge lb-xs">Since v0.7</span> `OnPostAuth` event is published right after the Authentication and Authorization info gets populated into Subject by aah go server.
+<span class="badge lb-sm">Since v0.7</span> `OnPostAuth` event is published right after the Authentication and Authorization info gets populated into Subject by security manager.
 
 **Supports Multiple:** No
 
@@ -161,12 +161,11 @@ func init() {
 
 ## Event: OnPreReply
 
-`OnPreReply` event is published right before writing an reply/response on the wire. At this point response writer is clean nothing is written i.e. Headers, Cookies, Status Code and Response Body not written.
+`OnPreReply` event is published right before writing an reply/response on the wire. At this point response writer is clean nothing is written i.e. Headers, Cookies, Redirects, Status Code and Response Body not written.
 
 **Note:** `OnPreReply` is not called when-
 
-  * `Reply().Done()` is called
-  * `Reply().Redirect(...)` is called
+  * `Reply().Done()` was called
 
 **Supports Multiple:** No
 
@@ -186,8 +185,8 @@ func init() {
 
 **Note:** `OnAfterReply` is not called when-
 
-  * `Reply().Done()` is called
-  * `Reply().Redirect(...)` is called
+  * `Reply().Done()` was called
+  * `Reply().Redirect(...)` was called
 
 **Supports Multiple:** No
 

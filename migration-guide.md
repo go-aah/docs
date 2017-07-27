@@ -10,12 +10,12 @@
 aah CLI tool is improved a lot in `v0.7` release. It supports POSIX flags (long & short), command alias for quick use. No change command names except `version` command, it become flag i.e. `aah -v` or `aah --version`.
 
 **Run** aah to see an improved CLI.
-```
+```cfg
 aah
 ```
 
 **You will see similar output:**
-```
+```cfg
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -26,7 +26,7 @@ Usage:
 
 Commands:
   new, n       Create new aah 'web' or 'api' application (interactive)
-  run, r       Run aah framework application
+  run, r       Run aah framework application (supports hot-reload)
   build, b     Build aah application for deployment
   list, l      List all aah projects in GOPATH
   clean, c     Cleans the aah generated files and build directory
@@ -43,7 +43,7 @@ In `v0.7` release, aah achieves major milestone of security implementation - Aut
 have used `aah.AppSecurityManager()` call, I doubt it. Otherwise `no issues and no code change required in your application`. So rest easy and upgrade it to latest version.
 
 Only update required is, configuration. Add the following config into `aah.conf`.
-```
+```cfg
 # --------------------------------------------------------------
 # Application Security
 # Doc: https://docs.aahframework.org/security-config.html

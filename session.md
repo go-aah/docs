@@ -31,8 +31,8 @@ Reference to [Session Configuration](security-config.html#section-session).
 
 You can access current in two ways from `aah.Context`.
 
+  * `ctx.Session()` - it internally uses the below call.
   * `ctx.Subject().Session`
-  * `ctx.Session()` - it internally uses the above call.
 
 ## `session.Storer` Interface
 
@@ -61,7 +61,7 @@ func init() {
 ## Configuring User-Defined Session Store into aah
 
 Configuring user-defined custom store for session data storage in the `security.conf`.
-```bash
+```cfg
 security {
   session {
     # ....

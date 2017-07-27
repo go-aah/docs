@@ -23,17 +23,18 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
         - [lets_encrypt { ... }](#section-lets-encrypt)
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
-    - [store { ... }](#section-store)
+    - [access_log { ... }](#server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [i18n { ... }](#section-i18n)
+    - [param_name { ... }](#section-param-name) <span class="badge lb-xs">Since v0.7</span>
   * [format { ... }](#section-format)
   * [runtime { ... }](#section-runtime)
     - [debug { ... }](#section-debug)
-    - [pooling { ... }](#section-pooling)
   * cache { ... }
     - [static { ... }](/static-files.html#cache-control)
   * [render { ... }](#section-render)
     - [gzip { ... }](#section-gzip)
   * [view { ... }](#section-view)
+  * [security { ... }](security-config.html)
   * [log { ... }](log-config.html)
   * [env { ... }](#section-env) - Environment profile overrides
 
@@ -43,13 +44,13 @@ Have a look at [aahframework.org app configuration](https://github.com/go-aah/we
 Application name, non-whitespace is recommend.
 
 Default value is `basename` of import path.
-```bash
+```cfg
 name = "mysampleapp"
 ```
 
 ## description
 A friendly description of application purpose.
-```bash
+```cfg
 desc = "aah framework web application"
 ```
 
@@ -62,7 +63,7 @@ HTTP server configuration values.
 Server `address` is used to bind against host address, IP address, UNIX socket.
 
 Default value is `empty` string.
-```bash
+```cfg
 address = ""
 
 # for unix socket
@@ -73,7 +74,7 @@ address = "unix:/tmp/aahframework.sock"
 Server `port` number is used to bind on particular port number. For port `80` and `443`, put empty string or actual value.
 
 Default value is `8080`
-```bash
+```cfg
 port = "8080"
 
 # for 80
@@ -87,7 +88,7 @@ port = "443" # port = ""
 HTTP server max header bytes size. It is mapped to `http.Server.MaxHeaderBytes`.
 
 Default value is `1mb`
-```bash
+```cfg
 max_header_bytes = "1mb"
 ```
 
@@ -95,7 +96,7 @@ max_header_bytes = "1mb"
 HTTP server keep-alive option.
 
 Default value is `true`
-```bash
+```cfg
 keep_alive = true
 ```
 
@@ -106,7 +107,7 @@ This section is used supply server timeout configuration values.
 Server read timeout is mapped to `http.Server.ReadTimeout`. Valid time units are `s -> seconds`, `m -> minutes`.
 
 Default value is `90s`
-```bash
+```cfg
 read = "90s"
 ```
 
@@ -114,7 +115,7 @@ read = "90s"
 Server write timeout is mapped to `http.Server.WriteTimeout`. Valid time units are `s -> seconds`, `m -> minutes`.
 
 Default value is `90s`
-```bash
+```cfg
 write = "90s"
 ```
 
@@ -122,7 +123,7 @@ write = "90s"
 Server grace shutdown timeout. Used when app receive the SIGINT, SIGTERM and does graceful shutdown. Valid time units are `s -> seconds`, `m -> minutes`.
 
 Default value is `60s`
-```bash
+```cfg
 grace_shutdown = "60s"
 ```
 
@@ -133,7 +134,7 @@ HTTP server SSL/TLS configuration values. By default it is disabled.
 To enable SSL/TLS on the aah go server.
 
 Default value is `false`.
-```bash
+```cfg
 enable = true
 ```
 
@@ -141,7 +142,7 @@ enable = true
 HTTPS server certificate file. Path to the cert file. It is required value if `server.ssl.enable = true`.
 
 Default value is `empty` string.
-```bash
+```cfg
 cert = ""
 ```
 
@@ -149,7 +150,7 @@ cert = ""
 HTTPS server cert key file. Path to the key file. It is required value if `server.ssl.enable = true`.
 
 Default value is `empty` string.
-```bash
+```cfg
 key = ""
 ```
 
@@ -158,7 +159,7 @@ Go lang by default enables the HTTP/2 on TLS. For some reason if your use case n
 
 Default value is `false`.
 
-```bash
+```cfg
 disable_http2 = true
 ```
 
@@ -169,8 +170,10 @@ To enable Let's Encrypt CA auto SSL/TLS certs on the aah go server.
 
 Let’s Encrypt is a free, automated, and open certificate authority (CA), they provide free digital certificates in order to enable HTTPS (SSL/TLS) for websites to create a more secure and privacy-respecting Web.
 
+_Note: Let’s Encrypt does not provide certificates for localhost._
+
 Default value is `false`. Don't forget to enable `server.ssl.enable = true`.
-```bash
+```cfg
 enable = true
 ```
 
@@ -178,7 +181,7 @@ enable = true
 Host policy controls which domains the `autocert` will attempt to retrieve new certificates for. It does not affect cached certs. It is array of domain and sub-domain names.
 
 It is required, no default value.
-```bash
+```cfg
 host_policy = ["example.org", "docs.example.org"]
 ```
 
@@ -186,7 +189,7 @@ host_policy = ["example.org", "docs.example.org"]
 Renew before optionally specifies how early certificates should be renewed before they expire.
 
 Default value is `10` days.
-```bash
+```cfg
 renew_before = 10
 ```
 
@@ -194,7 +197,7 @@ renew_before = 10
 Email optionally specifies a contact email address. This is used by CAs, such as Let's Encrypt, to notify about problems with issued certificates. If the Client's account key is already registered, Email is not used.
 
 Default value is `empty` string.
-```bash
+```cfg
 email = "jeeva@myjeeva.com"
 ```
 
@@ -202,7 +205,7 @@ email = "jeeva@myjeeva.com"
 Force RSA makes the `autocert` generate certificates with 2048-bit RSA keys. If false, a default is used.
 
 Default is `EC`-based keys using the `P-256` curve.
-```bash
+```cfg
 force_rsa = false
 ```
 
@@ -212,7 +215,7 @@ Cache optionally stores and retrieves previously-obtained certificates autocert 
 Autocert manager passes the Cache certificates data encoded in PEM, with private/public parts combined in a single Cache.Put call, private key first.
 
 Default value is `empty` string.
-```bash
+```cfg
 cache_dir = "/path/to/store/cache/certs"
 ```
 
@@ -225,7 +228,7 @@ Request configuration values.
 Request Multi-part size is used for form parsing when request `Content-Type` is `multipart/form-data`.
 
 Default value is `32mb`.
-```bash
+```cfg
 multipart_size = "32mb"
 ```
 
@@ -243,7 +246,7 @@ Global Unique Identifier (GUID) generate implementation is based on [Mango DB Ob
 To enable/disable request ID generation.
 
 Default value is `true`.
-```bash
+```cfg
 enable = true
 ```
 
@@ -251,7 +254,7 @@ enable = true
 HTTP header name for generated Request ID. If request already has HTTP header then it does not generate one.
 
 Default value is `X-Request-Id`.
-```bash
+```cfg
 header = "X-Request-Id"
 ```
 
@@ -264,8 +267,27 @@ Internationalization and Localization configuration values.
 It is used as fallback value if framework is unable to determine the locale information from HTTP Request as per RFC7231 and `lang` Query parameter is not present.
 
 Default value is `en`.
-```bash
+```cfg
 default = "en"
+```
+
+### Section: param_name { ... }
+Overriding Request Locale `Accept-Language` header value via URL Path parameter or URL Query parameter.
+
+### path
+Specify URL Path Parameter name i.e. `/:lang/home.html`, `/:lang/aboutus.html`, etc.  For e.g.: `/en/home.html`, `/en/aboutus.html`, `/zh-CN/home.html`, `/zh-CN/aboutus.html` etc.
+
+Default value is `lang`
+```cfg
+path = "locale"
+```
+
+### query
+Specify URL Query Param name i.e `?lang=en`, `?lang=zh-CN`, etc.
+
+Default value is `lang`
+```cfg
+query = "locale"
 ```
 
 ---
@@ -275,13 +297,13 @@ Date and time format values. This is used by framework while parsing HTTP reques
 
 ### date
 Default value is `2006-01-02`.
-```bash
+```cfg
 date = "2006-01-02"
 ```
 
 ### datetime
 Default value is `2006-01-02 15:04:05`.
-```bash
+```cfg
 datetime = "2006-01-02 15:04:05"
 ```
 
@@ -296,7 +318,7 @@ aah application runtime configuration values used for debugging, object pooling,
 Choose an appropriate buffer size for collecting all goroutines stack trace dump based on your case.
 
 Default value is `2mb`.
-```bash
+```cfg
 stack_buffer_size = "2mb"
 ```
 
@@ -304,27 +326,8 @@ stack_buffer_size = "2mb"
 Whether to collect all the Go routines details or not.
 
 Default value is `false`.
-```bash
+```cfg
 all_goroutines = false
-```
-
-### Section: pooling { ... }
-Pooling configuration is used to reduce GC overhead from framework. Tune these value based on your use case. Pool doesn't create object unless it's needed.
-
-### global
-Used for `aah.Context`, `ahttp.Request`, `bytes.Buffer`.
-
-Default value is `500`.
-```bash
-global = 500
-```
-
-### buffer
-Used for `bytes.Buffer`.
-
-Default value is `200`.
-```bash
-buffer = 200
 ```
 
 ---
@@ -340,7 +343,7 @@ aah framework identifies the `Content-Type` value automatically. If `aah.Reply()
   * Finally aah framework uses `http.DetectContentType` method
 
 Default value is `empty` string.
-```bash
+```cfg
 default = "json"
 ```
 
@@ -348,7 +351,7 @@ default = "json"
 Pretty print option is very helpful in `dev` environment profile. It is only applicable to JSON and XML Content-Type.
 
 Default value is `false`.
-```bash
+```cfg
 pretty = true
 ```
 
@@ -361,7 +364,7 @@ By default Gzip compression is enabled in aah framework, however framework ensur
 **Tips:** If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`.
 
 Default value is `true`.
-```bash
+```cfg
 enable = true
 ```
 
@@ -369,7 +372,7 @@ enable = true
 Used to control Gzip compression levels. Valid levels are `1 = BestSpeed` to `9 = BestCompression`.
 
 Default value is `5`.
-```bash
+```cfg
 level = 3
 ```
 
@@ -381,7 +384,7 @@ level = 3
 Choosing view engine for aah application. In the `upcoming` releases framework will provide support to amber, pongo2, and jade. However you can implement on your own with very simple `view.Enginer` interface.
 
 Default value is `go`. Only `go` view engine is supported as of now.
-```bash
+```cfg
 engine = "go"
 ```
 
@@ -389,7 +392,7 @@ engine = "go"
 Choosing your own view file extension. It is used while parsing view template files.
 
 Default value is `html`.
-```bash
+```cfg
 ext = ".html"
 ```
 
@@ -397,7 +400,7 @@ ext = ".html"
 Whether you need a case sensitive view file resolve or not.
 
 Default value is `false`.
-```bash
+```cfg
 # for e.g.: "/views/pages/app/login.tmpl" == "/views/pages/App/Login.tmpl"
 case_sensitive = false
 ```
@@ -406,7 +409,7 @@ case_sensitive = false
 To use custom Go template delimiters on view files.
 
 Default value is `{{.}}`
-```bash
+```cfg
 delimiters = "{{.}}"
 ```
 
@@ -416,7 +419,7 @@ By default aah framework chooses the default app layout as `master.html` if you 
 _**Note:**_ With this setting you can still use layouts, just provide layout name via `Reply().HTMLlf` or `Reply().HTMLl` methods.
 
 Default value is `true`. <span class="badge lb-sm">Since v0.6</span>
-```bash
+```cfg
 default_layout = false
 ```
 
@@ -429,12 +432,12 @@ Application environment profiles, to override app config for respective environm
 Indicates active profile name for application configuration.
 
 Default value is `dev`.
-```bash
+```cfg
 active = "dev"
 ```
 
 ## include - This is for example purpose, you can use `include` at any levels
 Including all the environment profile overrides from `env` directory within `config` directory.
-```bash
+```cfg
 include "./env/*.conf"
 ```

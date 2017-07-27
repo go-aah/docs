@@ -6,7 +6,7 @@ Keywords: interceptor, per controller interceptor, per action interceptor, befor
 
 An interceptor pattern is offers a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that, the change is transparent and used automatically.
 
-aah framework provides per `Controller` and per `Action` level.
+aah framework provides per `Controller` and per `Action` level. It is very **good spot** for performing `Authorization check`, if its satisfies move on otherwise call `Context.Abort()` to stop it.
 
 In the order of execution/calling in the request life cycle-
 
@@ -17,8 +17,8 @@ In the order of execution/calling in the request life cycle-
   * `After()` - Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic), `Context.Abort()`
   * `Panic<ActionName>(r interface{})` - Always called if present in the event of `panic`
   * `Panic(r interface{})` - Always called if present in the event of `panic`, except `Panic<ActionName>(...)` not exists, it propagates to framework.
-  * `Finally<ActionName>()` - Always called if present, except `Context.Abort()`
-  * `Finally()` - Always called if present, except `Context.Abort()`
+  * `Finally<ActionName>()` - Always called if present.
+  * `Finally()` - Always called if present.
 
 #### Note
   * `Panic` interceptors method has a parameter.
@@ -31,7 +31,7 @@ In the order of execution/calling in the request life cycle-
 
 ```go
 // User controller
-type User struct {
+type UserController struct {
   *aah.Context
 }
 

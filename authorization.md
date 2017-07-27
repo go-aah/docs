@@ -28,7 +28,7 @@ Those are all decisions determining what a user has access to.
           - [Role Check](#role-check)
           - [Permission Check](#permission-check)
       - [Template/View function](#template-view-function)
-      - **`Upcoming`** URL Path roles/permissions
+      - Way to configure URL Path based roles/permissions check **`Upcoming`** 
 
 
 ### Elements of Authorization

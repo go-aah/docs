@@ -1,5 +1,5 @@
 Title: Pooling aka Memory Pooling
-Desc: aah framework uses the channel based Pooling to reduce overhead for heap allocation and garbage collection.
+Desc: aah framework uses the memory pooling to reduce GC overhead for heap allocation and garbage collection.
 Keywords: pooling, memory pooling, object pooling, gc, garbage collection, heap allocation
 ---
 # Pooling aka Memory Pooling

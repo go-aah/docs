@@ -18,6 +18,7 @@ A `Controller` is any `struct` type that embeds the `aah.Context` (Note: this is
   * [Request](#request)
   * [Response](#response)
   * [Reply Builder](#reply-builder)
+  * [Subject](#subject)
   * [Session](#session)
   * [i18n Message](#i18n-message)
   * [Reverse URL](#reverse-url)
@@ -28,13 +29,20 @@ A `Controller` is any `struct` type that embeds the `aah.Context` (Note: this is
 // Examples
 
 // App controller
-type App struct {
+type AppController struct {
   *aah.Context
 }
 
 // User Controller
-type User struct {
+type UserController struct {
   *aah.Context
+}
+
+// OR
+
+// Indirectly using `aah.Context` in User Controller
+type UserController struct {
+  AppController
 }
 ```
 
@@ -42,7 +50,7 @@ type User struct {
 
 Request contains processed incoming request details such as `Params`, `Content Type`, `Locale`, `Client IP` (aka Remote IP/Address) `Accept Content Type`, `Accept Encoding`, `Raw` request object, etc.
 
-  * To learn more about `Request` attributes and methods [click here](https://godoc.org/aahframework.org/ahttp.v0#Request).
+  * To learn more about `Request` attributes and methods [click here](request-and-response.html).
   * To learn more about `Params` attributes and methods [click here](https://godoc.org/aahframework.org/ahttp.v0#Params)
 
 ## Response
@@ -57,6 +65,16 @@ Response implements interface of `http.CloseNotifier`, `http.Flusher`, `http.Hij
 ## Reply Builder
 
 aah provides intuitive way to compose response using `Reply()` builder in chained method calls. To learn more [click here](reply.html)
+
+## Subject
+
+A aah Subject instance represents both security state and operations for a single application user. These operations include:
+
+  * Authorization (access control)
+  * Session access
+  * Logout
+
+Read more about [Subject](security-subject.html),
 
 ## Session
 
@@ -133,12 +151,12 @@ A `Controller` is any `struct` type that embeds the `aah.Context` directly or in
 **Example**
 ```go
 // App controller
-type App struct {
+type AppController struct {
   *aah.Context
 }
 
 // User Controller
-type User struct {
-  App
+type UserController struct {
+  AppController
 }
 ```

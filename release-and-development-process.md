@@ -16,7 +16,7 @@ This page would give an idea how aah framework Development and Release Process. 
 
 ## Insights
 
-aah framework internally uses `gopkg.in` service for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
+aah framework internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
 
   * Github `Tag` is Stable and Production ready.
   * Default branch is `v0-unstable`, `v1-unstable`, and so on. Development, Bug fix, Pull Request, happens on that.

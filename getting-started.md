@@ -19,7 +19,7 @@ Here you will be learning-
 
 Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs">Since v0.7</span> aah CLI is fully POSIX flags (short & long) for commands. Also commands has `alias` too.
 
-```
+```cfg
 go get -u aahframework.org/tools.v0/aah
 ```
 
@@ -36,12 +36,12 @@ git config --global http.https://aahframework.org.followRedirects true
 
 Just execute `aah` command on your terminal/command prompt. Learn more about [aah CLI](aah-cli-tool.html).
 
-```
+```cfg
 aah
 ```
 
 **Output:** (you will get similar output)
-```
+```cfg
 jeeva@mb-pro:~$ aah
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
@@ -53,7 +53,7 @@ Usage:
 
 Commands:
   new, n       Create new aah 'web' or 'api' application (interactive)
-  run, r       Run aah framework application
+  run, r       Run aah framework application (supports hot-reload)
   build, b     Build aah application for deployment
   list, l      List all aah projects in GOPATH
   clean, c     Cleans the aah generated files and build directory
@@ -70,13 +70,13 @@ Congratulations, you have successfully installed aah framework and it's ready to
 
 It is very easy to use aah framework CLI tool. [Learn more about aah CLI tool](aah-cli-tool.html).
 
-```
+```cfg
 # `new` command, alias `n` - is an interactive one to create aah application for quick start
 aah new
 ```
 
 **Output:**
-```
+```cfg
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
@@ -104,7 +104,7 @@ Go to https://docs.aahframework.org to learn more and customize your aah applica
 
 ## Run your aah application
 
-```
+```cfg
 aah run --importpath github.com/jeevatkm/aah-first-app
 
 # OR
@@ -117,15 +117,15 @@ aah run
 ```
 
 **Output:**
-```
+```cfg
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.5 -  https://aahframework.org
+   aah framework v0.7 -  https://aahframework.org
 ––––––––––––––––––––––––––––––––––––––––––––––––––––
 
 2017-05-08 23:11:52.511 INFO  Loading aah project file: /Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app/aah.project
 2017-05-08 23:11:52.511 INFO  Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
 2017-05-08 23:11:53.613 INFO  Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-05-08 23:11:53.623 INFO  aah framework v0.5, requires ≥ go1.8
+2017-05-08 23:11:53.623 INFO  aah framework v0.7, requires ≥ go1.8
 2017-05-08 23:11:53.626 INFO  Session file store is initialized at path: /Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app/sessions
 2017-05-08 23:11:53.627 INFO  aah application initialized successfully
 2017-05-08 23:11:53.627 INFO  App Name: aah-first-app
@@ -141,13 +141,13 @@ Open up your browser, navigate to address [http://localhost:8080](http://localho
 
 You will see a page with text-
 
-```
+```cfg
 Welcome to aah framework - Web Application
 ```
 
 ## Learning aah project structure
 
-Learn more [aah project structure](anatomy-aah-application.html).
+Learn more about [aah project structure](anatomy-aah-application.html), it is one of the important start point.
 
 ## Next move onto application configuration
 

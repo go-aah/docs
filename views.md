@@ -27,9 +27,9 @@ aah provides flexible and effective directory structure to organize your view fi
   * `layouts` - You can define one or more view layout for your application. Default layout name is `master.html`.
   * `pages` - templates of each controller and it's action. Also you can have your custom page templates.
 
-***Note:*** each controller and its action can have same template filename like Rails.
+***Note:*** each controller and its action can have same template filename like Rails. You can have `Index` template for every controller.
 
-```bash
+```cfg
 # App base directory
   |-- views
       |--- common
@@ -67,7 +67,7 @@ By default aah framework resolve and render view templates based on-
 Reference to [View Config](app-config.html#section-view).
 
 ```bash
-For E.g.:
+For Example:
     Namespace: admin
     Controller: App
     Action: Login
@@ -105,7 +105,7 @@ Framework provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, 
 
 Currently aah framework supports Go view engine. Don't feel bad, you can added your favorite view engine into aah.
 
-In the `upcoming` release, I will try provide support to amber, pongo2, and jade.
+In the `upcoming` release, I will try to provide pluggable view engine for amber, pongo2, and jade. So you use it selectively. Or you can contribute it.
 
 #### Create your own view engine using `view.Enginer` interface.
 

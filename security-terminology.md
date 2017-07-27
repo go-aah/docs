@@ -4,7 +4,7 @@ Keywords: security, terminology
 ---
 # aah Security Terminology
 
-Please just take few minutes to read and understand this - `it is really important`. Really. The terms and concepts here are referred to everywhere in the documentation and it will greatly simplify your understanding of aah security in general.
+Please just take few minutes to read and understand this - `it is really really important`. The terms and concepts here are referred to everywhere in the documentation and it will greatly simplify your understanding of aah security in general.
 
 Security can be really confusing because of the terminology used. This page will make life easier by clarifying some core concepts and you’ll see how nicely the aah framework API reflects them:
 

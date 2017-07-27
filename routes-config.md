@@ -34,7 +34,7 @@ Domain and sub-domain configuration goes into section `domains { ... }`.
 Pick your choice of an `unique keyname` to define your domain section in the routes configuration.
 
 No default value.
-```bash
+```cfg
 localhost {
   # domain config goes here
 }
@@ -50,7 +50,7 @@ aahframework_org {
 Used as free text for mentioning domain name.
 
 Default value is `keyname`.
-```bash
+```cfg
 name = "mysampleapp routes"
 ```
 
@@ -60,7 +60,7 @@ aah framework supports multi-domain routes configuration out-of-the-box. `host` 
 <span class="badge lb-sm">Since v0.6</span> Wildcard subdomain is supported.
 
 It is required, no default value.
-```bash
+```cfg
 host = "localhost"
 
 host = "aahframework.org"
@@ -76,7 +76,7 @@ aah framework supports multi-domain routes configuration out-of-the-box. Port is
 For port `80` and `443`, put empty string or actual value.
 
 Default value is 8080.
-```bash
+```cfg
 port = "80"
 ```
 
@@ -86,7 +86,7 @@ Indicates the current domain section is a sub-domain.
 <span class="badge lb-sm">Since v0.6</span> Wildcard subdomain supported.
 
 Default value is `false`.
-```bash
+```cfg
 subdomain = true
 ```
 
@@ -96,7 +96,7 @@ Redirect trailing slash is to enable automatic redirection if the current route 
 **For e.g.:** if `/foo/` is requested but a route only exists for `/foo`, the client is redirected to `/foo` with http status code `301` for `GET` requests and `307` for all other request methods as per `RFC7231`.
 
 Default value is `true`.
-```bash
+```cfg
 redirect_trailing_slash = true
 ```
 
@@ -106,7 +106,7 @@ redirect_trailing_slash = true
 The router checks if another method is allowed for the current route, if the current request can not be routed. If this is the case, the request is answered with `MethodNotAllowed` and HTTP status code `405`. If no other Method is allowed, the request is delegated to the `not_found` controller if defined otherwise default one.
 
 Default value is `true`.
-```bash
+```cfg
 method_not_allowed = true
 ```
 
@@ -114,17 +114,15 @@ method_not_allowed = true
 `OPTIONS` request auto replies supported out-of-the-box. User defined `OPTIONS` routes take priority over the automatic replies. Perfect for RESTful APIs.
 
 Default value is `true`.
-```bash
+```cfg
 auto_options = true
 ```
 
 ### default_auth
-Default auth is used when route does not have attribute `auth` defined.
-
-Available <span class="badge lb-xs">since v0.7</span>
+<span class="badge lb-sm">Since v0.7</span> Default auth is used when route does not have attribute `auth` defined.
 
 Default value is empty string.
-```bash
+```cfg
 default_auth = "form_auth"
 ```
 
@@ -134,7 +132,7 @@ Define your custom `NotFound` implementation. It is invoked when no matching rou
 Create your controller and action of your choice. Then register in the routes config. You may call `IsStaticRoute()` in the NotFound action to know whether the incoming request is `static or application route`.
 
 `controller` and `action` is required value if `not_found` section is defined.
-```bash
+```cfg
 not_found {
   controller = "App"
   action = "NotFound"
@@ -151,7 +149,7 @@ Each route definition has config attributes called `path`, `method` `controller`
 Pick your choice of `unique name` for each route definition. It is called as `route name` and used for Reverse URL generation.
 
 Sample route definition:
-```bash
+```cfg
 # Usages
 register_user { # route name, it is used for reverse route
   # route config goes here
@@ -171,7 +169,7 @@ Path config attribute value is used to match incoming request by router. It can 
 Note: `path` must begin with `/`.
 
 It is required, no default value.
-```bash
+```cfg
 # Usages
 path = "/users/:userId/profile"
 
@@ -184,7 +182,7 @@ path = "/users"
 Method config attribute value is `HTTP` method. It can be multiple `HTTP` methods with comma separated. It can be lowercase or uppercase.
 
 Default value is `GET`.
-```bash
+```cfg
 # Usages
 method = "POST"
 
@@ -199,7 +197,7 @@ method = "PUT,PATCH"
 * `controller` attribute supports both naming conventions. For e.g.: `User` or `UserController`
 
 It is required, no default value.
-```bash
+```cfg
 # Usages
 # Best Practices: choose one format of definition style and stick to it.
 controller = "User"
@@ -225,18 +223,16 @@ Default values are mapped based on `HTTP` method. ***Note: for multiple HTTP met
 * `HEAD` - action is `Head`
 * `TRACE` - action is `Trace`
 
-```bash
+```cfg
 action = "EditUser"
 ```
 
 ### auth
-Auth config attribute is used to assign auth scheme for the route. If you do not this attribute then framework acquire value as follows.
+<span class="badge lb-sm">Since v0.7</span> Auth config attribute is used to assign auth scheme for the route. If you do not set this attribute then framework acquire value as follows.
 
   * Inherits the parent route `auth` attribute if present.
   * Inherits the `default_auth` attribute config value if defined.
   * Otherwise it becomes not defined.
-
-Available <span class="badge lb-xs">since v0.7</span>
 
 **Note:**
 
@@ -259,7 +255,7 @@ If you're not interested in namespace/group, you can define every routes with fu
 
 #### Sample:
 Defining route within route definition to make that as namespace/group routes.
-```bash
+```cfg
 routes {
   v1_api {
     path = "/v1"

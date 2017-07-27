@@ -10,7 +10,7 @@ Recommended way to deploy aah application is to create platform targeted binary.
 
   * [Checklist](#checklist)
   * [How to: Docker](#how-to-docker)
-  * Many more to come...
+  * Many more deployment options to come...
 
 ### Checklist
 
@@ -28,7 +28,7 @@ Deploy the application.
 
 ### Sample Route Host name config in Environment profile
 
-```bash
+```cfg
 env {
   prod {
     #...
@@ -64,4 +64,8 @@ env {
 
 For now create your own docker file refer to [doc](https://blog.golang.org/docker) and deploy your aah application.
 
-**`Upcoming`** Easy to way deploy your aah application using docker.
+**`Upcoming`** auto generate docker file vis build process.
+
+### Many more deployment options to come...
+
+... **`Upcoming`**

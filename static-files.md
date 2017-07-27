@@ -26,7 +26,7 @@ Use below config attributes to define your static routes in the `routes.conf`.
 Path config attribute is used to map the URL path of serving directory or individual file.
 
 It is required, No default value.
-```bash
+```cfg
 # Mapping directory path
 # This path means `/assets/**`
 path = "/assets"
@@ -43,7 +43,7 @@ Dir config attribute is used to map the directory that will be served for mapped
 It can be absolute directory path or relative path to application base directory.
 
 No default value.
-```bash
+```cfg
 dir = "static"
 ```
 
@@ -51,7 +51,7 @@ dir = "static"
 If you want to enable directory listing feature.
 
 Default value is `false`.
-```bash
+```cfg
 list = true
 ```
 
@@ -61,13 +61,13 @@ File config attribute is used to map individual file that will be served for map
 It can be absolute directory path or relative to application base directory. If it's relative path `/static/` is prefixed automatically.
 
 No default value.
-```bash
+```cfg
 # it means /static/img/favicon.png
 file = "img/favicon.png"
 ```
 
 #### Sample config for static section
-```bash
+```cfg
 static {
   # serving directory and its subtree files
   public_assets {

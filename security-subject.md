@@ -33,11 +33,11 @@ After you acquire the current `Subject`, what can you do with it?
 If you want to make things available to the user during their current session with the application, you can get their session:
 
 ```go
-session := ctx.Subject().Session
-session.Set("key", "value")
+ctx.Session().Set("key", "value")
 
 // OR
-ctx.Session().Set("key", "value")
+session := ctx.Subject().Session
+session.Set("key", "value")
 ```
 
 Ok, so by now, we have a logged in user. What else can we do?

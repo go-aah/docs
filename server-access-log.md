@@ -26,7 +26,7 @@ Access log processing handled in separate routine, it won't stand in way.
 
 #### Default access log pattern
 
-```
+```cfg
 %clientip %custom:- %reqtime %reqmethod %requrl %reqproto %resstatus %ressize %restime %reqhdr:referer
 ```
 
@@ -46,7 +46,7 @@ Access log processing handled in separate routine, it won't stand in way.
 
 Add `access_log` section under config `request` section in the `aah.conf`.
 
-```
+```cfg
 request {
 
   # To manage aah server effectively it is necessary to know details about the
@@ -76,7 +76,7 @@ request {
 Added respective flag into pattern config.
 
 #### Logging User-Agent
-```
+```cfg
 // header name in-casesensitive
 reqhdr:User-Agent
 
@@ -85,7 +85,7 @@ reqhdr:user-agent
 ```
 
 #### Logging Referer URL
-```
+```cfg
 // header name in-casesensitive
 reqhdr:referer
 ```

@@ -24,18 +24,20 @@ Starts the server based on provided `address` and `port` with HTTP protocol.
 
 ## HTTPS
 
-Starts the server if `server.ssl.enable` set to `true` with given SSL cert and key. In the HTTPS mode framework sets the header `Strict-Transport-Security` with `max-age=31536000; includeSubDomains`, know more about [STS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet).
+Starts the server if `server.ssl.enable` set to `true` with given SSL cert and key. In the HTTPS mode by default framework sets the header `Strict-Transport-Security` with `max-age=31536000; includeSubDomains`, know more about [STS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet).
 
 ### Let's Encrypt Auto Cert
 
 aah framework supports auto Let's Encrypt certs, you can set `server.ssl.lets_encrypt.enable` to `true` to enable it. Have a look on configuration [here](app-config.html#section-lets-encrypt) for more options.
+
+_Note: Let's Encrypt does not provide certificates for localhost._
 
 ## UNIX Socket
 
 To start the aah application on `UNIX` socket; set the `server.address` to socket file.
 
 **Example:**
-```bash
+```cfg
 address = "unix:/tmp/myapp.sock"
 ```
 
@@ -69,7 +71,7 @@ func init() {
 }
 ```
 
-### Example: Just to raise SSL score
+### Example: To improve your SSL score
 ```go
 func init() {
   // You can use `aah.OnStart` event too.

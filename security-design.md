@@ -45,7 +45,7 @@ A `security.Subject` security-specific 'view' of the entity (user, 3rd-party ser
 
 ### Schemer
 
-The interface `scheme.Schemer` is way aah framework provides pluggable and configurable auth scheme for the application. You can configure one or more schemes and map it in the routes.
+The interface `scheme.Schemer` is way aah framework provides pluggable and configurable auth scheme for the application. You can configure one or more schemes and map it in the routes.conf per route basis also with default auth scheme if route doesn't have specific.
 
 Currently ready to use schemes are `scheme.FormAuth`, `scheme.BasicAuth` and `scheme.GenericAuth` direct implementation of interface `scheme.Schemer`.
 

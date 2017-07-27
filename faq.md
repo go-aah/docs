@@ -14,7 +14,7 @@ Keywords: faq, aah framework
 ### How to update aah framework to the latest version?
 
 To update aah framework latest version run below command on your terminal/command prompt.
-```
+```cfg
 go get -u aahframework.org/tools.v0/aah
 ```
 If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
@@ -23,7 +23,7 @@ If you're using package management tool, then refer to respective tool documenta
 ### How to use aah framework before the version release?
 
 Of-course you can. Just run below command.
-```
+```cfg
 go get -u aahframework.org/tools.v0-unstable/aah
 ```
 
@@ -36,7 +36,7 @@ import "aahframework.org/aah.v0-unstable"
 ### How to log all goroutine stacktrace?
 
 It is very simple to do aah framework. Just set the below config to true. You will get all the stacktrace in the log.
-```
+```cfg
 runtime {
   debug {
     # Whether to collect all the Go routines details or not.
