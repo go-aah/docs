@@ -38,4 +38,4 @@ Navigate around using these URL for all the demo users. And observe the applicat
   * http://localhost:8080/admin/dashboard.html
   * http://localhost:8080/login.html
 
-Spread the word - aah web framework for Go.
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>

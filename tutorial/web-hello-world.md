@@ -4,7 +4,7 @@ Keywords: tutorial, hello world, web application
 ---
 # Hello, World! aah Web application
 
-This page takes you with few steps to learn and creating a Hello World aah web application. If you have not yet installed aah framework, refer [Getting started with aah](/getting-started.html).
+This document takes you with few steps to learn and creating a Hello World aah web application. If you have not yet installed aah framework, refer [Getting started with aah](/getting-started.html).
 
 ### Step 1
 
@@ -64,4 +64,4 @@ Goto this URL http://localhost:8080 in your browser.
 
 Congratulations, you have successfully created and executed the hello world Web aah application.
 
-Spread the word - aah web framework for Go.
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>

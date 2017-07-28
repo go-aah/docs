@@ -25,13 +25,13 @@ First we have to configure your hosts file. Purpose is do local DNS mapping for 
 
 This [rackspace article](https://support.rackspace.com/how-to/modify-your-hosts-file/) covers the steps to modify-your-hosts-file for Mac, Linux and Windows.
 
-```bash
-127.0.0.1       sample.com admin.sample.com username1.sample.com username2.sample.com
+```cfg
+127.0.0.1       sample.com admin.sample.com username1.sample.com username2.sample.com username3.sample.com
 ```
 
 #### Running the tutorial application
-```
-aah run -ip=github.com/go-aah/tutorials/domain-subdomain
+```cfg
+aah run -i github.com/go-aah/tutorials/domain-subdomain
 ```
 
 #### Now visit these URL's in your browser :)
@@ -40,5 +40,6 @@ aah run -ip=github.com/go-aah/tutorials/domain-subdomain
 * http://admin.sample.com:8080
 * http://username1.sample.com:8080
 * http://username2.sample.com:8080
+* http://username3.sample.com:8080
 
-Spread the word - aah web framework for Go.
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>

@@ -4,7 +4,7 @@ Keywords: tutorial, hello world, api application
 ---
 # Hello, World! aah API application
 
-This page takes you with few steps to learn and creating a Hello World aah API application. If you have not yet installed aah framework, refer [Getting started with aah](/getting-started.html).
+This document takes you with few steps to learn and creating a Hello World aah API application. If you have not yet installed aah framework, refer [Getting started with aah](/getting-started.html).
 
 ### Step 1
 
@@ -69,4 +69,4 @@ JSON response:
 
 Congratulations, you have successfully created and executed the hello world API aah application.
 
-Spread the word - aah web framework for Go.
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>

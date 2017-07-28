@@ -1,8 +1,8 @@
-Title: Tutorial of Basic Auth - Security
-Desc: Tutorial of how to implement Basic Auth using aah framework
-Keywords: basic auth, tutorial, security, aah framework
+Title: Tutorial of REST API Basic Auth - Security
+Desc: Tutorial of how to implement REST API Basic Auth using aah framework
+Keywords: basic auth, rest api, tutorial, security, aah framework
 ---
-# Tutorial of Basic Auth - Security
+# Tutorial of REST API Basic Auth - Security
 
 Goal of this tutorial is to demonstrate aah framework `Basic Auth` security implementation. It is easy and robust implementation. Perfect fit for Web and API application
 
@@ -46,4 +46,4 @@ While you're doing various requests also observe the application logs to see mor
   * http://localhost:8080/myuserinfo
   * http://localhost:8080/userinfomsg
 
-Happy coding! Spread the word - aah web framework for Go.
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>

@@ -15,7 +15,9 @@ Ready to use pluggable implementation is here https://github.com/aah-cb/minify.
 go get -u -d github.com/go-aah/tutorials/...
 ```
 
-Just focus on this file `html-minify/app/controllers/app.go`.
+Just focus on this file
+
+  * `html-minify/app/controllers/app.go`.
 
 ### Let's see it in the action
 
@@ -87,6 +89,4 @@ minify {
 
 ### Step 4
 
-Happy Coding :)
-
-Spread the word - aah web framework for Go.
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
