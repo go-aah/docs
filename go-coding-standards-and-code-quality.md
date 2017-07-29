@@ -4,7 +4,7 @@ Keywords: code quality, coding standards, code organize, go code quality, aah co
 ---
 # Coding Standards and Code Quality
 
-This document provides insights of coding standards and code quality followed, applied by aah framework.
+This document provides an insights of coding standards and code quality followed, applied by aah framework.
 
 I would request you adhered to code quality as much as possible when you contribute code to aah framework. But if something doesn't make sense, feel free to question it.
 

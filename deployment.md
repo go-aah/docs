@@ -4,31 +4,35 @@ Keywords: deployment, build, binary
 ---
 # aah Deployment
 
+This document provides an information of deployment checklist and steps involved to prepare aah application for production use.
+
 Recommended way to deploy aah application is to create platform targeted binary. Use the build archive file on the server instead of `aah run`.
 
 ### Table of Contents
 
-  * [Checklist](#checklist)
-  * [How to: Docker](#how-to-docker)
+  * [Preparation Checklist](#preparation-checklist)
+  * How to: Docker **`(upcoming)`**
+  * How to: Heroku **`(upcoming)`**
   * Many more deployment options to come...
 
-### Checklist
+### Preparation Checklist
 
   * Ensure all the necessary configuration have been done for targeted profile (for e.g: `prod`)
-      - **Note:** It is recommended to have sensitive configuration outside the version control.
-          * You can use flag `-config /path/to/configfile.conf` on aah binary during a startup
-          * You can use Environment variables
-          * etc.
-  * Ensure you have configured `prod.routes { ... }`
-      - aah supports domains and sub-domains routing out-of-the-box. You have to define route `host` name in the environment profile. [Refer to below example](#sample-route-host-name-config-in-environment-profile).
+      - **Note:** It is recommended to keep sensitive details outside the application codebase.
+          * Use flag `-config /path/to/configfile.conf` on aah binary during a startup
+          * Use Environment variables
+  * Add `prod.routes { ... }` into `prod.conf`.
+      - By nature of aah supports domains and sub-domains routing (aka domain routing) out-of-the-box. It is must to configure domain name and port information. You have to define route `host` name in the `prod` environment profile. [Refer to below example](#sample-route-host-name-config-in-prod-environment-profile).
   * Refer to [Cross Compile Build](aah-cli-tool.html#cross-compile-build) to create platform targeted build artifact.
-  * Refer to [aah application binary](aah-application-binary.html) to know startup script.
+  * Refer to [aah application binary](aah-application-binary.html) to know how startup script. Feel free create your own, if you have specific need.
 
 Deploy the application.
 
-### Sample Route Host name config in Environment profile
+### Sample Route Host name config in prod Environment profile
 
 ```cfg
+# This is configuration of aahframework.org and docs.aahframework.org websites.
+#
 env {
   prod {
     #...
@@ -60,12 +64,6 @@ env {
 }
 ```
 
-### How to: Docker
-
-For now create your own docker file refer to [doc](https://blog.golang.org/docker) and deploy your aah application.
-
-**`Upcoming`** auto generate docker file vis build process.
-
 ### Many more deployment options to come...
 
-... **`Upcoming`**
+... **`Upcoming`** ...
