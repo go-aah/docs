@@ -4,7 +4,7 @@ Keywords: release process, development process, dev process, release cycle
 ---
 # Release & Development Process
 
-This page would give an idea how aah framework Development and Release Process. I will be improving process efficiency iteratively as project moves on.
+This document would give an idea how aah framework Development and Release Process. I will be improving process efficiency iteratively as project moves on.
 
 ## Table of Contents
 

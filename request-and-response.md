@@ -4,7 +4,7 @@ Keywords: request, response
 ---
 # aah Request and Response
 
-This page gives you an insights about aah `Request` and `Response` capabilities. So that you can use it effectively.
+This document gives you an insights about aah `Request` and `Response` capabilities. So that you can use it effectively.
 
 ### Request
 

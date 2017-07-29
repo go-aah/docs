@@ -6,7 +6,7 @@ Keywords: security, terminology
 
 Please just take few minutes to read and understand this - `it is really really important`. The terms and concepts here are referred to everywhere in the documentation and it will greatly simplify your understanding of aah security in general.
 
-Security can be really confusing because of the terminology used. This page will make life easier by clarifying some core concepts and you’ll see how nicely the aah framework API reflects them:
+Security can be really confusing because of the terminology used. This document will make life easier by clarifying some core concepts and you’ll see how nicely the aah framework API reflects them:
 
 
 ### Authentication
@@ -54,4 +54,4 @@ A Subject is just fancy security term that basically means a security-specific `
 ----
 ## Acknowledgement
 
-This page documentation includes content from [Shiro Security library](https://shiro.apache.org).
+This document documentation includes content from [Shiro Security library](https://shiro.apache.org).

@@ -138,4 +138,4 @@ type PasswordEncoder interface {
 ----
 ## Acknowledgements
 
-This page documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).
+This document documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).
