@@ -1,4 +1,4 @@
-Title: Tutorial of i18n - Internationalization and Localization
+Title: Tutorial of i18n URL Query Param - Internationalization and Localization
 Desc: Tutorial of how to achieve Internationalization and Localization by applying aah configuration and convention. Zero coding effort!
 Keywords: tutorial, i18n, url query string, internationalization, localization, aah framework
 ---
