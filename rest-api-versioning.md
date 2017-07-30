@@ -4,7 +4,7 @@ Keywords: restful api, rest api, api versioning, api version
 ---
 # RESTful API Versioning
 
-This document gives to you an insights into REST API versioning strategies supported by aah web framework. API versioning allows you to alter behavior or application logic flow between different clients.
+This document provides an insights into REST API versioning strategies supported by aah web framework for Go. API versioning allows you to alter behavior or application logic flow between different clients.
 
 There are a number of valid strategies to approach API versioning. Typically API versioning is determined by the incoming client request, and may either be based on the request URL, request URL query parameter, request HTTP headers or HostName.
 

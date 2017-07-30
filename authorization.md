@@ -28,7 +28,7 @@ Those are all decisions determining what a user has access to.
           - [Role Check](#role-check)
           - [Permission Check](#permission-check)
       - [Template/View function](#template-view-function)
-      - Way to configure URL Path based roles/permissions check **`Upcoming`** 
+      - Way to configure URL Path based roles/permissions check **`Upcoming`**
 
 
 ### Elements of Authorization
@@ -162,4 +162,4 @@ aah provides following templates/view function for authorization. You have more 
 ----
 ## Acknowledgement
 
-This document documentation includes content from [Shiro security library](https://shiro.apache.org).
+This page documentation includes content from [Shiro security library](https://shiro.apache.org).

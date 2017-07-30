@@ -4,7 +4,7 @@ Keywords: request, response
 ---
 # aah Request and Response
 
-This document gives you an insights about aah `Request` and `Response` capabilities. So that you can use it effectively.
+This document provides an insights into aah `Request` and `Response` capabilities. So that you can use it effectively.
 
 ### Request
 
@@ -38,7 +38,9 @@ aah Request object improved from standard request object. For typical applicatio
   * <u>Cookies</u> - returns all the cookies from HTTP request.
   * <u>IsJSONP</u> - returns true if request URL query string has `callback=function_name`.
   * <u>IsAJAX</u> - returns true if the request header `X-Requested-With` is `XMLHttpRequest` otherwise false.
-  * <u>Unwrap</u> - returns the standard Go HTTP request instance.
+  * <u>Unwrap</u> - returns the standard Go HTTP request instance. <span class="badge lb-xs">Since v0.7</span>
+  * <u>SaveFile</u> **`(upcoming in v0.8)`** - saves an uploaded multipart file for given key from the HTTP request into given destination file.
+  * <u>SaveFiles</u> **`(upcoming in v0.8)`** - saves an uploaded multipart file(s) for the given key from the HTTP request into given destination directory. It uses the filename as uploaded filename from the request.
 
 ### Response
 
@@ -59,4 +61,4 @@ And Implements following standard interfaces from `http` library.
   * `io.Closer`
 
 
-**Happy coding :)**
+<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
