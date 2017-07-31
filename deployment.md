@@ -11,9 +11,7 @@ Recommended way to deploy aah application is to create platform targeted binary.
 ### Table of Contents
 
   * [Preparation Checklist](#preparation-checklist)
-  * How to: Docker **`(upcoming)`**
-  * How to: Heroku **`(upcoming)`**
-  * Many more deployment options to come...
+  * How to: Dockerize **`(upcoming)`**
 
 ### Preparation Checklist
 
@@ -64,6 +62,6 @@ env {
 }
 ```
 
-### Many more deployment options to come...
+### How to: Dockerize
 
 ... **`Upcoming`** ...

@@ -28,7 +28,7 @@ aah run -i github.com/go-aah/tutorials/html-minify
 
 # Now, let's run the sample application in `prod` environment profile
 # Take a moment look at the page source
-aah run -i github.com/go-aah/tutorials/html-minify -p prod
+aah run -i github.com/go-aah/tutorials/html-minify -e prod
 ```
 
 ## Steps to integrate HTML Minify

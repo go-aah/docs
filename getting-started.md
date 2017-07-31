@@ -77,9 +77,9 @@ aah new
 
 **Output:**
 ```cfg
-––––––––––––––––––––––––––––––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
-––––––––––––––––––––––––––––––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
 # Report improvements/bugs at https://github.com/go-aah/aah/issues
 
 
@@ -91,15 +91,15 @@ Enter your application import path: github.com/jeevatkm/aah-first-app
 
 Choose your application type (web or api), default is 'web': web
 
-Choose your application Auth Scheme (form, basic), default is 'none': form
+Choose your application Auth Scheme (form, basic), default is 'none': none
 
-Choose your session store (cookie or file), default is 'cookie': file
+Choose your session store (cookie or file), default is 'cookie': cookie
 
-Your aah web application was created successfully at '/Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app'
+Your aah web application was created successfully at '/Users/jeeva/go/src/github.com/jeevatkm/aah-first-app'
 You shall run your application via the command: 'aah run --importpath github.com/jeevatkm/aah-first-app'
 
-Go to https://docs.aahframework.org to learn more and customize your aah application.
 
+Go to https://docs.aahframework.org to learn more and customize your aah application.
 ```
 
 ## Run your aah application
@@ -114,27 +114,31 @@ aah run -i github.com/jeevatkm/aah-first-app
 cd $GOPATH/src/github.com/jeevatkm/aah-first-app
 
 aah run
+
+# OR
+aah r
 ```
 
 **Output:**
 ```cfg
-––––––––––––––––––––––––––––––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
    aah framework v0.7 -  https://aahframework.org
-––––––––––––––––––––––––––––––––––––––––––––––––––––
+–––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues
 
-2017-05-08 23:11:52.511 INFO  Loading aah project file: /Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app/aah.project
-2017-05-08 23:11:52.511 INFO  Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-05-08 23:11:53.613 INFO  Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-05-08 23:11:53.623 INFO  aah framework v0.7, requires ≥ go1.8
-2017-05-08 23:11:53.626 INFO  Session file store is initialized at path: /Users/jeeva/go-home/src/github.com/jeevatkm/aah-first-app/sessions
-2017-05-08 23:11:53.627 INFO  aah application initialized successfully
-2017-05-08 23:11:53.627 INFO  App Name: aah-first-app
-2017-05-08 23:11:53.627 INFO  App Version: 0.0.1
-2017-05-08 23:11:53.627 INFO  App Build Date: 2017-05-08T23:11:52-07:00
-2017-05-08 23:11:53.627 INFO  App Profile: dev
-2017-05-08 23:11:53.627 INFO  App TLS/SSL Enabled: false
-2017-05-08 23:11:53.627 INFO  App Session Mode: stateful
-2017-05-08 23:11:53.627 INFO  aah go server running on :8080
+2017-07-30 22:56:03.880 INFO  Loading aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/aah.project
+2017-07-30 22:56:03.880 INFO  Hot-Reload enabled for environment profile: dev
+2017-07-30 22:56:03.880 INFO  Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
+2017-07-30 22:56:04.885 INFO  Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
+2017-07-30 22:56:04.899 INFO  aah framework v0.7, requires ≥ go1.8
+2017-07-30 22:56:04.903 INFO  aah application initialized successfully
+2017-07-30 22:56:04.903 INFO  App Name: aah-first-app
+2017-07-30 22:56:04.903 INFO  App Version: 0.0.1
+2017-07-30 22:56:04.903 INFO  App Build Date: 2017-07-30T22:56:03-07:00
+2017-07-30 22:56:04.903 INFO  App Profile: dev
+2017-07-30 22:56:04.903 INFO  App TLS/SSL Enabled: false
+2017-07-30 22:56:04.903 INFO  App Session Mode: stateless
+2017-07-30 22:56:04.903 INFO  aah go server running on :8080
 ```
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.

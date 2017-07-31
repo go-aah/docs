@@ -7,9 +7,9 @@
 
 ### aah CLI tool
 
-aah CLI tool is improved a lot in `v0.7` release. It supports POSIX flags (long & short), command alias for quick use. No change command names except `version` command, it become flag i.e. `aah -v` or `aah --version`.
+aah CLI tool is revamped in `v0.7` release. CLI supports POSIX flags (long & short), command alias for quick use. No change command names except `version` command, it become flag i.e. `aah -v` or `aah --version`.
 
-**Run** aah to see an improved CLI.
+Take a moment familiarize yourself. **Run** aah to see an improved CLI.
 ```cfg
 aah
 ```

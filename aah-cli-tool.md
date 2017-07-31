@@ -29,7 +29,7 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 –––––––––––––––––––––––––––––––––––––––––––––––––––––
 # Report improvements/bugs at https://github.com/go-aah/aah/issues
 
-Scanning GOPATH: /Users/jeeva/go-home/...
+Scanning GOPATH: /Users/jeeva/go/...
 
 4 aah projects were found, import paths are:
     github.com/go-aah/tutorials/domain-subdomain
@@ -57,8 +57,8 @@ _Note: It is recommended to use `build` command to create build artifact and dep
 Supported options are-
 ```cfg
 -i value, --importpath value  Import path of aah application
--p value, --profile value     Environment profile name to activate. e.g: dev, qa, prod (default: "dev")
--c value, --config value      External config for overriding aah.conf values
+-e value, --envprofile value  Environment profile name to activate. e.g: dev, qa, prod
+-c value, --config value      External config file for overriding aah.conf values
 ```
 
 Use `aah help run` to learn more.
@@ -70,9 +70,9 @@ Use `aah help run` to learn more.
 
 Supported options are-
 ```cfg
--i value, --importpath value    Import path of aah application
--p value, --profile value       Environment profile name to activate. e.g: dev, qa, prod (default: "prod")
--a value, --artifactpath value, -o value, --output value  Output directory of aah application build artifact. Default directory is '<app-base>/aah-build'
+-i value, --importpath value  Import path of aah application
+-e value, --envprofile value  Environment profile name to activate. e.g: dev, qa, prod
+-o value, --output value      Output of aah application build artifact. Default is '<app-base-dir>/build/<app-binary-name>-<app-version>-<goos>-<goarch>.zip'
 ```
 
 Artifact naming convention-
@@ -103,7 +103,7 @@ Use `aah help clean` to learn more.
 # list of available commands
 aah help
 
-# to know one command
+# to know about one command
 aah help build
 ```
 
@@ -112,7 +112,7 @@ Set environment variables `GOOS` and `GOARCH` before executing `aah build` comma
 
 #### Building linux binary on Mac OS
 ```cfg
-env GOOS=linux GOARCH=amd64 aah build --artifactpath=/Users/jeeva/build
+env GOOS=linux GOARCH=amd64 aah build --output=/Users/jeeva/build
 
 #Output:
 ...
@@ -121,7 +121,7 @@ Your application artifact is here: /Users/jeeva/build/myapp-99bf7df-linux-amd64.
 
 #### Building windows exe on Mac OS
 ```cfg
-env GOOS=windows GOARCH=amd64 aah build --artifactpath=/Users/jeeva/build
+env GOOS=windows GOARCH=amd64 aah build --output=/Users/jeeva/build
 
 #Output:
 ...
