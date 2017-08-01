@@ -6,7 +6,7 @@ Keywords: getting started, aah framework, aah first application, web framework f
 
 It is easy to start and work with aah framework. Let's make sure you have [Go environment ready](prerequisites.html).
 
-Here you will be learning-
+Here you will be learning:
 
 * [Installing aah framework and CLI tool](#installing-aah-framework-and-cli-tool)
 * [Verifying your aah installation](#verify-your-aah-installation)
@@ -17,14 +17,14 @@ Here you will be learning-
 
 ## Installing aah framework and CLI tool
 
-Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs">Since v0.7</span> aah CLI is fully POSIX flags (short & long) for commands. Also commands has `alias` too.
+Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs">Since v0.7</span> aah CLI is revamped and POSIX flags (short & long) for commands. Also commands has `alias` too.
 
 ```cfg
 go get -u aahframework.org/tools.v0/aah
 ```
 
 <div class="alert alert-info alert-info-blue">
-<p><strong>Please Note:</strong></p>
+<p><strong>Note:</strong></p>
 <p>If you get an error "<u>RPC failed; HTTP 301 curl 22 The requested URL returned error: 301</u>" then set the below git config and try again.</p>
 <p><pre>
 git config --global http.https://aahframework.org.followRedirects true
@@ -143,7 +143,7 @@ aah r
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.
 
-You will see a page with text-
+You will see a page with text:
 
 ```cfg
 Welcome to aah framework - Web Application

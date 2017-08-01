@@ -66,7 +66,7 @@ Use `aah help run` to learn more.
 
 ## Command: build
 
-`build` command, alias `b` - is used to create aah application build artifact for deployment. By default successful build produces an artifact under directory `<app-base-dir>/build`.
+`build` command, alias `b` - is used to create aah application build artifact for deployment. Default location and name is `<app-base-dir>/build/<app-binary-name>-<app-version>-<goos>-<goarch>.zip` or you can use your custom artifact name too.
 
 Supported options are-
 ```cfg
@@ -75,7 +75,7 @@ Supported options are-
 -o value, --output value      Output of aah application build artifact. Default is '<app-base-dir>/build/<app-binary-name>-<app-version>-<goos>-<goarch>.zip'
 ```
 
-Artifact naming convention-
+Artifact naming convention:
 
   * `<app-binary-name>-<app-version>-<goos>-<goarch>.zip`
       - For e.g.: `aahwebsite-381eaa8-darwin-amd64.zip`

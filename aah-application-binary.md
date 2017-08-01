@@ -41,7 +41,7 @@ Build Date  : 2017-04-25T21:00:45-07:00
 Supplying external configuration file. It gets merged into application configuration before the initialize.
 
 ```bash
-aahwebsite -config=/etc/aahwebsite/site.conf
+aahwebsite -config /etc/aahwebsite/site.conf
 ```
 
 ### profile
@@ -49,7 +49,7 @@ aahwebsite -config=/etc/aahwebsite/site.conf
 Environment profile name to active on startup.
 
 ```bash
-aahwebsite -profile=qa
+aahwebsite -profile qa
 ```
 
 ## Start/Stop script
@@ -81,6 +81,6 @@ Since `go1.5` we can build cross platform build easily. aah framework supports i
 
 ## Build Artifact Naming Convention
 
-aah build produces the build artifact name as `<app-binary-name>-<version>-<goos>-<goarch>.zip`.
+aah build produces the build artifact name as `<app-binary-name>-<version>-<goos>-<goarch>.zip`. Also you can supply your custom name for the artifact via `-o` or `--output`.
 
 For e.g.: `aahwebsite-381eaa8-darwin-amd64.zip`
