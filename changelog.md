@@ -9,6 +9,7 @@
 #### Enhancements
 
   * Added i18n URL Path Variable support e.g. `/en/index.html` [#71]({{aah_github_issues_url}}/71).
+  * Added simple cache burst option for static files via filename [#68]({{aah_github_issues_url}}/68).
   * Added aah Logger Hook support, so that you can send logs to external systems like `kibana`, `splunk`, etc. [#66]({{aah_github_issues_url}}/66).
   * Logger Level and convenient methods exposed [#61]({{aah_github_issues_url}}/61).
   * Added `aah clean` command [#78]({{aah_github_issues_url}}/78).
