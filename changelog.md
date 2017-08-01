@@ -3,7 +3,7 @@
 #### Features
 
   * Security - [Authentication](/authentication.html) & [Authorization](/authorization.html) [#37]({{aah_github_issues_url}}/37).
-  * Server Access Log [#69]({{aah_github_issues_url}}/69).
+  * Server Access Log [#69]({{aah_github_issues_url}}/69), PR [#72]({{aah_github_issues_url}}/72). Thank you [@adelowo](https://github.com/adelowo).
   * Hot-Reload for development [#4]({{aah_github_issues_url}}/4).
 
 #### Enhancements
