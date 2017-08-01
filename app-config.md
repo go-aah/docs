@@ -16,14 +16,13 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
-  * [pidfile](#pidfile)
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)
         - [lets_encrypt { ... }](#section-lets-encrypt)
+    - [access_log { ... }](#server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
-    - [access_log { ... }](#server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [i18n { ... }](#section-i18n)
     - [param_name { ... }](#section-param-name) <span class="badge lb-xs">Since v0.7</span>
   * [format { ... }](#section-format)

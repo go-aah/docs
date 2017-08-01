@@ -44,10 +44,11 @@ Access log processing handled in separate routine, it won't stand in way.
 
 ### Access Log Configuration
 
-Add `access_log` section under config `request` section in the `aah.conf`.
+Add `access_log` section under the config `server` section in the `aah.conf`.
 
 ```cfg
-request {
+server {
+  # ...
 
   # To manage aah server effectively it is necessary to know details about the
   # request, response, processing time, client IP address, etc. aah framework
@@ -67,7 +68,13 @@ request {
     # Access Log channel buffer size
     # Default value is `500`
     #channel_buffer_size = 500
+
+    # Include static files access log too.
+    # Default value is `true`.
+    #static_file = false
   }
+
+  # ...
 }
 ```
 
