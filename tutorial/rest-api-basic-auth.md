@@ -49,10 +49,11 @@ While you're doing various requests also observe the application logs and API re
 ### Explanation
 
   * `controllers` package
-      - Tutorial implements reportee endpoint to demonstrate Authentication and Authorization feature.
+      - Implements reportee endpoint to demonstrate Authentication and Authorization feature.
   * `security` package
-      - Tutorial implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
-      - Tutorial implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
+      - Implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implemented security interfaces `security/BasicAuthenticationProvider` & `security/BasicAuthorizationProvider` gets registered in `security.conf`
   * `security.conf` has Basic Auth Scheme configuration and header name configuration.
   * `routes.conf` has `default_auth = "basic_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 

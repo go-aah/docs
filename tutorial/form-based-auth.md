@@ -44,8 +44,9 @@ Navigate around using these URL for all the demo users and observe the applicati
   * `controllers` package
       - Implements Login, Logout, Admin dashboard, etc.
   * `security` package
-      - Tutorial implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
-      - Tutorial implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
+      - Implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implemented security interfaces `security/FormAuthenticationProvider` & `security/FormAuthorizationProvider` gets registered in `security.conf`
   * `views` directory
       - Implements pages for respective controller action with Authorization using template functions.
   * `security.conf` has Form Auth Scheme configuration, form fields and Session Management configuration.

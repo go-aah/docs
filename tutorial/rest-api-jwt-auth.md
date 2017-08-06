@@ -50,11 +50,12 @@ Get the token and pass that token via Header `Authorization: Bearer <token>`.
 ### Explanation
 
   * `controllers` package
-      - Tutorial implements token `/v1/token` endpoint to issue a JSON Web Token (JWT).
-      - Tutorial implements reportee endpoint to demonstrate Authentication and Authorization feature.
+      - Implements token `/v1/token` endpoint to issue a JSON Web Token (JWT).
+      - Implements reportee endpoint to demonstrate Authentication and Authorization feature.
   * `security` package
-      - Tutorial implements interface `authc.Authenticator` to validate JSON Web Token (JWT) and returns Subject's `authc.AuthenticationInfo` to Security Manager.
-      - Tutorial implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implements interface `authc.Authenticator` to validate JSON Web Token (JWT) and returns Subject's `authc.AuthenticationInfo` to Security Manager.
+      - Implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implemented security interfaces `security/AuthenticationProvider` & `security/AuthorizationProvider` gets registered in `security.conf`
       - Implements JWT based configuration
   * `security.conf` has Generic Auth Scheme defined and JWT configuration.
   * `routes.conf` has `default_auth = "jwt_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
