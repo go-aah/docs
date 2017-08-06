@@ -10,19 +10,20 @@ Before you begin, I would request you to take a moment to read [security design]
 
 aah framework supports basic auth in two ways. You can use either one.
 
-  * Using File realm - This is good for when you have known set of users, roles and permissions (roles and permissions are optional though).
-  * Dynamic way implementing interface `authc.Authenticator` and `authz.Authorizer`
+  * File realm - This is good for when you have known set of users, roles and permissions (roles and permissions are optional though).
+  * Dynamic way of implementing interfaces `authc.Authenticator` and `authz.Authorizer`
 
 ### How to get the aah tutorials source code?
 
 ```bash
 go get -u -d github.com/go-aah/tutorials/...
 ```
-Just focus on following files/directory:
+Focus on following files/directory:
 
   * `rest-api-basic-auth/app/controllers/*`
   * `rest-api-basic-auth/app/security/*`
   * `rest-api-basic-auth/config/security.conf`
+  * `rest-api-basic-auth/config/routes.conf`
 
 ### Let's see it in the action
 
@@ -38,12 +39,21 @@ aah run -i github.com/go-aah/tutorials/rest-api-basic-auth
   * user2@example.com/welcome123
   * user3@example.com/welcome123 (user is in locked state)
 
-While you're doing various requests also observe the application logs to see more information.
+While you're doing various requests also observe the application logs and API response to see more information.
 
-**API URLs**
+**API Endpoints**
 
-  * http://localhost:8080/
-  * http://localhost:8080/myuserinfo
-  * http://localhost:8080/userinfomsg
+  * http://localhost:8080/ - Shows welcome message. (Anonymous access)
+  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based authorization. (Secured)
+
+### Explanation
+
+  * `controllers` package
+      - Tutorial implements reportee endpoint to demonstrate Authentication and Authorization feature.
+  * `security` package
+      - Tutorial implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
+      - Tutorial implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+  * `security.conf` has Basic Auth Scheme configuration and header name configuration.
+  * `routes.conf` has `default_auth = "basic_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 
 <center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>

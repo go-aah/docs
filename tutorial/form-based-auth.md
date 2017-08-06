@@ -13,11 +13,12 @@ Before you begin, I would request you to take a moment to read [security design]
 ```bash
 go get -u -d github.com/go-aah/tutorials/...
 ```
-Just focus on following files/directory:
+Focus on following files/directory:
 
   * `form-based-auth/app/controllers/*`
   * `form-based-auth/app/security/*`
   * `form-based-auth/config/security.conf`
+  * `form-based-auth/config/routes.conf`
   * `form-based-auth/views/pages/*`
 
 ### Let's see it in the action
@@ -32,10 +33,22 @@ aah run -i github.com/go-aah/tutorials/form-based-auth
 
 Now it will take you to the login page. From there it self explanatory. Happy coding!
 
-Navigate around using these URL for all the demo users. And observe the application logs to see more information.
+Navigate around using these URL for all the demo users and observe the application logs to see more information.
 
   * http://localhost:8080/manage/users.html
   * http://localhost:8080/admin/dashboard.html
   * http://localhost:8080/login.html
+
+### Explanation
+
+  * `controllers` package
+      - Implements Login, Logout, Admin dashboard, etc.
+  * `security` package
+      - Tutorial implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
+      - Tutorial implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+  * `views` directory
+      - Implements pages for respective controller action with Authorization using template functions.
+  * `security.conf` has Form Auth Scheme configuration, form fields and Session Management configuration.
+  * `routes.conf` has `default_auth = "form_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 
 <center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
