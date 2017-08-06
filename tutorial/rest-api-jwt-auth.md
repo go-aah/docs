@@ -2,7 +2,7 @@ Title: Tutorial of REST API JWT Auth - Security
 Desc: Tutorial of how to implement REST API JWT Auth using aah framework
 Keywords: jwt auth, rest api, tutorial, security, aah framework
 ---
-# Tutorial of REST API Basic Auth - Security
+# Tutorial of REST API JWT Auth - Security
 
 Goal of this tutorial is to demonstrate aah framework's `Generic Auth` scheme to JSON Web Token (JWT) auth security implementation. It is easy and robust implementation.
 
@@ -43,7 +43,7 @@ While you're doing various requests also observe the application logs and API re
 
   * http://localhost:8080/ - Shows welcome message. (Anonymous access)
   * http://localhost:8080/v1/token - Issues JSON Web Token (JWT) for given username and password.
-  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based authorization. (Secured)
+  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based on authorization. (Secured)
 
 Get the token and pass that token via Header `Authorization: Bearer <token>`.
 

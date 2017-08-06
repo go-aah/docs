@@ -44,7 +44,7 @@ While you're doing various requests also observe the application logs and API re
 **API Endpoints**
 
   * http://localhost:8080/ - Shows welcome message. (Anonymous access)
-  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based authorization. (Secured)
+  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based on authorization. (Secured)
 
 ### Explanation
 
