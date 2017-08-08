@@ -23,6 +23,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
     - [access_log { ... }](#server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
+    - [content_negotiation { ... }](#section-content-negotiation) <span class="badge lb-xs">Since v0.8</span>
   * [i18n { ... }](#section-i18n)
     - [param_name { ... }](#section-param-name) <span class="badge lb-xs">Since v0.7</span>
   * [format { ... }](#section-format)
@@ -223,6 +224,14 @@ cache_dir = "/path/to/store/cache/certs"
 ## Section: request { ... }
 Request configuration values.
 
+### max_body_size
+<span class="badge lb-sm">Since v0.8</span> Maximum request body size for all incoming HTTP requests except `MultipartForm`, refer to `request.multipart_size` config. Also you can override individual route `max_body_size` in the `routes.conf` if need be.
+
+Default value is `5mb`.
+```cfg
+max_body_size = "10mb"
+```  
+
 ### multipart_size
 Request Multi-part size is used for form parsing when request `Content-Type` is `multipart/form-data`.
 
@@ -255,6 +264,29 @@ HTTP header name for generated Request ID. If request already has HTTP header th
 Default value is `X-Request-Id`.
 ```cfg
 header = "X-Request-Id"
+```
+
+### Section: content_negotiation { ... }
+<span class="badge lb-sm">Since v0.8</span> Content negotiation is used to validate what is being `offered` and `accepted` by server in-terms of request and response. Also known as `Content-Type` restriction.
+
+### offered
+Offered - `Accept` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.7).
+
+<u>For example:</u> Client sends Accept header as `application/xml`. However server only supports serving JSON i.e. `application/json`. Then server responds with `406 Not Acceptable`.
+
+Default value is empty list and disabled.
+```cfg
+offered = ["application/json", "text/json"]
+```
+
+### accepted
+Accepted - `Content-Type` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.16).
+
+<u>For example:</u> Client sends `Content-Type` header as `application/xml`. However server only supports JSON payload as request body. Then server responds with `415 Unsupported Media Type`.
+
+Default value is empty list and disabled.
+```cfg
+accepted = ["application/json", "text/json"]
 ```
 
 ---
