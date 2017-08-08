@@ -15,7 +15,8 @@ Framework provides `Reply` builder (aka Response Builder) to compose your respon
   * [Cookie](#cookies)
   * [Disable Gzip](#disable-gzip)
   * [Done()](#done)
-  * [Just Few Sample](#just-few-samples)
+  * [Just Few Samples](#just-few-samples)
+  * [Registering External JSON Library into aah](#registering-external-json-library-into-aah) <span class="badge lb-xs">since v0.8</span>
 
 ## Response Status Codes
 As per RFC7231, provides method for frequently used ones.
@@ -121,4 +122,18 @@ Reply().
 
 // Replying HTML response with custom layout and data
 Reply().HTMLl("master-custom.html", data)
+```
+
+## Registering External JSON Library into aah
+
+<span class="badge lb-sm">Since v0.8</span> You can register standard JSON compatible library into `aah`. By default framework uses standard one. Such as [json-iterator](https://github.com/json-iterator/go), [ffjson](https://github.com/pquerna/ffjson), etc.
+
+```go
+// Example of registering `json-iterator` library into aah
+func init() {
+	jjson := jsoniter.ConfigCompatibleWithStandardLibrary
+	aah.JSONMarshal = jjson.Marshal
+	aah.JSONUnmarshal = jjson.Unmarshal
+	aah.JSONMarshalIndent = jjson.MarshalIndent
+}
 ```
