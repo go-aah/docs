@@ -225,7 +225,7 @@ cache_dir = "/path/to/store/cache/certs"
 Request configuration values.
 
 ### max_body_size
-<span class="badge lb-sm">Since v0.8</span> Maximum request body size for all incoming HTTP requests except `MultipartForm`, refer to `request.multipart_size` config. Also you can override individual route `max_body_size` in the `routes.conf` if need be.
+<span class="badge lb-sm">Since v0.8</span> Max request body size for all incoming HTTP requests except `MultipartForm`. Also you can override this size for individual route on specific cases in `routes.conf` if need be.
 
 Default value is `5mb`.
 ```cfg

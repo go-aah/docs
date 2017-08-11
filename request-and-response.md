@@ -24,7 +24,6 @@ aah Request object improved from standard request object. For typical applicatio
   * <u>IsGzipAccepted</u> - whether client supported Gzip compression or not.
   * <u>Referer</u> - value of HTTP header `Referer` or `Referrer`.
   * <u>UserAgent</u> - value of HTTP header `User-Agent`.
-  * <u>Raw</u> - standard Go HTTP request object. Note: this field to be unexported on `v1` release, instead use `Unwarp` method.
 
 #### Methods
 
