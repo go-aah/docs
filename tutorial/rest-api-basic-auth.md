@@ -57,4 +57,4 @@ While you're doing various requests also observe the application logs and API re
   * `security.conf` has Basic Auth Scheme configuration and header name configuration.
   * `routes.conf` has `default_auth = "basic_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 
-<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
+<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>

@@ -52,4 +52,4 @@ Navigate around using these URL for all the demo users and observe the applicati
   * `security.conf` has Form Auth Scheme configuration, form fields and Session Management configuration.
   * `routes.conf` has `default_auth = "form_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 
-<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
+<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>

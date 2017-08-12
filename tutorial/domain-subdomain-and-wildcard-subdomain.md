@@ -42,4 +42,4 @@ aah run -i github.com/go-aah/tutorials/domain-subdomain
 * http://username2.sample.com:8080
 * http://username3.sample.com:8080
 
-<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
+<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>
