@@ -16,10 +16,10 @@ Framework provides `Reply` builder (aka Response Builder) to compose your respon
   * [Disable Gzip](#disable-gzip)
   * [Done()](#done)
   * [Just Few Samples](#just-few-samples)
-  * [Registering External JSON Library into aah](#registering-external-json-library-into-aah) <span class="badge lb-xs">since v0.8</span>
+  * [Registering External JSON Library into aah](external-json-library.html) <span class="badge lb-xs">Since v0.8</span>
 
 ## Response Status Codes
-As per RFC7231, provides method for frequently used ones.
+As per RFC7231, `Reply()` provides method for frequently used ones.
 
   * `Ok()`
   * `Created()`
@@ -56,6 +56,7 @@ Rich reply methods for the response.
   * `FileDownload(file, targetName)` - Content-Disposition is attachment
   * `FileInline(file, targetName)` - Content-Disposition is inline
   * `Binary(bytes)`
+  * `Error(err)` <span class="badge lb-xs">Since v0.8</span> [know more](centralized-error-handler.html#reply-error-err).
 
 ## Redirect
   * `Redirect(url)`
@@ -122,18 +123,11 @@ Reply().
 
 // Replying HTML response with custom layout and data
 Reply().HTMLl("master-custom.html", data)
-```
 
-## Registering External JSON Library into aah
-
-<span class="badge lb-sm">Since v0.8</span> You can register standard JSON compatible library into `aah`. By default framework uses standard one. Such as [json-iterator](https://github.com/json-iterator/go), [ffjson](https://github.com/pquerna/ffjson), etc.
-
-```go
-// Example of registering `json-iterator` library into aah
-func init() {
-	jjson := jsoniter.ConfigCompatibleWithStandardLibrary
-	aah.JSONMarshal = jjson.Marshal
-	aah.JSONUnmarshal = jjson.Unmarshal
-	aah.JSONMarshalIndent = jjson.MarshalIndent
-}
+// Replying Error - processed by Centralized Error Handler before writing a reply
+Reply().Error({
+  Code: http.StatusNotFound,
+  Message: "Resource not found",
+  Data: "relevant data if you would like to send", // this is interface{} type.
+})
 ```

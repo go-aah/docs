@@ -19,8 +19,8 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [redirect_trailing_slash](#redirect-trailing-slash)
       * [method_not_allowed](#method-not-allowed)
       * [auto_options](#auto-options)
-      * [default_auth](#default-auth) <span class="badge lb-xs">since v0.7</span>
-      * [not_found { ... }](#section-not-found)
+      * [default_auth](#default-auth) <span class="badge lb-xs">Since v0.7</span>
+      * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
           - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
@@ -127,7 +127,9 @@ default_auth = "form_auth"
 ```
 
 ### Section: not_found { ... }
-Define your custom `NotFound` implementation. It is invoked when no matching route is found. If not defined default one is invoked. This is optional section.
+<span class="badge lb-sm lb-drop-color">On v0.8</span> configuration is removed in-favor of [Centralized Error Handler](centralized-error-handler.html).
+
+<strike>Define your custom `NotFound` implementation. It is invoked when no matching route is found. If not defined default one is invoked. This is optional section.
 
 Create your controller and action of your choice. Then register in the routes config. You may call `IsStaticRoute()` in the NotFound action to know whether the incoming request is `static or application route`.
 
@@ -138,6 +140,7 @@ not_found {
   action = "NotFound"
 }
 ```
+</strike>
 
 ---
 

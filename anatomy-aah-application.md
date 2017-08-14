@@ -6,7 +6,7 @@ Keywords: anatomy, layout, mvc, architectural, directories, aah application layo
 
 The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern.
 
-```
+```cfg
 app                   ⇒ Application Go source codes directory
   └ controllers       ⇒ Application controllers
   └ models            ⇒ Application business layer
@@ -41,20 +41,20 @@ app-name.pid          ⇒ Application PID file (created during app startup)
 ```
 
 #### Packaged aah application will have following directories/files
-```
-bin                    ⇒ Application binary file
-aah.sh                 ⇒ *nix startup file
-aah.cmd                ⇒ Windows startup file
+```cfg
+bin              ⇒ Application binary under bin directory
+aah.sh           ⇒ *nix startup file
+aah.cmd          ⇒ Windows startup file
 ```
 
 #### Packaged aah application won't have following directories/files
-```
-app                    ⇒ Application Go source directory (compiled into binary under `bin` directory)
-logs                   ⇒ Logs directory (created during app startup)
-tests                  ⇒ Go source codes directory (not for production)
-.gitignore             ⇒ Typical Go .gitignore file (not for production)
-aah.project            ⇒ aah project configuration (not for production)
-app-name.pid           ⇒ Application PID file (created during app startup)
+```cfg
+app              ⇒ Application Go source directory (compiled into binary under `bin` directory)
+logs             ⇒ Logs directory (created during an app startup)
+tests            ⇒ Go source codes directory (not for production)
+.gitignore       ⇒ Typical Go .gitignore file (not for production)
+aah.project      ⇒ aah project configuration (not for production)
+app-name.pid     ⇒ Application PID file (created during app startup)
 ```
 
 ### The `app` directory
@@ -69,9 +69,11 @@ The `config` directory contains the application's configuration files. aah confi
   * `routes.conf` - the routing configuration file for the application, [know more](routes-config.html).
   * `security.conf` - the security configuration file for the application, [know more](security-config.html).
 
-### The `i18n` directory
+### The `i18n` directory (Not applicable to API application)
 
 The `i18n` directory contains internationalization and localization message files. Message filename format is  `message.<Language-ID>`. Language is combination of `Language + Region` value. aah framework implements Language code as per  two-letter `ISO 639-1` standard and Region code as per two-letter `ISO 3166-1` standard, [know more](i18n.html).
+
+***Note: If you want you can use `i18n` directory for messages in your API application.***
 
 ### The `views` directory (Not applicable to API application)
 
@@ -82,6 +84,7 @@ The `views` directory contains application view templates. aah framework support
   * `pages` - Page view template files. Respective view file for controllers action.
       - For example: `<controller-name>/<action-name>.<ext>`
       - For example: `/<namespace>/<controller-name>/<action-name>.<ext>` (namespace directory structure is supported)
+  * `errors` - Application error pages such as 500.html, 404.html, etc.
 
 ### The `static` directory (Not applicable to API application)
 
@@ -90,7 +93,7 @@ The `static` directory contains static assets that are served directly. It conta
   * By default `static` directory mapped as `/static` in [routes.conf](routes-config.html). You can customize it in the config. For example: `/assets`
   * You can use several directories under `static` directory as per your need. Just organize it appropriately, it helps you :)
 
-***Note: If you want you can use `static` directory for file delivery for your API application.***
+***Note: If you want you can use `static` directory for file delivery in your API application.***
 
 ### The `logs` directory
 
