@@ -12,16 +12,16 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
   * Global Flags
       - `-h, --help` - show help
       - `-v, --version` - print aah framework versions and go version
-  * [list](#command-list) <span class="badge lb-xs">since v0.6</span>
+  * [list](#command-list) <span class="badge lb-xs">Since v0.6</span>
   * [new](#command-new)
   * [run](#command-run)
   * [build](#command-build)
-  * [clean](#command-clean) <span class="badge lb-xs">since v0.7</span>
+  * [clean](#command-clean) <span class="badge lb-xs">Since v0.7</span>
   * [help](#command-help)
   * [Cross Compile Build](#cross-compile-build)
 
 ## Command: list
-`list` command, alias `l` - scans GOPATH and lists all the import paths of aah project. <span class="badge lb-sm">since v0.6</span>.
+`list` command, alias `l` - scans GOPATH and lists all the import paths of aah project. <span class="badge lb-sm">Since v0.6</span>.
 
 ```cfg
 –––––––––––––––––––––––––––––––––––––––––––––––––––––

@@ -20,7 +20,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)
         - [lets_encrypt { ... }](#section-lets-encrypt)
-    - [access_log { ... }](#server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
+    - [access_log { ... }](server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
     - [content_negotiation { ... }](#section-content-negotiation) <span class="badge lb-xs">Since v0.8</span>

@@ -26,10 +26,10 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * Route Found: `aah.Context` is updated with targeted controller and action information. If controller or action is not found in the registry. Flow skips to `OnPreReply` server extension point with `404 Not Found` and writing response on the wire.
       - Path Variables are parsed and available at this point via `ctx.Req`.
   * Parse Session Cookie if the session mode is `stateful`
-  * `OnPreAuth` server extension point. <span class="badge lb-xs">since v0.7</span>
-  * Authenticate the incoming request. <span class="badge lb-xs">since v0.7</span>
-  * Populates Authorization info into Subject. <span class="badge lb-xs">since v0.7</span>
-  * `OnPostAuth` server extension point. <span class="badge lb-xs">since v0.7</span>
+  * `OnPreAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
+  * Authenticate the incoming request. <span class="badge lb-xs">Since v0.7</span>
+  * Populates Authorization info into Subject. <span class="badge lb-xs">Since v0.7</span>
+  * `OnPostAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
   * Read and Parse Request
       - For `GET` method request parse Query parameters
       - For not `GET` method. Query parameters and Payload, Form, Multi-part based on content-type.
@@ -44,6 +44,7 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * Controller interceptor `Finally` is called if exists. It is always executed.
   * ***Note:*** If any `panic` happens around controller action interceptor `Panic` is called on that controller.
   * User-defined middleware(s) execution (basically after `m.Next(ctx)` call).
+  * If `Reply` is an `Error` type then [Centralized Error Handler](centralized-error-handler.html) is called.
   * If the Response is already sent via `ctx.Res` and `ctx.Reply().Done()` is called then framework does not intervene with response, so request completes here.
   * Write Response Header(s) and set Cookies (session cookie, etc.)
   * If it's a Redirect reply then framework redirects it.

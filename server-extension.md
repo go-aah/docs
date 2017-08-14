@@ -18,8 +18,8 @@ Reference to [Event Emitter/Publisher](event-publisher.html).
   * [OnStart](#event-onstart)
   * [OnShutdown](#event-onshutdown)
   * [OnRequest](#event-onrequest)
-  * [OnPreAuth](#event-onpreauth) <span class="badge lb-xs">since v0.7</span>
-  * [OnPostAuth](#event-onpostauth) <span class="badge lb-xs">since v0.7</span>
+  * [OnPreAuth](#event-onpreauth) <span class="badge lb-xs">Since v0.7</span>
+  * [OnPostAuth](#event-onpostauth) <span class="badge lb-xs">Since v0.7</span>
   * [OnPreReply](#event-onprereply)
   * [OnAfterReply](#event-onafterreply)
 

@@ -37,9 +37,9 @@ aah Request object improved from standard request object. For typical applicatio
   * <u>Cookies</u> - returns all the cookies from HTTP request.
   * <u>IsJSONP</u> - returns true if request URL query string has `callback=function_name`.
   * <u>IsAJAX</u> - returns true if the request header `X-Requested-With` is `XMLHttpRequest` otherwise false.
-  * <u>Unwrap</u> - returns the standard Go HTTP request instance. <span class="badge lb-xs">Since v0.7</span>
-  * <u>SaveFile</u> - saves an uploaded multipart file for given key from the HTTP request into given destination file.
-  * <u>SaveFiles</u> - saves an uploaded multipart file(s) for the given key from the HTTP request into given destination directory. It uses the filename as uploaded filename from the request.
+  * <u>Unwrap</u> <span class="badge lb-xs">Since v0.7</span> - returns the standard Go HTTP request instance.
+  * <u>SaveFile</u> <span class="badge lb-xs">Since v0.8</span> - saves an uploaded multipart file for given key from the HTTP request into given destination file.
+  * <u>SaveFiles</u> <span class="badge lb-xs">Since v0.8</span> - saves an uploaded multipart file(s) for the given key from the HTTP request into given destination directory. It uses the filename as uploaded filename from the request.
 
 ### Response
 

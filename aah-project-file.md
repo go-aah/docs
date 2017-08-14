@@ -9,7 +9,7 @@ aah.project file holds the application info, build configuration and hot-reload 
 ### Table of Contents
 
   * [build { ... }](#section-build)
-  * [hot_reload { ... }](#section-hot-reload)  <span class="badge lb-xs">since v0.7</span>
+  * [hot_reload { ... }](#section-hot-reload)  <span class="badge lb-xs">Since v0.7</span>
 
 ## Section: build { ... }
 Build section is used during aah application compile and build process.

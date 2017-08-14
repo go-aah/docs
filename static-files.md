@@ -11,8 +11,8 @@ Framework provides flexible way to serve static files. It can be set of files fr
   * Serve directory and it's subtree files
   * Serve individual file
   * Directory listing
-  * [HTTP Cache-Control: By `mime` types and defaults](#cache-control) <span class="badge lb-xs">since v0.6</span>
-  * [Cache Busting: By filename](#cache-busting) <span class="badge lb-xs">since v0.7</span>
+  * [HTTP Cache-Control: By `mime` types and defaults](#cache-control) <span class="badge lb-xs">Since v0.6</span>
+  * [Cache Busting: By filename](#cache-busting) <span class="badge lb-xs">Since v0.7</span>
 
 Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
 
