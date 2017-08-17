@@ -20,7 +20,7 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [method_not_allowed](#method-not-allowed)
       * [auto_options](#auto-options)
       * [default_auth](#default-auth) <span class="badge lb-xs">Since v0.7</span>
-      * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed
+      * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed, in-favor of [Centralized Error Handler](centralized-error-handler.html)
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
           - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
