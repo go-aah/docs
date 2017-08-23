@@ -1,6 +1,6 @@
 ## Migration Guide
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Tip:</strong></p>
 <p>To adapt to latest configuration from release. Create a new project, compare new configurations (under `config/*`) with yours then merge it. Bingo! you're on to new configurations.</p>
 </div>

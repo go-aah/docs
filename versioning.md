@@ -23,7 +23,7 @@ aah framework codebase is hosted on [Github](https://github.com/go-aah) and Deve
 
 ### Package Management
 
-aah framework highly recommends you to use your choice of package management tool. Beside that aah framework provides versioned release too.
+aah framework **highly recommends** you to use your choice of package management tool and vendorize your application. Beside that aah framework also provides versioned release too, if you're using `go get`.
 
 Just to make sure, aah application is tested with `glide` and `govendor` package management tools. It is doing alright.
 

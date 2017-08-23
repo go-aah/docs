@@ -201,7 +201,7 @@ Returns `true` if Subject (aka User) has all the given [permissions](/security-p
 
 Go template strips the HTML comment while rendering the template file. To preserve HTML comment or any special char use `safeHTML` template func. Of-course use it with care.
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>Use only if you trust the HTML source, since it preserves the HTML content without escaping.</p>
 </div>

@@ -27,6 +27,8 @@ aah Request object improved from standard request object. For typical applicatio
 
 #### Methods
 
+Learn about [auto parse and bind](request-parameters-auto-bind.html) here.
+
   * <u>PathValue</u> - returns value for given Path param key otherwise empty string. For eg.: `/users/:userId` => `PathValue("userId")`.
   * <u>QueryValue</u> - returns value for given URL query param key otherwise empty string.
   * <u>QueryArrayValue</u> - returns array value for given URL query param key otherwise empty string slice.

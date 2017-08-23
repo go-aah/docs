@@ -4,7 +4,7 @@ Keywords: authentication, security, subject, principals, credentials, form auth,
 ---
 # aah Authentication
 
-Authentication is the process of identity verification – you are trying to prove a user is who they say they are. To do so, a user needs to provide some sort of proof of identity that your system understands and trust.
+<span class="badge lb-sm">Since v0.7</span> Authentication is the process of identity verification – you are trying to prove a user is who they say they are. To do so, a user needs to provide some sort of proof of identity that your system understands and trust.
 
 Familiarize yourself with aah framework security [Terminology](security-terminology.html), [Design](security-design.html) and [Permissions](security-permissions.html).
 
@@ -38,7 +38,7 @@ By nature of aah security implementation, you can have one or more `Auth Scheme`
   * Configure auth related settings in `routes.conf`
   * For Authorization refer to [authorization guide](authorization.html)
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Security Tip:</strong></p>
 <p>Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</p>
 </div>
@@ -251,7 +251,7 @@ mark {
 
 ### Generic Auth
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>Generic auth has more possibilities, so credential validation is not done by framework. That is left up to you on <code>authc.Authenticator</code> implementation. It's kept open for extensions such as JWT, OAuth, etc.</p>
 </div>

@@ -15,7 +15,6 @@ import "github.com/json-iterator/go"
 
 func init()  {
   aah.JSONMarshal = jsoniter.Marshal
-	aah.JSONUnmarshal = jsoniter.Unmarshal
 	aah.JSONMarshalIndent = jsoniter.MarshalIndent
 }
 ```
@@ -27,7 +26,6 @@ import "github.com/json-iterator/go"
 func init() {
 	jjson := jsoniter.ConfigCompatibleWithStandardLibrary
 	aah.JSONMarshal = jjson.Marshal
-	aah.JSONUnmarshal = jjson.Unmarshal
 	aah.JSONMarshalIndent = jjson.MarshalIndent
 }
 ```
@@ -39,6 +37,5 @@ import "github.com/pquerna/ffjson/ffjson"
 
 func init() {
   aah.JSONMarshal = ffjson.Marshal
-  aah.JSONUnmarshal = ffjson.Unmarshal
 }
 ```

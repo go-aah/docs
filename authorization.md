@@ -4,7 +4,7 @@ Keywords: authorization, roles, permissions, security, subject, principals
 ---
 # aah Authorization
 
-Authorization, or access control, is the function of specifying access rights to resources. In other words, `who` has access to `what`.
+<span class="badge lb-sm">Since v0.7</span> Authorization, or access control, is the function of specifying access rights to resources. In other words, `who` has access to `what`.
 
 Examples of authorization checks are:
 
@@ -28,7 +28,7 @@ Those are all decisions determining what a user has access to.
           - [Role Check](#role-check)
           - [Permission Check](#permission-check)
       - [Template/View function](#template-view-function)
-      - Way to configure URL Path based roles/permissions check **`Upcoming`**
+      - Way to configure URL/Route Path based roles/permissions check **`Upcoming`**
 
 
 ### Elements of Authorization
@@ -79,7 +79,7 @@ Users are allowed to perform certain actions in your application through their a
 
 For more information on Users, aka Subjects, please check out the [Understanding Subject in aah](security-subject.html) documentation.
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>Ultimately, your <code>authz.Authorizer</code> interface implementation is what communicates with your data source (RDBMS, NoSQL, LDAP, etc). So your <code>authorizer</code> is what will tell aah framework whether or not roles or permissions exist. You have full control over how your authorization model works.</p>
 </div>

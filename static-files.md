@@ -92,7 +92,7 @@ static {
 
 <span class="badge lb-sm">Since v0.6</span> aah framework provides flexible way to configure static file `Cache-Control` header by `MIME` types. Default cache header is used if mime type is not configured.
 
-_**Note:**_ Cache configuration goes to `aah.conf`.
+_**Note:**_ Cache configuration is in `aah.conf`.
 
 **Sample Cache Configuration**
 

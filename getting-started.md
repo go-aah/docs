@@ -23,7 +23,7 @@ Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs
 go get -u aahframework.org/tools.v0/aah
 ```
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>If you get an error "<u>RPC failed; HTTP 301 curl 22 The requested URL returned error: 301</u>" then set the below git config and try again.</p>
 <p><pre>

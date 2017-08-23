@@ -121,7 +121,9 @@ Enginer interface {
 
 ```go
 func init()  {
-  aah.AddViewEngine("enginename", &MyViewEngine{})
+  if err := aah.AddViewEngine("enginename", &MyViewEngine{}); err != nil {
+    log.Error(err)
+  }
 }
 ```
 
