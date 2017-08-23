@@ -256,7 +256,7 @@ mark {
 <p>Generic auth has more possibilities, so credential validation is not done by framework. That is left up to you on <code>authc.Authenticator</code> implementation. It's kept open for extensions such as JWT, OAuth, etc.</p>
 </div>
 
-**For example:** Authenticator is responsible for credential validation and return `authc.AuthenticationInfo` to the framework. If subject is not exists or credential doesn't match return appropriate error such as `authc.ErrAuthenticationFailed` or `authc.ErrSubjectNotExists`; then framework responds caller with `401 Unauthorized`.
+**For example:** Authenticator is responsible for credential validation and return `authc.AuthenticationInfo` to the framework. If subject doesn’t exist or credential doesn't match, it returns appropriate error such as `authc.ErrAuthenticationFailed` or `authc.ErrSubjectNotExists`; then framework responds caller with `401 Unauthorized`.
 
 ```conf
 security {
