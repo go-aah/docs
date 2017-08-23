@@ -23,6 +23,12 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed, in-favor of [Centralized Error Handler](centralized-error-handler.html)
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
+          - [path](#path)
+          - [method](#method)
+          - [controller](#controller)
+          - [action](#action)
+          - [auth](#auth) <span class="badge lb-xs">Since v0.7</span>
+          - [max_body_size](#max-body-size) <span class="badge lb-xs">Since v0.8</span>
           - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
 
 Have a look at [aahframework.org routes configuration](https://github.com/go-aah/website/blob/master/config/routes.conf). It is simple one, it gives an idea on how you can do it for your application.
@@ -244,8 +250,16 @@ When routes `auth` attribute is not defined; two possible actions are taken:
   * Else framework treats that route as `anonymous`.
 
 Default value is empty string.
-```
+```cfg
 auth = "form_auth"
+```
+
+### max_body_size
+<span class="badge lb-sm">Since v0.8</span> Max request body size for this particular route. This is override value of `request.max_body_size` from aah.conf.
+
+Default value is `0mb`. Global default value in aah.conf is `5mb`.
+```cfg
+max_body_size = "100mb"
 ```
 
 ---

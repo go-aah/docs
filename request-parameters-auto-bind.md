@@ -11,7 +11,7 @@ aah provides two ways to access your request parameters:
   * <span class="badge lb-xm">Since v0.8</span> [Auto Parse and Bind](#auto-parse-and-bind), it is recommended to use.
   * Use `ctx.Req.*` [methods](request-and-response.html#methods) to get values.
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong> Auto Parse and Bind prevents the XSS attacks by sanitizing values. It is highly recommended to use.</p>
 </div>
 
@@ -25,6 +25,7 @@ aah provides very flexible way to parse and bind request values into appropriate
   * Bind any `Path`, `Form`, `Query` into nested `struct` following `.` notation convention, [examples](#getting-values-into-struct-and-nested-struct)
   * Bind supports bind of pointer and non-pointer, [examples](#getting-json-request-body-into-struct)
   * And you can also do combinations of above options
+  * You can added your own [custom Value Parser by Type](#)
 
 ### Supported Data Types
 Binding of both pointer and non-pointer is supported.
@@ -38,7 +39,7 @@ Binding of both pointer and non-pointer is supported.
   * `time.Time` - gets parsed based on `format.time = [...]` config from aah.conf
   * `struct` types
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong>
 <ul>
   <li>Any auto parse error will result into <code>400 Bad Request</code>, error details gets logged.</li>
@@ -155,5 +156,22 @@ func (u *UserController) Profile(user *models.User) {
   fmt.Printf("%+v\n", user)
 
   // ...
+}
+```
+
+## Adding Custom Value Parser by Type
+
+Implement your value parser per interface `valpar.Parser`.
+
+```go
+type Parser func(key string, typ reflect.Type, params url.Values) (reflect.Value, error)
+```
+
+Then add your parser into aah as follows:
+```go
+func init()  {
+  if err := aah.AddValueParser(reflect.TypeOf(CustomType{}), customParser); err != nil {
+    log.Error(err)
+  }
 }
 ```

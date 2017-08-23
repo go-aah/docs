@@ -230,7 +230,7 @@ Request configuration values.
 Default value is `5mb`.
 ```cfg
 max_body_size = "10mb"
-```  
+```
 
 ### multipart_size
 Request Multi-part size is used for form parsing when request `Content-Type` is `multipart/form-data`.
@@ -267,7 +267,15 @@ header = "X-Request-Id"
 ```
 
 ### Section: content_negotiation { ... }
-<span class="badge lb-sm">Since v0.8</span> Content negotiation is used to validate what is being `offered` and `accepted` by server in-terms of request and response. Also known as `Content-Type` restriction.
+<span class="badge lb-sm">Since v0.8</span> Content negotiation is used to validate what is being `offered` and `accepted` by server in-terms of request and response. Also known as `Content-Type` restrictions.
+
+### enable
+To enable/disable Content Negotiation for your application.
+
+Default value is `false`.
+```cfg
+enable = true
+```
 
 ### offered
 Offered - `Accept` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.7).
@@ -324,18 +332,18 @@ query = "locale"
 ---
 
 ## Section: format { ... }
-Date and time format values. This is used by framework while parsing HTTP request parameters and DB store/retrieve operation `(upcoming)`.
+Date, Time format values. These formats used to parse in the order they defined while [Auto Parse and Bind](request-parameters-auto-bind.html) into controller action parameters.
 
-### date
-Default value is `2006-01-02`.
-```cfg
-date = "2006-01-02"
-```
+Any parse error result in 400 Bad Request.
 
-### datetime
-Default value is `2006-01-02 15:04:05`.
+### time
 ```cfg
-datetime = "2006-01-02 15:04:05"
+time = [
+  "2006-01-02T15:04:05Z07:00",
+  "2006-01-02T15:04:05Z",
+  "2006-01-02 15:04:05",
+  "2006-01-02"
+]
 ```
 
 ---
@@ -366,7 +374,7 @@ all_goroutines = false
 ## Section: render { ... }
 
 ### default
-aah framework identifies the `Content-Type` value automatically. If `aah.Reply()` builder value is not set. It identifies in the order of:
+aah framework identifies the `Content-Type` value automatically, when `aah.Reply()` builder Content-Type value is not set. It identifies in the order of:
 
   * Based on URL file extension, supported `.html`, `.htm`, `.json`, `.js`, `.xml` and `.txt`
   * Request Accept Header - Most Qualified one as per [RFC7321](https://tools.ietf.org/html/rfc7231#section-5.3)
@@ -392,7 +400,9 @@ Gzip compression configuration for HTTP response.
 ### enable
 By default Gzip compression is enabled in aah framework, however framework ensures HTTP client does accepts Gzip response otherwise it won't use the Gzip compression.
 
-**Tips:** If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`.
+<div class="alert alert-info-green">
+<p><strong>Tip:</strong> If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`. There is not point in doing double compression.<p>
+</div>
 
 Default value is `true`.
 ```cfg
