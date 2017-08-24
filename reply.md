@@ -15,6 +15,7 @@ Framework provides `Reply` builder (aka Response Builder) to compose your respon
   * [Cookie](#cookies)
   * [Disable Gzip](#disable-gzip)
   * [Done()](#done)
+  * [Implementing Custom Rendering](#implementing-custom-rendering)
   * [Just Few Samples](#just-few-samples)
   * [Registering External JSON Library into aah](external-json-library.html) <span class="badge lb-xs">Since v0.8</span>
 
@@ -57,6 +58,7 @@ Rich reply methods for the response.
   * `FileInline(file, targetName)` - Content-Disposition is inline
   * `Binary(bytes)`
   * `Error(err)` <span class="badge lb-xs">Since v0.8</span> [know more](centralized-error-handler.html#reply-error-err).
+  * `Render(rdr)` - renders custom rendering implementation [know more](#)
 
 ## Redirect
   * `Redirect(url)`
@@ -80,7 +82,40 @@ Reply().DisableGzip()
 ## Done()
 Done method indicates that reply has already been sent via `aah.Context.Res` and that no further action is needed.
 
-**Note:** Framework doesn't intervene with response if `Done()` method was called.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Framework doesn't intervene with response if `Done()` method was called.</p>
+</div>
+
+## Implementing Custom Rendering
+aah provides reply method called `Render` to supply your own implementation of rendering. You can do by implementing interface `aah.Render` or using adaptor `aah.RenderFunc`.
+
+**Example of interface aah.Render**
+```go
+// CustomRender implements the interface `aah.Render`.
+type CustomRender struct {
+	// ... your fields goes here
+}
+
+func (cr *CustomRender) Render(w io.Writer) error {
+  // implementation goes here
+  // return error for any issues
+  return nil
+}
+
+// Then you call render method in your controller action
+Reply().Render(&CustomRender{
+  // fields goes here
+})
+```
+
+**Example of adaptor aah.RenderFunc**
+```go
+Reply().Render(aah.RenderFunc(func(w io.Writer) error {
+  // implementation goes here
+  // return error for any issues
+  return nil
+}))
+```
 
 ## Just Few Samples
 

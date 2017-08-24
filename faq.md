@@ -1,6 +1,6 @@
 Title: Frequently Asked Questions (FAQ)
 Desc: aah framework Frequently Asked Questions (FAQ)
-Keywords: faq, aah framework
+Keywords: faq, aah framework, web framework for Go
 ---
 # Frequently Asked Questions (FAQ)
 
@@ -54,9 +54,9 @@ I have responded to aah user on [Github Issue #81](https://github.com/go-aah/aah
 
 ### Does aah supports Hot-Reload for Development?
 
-Yes, aah detects the file change(s) on aah project then it automatically stops the server, builds and start the server with updated codebase. I'm sure it needs an improvement, so keep me posted. Thanks.
+Yes, aah detects the file change(s) on aah project then it automatically stops the server, builds it and start the server with updated codebase. I'm sure it needs an improvement, so keep me posted. Thanks.
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>For static file changes server is not restarted, server is restarted only for Go Source code and Template files. Refer to <a href="https://github.com/go-aah/aah/issues/4">Github Issue #4</a> for implementation details.</p>
 </div>

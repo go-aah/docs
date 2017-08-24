@@ -48,6 +48,7 @@ aah provides flexible way to provide custom TLS configuration for the server via
 ### How to do?
 
 There are two ways you can add the custom TLS config-
+
   * Via `aah.OnInit` event - It is `recommended` approach. Since you have access to `aah.AppConfig()` values.
   * Via `func init()`
 

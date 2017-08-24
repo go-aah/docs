@@ -23,7 +23,7 @@ Reference to [App Config](app-config.html), [Routes Config](routes-config.html),
       - [Referrer-Policy](#header-referrer-policy)
       - [Strict-Transport-Security (STS, aka HSTS)](#header-strict-transport-security-sts-aka-hsts)
       - [Content-Security-Policy (CSP)](#header-content-security-policy-csp)
-      - [Public-Key-Pins PKP (aka HPKP)](#header-public-key-pins-pkp-aka-hpkp)
+      - [Public-Key-Pins (PKP, aka HPKP)](#header-public-key-pins-pkp-aka-hpkp)
       - [X-Permitted-Cross-Domain-Policies](#header-x-permitted-cross-domain-policies)
 
 ## Section: security { ... }
@@ -289,7 +289,7 @@ csp {
 }
 ```
 
-### Header: Public-Key-Pins PKP (aka HPKP)
+### Header: Public-Key-Pins (PKP, aka HPKP)
 This header prevents the Man-in-the-Middle Attack (MITM) with forged certificates.
 
 Learn more:
