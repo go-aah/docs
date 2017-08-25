@@ -183,7 +183,7 @@ xxssp = "1; mode=block"
 ```
 
 ### Header: X-Content-Type-Options
-Prevent Content Sniffing or MIME sniffing.
+Prevents Content Sniffing or MIME sniffing.
 
 Learn more:
 
@@ -229,7 +229,7 @@ STS header that lets a web site tell browsers that it should only be communicate
 
 Learn more:
 
-  * https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet
+  * https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#hsts
   * https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
 
 _Note: Framework checks that application uses SSL on startup then applies this header. Otherwise it does not apply._

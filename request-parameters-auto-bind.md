@@ -17,15 +17,15 @@ aah provides two ways to access your request parameters:
 
 ## Auto Parse and Bind
 
-aah provides very flexible way to parse and bind request values into appropriate Go data types. You can do following:
+aah provides very flexible way to parse and bind request values into appropriate Go data types. It supports following:
 
-  * Bind any `Path`, `Form`, `Query` into controller action parameters, [examples](#getting-pagination-values)
-  * Bind any `Path`, `Form`, `Query` into controller action `struct` fields, [examples](#getting-pagination-values-into-struct)
+  * Bind any `Path`, `Form`, `Query` into controller action parameters, [examples](#getting-pagination-values)  
   * Bind `JSON` or `XML` request body into `struct`, [examples](#getting-json-request-body-into-struct)
+  * Bind any `Path`, `Form`, `Query` into controller action `struct` fields, [examples](#getting-pagination-values-into-struct)
   * Bind any `Path`, `Form`, `Query` into nested `struct` following `.` notation convention, [examples](#getting-values-into-struct-and-nested-struct)
   * Bind supports bind of pointer and non-pointer, [examples](#getting-json-request-body-into-struct)
   * And you can also do combinations of above options
-  * You can added your own [custom Value Parser by Type](#)
+  * You can added your own [custom Value Parser by Type](#adding-custom-value-parser-by-type)
 
 ### Supported Data Types
 Binding of both pointer and non-pointer is supported.
