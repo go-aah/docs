@@ -4,7 +4,7 @@ Keywords: request, response
 ---
 # Request Parameters - Auto Bind
 
-This document provides insights into aah Request Parameters auto parse and bind capabilities. So that you can take full advantage of them.
+This document provides insights into aah's Request Parameters auto parse and bind capabilities. So that you can take full advantage of them.
 
 aah provides two ways to access your request parameters:
 
