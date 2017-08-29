@@ -27,6 +27,10 @@ aah provides very flexible way to parse and bind request values into appropriate
   * And you can also do combinations of above options
   * You can added your own [custom Value Parser by Type](#adding-custom-value-parser-by-type)
 
+### Parse and Bind Priority
+
+`request.auto_bind.*` configuration is used for auto parse and bind. refer to [config](app-config.html#section-auto-bind).
+
 ### Supported Data Types
 Binding of both pointer and non-pointer is supported.
 
@@ -38,6 +42,8 @@ Binding of both pointer and non-pointer is supported.
   * slice - `[]<type>` and `[]*<type>` supported
   * `time.Time` - gets parsed based on `format.time = [...]` config from aah.conf
   * `struct` types
+  * Type aliases of built-in types
+  * Custom types and aliases [add your own value parser](#adding-custom-value-parser-by-type)
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>

@@ -24,6 +24,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
     - [content_negotiation { ... }](#section-content-negotiation) <span class="badge lb-xs">Since v0.8</span>
+    - [auto_bind { ... }](#section-auto-bind) <span class="badge lb-xs">Since v0.8</span>
   * [i18n { ... }](#section-i18n)
     - [param_name { ... }](#section-param-name) <span class="badge lb-xs">Since v0.7</span>
   * [format { ... }](#section-format)
@@ -277,6 +278,16 @@ Default value is `false`.
 enable = true
 ```
 
+### accepted
+Accepted - `Content-Type` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.16).
+
+<u>For example:</u> Client sends `Content-Type` header as `application/xml`. However server only supports JSON payload as request body. Then server responds with `415 Unsupported Media Type`.
+
+Default value is empty list and disabled.
+```cfg
+accepted = ["application/json", "text/json"]
+```
+
 ### offered
 Offered - `Accept` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.7).
 
@@ -287,14 +298,32 @@ Default value is empty list and disabled.
 offered = ["application/json", "text/json"]
 ```
 
-### accepted
-Accepted - `Content-Type` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.16).
+## Section: auto_bind { ... }
+Auto Bind configuration used to bind request parameters to controller action parameters.
 
-<u>For example:</u> Client sends `Content-Type` header as `application/xml`. However server only supports JSON payload as request body. Then server responds with `415 Unsupported Media Type`.
-
-Default value is empty list and disabled.
+### priority
+Priority is used to select the bind source priority.
 ```cfg
-accepted = ["application/json", "text/json"]
+P -> Path Parameter
+F -> Form Parameter
+Q -> Query Parameter
+```
+
+<u>For example:</u> Let's say you have a controller action named `OrderInfo` and its has parameter called `orderId`. So framework tries to parse and bind based on the priority. The `orderId` present in `Path` and `Form`, framework parse and binds the value from `Path`.
+
+Typically recommended to have unique names in the request parameter though :) If value is not found then it returns with default Go zero value.
+
+Default value is `PFQ`.
+```cfg
+priority = "PFQ"
+```
+
+### tag_name
+Tag Name is used for bind values to struct exported fields.
+
+Default value is `bind`.
+```cfg
+tag_name = "bind"
 ```
 
 ---

@@ -19,7 +19,7 @@ aah Request object improved from standard request object. For typical applicatio
   * <u>AcceptEncoding</u> - it is negotiated value from HTTP Header the `Accept-Encoding` per `RFC7231`.
   * <u>Locale</u> - it is negotiated value from HTTP Header `Accept-Language` per `RFC7231`.
   * <u>Params</u> - it contains values from Path, Form, Query and File.
-  * <u>Payload</u> - it holds the value from HTTP request body in bytes slice for `Content-Type` JSON and XML otherwise nil.
+  * <u>Payload</u> - <span class="badge lb-xs lb-drop-color">On v0.8</span> removed in-favor of [Auto Parse and Bind](request-parameters-auto-bind.html) or if you wanna access to request body use `Body()`. <s>it holds the value from HTTP request body in bytes slice for `Content-Type` JSON and XML otherwise nil.</s>
   * <u>ClientIP</u> - remote client IP address aka Remote IP. Parsed in the order of `X-Forwarded-For`, `X-Real-IP` and finally `http.Request.RemoteAddr`.
   * <u>IsGzipAccepted</u> - whether client supported Gzip compression or not.
   * <u>Referer</u> - value of HTTP header `Referer` or `Referrer`.
@@ -35,6 +35,7 @@ Learn about [auto parse and bind](request-parameters-auto-bind.html) here.
   * <u>FormValue</u> - returns value for given form key otherwise empty string.
   * <u>FormArrayValue</u> - returns array value for given form key otherwise empty string slice.
   * <u>FormFile</u> - returns the first file for the provided form key otherwise returns error. It is caller responsibility to close the file.
+  * <u>Body</u> - <span class="badge lb-xs">Since v0.8</span> returns the request body as `io.Reader`.
   * <u>Cookie</u> - returns a named cookie from HTTP request otherwise error.
   * <u>Cookies</u> - returns all the cookies from HTTP request.
   * <u>IsJSONP</u> - returns true if request URL query string has `callback=function_name`.
