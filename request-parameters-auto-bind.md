@@ -4,11 +4,11 @@ Keywords: request, response
 ---
 # Request Parameters - Auto Bind
 
-This document provides an insights into aah Request Parameters auto parse and bind capabilities. So that you can take full advantage of it.
+This document provides insights into aah's Request Parameters auto parse and bind capabilities. So that you can take full advantage of them.
 
 aah provides two ways to access your request parameters:
 
-  * <span class="badge lb-xm">Since v0.8</span> [Auto Parse and Bind](#auto-parse-and-bind), it is recommended to use.
+  * <span class="badge lb-xm">Since v0.8</span> [Auto Parse and Bind](#auto-parse-and-bind), this should be the preferred method.
   * Use `ctx.Req.*` [methods](request-and-response.html#methods) to get values.
 
 <div class="alert alert-info-blue">
@@ -112,8 +112,8 @@ func (p *ProductController) Products(product *models.Product) {
 }
 ```
 
-### Getting Values into `struct` and Nested `struct`
-Here we gonna use user profile fields. Focus on how form fields `residence.*` and `shipping.*` is mapped into struct fields with `.` notation.
+### Getting Values into `struct` and nested `struct`
+Here we're gonna use the user profile fields. Focus on how form fields `residence.*` and `shipping.*` are mapped into struct fields with `.` notation.
 
 ```go
 // models package has this struct
