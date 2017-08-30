@@ -16,6 +16,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
+  * [pid_file](#pid-file)
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)
@@ -55,6 +56,14 @@ A friendly description of application purpose.
 desc = "aah framework web application"
 ```
 
+## pid_file
+<span class="badge lb-sm">Since v0.8</span> Configure file path of application PID file to be written. Ensure application has appropriate permission and directory exists.
+
+Default value is `<app-base-dir>/<app-binary-name>.pid`
+```cfg
+pid_file = "/path/to/pidfile.pid"
+```
+
 ---
 
 ## Section: server { ... }
@@ -84,6 +93,14 @@ port = "80" # port = ""
 # for 443
 port = "443" # port = ""
 ```
+
+### header
+<span class="badge lb-sm">Since v0.8</span> Header value written as `Server` HTTP header. If you do not want to include `Server` header, comment it out.
+
+Default value is `aah-go-server`.
+```cfg
+header = "aah-go-server"
+```  
 
 ### max_header_bytes
 HTTP server max header bytes size. It is mapped to `http.Server.MaxHeaderBytes`.

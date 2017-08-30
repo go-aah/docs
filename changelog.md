@@ -2,19 +2,22 @@
 
 #### Features
 
-  * Security - [Authentication](/authentication.html) & [Authorization](/authorization.html) [#37]({{aah_github_issues_url}}/37).
-  * Server Access Log [#69]({{aah_github_issues_url}}/69), PR [#72]({{aah_github_issues_url}}/72). Thank you [@adelowo](https://github.com/adelowo).
-  * Hot-Reload for development [#4]({{aah_github_issues_url}}/4).
+  * Auto Parse and Bind - Controller action parameters, refer to [doc](/request-parameters-auto-bind.html), [#26]({{aah_github_issues_url}}/26).
+  * Centralized Error Handler, refer to [doc](/centralized-error-handler.html), [#57]({{aah_github_issues_url}}/57).
+  * Secure HTTP headers, refer to [configuration](/security-config.html#section-http-header), [#88]({{aah_github_issues_url}}/88).
+  * Content Negotiation, refer to [configuration](/app-config.html#section-content-negotiation), [#75]({{aah_github_issues_url}}/75).
+  * Max Request Body size at [global](/app-config.html#max-body-size) and [individual route](/routes-config.html#max-body-size) level [#83]({{aah_github_issues_url}}/83).
+  * Added convenient method to save multipart uploaded file [#82]({{aah_github_issues_url}}/82).
+  * Registering external JSON Library, refer to [doc](/external-json-library.html), [#79]({{aah_github_issues_url}}/79).
 
 #### Enhancements
 
-  * Added i18n URL Path Variable support e.g. `/en/index.html` [#71]({{aah_github_issues_url}}/71).
-  * Added simple cache burst option for static files via filename [#68]({{aah_github_issues_url}}/68).
-  * Added aah Logger Hook support, so that you can send logs to external systems like `kibana`, `splunk`, etc. [#66]({{aah_github_issues_url}}/66).
-  * Logger Level and convenient methods exposed [#61]({{aah_github_issues_url}}/61).
-  * Added `aah clean` command [#78]({{aah_github_issues_url}}/78).
-  * Code Improvements, Documentation.
+  * aah server header made configurable, refer to [config](/app-config.html#header), [#98]({{aah_github_issues_url}}/98).
+  * aah application PID file path made configurable, refer to [config](/app-config.html#pid-file), [#99]({{aah_github_issues_url}}/99)
+  * Custom Render implementation support added, refer to [doc](/reply.html#implementing-custom-rendering), [#103]({{aah_github_issues_url}}/103).
+  * Code Improvements, Documentation, Website.
 
 #### Bug Fixes
 
-  * Fix - method `config.IsExists` for key handling on environment profile [#70]({{aah_github_issues_url}}/70).
+  * `i18n` fallback to default store when locale configuration file/key is not defined, [#97]({{aah_github_issues_url}}/97).
+  * Hot-Reload with VirtualBox port forwarding issue, [#92]({{aah_github_issues_url}}/92).
