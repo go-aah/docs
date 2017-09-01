@@ -23,6 +23,14 @@ Focus on following files/directory:
   form-fileupload/config/routes.conf
 ```
 
+### Explanation
+
+  * `controllers` package
+      - `AppController` has implementation of `FileUpload` action, which saves uploaded file into file system.
+  * `views` directory
+      - Implements pages for choosing file and upload then displays the uploaded file details (such as request file name, saved file name, file size in bytes).
+  * `routes.conf` has route defined for index page and file upload.
+
 ### Let's see it in the action
 
 ```cfg
@@ -34,14 +42,6 @@ aah run -i github.com/go-aah/tutorials/form-fileupload
   * http://localhost:8080
 
 Page includes details about the implemented functionality and button to choose file and upload. It is self explanatory.
-
-### Explanation
-
-  * `controllers` package
-      - `AppController` has implementation of `FileUpload` action, which saves uploaded file into file system.
-  * `views` directory
-      - Implements pages for choosing file and upload then displays the uploaded file details (such as request file name, saved file name, file size in bytes).
-  * `routes.conf` has route defined for index page and file upload.
 
 <br><br>
 <center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

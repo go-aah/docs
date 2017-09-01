@@ -1,8 +1,8 @@
 Title: aah Application Binary
-Desc: Learn about aah application binary internal, run flags, OS signals, cross compile build and artifact naming convention.
-Keywords: aah binary, aah app binary, flgas, os signals, cross compile, artifact, artifact naming
+Desc: Learn more about aah application binary internals, run flags, OS signals, cross compile build and artifact naming convention.
+Keywords: aah binary, aah app binary, flags, os signals, cross compile, artifact, artifact naming
 ---
-# Learn About aah Application Binary
+# Learn more about aah Application Binary
 
 Page describe the aah application binary artifact details.
 

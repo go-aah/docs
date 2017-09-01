@@ -1,12 +1,12 @@
-Title: aah Application Configuration
-Desc: aah configuration structure is very flexible, you can override every config settings in environment profiles. Learn about aah application configuration.
+Title: aah.conf Application Configuration
+Desc: aah configuration structure is very flexible, you can override every config settings in environment profiles also external config file.
 Keywords: app config, application configuration, aah.conf, HOCON, configuration
 ---
 # aah Application Configuration
 
 The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
-aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles.
+aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles also external config file.
 
 You can add your custom config values into app config. Also it can be overridden in the environment profiles.
 
@@ -16,7 +16,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
-  * [pid_file](#pid-file)
+  * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)

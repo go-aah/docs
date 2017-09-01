@@ -1,5 +1,5 @@
 Title: Views - HTML UI
-Desc: View is present user interface for particular application flow and action. Out-of-the-box of the aah provides Partial Inheritance capability using Go built-in template engine. Custom View engine support.
+Desc: View is to present user interface for particular application flow and action. Out-of-the-box of the aah provides Partial Inheritance capability using Go built-in template engine and Custom View engine support.
 Keywords: views, templates, html, partial inheritance, user-defined view engine, view directory structure
 ---
 # Views - HTML UI
@@ -24,10 +24,13 @@ Reference to [View Config](app-config.html#section-view).
 aah provides flexible and effective directory structure to organize your view files. Minimizes your copy and paste of view content. Use your creativity, organize and make best use of it.
 
   * `common` - common template segments/parts goes here, Don't Repeat Yourself (`DRY`). Use `import` template function include wherever you need it.
+  * `errors` - application error pages for 404, 500, 403, etc. Status codes used as file name. <span class="badge lb-sm">Since v0.8</span>
   * `layouts` - You can define one or more view layout for your application. Default layout name is `master.html`.
   * `pages` - templates of each controller and it's action. Also you can have your custom page templates.
 
-***Note:*** each controller and its action can have same template filename like Rails. You can have `Index` template for every controller.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> each controller and its action can have same template filename like Rails. You can have <code>Index</code> template for every controller.</p>
+</div>
 
 ```cfg
 # App base directory
@@ -37,6 +40,9 @@ aah provides flexible and effective directory structure to organize your view fi
            |--- footer.html
            |--- sidebar.html
            |--- ads.html
+      |--- errors
+           |--- 404.html
+           |--- 500.html
       |--- layouts
            |--- master.html
            |--- docs.html
@@ -105,7 +111,7 @@ Framework provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, 
 
 Currently aah framework supports Go view engine. Don't feel bad, you can added your favorite view engine into aah.
 
-In the `upcoming` release, I will try to provide pluggable view engine for amber, pongo2, and jade. So you use it selectively. Or you can contribute it.
+In the `upcoming` release, I will try to provide pluggable view engine for amber, pongo2, and jade. So you use it selectively. Or you're very welcome to contribute to aah framework.
 
 #### Create your own view engine using `view.Enginer` interface.
 

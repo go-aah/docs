@@ -23,6 +23,14 @@ Focus on following files/directory:
   form/config/routes.conf
 ```
 
+### Explanation
+
+  * `controllers` package
+      - `AppController` has implementation of `UserProfileSubmit`, which receives the submitted form values.
+  * `views` directory
+      - Implements pages for collecting form-data and displays the submitted form-data in `userprofile.html`.
+  * `routes.conf` has routes defined for index page, display user profile form page and to receive form data submission on server side.
+
 ### Let's see it in the action
 
 ```cfg
@@ -36,14 +44,6 @@ aah run -i github.com/go-aah/tutorials/form
 Page includes details about the implemented functionality and button to go to User Profile - Form Submission. It is self explanatory.
 
 Fill out the form fields and submit. As a response, submitted field values displayed on the page.
-
-### Explanation
-
-  * `controllers` package
-      - `AppController` has implementation of `UserProfileSubmit`, which receives the submitted form values.
-  * `views` directory
-      - Implements pages for collecting form-data and displays the submitted form-data in `userprofile.html`.
-  * `routes.conf` has routes defined for index page, display user profile form page and to receive form data submission on server side.
 
 <br><br>
 <center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

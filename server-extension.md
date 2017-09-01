@@ -8,11 +8,14 @@ aah go server exposes the App and Request life cycle stages as server events. It
 
 aah Server events are executed synchronously.
 
-**Note:** For `OnRequest`, `OnPreAuth`, `OnPostAuth`, `OnPreReply`, `OnAfterReply` you can only register/add one event callback function.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>For <code>OnRequest</code>, <code>OnPreAuth</code>, <code>OnPostAuth</code>, <code>OnPreReply</code>, <code>OnAfterReply</code> you can only register/add one event callback function.</p>
+</div>
 
 Reference to [Event Emitter/Publisher](event-publisher.html).
 
-### List of Extension Points
+### List of Server Extension Points
 
   * [OnInit](#event-oninit)
   * [OnStart](#event-onstart)

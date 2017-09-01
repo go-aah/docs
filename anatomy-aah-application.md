@@ -73,7 +73,7 @@ The `config` directory contains the application's configuration files. aah confi
 
 The `i18n` directory contains internationalization and localization message files. Message filename format is  `message.<Language-ID>`. Language is combination of `Language + Region` value. aah framework implements Language code as per  two-letter `ISO 639-1` standard and Region code as per two-letter `ISO 3166-1` standard, [know more](i18n.html).
 
-***Note: If you want you can use `i18n` directory for messages in your API application.***
+***Note: If you want you can use `i18n` for your API application too.***
 
 ### The `views` directory (Not applicable to API application)
 
@@ -93,7 +93,7 @@ The `static` directory contains static assets that are served directly. It conta
   * By default `static` directory mapped as `/static` in [routes.conf](routes-config.html). You can customize it in the config. For example: `/assets`
   * You can use several directories under `static` directory as per your need. Just organize it appropriately, it helps you :)
 
-***Note: If you want you can use `static` directory for file delivery in your API application.***
+***Note: If you want you can use `static` file delivery for your API application too.***
 
 ### The `logs` directory
 

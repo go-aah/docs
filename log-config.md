@@ -1,5 +1,5 @@
 Title: aah Logging Configuration
-Desc: aah log implements a simple, flexible, non-blocking logger. Tt supports `console`, `file` (rotation by daily, size,  lines), max history (`upcoming`). It also has a predefined 'standard' Logger. It can be used as drop-in replacement for standard go logger with features.
+Desc: aah log implements a simple, flexible logger. It supports `console`, `file` (rotation by daily, size,  lines), max history (`upcoming`). It also has a predefined 'standard' Logger. It can be used as drop-in replacement for standard go logger with features.
 Keywords: log, logger, aah logger, console log, file log, console logger, file logger
 ---
 # aah Logging Configuration

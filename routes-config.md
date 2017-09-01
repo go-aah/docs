@@ -1,5 +1,5 @@
 Title: aah Routes Configuration
-Desc: Route configuration is to map controller and action with request URL. Supports path variables, domain and sub-domains. The configuration syntax is used by aah framework is similar to HOCON syntax.
+Desc: Route configuration is to map controller and action with request URL. Supports path variables, domain and sub-domains.
 Keywords: routes config, routes configuration, namespace routes, group routes, routes
 ---
 # aah Routes Configuration

@@ -1,5 +1,5 @@
 Title: aah Request and Response
-Desc: Learning and insight into aah Request and Response
+Desc: Insights into aah Request and Response
 Keywords: request, response
 ---
 # aah Request and Response
@@ -63,4 +63,4 @@ And Implements following standard interfaces from `http` library.
   * `io.Closer`
 
 
-<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

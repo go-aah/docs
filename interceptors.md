@@ -6,7 +6,7 @@ Keywords: interceptor, per controller interceptor, per action interceptor, befor
 
 An interceptor pattern is offers a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that, the change is transparent and used automatically.
 
-aah framework provides per `Controller` and per `Action` level. It is very **good spot** for performing `Authorization check`, if its satisfies move on otherwise call `Context.Abort()` to stop it.
+aah framework provides per `Controller` and per `Action` level. It is very **good spot** for performing `Authorization check`, if its satisfies move on otherwise call `Context.Abort()` to stop the flow.
 
 In the order of execution/calling in the request life cycle-
 
@@ -30,7 +30,7 @@ In the order of execution/calling in the request life cycle-
 ### Example
 
 ```go
-// User controller
+// UserController implementation.
 type UserController struct {
   *aah.Context
 }
@@ -40,25 +40,25 @@ type UserController struct {
 //___________________________________
 
 // Before is called for every action in the Controller
-func (u *User) Before() {
-  log.Info("User before interceptor called")
+func (u *UserController) Before() {
+  log.Info("UserController before interceptor called")
 }
 
 // After is called for every action in the Controller
-func (u *User) After() {
-  log.Info("User after interceptor called")
+func (u *UserController) After() {
+  log.Info("UserController after interceptor called")
 }
 
 // Finally is called for every action in the Controller except `Context.Abort()`
-func (u *User) Finally() {
-  log.Info("User finally interceptor called")
+func (u *UserController) Finally() {
+  log.Info("UserController finally interceptor called")
 }
 
 // Panic is called for every action in the Controller except `Context.Abort()`,
 // if action level Panic interceptor present
 // Note: Panic interceptor has parameter
-func (u *User) Panic(r interface{}) {
-  log.Info("User panic interceptor called")
+func (u *UserController) Panic(r interface{}) {
+  log.Info("UserController panic interceptor called")
 }
 
 //‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -66,13 +66,13 @@ func (u *User) Panic(r interface{}) {
 //___________________________________
 
 // Login action is for performing login.
-func (u *User) Login() {
-  log.Info("User login action called")
+func (u *UserController) Login() {
+  log.Info("UserController login action called")
 }
 
 // Logout action is for performing logout
-func (u *User) Logout() {
-  log.Info("User logout action called")
+func (u *UserController) Logout() {
+  log.Info("UserController logout action called")
 }
 
 //‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -82,12 +82,12 @@ func (u *User) Logout() {
 //_____________________________________
 
 // BeforeLogin is called for before `Login` action
-func (u *User) BeforeLogin() {
-  log.Info("User login before action interceptor called")
+func (u *UserController) BeforeLogin() {
+  log.Info("UserController login before action interceptor called")
 }
 
 // AfterLogout is called after `Logout` action
-func (u *User) AfterLogout() {
-  log.Info("User logout after action interceptor called")
+func (u *UserController) AfterLogout() {
+  log.Info("UserController logout after action interceptor called")
 }
 ```

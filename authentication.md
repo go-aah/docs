@@ -1,6 +1,6 @@
 Title: Authentication
 Desc: Understanding aah authentication design, implementation
-Keywords: authentication, security, subject, principals, credentials, form auth, basic auth, generic auth, oauth, jwt
+Keywords: authentication, security, subject, principals, credentials, form auth, basic auth, jwt, oauth, generic
 ---
 # aah Authentication
 

@@ -1,6 +1,6 @@
 Title: Server Access Log
-Desc: Server access log, aah framework logs the request and response details into log file.
-Keywords: server access log, access log, request log
+Desc: Server access log, aah framework logs the request and response details into access log file.
+Keywords: server access log, access log, request log, response log
 ---
 # Server Access Log
 

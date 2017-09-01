@@ -1,6 +1,6 @@
 Title: Subject
-Desc: Understanding aah subject, user and principal
-Keywords: subject, user, principals
+Desc: Understanding aah subject, user, principal and authorization
+Keywords: subject, user, principals, authorization
 ---
 # aah Subject
 

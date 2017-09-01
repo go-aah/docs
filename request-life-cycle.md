@@ -9,6 +9,7 @@ Incoming requests are handled by the server via routes. Each route describes an 
 It would be nice to have diagram to explain the Lifecycle. Later, will do my best.
 
 ## Lifecycle
+Lifecycle always reflects latest version flow.
 
   * Captures the request received time, used for server access log.
   * `aah.Context` is prepared for the request. i.e. parsing and creating `ahttp.Request` instance and `ahttp.ResponseWriter` instance.
@@ -68,3 +69,4 @@ It would be nice to have diagram to explain the Lifecycle. Later, will do my bes
       - `ctx.Reply().Done()` was called, refer godoc for more info.
       - `ctx.Reply().Redirect(...)` was called.
   * Writes data to server access log, if enabled. <span class="badge lb-xs">Since v0.7</span>
+  * If its Multipart request with files, it does cleanup.

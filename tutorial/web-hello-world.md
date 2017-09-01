@@ -64,4 +64,5 @@ Goto this URL http://localhost:8080 in your browser.
 
 Congratulations, you have successfully created and executed the hello world Web aah application.
 
-<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>
+<br><br>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

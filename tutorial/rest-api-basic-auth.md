@@ -15,19 +15,33 @@ aah framework supports basic auth in two ways. You can use either one.
 
 ### How to get the aah tutorials source code?
 
-```bash
-go get -u -d github.com/go-aah/tutorials/...
+```cfg
+go get -u -d github.com/go-aah/tutorials
 ```
-Focus on following files/directory:
 
-  * `rest-api-basic-auth/app/controllers/*`
-  * `rest-api-basic-auth/app/security/*`
-  * `rest-api-basic-auth/config/security.conf`
-  * `rest-api-basic-auth/config/routes.conf`
+<br>
+Focus on following files/directory:
+```cfg
+  rest-api-basic-auth/app/controllers/info.go
+  rest-api-basic-auth/app/security/*
+  rest-api-basic-auth/config/security.conf
+  rest-api-basic-auth/config/routes.conf
+```
+
+### Explanation
+
+  * `controllers` package
+      - Implements reportee endpoint to demonstrate Authentication and Authorization feature.
+  * `security` package
+      - Implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
+      - Implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
+      - Implemented security interfaces `security/BasicAuthenticationProvider` & `security/BasicAuthorizationProvider` gets registered in `security.conf`
+  * `security.conf` has Basic Auth Scheme configuration and header name configuration.
+  * `routes.conf` has `default_auth = "basic_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 
 ### Let's see it in the action
 
-```bash
+```cfg
 aah run -i github.com/go-aah/tutorials/rest-api-basic-auth
 ```
 
@@ -44,17 +58,7 @@ While you're doing various requests also observe the application logs and API re
 **API Endpoints**
 
   * http://localhost:8080/ - Shows welcome message. (Anonymous access)
-  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based on authorization. (Secured)
+  * http://localhost:8080/v1/reportee/:email - Responds user information for given user email address based on authorization. (Secured)
 
-### Explanation
-
-  * `controllers` package
-      - Implements reportee endpoint to demonstrate Authentication and Authorization feature.
-  * `security` package
-      - Implements interface `authc.Authenticator` to provide Subject's `authc.AuthenticationInfo` to Security Manager. Then Security Manager does the credentials validation.
-      - Implements interface `authz.Authorizer` to provide Subject's Roles and Permissions to Security Manager.
-      - Implemented security interfaces `security/BasicAuthenticationProvider` & `security/BasicAuthorizationProvider` gets registered in `security.conf`
-  * `security.conf` has Basic Auth Scheme configuration and header name configuration.
-  * `routes.conf` has `default_auth = "basic_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
-
-<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>
+<br><br>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

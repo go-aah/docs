@@ -9,14 +9,16 @@ Goal of this tutorial application is to give you an idea how to use Domain, Subd
 ### How to get the aah tutorials source code?
 
 ```bash
-go get -u -d github.com/go-aah/tutorials/...
+go get -u -d github.com/go-aah/tutorials
 ```
 
-Just focus on following files:
-
-  * `domain-subdomain/config/routes.conf`
-  * `domain-subdomain/app/controllers/wildcard/app.go`
-  * `domain-subdomain/app/controllers/admin/app.go`
+<br>
+Focus on following files:
+```cfg
+  domain-subdomain/config/routes.conf
+  domain-subdomain/app/controllers/wildcard/app.go
+  domain-subdomain/app/controllers/admin/app.go
+```
 
 ### Let's see it in the action
 
@@ -36,10 +38,11 @@ aah run -i github.com/go-aah/tutorials/domain-subdomain
 
 #### Now visit these URL's in your browser :)
 
-* http://sample.com:8080
-* http://admin.sample.com:8080
-* http://username1.sample.com:8080
-* http://username2.sample.com:8080
-* http://username3.sample.com:8080
+  * http://sample.com:8080
+  * http://admin.sample.com:8080
+  * http://username1.sample.com:8080
+  * http://username2.sample.com:8080
+  * http://username3.sample.com:8080
 
-<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>
+<br><br>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

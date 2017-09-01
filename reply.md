@@ -1,10 +1,10 @@
 Title: Reply Builder (aka Response Builder)
-Desc: Framework provides Reply builder to compose your response effectively. You can do Chained call.
-Keywords: reply builder, reply, response, html, json, jsonp, text, bytes, file, status code, cookie, redirect
+Desc: aah provides powerful Reply builder to compose your HTTP response effectively. You can do chained call.
+Keywords: reply builder, reply, response, html, json, jsonp, text, bytes, file, status code, cookie, redirect, custom
 ---
 # Reply Builder
 
-Framework provides `Reply` builder (aka Response Builder) to compose your response effectively. You can do Chained call.
+aah provides `Reply` builder (aka Response Builder) to compose your response effectively. You can do Chained call.
 
 ### Table of Contents
 

@@ -1,15 +1,14 @@
 Title: Centralized Error Handler
-Desc: aah provides Centralized error handling, it flexible and unified flow to handle application errors in the application.
+Desc: aah provides Centralized error handling, it flexible and unified flow to handle application response errors in the application.
 Keywords: centralized error handler, centralized error handling, error handler
 ---
 # aah Centralized Error Handler
 
 aah framework provides Centralized Error Handling for your application. Framework utilizes this error handler across for all the HTTP error responses. Such as internal server error (panic), authentication, route not found, content-negotiation, etc. Benefits of centralized error handler:
 
-  * You can handle and process the error then send customized HTTP response.
-  * You can filter/process appropriate error and send notification to respective team, etc.
+  * You can handle and process the error then send custom HTTP response.
+  * You can filter/process appropriate error and send notification email, slack, etc to respective team.
   * You can log the error information and send it to external systems, for e.g: Kibana, Prometheus, Splunk, Sentry, Airbrake, etc.
-
 
 aah error handler is best for modern Web and API application. You can use custom error handler for your application also possible to fallback on default error handler. Seamlessly integrated in the request & response life cycle.
 

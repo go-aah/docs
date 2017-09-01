@@ -12,12 +12,14 @@ Ready to use pluggable implementation is here https://github.com/aah-cb/minify.
 [HTML Minify tutorial application](https://github.com/go-aah/tutorials/tree/master/html-minify) is very simple one. It's a quick start app using `aah new` command and applied the below steps.
 
 ```bash
-go get -u -d github.com/go-aah/tutorials/...
+go get -u -d github.com/go-aah/tutorials
 ```
 
-Just focus on this file
-
-  * `html-minify/app/controllers/app.go`.
+<br>
+Just focus on this file:
+```cfg
+  html-minify/app/controllers/app.go
+```
 
 ### Let's see it in the action
 
@@ -36,7 +38,7 @@ Follow the below steps for your aah web application.
 
 ### Step 1
 
-```bash
+```cfg
 # HTML minify is using this library, it is recommended to vendor it.
 go get -u github.com/tdewolff/minify
 
@@ -89,4 +91,7 @@ minify {
 
 ### Step 4
 
-<center>**Happy coding! Spread the word of `aah`, the web framework for Go. Thank you!**</center>
+Congratulations, you have successfully implemented HTML Minify in few seconds.
+
+<br><br>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

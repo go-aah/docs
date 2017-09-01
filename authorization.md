@@ -1,5 +1,5 @@
 Title: Authorization
-Desc: Understanding aah authorization, roles, permissions, design, implementation
+Desc: Understanding aah authorization design, roles, permissions, implementation
 Keywords: authorization, roles, permissions, security, subject, principals
 ---
 # aah Authorization
