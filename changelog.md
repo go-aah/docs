@@ -15,7 +15,7 @@
   * aah server header made configurable, refer to [config](/app-config.html#header), [#98]({{aah_github_issues_url}}/98).
   * aah application PID file path made configurable, refer to [config](/app-config.html#pid-file), [#99]({{aah_github_issues_url}}/99)
   * Custom Render implementation support added, refer to [doc](/reply.html#implementing-custom-rendering), [#103]({{aah_github_issues_url}}/103).
-  * Code Improvements, Documentation, Website.
+  * Code improvements, Documentation, Website improvements.
 
 #### Bug Fixes
 
