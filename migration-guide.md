@@ -9,6 +9,21 @@
 </p>
 </div>
 
+### aah.conf
+
+Time Format configuration enhanced to support more formats. So remove these two `date` and `datetime` config and add following config under `format { ... }`
+```cfg
+# Time format for auto parse and bind. aah tries to parse the
+# time value in the order they defined till it gets success
+# otherwise returns the error.
+time = [
+  "2006-01-02T15:04:05Z07:00",
+  "2006-01-02T15:04:05Z",
+  "2006-01-02 15:04:05",
+  "2006-01-02"
+]
+```
+
 ### Breaking changes
 
 #### routes.conf
