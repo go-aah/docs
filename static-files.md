@@ -1,18 +1,18 @@
 Title: Static File's Delivery
-Desc: To serve static files, it can be directory or individual file. This section optional one, for e.g: RESTful APIs doesn't need this section. Static files are delivered via http.ServeContent.
+Desc: To serve static files, it can be directory or individual file. Static files are delivered using http.ServeContent.
 Keywords: static file delivery, static file, serve file, directory listing, listing directory, individual file, static routes configuration
 ---
 # Static File's Delivery
 
-Framework provides flexible way to serve static files. It can be set of files from directory or individual file. This section optional one, for e.g: RESTful APIs typically this section is not needed. Static file is delivered using `http.ServeContent`.
+Framework provides flexible way to serve static files. It can be set of files from directory or individual file. Static section is optional one, for e.g: RESTful APIs typically this section is not needed. Static file(s) are delivered using `http.ServeContent`.
 
-**Supported features:**
+**Supported Features:**
 
   * Serve directory and it's subtree files
   * Serve individual file
   * Directory listing
-  * [HTTP Cache-Control: By `mime` types and defaults](#cache-control) <span class="badge lb-xs">since v0.6</span>
-  * [Cache Busting: By filename](#cache-busting) <span class="badge lb-xs">since v0.7</span>
+  * [HTTP Cache-Control: By `mime` types and defaults](#cache-control) <span class="badge lb-xs">Since v0.6</span>
+  * [Cache Busting: By filename](#cache-busting) <span class="badge lb-xs">Since v0.7</span>
 
 Pick your choice of `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
 
@@ -92,11 +92,13 @@ static {
 
 <span class="badge lb-sm">Since v0.6</span> aah framework provides flexible way to configure static file `Cache-Control` header by `MIME` types. Default cache header is used if mime type is not configured.
 
-_**Note:**_ Cache configuration goes to `aah.conf`.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Cache configuration is in <code>aah.conf</code></p>
+</div>
 
 **Sample Cache Configuration**
 
-```ini
+```cfg
 # -------------------------------------------------------------------
 # Cache configuration
 # Doc: https://docs.aahframework.org/static-files.html#cache-control
@@ -131,7 +133,9 @@ cache {
 
 <span class="badge lb-sm">Since v0.7</span> aah provides simple filename `Cache Busting` support.
 
-_Note: I will be adding asset pipeline capability later on (such as minify, cache bust, update HTML template with minified version file and package that)._
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> <code>Upcoming feature</code> asset pipeline capability (such as minify, cache bust, update HTML template with minified version file and package after that).</p>
+</div>
 
 ### How simple cache bust works?
 

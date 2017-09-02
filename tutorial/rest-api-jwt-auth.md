@@ -12,40 +12,18 @@ Generic Auth has more possibilities, this tutorial implements JSON Web Token (JW
 
 ### How to get the aah tutorials source code?
 
-```bash
-go get -u -d github.com/go-aah/tutorials/...
+```cfg
+go get -u -d github.com/go-aah/tutorials
 ```
+
+<br>
 Focus on following files/directory:
-
-  * `rest-api-jwt-auth/app/controllers/*`
-  * `rest-api-jwt-auth/app/security/*`
-  * `rest-api-jwt-auth/config/security.conf`
-  * `rest-api-jwt-auth/config/routes.conf`
-
-### Let's see it in the action
-
-```bash
-aah run -i github.com/go-aah/tutorials/rest-api-jwt-auth
+```cfg
+  rest-api-jwt-auth/app/controllers/info.go
+  rest-api-jwt-auth/app/security/*
+  rest-api-jwt-auth/config/security.conf
+  rest-api-jwt-auth/config/routes.conf
 ```
-
-#### Use your favorite REST client to make a request
-
-**Demo Users**
-
-  * user1@example.com/welcome123
-  * user2@example.com/welcome123
-  * user3@example.com/welcome123 (user is in locked state)
-  * admin@example.com/welcome123
-
-While you're doing various requests also observe the application logs and API response to see more information.
-
-**API Endpoints**
-
-  * http://localhost:8080/ - Shows welcome message. (Anonymous access)
-  * http://localhost:8080/v1/token - Issues JSON Web Token (JWT) for given username and password.
-  * http://localhost:8080/v1/reportee/{user-email-address} - Responds user information for given user email address based on authorization. (Secured)
-
-Get the token and pass that token via Header `Authorization: Bearer <token>`.
 
 ### Explanation
 
@@ -60,4 +38,40 @@ Get the token and pass that token via Header `Authorization: Bearer <token>`.
   * `security.conf` has Generic Auth Scheme defined and JWT configuration.
   * `routes.conf` has `default_auth = "jwt_auth"` defined for all routes and respective `auth` attribute defined for certain route as appropriate.
 
-<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
+### Let's see it in the action
+
+```cfg
+aah run -i github.com/go-aah/tutorials/rest-api-jwt-auth
+```
+
+### Use your favorite REST client to make a request
+
+**Demo Users**
+
+  * user1@example.com/welcome123
+  * user2@example.com/welcome123
+  * user3@example.com/welcome123 (user is in locked state)
+  * admin@example.com/welcome123
+
+While you're doing various requests also observe the application logs and API response to see more information.
+
+**API Endpoints**
+
+  * http://localhost:8080/ - Shows welcome message. (Anonymous access)
+  * http://localhost:8080/v1/token - Issues JSON Web Token (JWT) for given username and password.
+  * http://localhost:8080/v1/reportee/:email - Responds user information for given user email address based on authorization. (Secured)
+
+**Getting JWT Token**
+
+Send JSON payload with username and password.
+```json
+{
+  "username": "user1@example.com",
+  "password": "welcome123"
+}
+```
+
+And pass token via Header `Authorization: Bearer <token>`.
+
+<br><br>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

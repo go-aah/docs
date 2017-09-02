@@ -1,16 +1,15 @@
 Title: Versioning and Package Management
-Desc: aah framework release versions according to Semantic Versioning. aah commitment to provide stable versioned release of framework and it's libraries.
+Desc: aah framework release versions as per Semantic Versioning. aah commitment to provide stable version release of framework and it's libraries.
 Keywords: versioning, package management, stable version, release version
 ---
 # Versioning and Package Management
 
-aah framework release versions according to [Semantic Versioning](http://semver.org/).
+aah framework release versions as per [Semantic Versioning](http://semver.org/).
 
-aah commitment to provide stable release of framework and it's libraries. aah framework internally uses `gopkg.in` service codebase to provide versioning.
+aah commitment to provide stable release of framework and it's libraries. aah internally uses `gopkg.in` service codebase to provide versioning.
 
 `aahframework.org/<library-name>.vX` points to appropriate tag versions; `X` denotes version number and it's a stable release for production use.
 
-It's recommended to use this way:
 ```go
 import "aahframework.org/aah.v0"
 ```
@@ -23,11 +22,11 @@ aah framework codebase is hosted on [Github](https://github.com/go-aah) and Deve
 
 ### Package Management
 
-aah framework highly recommends you to use your choice of package management tool. Beside that aah framework provides versioned release too.
+aah framework **highly recommends** you to use your choice of package management tool and vendorize your application dependencies. Beside that aah framework also provides versioned release too, if you're just using `go get`.
 
 Just to make sure, aah application is tested with `glide` and `govendor` package management tools. It is doing alright.
 
-#### How to use it?
+#### How do I use it?
 
 It is simple, go to your application base directory and execute the commands from respective tool which you're using.
 

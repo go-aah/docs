@@ -1,5 +1,5 @@
 Title: aah Routes Configuration
-Desc: Route configuration is to map controller and action with request URL. Supports path variables, domain and sub-domains. The configuration syntax is used by aah framework is similar to HOCON syntax.
+Desc: Route configuration is to map controller and action with request URL. Supports path variables, domain and sub-domains.
 Keywords: routes config, routes configuration, namespace routes, group routes, routes
 ---
 # aah Routes Configuration
@@ -19,10 +19,16 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [redirect_trailing_slash](#redirect-trailing-slash)
       * [method_not_allowed](#method-not-allowed)
       * [auto_options](#auto-options)
-      * [default_auth](#default-auth) <span class="badge lb-xs">since v0.7</span>
-      * [not_found { ... }](#section-not-found)
+      * [default_auth](#default-auth) <span class="badge lb-xs">Since v0.7</span>
+      * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed, in-favor of [Centralized Error Handler](centralized-error-handler.html)
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
+          - [path](#path)
+          - [method](#method)
+          - [controller](#controller)
+          - [action](#action)
+          - [auth](#auth) <span class="badge lb-xs">Since v0.7</span>
+          - [max_body_size](#max-body-size) <span class="badge lb-xs">Since v0.8</span>
           - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
 
 Have a look at [aahframework.org routes configuration](https://github.com/go-aah/website/blob/master/config/routes.conf). It is simple one, it gives an idea on how you can do it for your application.
@@ -127,7 +133,9 @@ default_auth = "form_auth"
 ```
 
 ### Section: not_found { ... }
-Define your custom `NotFound` implementation. It is invoked when no matching route is found. If not defined default one is invoked. This is optional section.
+<span class="badge lb-sm lb-drop-color">On v0.8</span> configuration is removed in-favor of [Centralized Error Handler](centralized-error-handler.html).
+
+<strike>Define your custom `NotFound` implementation. It is invoked when no matching route is found. If not defined default one is invoked. This is optional section.
 
 Create your controller and action of your choice. Then register in the routes config. You may call `IsStaticRoute()` in the NotFound action to know whether the incoming request is `static or application route`.
 
@@ -138,6 +146,7 @@ not_found {
   action = "NotFound"
 }
 ```
+</strike>
 
 ---
 
@@ -241,8 +250,16 @@ When routes `auth` attribute is not defined; two possible actions are taken:
   * Else framework treats that route as `anonymous`.
 
 Default value is empty string.
-```
+```cfg
 auth = "form_auth"
+```
+
+### max_body_size
+<span class="badge lb-sm">Since v0.8</span> Max request body size for this particular route. This is override value of `request.max_body_size` from aah.conf.
+
+Default value is `0mb`. Global default value in aah.conf is `5mb`.
+```cfg
+max_body_size = "100mb"
 ```
 
 ---

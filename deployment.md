@@ -1,5 +1,5 @@
 Title: aah Deployment
-Desc: Instructions for the aa application deployment.
+Desc: Instructions for the aah application deployment.
 Keywords: deployment, build, binary
 ---
 # aah Deployment
@@ -36,7 +36,7 @@ env {
     #...
     routes {
       domains {
-        aahframework {
+        aahframework { # this section name is same domain config name in the routes.conf
           host = "aahframework.org"
 
           # Define port no, if listening port different from serve port
@@ -46,7 +46,7 @@ env {
           port = "443"  
         }
 
-        docs_aahframework {
+        docs_aahframework { # this section name is same domain config name in the routes.conf
           host = "docs.aahframework.org"
 
           # Define port no, if listening port different from serve port

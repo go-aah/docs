@@ -1,6 +1,6 @@
 Title: aah.project Configuration File
-Desc: aah.project file holds configuration values for aah application project. It is used in build, project info, etc.
-Keywords: aah.project, project file, build config, build file, flags, ldflags, tags, build excludes
+Desc: aah.project file aah application project file. It holds configuration values such as build, project info, hot-reload, etc.
+Keywords: aah.project, project file, build config, hot-reload config, build file, flags, ldflags, tags, build excludes
 ---
 # aah project file - `aah.project`
 
@@ -9,7 +9,7 @@ aah.project file holds the application info, build configuration and hot-reload 
 ### Table of Contents
 
   * [build { ... }](#section-build)
-  * [hot_reload { ... }](#section-hot-reload)  <span class="badge lb-xs">since v0.7</span>
+  * [hot_reload { ... }](#section-hot-reload)  <span class="badge lb-xs">Since v0.7</span>
 
 ## Section: build { ... }
 Build section is used during aah application compile and build process.

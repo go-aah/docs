@@ -4,11 +4,11 @@ Keywords: aah server, go http server, aah go server, http server, web server, le
 ---
 # aah Server
 
-aah server is a in-built HTTP server provided by Go lang. Framework provides flexible configuration `server { ... }` in the `aah.conf` for the users.
+aah server is a in-built HTTP server provided by Go lang. On top aah framework provides flexible way to configure `server { ... }` in the `aah.conf` and exploit the capabilities.
 
 Reference to [Server Config](app-config.html#section-server), [Server Extension](server-extension.html).
 
-### Table of Contents
+### Capabilities
 
   * [HTTP](#http)
   * [HTTPS](#https)
@@ -30,7 +30,9 @@ Starts the server if `server.ssl.enable` set to `true` with given SSL cert and k
 
 aah framework supports auto Let's Encrypt certs, you can set `server.ssl.lets_encrypt.enable` to `true` to enable it. Have a look on configuration [here](app-config.html#section-lets-encrypt) for more options.
 
-_Note: Let's Encrypt does not provide certificates for localhost._
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Let's Encrypt does not provide certificates for localhost.</p>
+</div>
 
 ## UNIX Socket
 
@@ -48,6 +50,7 @@ aah provides flexible way to provide custom TLS configuration for the server via
 ### How to do?
 
 There are two ways you can add the custom TLS config-
+
   * Via `aah.OnInit` event - It is `recommended` approach. Since you have access to `aah.AppConfig()` values.
   * Via `func init()`
 

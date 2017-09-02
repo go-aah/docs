@@ -1,10 +1,10 @@
 Title: Reply Builder (aka Response Builder)
-Desc: Framework provides Reply builder to compose your response effectively. You can do Chained call.
-Keywords: reply builder, reply, response, html, json, jsonp, text, bytes, file, status code, cookie, redirect
+Desc: aah provides powerful Reply builder to compose your HTTP response effectively. You can do chained call.
+Keywords: reply builder, reply, response, html, json, jsonp, text, bytes, file, status code, cookie, redirect, custom
 ---
 # Reply Builder
 
-Framework provides `Reply` builder (aka Response Builder) to compose your response effectively. You can do Chained call.
+aah provides `Reply` builder (aka Response Builder) to compose your response effectively. You can do Chained call.
 
 ### Table of Contents
 
@@ -15,10 +15,12 @@ Framework provides `Reply` builder (aka Response Builder) to compose your respon
   * [Cookie](#cookies)
   * [Disable Gzip](#disable-gzip)
   * [Done()](#done)
-  * [Just Few Sample](#just-few-samples)
+  * [Implementing Custom Rendering](#implementing-custom-rendering)
+  * [Just Few Samples](#just-few-samples)
+  * [Registering External JSON Library into aah](external-json-library.html) <span class="badge lb-xs">Since v0.8</span>
 
 ## Response Status Codes
-As per RFC7231, provides method for frequently used ones.
+As per RFC7231, `Reply()` provides method for frequently used ones.
 
   * `Ok()`
   * `Created()`
@@ -55,6 +57,8 @@ Rich reply methods for the response.
   * `FileDownload(file, targetName)` - Content-Disposition is attachment
   * `FileInline(file, targetName)` - Content-Disposition is inline
   * `Binary(bytes)`
+  * `Error(err)` <span class="badge lb-xs">Since v0.8</span> [know more](centralized-error-handler.html#reply-error-err).
+  * `Render(rdr)` - renders custom rendering implementation [know more](#)
 
 ## Redirect
   * `Redirect(url)`
@@ -78,7 +82,40 @@ Reply().DisableGzip()
 ## Done()
 Done method indicates that reply has already been sent via `aah.Context.Res` and that no further action is needed.
 
-**Note:** Framework doesn't intervene with response if `Done()` method was called.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Framework doesn't intervene with response if `Done()` method was called.</p>
+</div>
+
+## Implementing Custom Rendering
+aah provides reply method called `Render` to supply your own implementation of rendering. You can do by implementing interface `aah.Render` or using adaptor `aah.RenderFunc`.
+
+**Example of interface aah.Render**
+```go
+// CustomRender implements the interface `aah.Render`.
+type CustomRender struct {
+	// ... your fields goes here
+}
+
+func (cr *CustomRender) Render(w io.Writer) error {
+  // implementation goes here
+  // return error for any issues
+  return nil
+}
+
+// Then you call render method in your controller action
+Reply().Render(&CustomRender{
+  // fields goes here
+})
+```
+
+**Example of adaptor aah.RenderFunc**
+```go
+Reply().Render(aah.RenderFunc(func(w io.Writer) error {
+  // implementation goes here
+  // return error for any issues
+  return nil
+}))
+```
 
 ## Just Few Samples
 
@@ -121,4 +158,11 @@ Reply().
 
 // Replying HTML response with custom layout and data
 Reply().HTMLl("master-custom.html", data)
+
+// Replying Error - processed by Centralized Error Handler before writing a reply
+Reply().Error({
+  Code: http.StatusNotFound,
+  Message: "Resource not found",
+  Data: "relevant data if you would like to send", // this is interface{} type.
+})
 ```

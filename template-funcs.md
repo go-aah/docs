@@ -1,5 +1,5 @@
 Title: View Template Functions
-Desc: aah provides template functions to access configuration, request parameters, session data, flash, etc. In addition to default go lang template funcs. Add custom or third party Template Funcs.
+Desc: aah provides template functions to access configuration, request parameters, session data, flash, etc. In addition to default go lang template funcs. You can add custom or third party Template Funcs too.
 Keywords: template funcs, funcmap, template func map, aah template funcs
 ---
 # View Template Functions
@@ -201,7 +201,7 @@ Returns `true` if Subject (aka User) has all the given [permissions](/security-p
 
 Go template strips the HTML comment while rendering the template file. To preserve HTML comment or any special char use `safeHTML` template func. Of-course use it with care.
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>Use only if you trust the HTML source, since it preserves the HTML content without escaping.</p>
 </div>

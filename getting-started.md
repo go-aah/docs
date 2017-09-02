@@ -1,6 +1,6 @@
 Title: Getting started with aah framework
 Desc: It is very easy to start and work with aah framework. Installing aah framework and CLI tool, Creating your first aah application, Running your aah application, etc.
-Keywords: getting started, aah framework, aah first application, web framework for Go lang
+Keywords: getting started, aah framework, aah first application, web framework for Go, web framework for Go lang
 ---
 # Getting started with aah framework
 
@@ -8,12 +8,12 @@ It is easy to start and work with aah framework. Let's make sure you have [Go en
 
 Here you will be learning:
 
-* [Installing aah framework and CLI tool](#installing-aah-framework-and-cli-tool)
-* [Verifying your aah installation](#verify-your-aah-installation)
-* [Creating your first aah application](#let-s-create-your-first-aah-application)
-* [Running your aah application](#run-your-aah-application)
-* [Learning aah project structure](anatomy-aah-application.html)
-* [Next move onto app configuration](app-config.html)
+  * [Installing aah framework and CLI tool](#installing-aah-framework-and-cli-tool)
+  * [Verifying your aah installation](#verify-your-aah-installation)
+  * [Creating your first aah application](#let-s-create-your-first-aah-application)
+  * [Running your aah application](#run-your-aah-application)
+  * [Learning aah project structure](anatomy-aah-application.html)
+  * [Next move onto app configuration](app-config.html)
 
 ## Installing aah framework and CLI tool
 
@@ -23,7 +23,7 @@ Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs
 go get -u aahframework.org/tools.v0/aah
 ```
 
-<div class="alert alert-info alert-info-blue">
+<div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
 <p>If you get an error "<u>RPC failed; HTTP 301 curl 22 The requested URL returned error: 301</u>" then set the below git config and try again.</p>
 <p><pre>
@@ -43,10 +43,10 @@ aah
 **Output:** (you will get similar output)
 ```cfg
 jeeva@mb-pro:~$ aah
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.7 -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Report improvements/bugs at https://github.com/go-aah/aah/issues
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+           aah framework v0.8 -  https://aahframework.org
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 Usage:
   aah [global options] command [command options] [arguments...]
@@ -77,10 +77,10 @@ aah new
 
 **Output:**
 ```cfg
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.7 -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Report improvements/bugs at https://github.com/go-aah/aah/issues
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+           aah framework v0.8 -  https://aahframework.org
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
@@ -121,10 +121,10 @@ aah r
 
 **Output:**
 ```cfg
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.7 -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Report improvements/bugs at https://github.com/go-aah/aah/issues
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+           aah framework v0.8 -  https://aahframework.org
+––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+# Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 2017-07-30 22:56:03.880 INFO  Loading aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/aah.project
 2017-07-30 22:56:03.880 INFO  Hot-Reload enabled for environment profile: dev

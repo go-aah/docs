@@ -1,12 +1,12 @@
-Title: aah Application Configuration
-Desc: aah configuration structure is very flexible, you can override every config settings in environment profiles. Learn about aah application configuration.
+Title: aah.conf Application Configuration
+Desc: aah configuration structure is very flexible, you can override every config settings in environment profiles also external config file.
 Keywords: app config, application configuration, aah.conf, HOCON, configuration
 ---
 # aah Application Configuration
 
 The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
-aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles.
+aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles also external config file.
 
 You can add your custom config values into app config. Also it can be overridden in the environment profiles.
 
@@ -16,13 +16,16 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
+  * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)
         - [lets_encrypt { ... }](#section-lets-encrypt)
-    - [access_log { ... }](#server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
+    - [access_log { ... }](server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [request { ... }](#section-request)
     - [id { ... }](#section-id)
+    - [content_negotiation { ... }](#section-content-negotiation) <span class="badge lb-xs">Since v0.8</span>
+    - [auto_bind { ... }](#section-auto-bind) <span class="badge lb-xs">Since v0.8</span>
   * [i18n { ... }](#section-i18n)
     - [param_name { ... }](#section-param-name) <span class="badge lb-xs">Since v0.7</span>
   * [format { ... }](#section-format)
@@ -51,6 +54,14 @@ name = "mysampleapp"
 A friendly description of application purpose.
 ```cfg
 desc = "aah framework web application"
+```
+
+## pid_file
+<span class="badge lb-sm">Since v0.8</span> Configure file path of application PID file to be written. Ensure application has appropriate permission and directory exists.
+
+Default value is `<app-base-dir>/<app-binary-name>.pid`
+```cfg
+pid_file = "/path/to/pidfile.pid"
 ```
 
 ---
@@ -82,6 +93,14 @@ port = "80" # port = ""
 # for 443
 port = "443" # port = ""
 ```
+
+### header
+<span class="badge lb-sm">Since v0.8</span> Header value written as `Server` HTTP header. If you do not want to include `Server` header, comment it out.
+
+Default value is `aah-go-server`.
+```cfg
+header = "aah-go-server"
+```  
 
 ### max_header_bytes
 HTTP server max header bytes size. It is mapped to `http.Server.MaxHeaderBytes`.
@@ -223,6 +242,14 @@ cache_dir = "/path/to/store/cache/certs"
 ## Section: request { ... }
 Request configuration values.
 
+### max_body_size
+<span class="badge lb-sm">Since v0.8</span> Max request body size for all incoming HTTP requests except `MultipartForm`. Also you can override this size for individual route on specific cases in `routes.conf` if need be.
+
+Default value is `5mb`.
+```cfg
+max_body_size = "10mb"
+```
+
 ### multipart_size
 Request Multi-part size is used for form parsing when request `Content-Type` is `multipart/form-data`.
 
@@ -255,6 +282,65 @@ HTTP header name for generated Request ID. If request already has HTTP header th
 Default value is `X-Request-Id`.
 ```cfg
 header = "X-Request-Id"
+```
+
+### Section: content_negotiation { ... }
+<span class="badge lb-sm">Since v0.8</span> Content negotiation is used to validate what is being `offered` and `accepted` by server in-terms of request and response. Also known as `Content-Type` restrictions.
+
+### enable
+To enable/disable Content Negotiation for your application.
+
+Default value is `false`.
+```cfg
+enable = true
+```
+
+### accepted
+Accepted - `Content-Type` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.16).
+
+<u>For example:</u> Client sends `Content-Type` header as `application/xml`. However server only supports JSON payload as request body. Then server responds with `415 Unsupported Media Type`.
+
+Default value is empty list and disabled.
+```cfg
+accepted = ["application/json", "text/json"]
+```
+
+### offered
+Offered - `Accept` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.7).
+
+<u>For example:</u> Client sends Accept header as `application/xml`. However server only supports serving JSON i.e. `application/json`. Then server responds with `406 Not Acceptable`.
+
+Default value is empty list and disabled.
+```cfg
+offered = ["application/json", "text/json"]
+```
+
+## Section: auto_bind { ... }
+Auto Bind configuration used to bind request parameters to controller action parameters.
+
+### priority
+Priority is used to select the bind source priority.
+```cfg
+P -> Path Parameter
+F -> Form Parameter
+Q -> Query Parameter
+```
+
+<u>For example:</u> Let's say you have a controller action named `OrderInfo` and its has parameter called `orderId`. So framework tries to parse and bind based on the priority. The `orderId` present in `Path` and `Form`, framework parse and binds the value from `Path`.
+
+Typically recommended to have unique names in the request parameter though :) If value is not found then it returns with default Go zero value.
+
+Default value is `PFQ`.
+```cfg
+priority = "PFQ"
+```
+
+### tag_name
+Tag Name is used for bind values to struct exported fields.
+
+Default value is `bind`.
+```cfg
+tag_name = "bind"
 ```
 
 ---
@@ -292,18 +378,18 @@ query = "locale"
 ---
 
 ## Section: format { ... }
-Date and time format values. This is used by framework while parsing HTTP request parameters and DB store/retrieve operation `(upcoming)`.
+Date, Time format values. These formats used to parse in the order they defined while [Auto Parse and Bind](request-parameters-auto-bind.html) into controller action parameters.
 
-### date
-Default value is `2006-01-02`.
-```cfg
-date = "2006-01-02"
-```
+Any parse error result in 400 Bad Request.
 
-### datetime
-Default value is `2006-01-02 15:04:05`.
+### time
 ```cfg
-datetime = "2006-01-02 15:04:05"
+time = [
+  "2006-01-02T15:04:05Z07:00",
+  "2006-01-02T15:04:05Z",
+  "2006-01-02 15:04:05",
+  "2006-01-02"
+]
 ```
 
 ---
@@ -334,7 +420,7 @@ all_goroutines = false
 ## Section: render { ... }
 
 ### default
-aah framework identifies the `Content-Type` value automatically. If `aah.Reply()` builder value is not set. It identifies in the order of:
+aah framework identifies the `Content-Type` value automatically, when `aah.Reply()` builder Content-Type value is not set. It identifies in the order of:
 
   * Based on URL file extension, supported `.html`, `.htm`, `.json`, `.js`, `.xml` and `.txt`
   * Request Accept Header - Most Qualified one as per [RFC7321](https://tools.ietf.org/html/rfc7231#section-5.3)
@@ -360,7 +446,9 @@ Gzip compression configuration for HTTP response.
 ### enable
 By default Gzip compression is enabled in aah framework, however framework ensures HTTP client does accepts Gzip response otherwise it won't use the Gzip compression.
 
-**Tips:** If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`.
+<div class="alert alert-info-green">
+<p><strong>Tip:</strong> If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`. There is not point in doing double compression.<p>
+</div>
 
 Default value is `true`.
 ```cfg

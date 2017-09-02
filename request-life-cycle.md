@@ -4,11 +4,12 @@ Keywords: aah request lifecycle, request lifecycle, incoming request, lifecycle
 ---
 # aah Request Lifecycle
 
-Incoming requests are handled by the server via routes. Each route describes an HTTP endpoint with a `path`, `method`, `controller`, and `action`. Each incoming request passes through a pre-defined list of steps, user-defined steps and optional server extensions.
+Incoming requests are handled by the server via routes. Each route describes an HTTP endpoint with a `path`, `method`, `controller`, and `action`. Each incoming request passes through a pre-defined list of steps, user-defined steps and optional server extension points.
 
-It would be nice to have diagram to explain the Lifecycle, will do my best in the upcoming release.
+It would be nice to have diagram to explain the Lifecycle. Later, will do my best.
 
 ## Lifecycle
+Lifecycle always reflects latest version flow.
 
   * Captures the request received time, used for server access log.
   * `aah.Context` is prepared for the request. i.e. parsing and creating `ahttp.Request` instance and `ahttp.ResponseWriter` instance.
@@ -17,33 +18,39 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
       - Note: route is not evaluated at this point.
   * Route Lookup: Based on request path.
       - If it's static file route then server process that request via `http.ServeContent`.
+          - `OnPreReply` and `OnAfterReply` server extension points applicable to Static File delivery. does call .
       - If no route found then below one of the action performed based on request.
           - If `Redirect Trailing Slash` opportunity is found then server redirects that request to the new URL. It can be controlled via [`routes.conf`](routes-config.html).
           - It does HTTP auto `OPTIONS`. User defined `OPTIONS` take precedence over auto. It can be controlled via [`routes.conf`](routes-config.html).
           - It does HTTP auto `405 Method Not Allowed`. It can be controlled via [`routes.conf`](routes-config.html).
-          - If custom not found controller is defined, server calls that configured controller action.
+          - [Centralized Error Handler](centralized-error-handler.html) gets called with `404` status code.
       - Finally it skips to `OnPreReply` server extension point and writing response on the wire.
-  * Route Found: `aah.Context` is updated with targeted controller and action information. If controller or action is not found in the registry. Flow skips to `OnPreReply` server extension point with `404 Not Found` and writing response on the wire.
-      - Path Variables are parsed and available at this point via `ctx.Req`.
+  * Route Found: `aah.Context` is updated with targeted controller and action information. Path Variables are parsed and available at this point via `ctx.Req`.
+      - If controller or action is not found in the registry then
+          - [Centralized Error Handler](centralized-error-handler.html) gets called with `404` status code.
+          - Flow skips to `OnPreReply` server extension point and writing response on the wire.
   * Parse Session Cookie if the session mode is `stateful`
-  * `OnPreAuth` server extension point. <span class="badge lb-xs">since v0.7</span>
-  * Authenticate the incoming request. <span class="badge lb-xs">since v0.7</span>
-  * Populates Authorization info into Subject. <span class="badge lb-xs">since v0.7</span>
-  * `OnPostAuth` server extension point. <span class="badge lb-xs">since v0.7</span>
+  * `OnPreAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
+  * Authenticate the incoming request. <span class="badge lb-xs">Since v0.7</span>
+  * Populates Authorization info into Subject. <span class="badge lb-xs">Since v0.7</span>
+  * Auto Check Authorization roles & permissions based on route `authz` configuration **`upcoming`**
+  * `OnPostAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
   * Read and Parse Request
       - For `GET` method request parse Query parameters
       - For not `GET` method. Query parameters and Payload, Form, Multi-part based on content-type.
-      - Sanitize request values to prevent XSS **`upcoming`**
-  * Validate request values **`upcoming`**
+  * Validate request parameter values **`upcoming`**
   * User-defined middleware(s) execution (basically before `m.Next(ctx)` call).
   * Controller interceptor `Before` is called if exists.
   * Controller-Action interceptor `Before<ActionName>` is called if exists.
   * Targeted controller `Action` is called.
+      - Auto Parse and Bind, [know more](request-parameters-auto-bind.html)
+          * It sanitizes the request parameter to prevent XSS attacks, it's highly recommended to use <span class="badge lb-xs">Since v0.8</span>
   * Controller-Action interceptor `After<ActionName>` is called if exists.
   * Controller interceptor `After` is called if exists.
   * Controller interceptor `Finally` is called if exists. It is always executed.
   * ***Note:*** If any `panic` happens around controller action interceptor `Panic` is called on that controller.
   * User-defined middleware(s) execution (basically after `m.Next(ctx)` call).
+  * If `Reply` is an `Error` type then [Centralized Error Handler](centralized-error-handler.html) is called. <span class="badge lb-xs">Since v0.8</span>
   * If the Response is already sent via `ctx.Res` and `ctx.Reply().Done()` is called then framework does not intervene with response, so request completes here.
   * Write Response Header(s) and set Cookies (session cookie, etc.)
   * If it's a Redirect reply then framework redirects it.
@@ -61,4 +68,5 @@ It would be nice to have diagram to explain the Lifecycle, will do my best in th
   * `OnAfterReply` server extension point: Always called. Response is already written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc. Except when-
       - `ctx.Reply().Done()` was called, refer godoc for more info.
       - `ctx.Reply().Redirect(...)` was called.
-  * Writes data to server access log.
+  * Writes data to server access log, if enabled. <span class="badge lb-xs">Since v0.7</span>
+  * If its Multipart request with files, it does cleanup.

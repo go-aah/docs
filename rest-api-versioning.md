@@ -101,4 +101,4 @@ For example:
 _Tip: HostName based versioning strategy can be particularly useful if you have requirements to route incoming requests to different servers based on the version, as you can configure different DNS records for different API versions._
 
 
-<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

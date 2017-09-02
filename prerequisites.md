@@ -1,6 +1,6 @@
 Title: Standard Go Environment Readiness
 Desc: aah framework does not have any specific prerequisites, it's a standard Go language environment.
-Keywords: environment readiness, prerequisites, golang environment
+Keywords: environment readiness, prerequisites, go lang environment
 ---
 # Standard Go Environment Readiness
 

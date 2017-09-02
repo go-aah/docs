@@ -10,18 +10,21 @@ Learn more about i18n configuration and how it works [refer here](/i18n.html).
 
 ### How to get the aah tutorials source code?
 
-```bash
-go get -u -d github.com/go-aah/tutorials/...
+```cfg
+go get -u -d github.com/go-aah/tutorials
 ```
-Just focus on following files/directory:
 
-  * `i18n-url-path-param/i18n/*`
-  * `i18n-url-path-param/config/routes.conf`
-  * `i18n-url-path-param/views/pages/app/index.html`
+<br>
+Focus on following files/directory:
+```cfg
+  i18n-url-path-param/i18n/*
+  i18n-url-path-param/config/routes.conf
+  i18n-url-path-param/views/pages/app/index.html
+```
 
 ### Let's see it in the action
 
-```bash
+```cfg
 aah run -i github.com/go-aah/tutorials/i18n-url-path-param
 ```
 
@@ -31,4 +34,5 @@ aah run -i github.com/go-aah/tutorials/i18n-url-path-param
 
 Now click on the language links to see i18n in action.
 
-<center>**Happy coding! Spread the word of aah web framework for Go, Thank you!**</center>
+<br><br>
+<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>
