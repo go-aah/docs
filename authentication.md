@@ -298,4 +298,10 @@ security {
 
 ## Password Encoders
 
-Currently aah provides `bcrypt` as a password encoder for the auth schemes. `scrypt` and `pbkdf2` encoders are upcoming.
+aah crypto implementation housed in package [acrypto](https://godoc.org/aahframework.org/security.v0/acrypto). All password encoder implements interface `PasswordEncoder`.
+
+Supported Hashing types:
+
+  * `bcrypt`
+  * `scrypt` (upcoming)
+  * `pbkdf2` (upcoming)
