@@ -17,6 +17,7 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
       - [Form-based Auth](#form-based-auth)
       - [Basic Auth](#basic-auth)
       - [Generic Auth](#generic-auth)
+  * [Password Encoders](#password-encoders)
 
 
 ## Terminology you’ll need
@@ -294,3 +295,7 @@ security {
   }
 }
 ```
+
+## Password Encoders
+
+Currently aah provides `bcrypt` as a password encoder for the auth schemes. `scrypt` and `pbkdf2` encoders are upcoming.
