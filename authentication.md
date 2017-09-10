@@ -39,7 +39,7 @@ By nature of aah security implementation, you can have one or more `Auth Scheme`
   * Configure auth related settings in `routes.conf`
   * For Authorization refer to [authorization guide](authorization.html)
 
-<div class="alert alert-info-blue">
+<div class="alert alert-info-green">
 <p><strong>Security Tip:</strong></p>
 <p>Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</p>
 </div>
@@ -215,7 +215,7 @@ security {
 }
 ```
 
-#### Basic Auth - File Realm format/structure
+#### Basic Auth - File Realm format
 
 Repeat this configuration block/section for every user.
 
