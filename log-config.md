@@ -1,28 +1,17 @@
-Title: aah Logging Configuration
-Desc: aah log implements a simple, flexible logger. It supports `console`, `file` (rotation by daily, size,  lines), max history (`upcoming`). It also has a predefined 'standard' Logger. It can be used as drop-in replacement for standard go logger with features.
-Keywords: log, logger, aah logger, console log, file log, console logger, file logger
+Title: aah Log Configuration
+Desc: aah log configuration
+Keywords: log configuration, logger configuration, log config
 ---
-# aah Logging Configuration
+# aah Log Configuration
 
-aah log package implements a simple, flexible, non-blocking logger. It supports `console`, `file` (rotation by daily, size, lines), max history (`upcoming`). It also has a predefined 'standard' Logger accessible through helper functions `Error{f}`, `Warn{f}`, `Info{f}`, `Debug{f}`, `Trace{f}`, `Print{f,ln}`, `Fatal{f,ln}`, `Panic{f,ln}` which are easier to use than creating a Logger manually. Default logger writes to standard error and prints log `Entry` details as per `DefaultPattern`.
+The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
-aah log package can be used as drop-in replacement for standard go logger with features.
-
-```go
-log.Info("Welcome ", "to ", "aah ", "logger")
-log.Infof("%v, %v, %v", "simple", "flexible", "non-blocking logger")
-```
-
-```bash
-# Output:
-2017-05-03 19:22:11.504 INFO  - Welcome to aah logger
-2017-05-03 19:22:11.504 INFO  - simple, flexible, non-blocking logger
-```
+This document describes aah log configurations. Typically log configuration done at every environment profile level and you override it via external config file.
 
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Security Config](security-config.html).
 
 ## receiver
-Receiver is where the log values gets logged. Currently framework supports `console` and `file` receivers. And you can add `Hooks` into aah logger, for sending log data to splunk, kibana, etc.
+Receiver is where the log values gets logged. Out-of-the-box framework supports `console` and `file` receivers. Also you can add `Hooks` into per aah logger instance, for sending log data to splunk, kibana, etc.
 
 Default value is `console`.
 ```cfg
@@ -30,9 +19,9 @@ receiver = "file"
 ```
 
 ## level
-Level indicates the logging levels like `ERROR`, `WARN`, `INFO`, `DEBUG` and `TRACE`. Config value can be in lowercase or uppercase.
+Level indicates the logging levels like `ERROR`, `WARN`, `FATAL`, `PANIC`, `INFO`, `DEBUG` and `TRACE`. Config value can be in lowercase or uppercase.
 
-Default value is `debug`.
+Default value is `DEBUG`.
 ```cfg
 level = "info"
 ```
@@ -46,27 +35,42 @@ format = "json"
 ```
 
 ## pattern
-Pattern config defines the message flags and formatting while logging into receivers. aah framework logger supports the following `format flags`-
+Pattern config is defined composable log pattern. Patten flag is used as `%flagname` or `%flagname:format`.
+
+Supported log patterns are:
 ```cfg
-Format flags: Usage of flag order is up to your pattern composition in the config.
-  level     - outputs INFO, DEBUG, ERROR, so on
+FmtFlags is the list of log format flags supported by aah log library
+Usage of flag order is up to format composition.
+  level     - outputs ERROR, WARN, FATAL, PANIC, INFO, DEBUG, TRACE
+  appname   - outputs Application Name
+  insname   - outputs Application Instance Name
+  reqid     - outputs Request ID from HTTP header
+  principal - outputs Logged-In subject primary principal value
   time      - outputs local time as per format supplied
   utctime   - outputs UTC time as per format supplied
-  longfile  - outputs full file name: /a/b/c/d.go (do not use for production)
-  shortfile - outputs final file name element: d.go (do not use for production)
-  line      - outputs file line number: L23 (do not use for production)
+  longfile  - outputs full file name: /a/b/c/d.go
+  shortfile - outputs final file name element: d.go
+  line      - outputs file line number: L23
   message   - outputs given message along supplied arguments if they present
+  fields    - outputs field values into log entry
   custom    - outputs string as-is into log entry
-
-The usage is %flagname:format
 ```
-
-***Note: Pattern is not is applicable for JSON format.***
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Log pattern is not applicable of JSON log format.</p>
+</div>
 
 Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %message`.
 ```cfg
 pattern = "%time:2006-01-02 15:04:05 %level:-5 %shortfile %line %custom:- %message"
 ```
+
+## color
+Log colored output, applicable only to **`console`** receiver type.
+
+Default value is `true`.
+```cfg
+color = false
+```    
 
 ## file
 File config attribute is applicable only to **`file`** receiver type.
