@@ -24,17 +24,17 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 `list` command, alias `l` - scans GOPATH and lists all the import paths of aah project. <span class="badge lb-sm">Since v0.6</span>.
 
 ```cfg
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.7 -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Report improvements/bugs at https://github.com/go-aah/aah/issues
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+           aah framework v0.9 - https://aahframework.org
+____________________________________________________________________
+# Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 Scanning GOPATH: /Users/jeeva/go/...
 
 4 aah projects were found, import paths are:
     github.com/go-aah/tutorials/domain-subdomain
     github.com/go-aah/tutorials/html-minify
-    github.com/go-aah/tutorials/i18n    
+    github.com/go-aah/tutorials/i18n-url-query-param
     github.com/go-aah/website
 ```
 

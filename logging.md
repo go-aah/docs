@@ -29,6 +29,9 @@ log.Infof("This is %s application logger", "example")
 #### Composable Log Pattern
 
 aah provides composable log pattern as follows. Note: log pattern is not applicable of JSON log format.
+
+<span class="badge lb-sm">Since v0.9</span> `appname`, `insname`, `reqid`, `principal` flags supported.
+
 ```cfg
 FmtFlags is the list of log format flags supported by aah log library
 Usage of flag order is up to format composition.
@@ -72,6 +75,7 @@ Usage of flag order is up to format composition.
 <span class="badge lb-sm">Since v0.9</span> context, fields and child logger supported.
 
   * **Context:** In aah, you can create logger with context, which is `log.Fields` values. Those values gets logged with every log entry. For example: aah application creates the default logger with application name and application instance name.
+      - Use `ctx.Log().*` for logging in the controller and further to get context based logging which includes log entry with Request ID and Principal ID.
   * **Fields:** `WithFields` and `WithField` is used to log fields and values with current log entry.
   * **Child Logger:** You can create child logger from aah logger instance. Upon creation it inherits parent logger context values once.
       - After creation, any changes to context value on parent or child does not affect each other.

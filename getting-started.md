@@ -89,11 +89,11 @@ Based on your inputs, aah CLI tool generates the aah application structure for y
 
 Enter your application import path: github.com/jeevatkm/aah-first-app
 
-Choose your application type (web or api), default is 'web': web
+Choose your application type (web or api), default is 'web':
 
-Choose your application Auth Scheme (form, basic), default is 'none': none
+Choose your application Auth Scheme (form, basic), default is 'none':
 
-Choose your session store (cookie or file), default is 'cookie': cookie
+Choose your session store (cookie or file), default is 'cookie':
 
 Your aah web application was created successfully at '/Users/jeeva/go/src/github.com/jeevatkm/aah-first-app'
 You shall run your application via the command: 'aah run --importpath github.com/jeevatkm/aah-first-app'
@@ -112,7 +112,6 @@ aah run -i github.com/jeevatkm/aah-first-app
 
 # OR
 cd $GOPATH/src/github.com/jeevatkm/aah-first-app
-
 aah run
 
 # OR
