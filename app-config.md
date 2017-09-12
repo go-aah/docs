@@ -20,6 +20,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-timeout)
     - [ssl { ... }](#section-ssl)
+        - [redirect_http { ... }](#section-redirect-http) <span class="badge lb-xs">Since v0.9</span>
         - [lets_encrypt { ... }](#section-lets-encrypt)
     - [access_log { ... }](server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [request { ... }](#section-request)
@@ -179,6 +180,40 @@ Default value is `false`.
 
 ```cfg
 disable_http2 = true
+```
+
+### Section: redirect_http { ... }
+<span class="badge lb-sm">Since v0.9</span> Redirect HTTP => HTTPS functionality does protocol switch, so it works with domain and subdomains.
+
+```cfg
+For example:
+   http://aahframework.org      => https://aahframework.org
+   http://www.aahframework.org  => https://www.aahframework.org
+   http://docs.aahframework.org => https://docs.aahframework.org
+```
+
+### enable
+To enabling HTTP => HTTPS redirects.
+
+Default is value is `false`.
+```cfg
+enable = true
+```
+
+### port
+Port no. of HTTP requests to listen. For standard port `80` put empty string or a value.
+
+It is required value, no default.
+```cfg
+port = "8080"
+```
+
+### code
+Redirect code to be used when redirecting HTTP request.
+
+Default value is `307`.
+```cfg
+code = 307
 ```
 
 ### Section: lets_encrypt { ... }
