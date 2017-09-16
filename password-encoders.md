@@ -9,6 +9,7 @@ Out-of-the-box aah supports three password encoders for authenticating users in 
   * [bcrypt Algorithm](#bcrypt-algorithm)
   * [scrypt Algorithm](#scrypt-algorithm)&nbsp;&nbsp;<span class="badge lb-xs">Since v0.9</span>
   * [pbkdf2 Algorithm](#pbkdf2-algorithm)&nbsp;&nbsp;<span class="badge lb-xs">Since v0.9</span>
+  * [Adding additional password encoder into aah](#)
 
 Password encoders implements the interface `PasswordEncoder`.
 ```go
@@ -93,7 +94,7 @@ scrypt {
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
-<p>Please have a look [here](https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/6415#6415), it seems that scrypt (and bcrypt) are advised over pbkdf2 in most cases. If you use pbkdf2, using it with SHA-512 or SHA-256 is a good practice.</p>
+<p>It's commonly recommended to use `bcrypt` password hashing algorithm. However real world usage different per application. If you're using `pbkdf2` hashing algorithm, it's highly advised to use pbkdf2 with SHA-512 or SHA-256. Good read [here](https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/), [here](https://crypto.stackexchange.com/questions/15218/is-pbkdf2-hmac-sha1-really-broken).</p>
 </div>
 
 <br>
@@ -124,5 +125,28 @@ pbkdf2 {
   # Supported SHA's are `sha-1`, `sha-224`, `sha-256`, `sha-384`, `sha-512`.
   # Default value is `sha-512`
   #hash_algorithm = "sha-512"
+}
+```
+
+## Adding additional password encoder into aah
+
+aah provides extensibility to add additional password encoder into aah easily. Implement the interface `acrypto.PasswordEncoder` then add it to `aah`.
+
+**Registering password encoder**
+```go
+// Choose whichever the argon2 library and implement interface `acrypto.PasswordEncoder`
+// then register it here.
+func init()  {
+  aah.AddPasswordEncoder("argon2", &Argon2Encoder{})
+}
+```
+
+**Using registered encoder in auth schemes**
+```cfg
+# In your auth scheme, simply mention the name you have used for the registering. That's it very easy!
+form_auth {
+  #...
+  password_encoder = "argon2"
+  #...
 }
 ```
