@@ -91,6 +91,11 @@ scrypt {
 
 `pbkdf2` password hashing algorithm, good read [here](https://cryptosense.com/parameter-choice-for-pbkdf2/), [here](https://pthree.org/2016/06/28/lets-talk-password-hashing/), [here](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet). Configure pbkdf2 encoder in `security.conf` at section `password_encoder { ... }`.
 
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>Please have a look [here](https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/6415#6415), it seems that scrypt (and bcrypt) are advised over pbkdf2 in most cases. If you use pbkdf2, using it with SHA-512 or SHA-256 is a good practice.</p>
+</div>
+
 <br>
 **To hash your password**
 ```go
