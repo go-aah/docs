@@ -12,10 +12,10 @@ Create web application using `aah new` command.
 
 ```
 jeeva@mb-pro:~$ aah new
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-   aah framework v0.7 -  https://aahframework.org
-–––––––––––––––––––––––––––––––––––––––––––––––––––––
-# Report improvements/bugs at https://github.com/go-aah/aah/issues
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+           aah framework v0.9 - https://aahframework.org
+____________________________________________________________________
+# Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 
 Welcome to interactive way to create your aah application, press ^C to exit :)
@@ -26,9 +26,7 @@ Enter your application import path: web-hello-world
 
 Choose your application type (web or api), default is 'web': web
 
-Choose your application Auth Scheme (form, basic), default is 'none': none
-
-Choose your session store (cookie or file), default is 'cookie': cookie
+Choose your application Auth Scheme (form, basic), default is 'none': 
 
 Your aah web application was created successfully at '/Users/jeeva/go-home/src/web-hello-world'
 You shall run your application via the command: 'aah run --importpath web-hello-world'
