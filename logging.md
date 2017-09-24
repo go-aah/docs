@@ -14,6 +14,9 @@ aah provides simple, flexible logger for real world application needs. It suppor
   * [Drop-in replacement for Go Standard Logger](#drop-in-replacement-for-go-standard-logger)
   * [Log Configuration](log-config.html)
 
+<br>
+Reference to [Server Access Log](server-access-log.html), [Server Dump Log](server-dump-log.html).
+
 ## Understanding aah Logging
 
 aah initializes the application default logger based on configured values from `log { ... }` with context of Application Name and Application Instance Name. You can simple import `log` module anywhere you need and log it. All the log entries are sent to configured receiver.
@@ -72,7 +75,7 @@ Usage of flag order is up to format composition.
 
 <div class="alert alert-info-green">
 <p><strong>Pro Tip:</strong></p>
-<p>In <code>aah</code> you could conditionally perform extra logging on certain log level. It could reduce your processing time. For example: Do extra processing and log only on level <code>DEBUG</code> using <code>IsLevelDebug()</code>; that particular block is not executed for other levels.</p>
+<p>In <code>aah</code> you could conditionally perform extra logging on certain log level. It could reduce your processing time for some use case. For example: Do extra processing and log only on level <code>DEBUG</code> using <code>IsLevelDebug()</code>; that particular block for DEBUG level only.</p>
 </div>
 
 ## Context, Fields, Child Logger
@@ -85,7 +88,7 @@ Usage of flag order is up to format composition.
   * **Child Logger:** You can create child logger from aah logger instance. Upon creation it inherits parent logger context values once.
       - After creation, any changes to context value on parent or child does not affect each other.
       - All the log entries made by child logger; logged in parent receiver.
-      - Child logger is handy when you want have logger per functionality. For example: you could create new application child logger via `aah.NewChildLogger(fields)`.
+      - Child logger is handy when you want have logger per functionality/package/file, etc. For example: you could create new application child logger via `aah.NewChildLogger(fields)`.
 
 ## Human Readable and Machine Parsable Logging
 

@@ -4,7 +4,7 @@ Keywords: centralized error handler, centralized error handling, error handler
 ---
 # aah Centralized Error Handler
 
-aah framework provides Centralized Error Handling for your application. Framework utilizes this error handler across for all the HTTP error responses. Such as internal server error (panic), authentication, route not found, content-negotiation, etc. Benefits of centralized error handler:
+<span class="badge lb-sm">Since v0.8</span> aah provides Centralized Error Handling for your application. Framework utilizes this error handler across for all the HTTP error responses. Such as internal server error (panic), authentication, route not found, content-negotiation, etc. Benefits of centralized error handler:
 
   * You can handle and process the error then send custom HTTP response.
   * You can filter/process appropriate error and send notification email, slack, etc to respective team.
@@ -25,11 +25,31 @@ Let's look at aah error object structure, error handler interface.
 ```go
 // Error structure used to represent the error details in the aah framework.
 type Error struct {
+  Reason  error       `json:"-" xml:"-"`
 	Code    int         `json:"code,omitempty" xml:"code,omitempty"`
 	Message string      `json:"message,omitempty" xml:"message,omitempty"`
 	Data    interface{} `json:"data,omitempty" xml:"data,omitempty"`
 }
 ```
+<br>
+`Reason` field value is from these errors:
+```go
+// aah errors
+var (
+	ErrPanicRecovery              = errors.New("aah: panic recovery")
+	ErrDomainNotFound             = errors.New("aah: domain not found")
+	ErrRouteNotFound              = errors.New("aah: route not found")
+	ErrStaticFileNotFound         = errors.New("aah: static file not found")
+	ErrControllerOrActionNotFound = errors.New("aah: controller or action not found")
+	ErrInvalidRequestParameter    = errors.New("aah: invalid request parameter")
+	ErrContentTypeNotAccepted     = errors.New("aah: content type not accepted")
+	ErrContentTypeNotOffered      = errors.New("aah: content type not offered")
+	ErrHTTPMethodNotAllowed       = errors.New("aah: http method not allowed")
+	ErrAccessDenied               = errors.New("aah: access denied")
+	ErrAuthenticationFailed       = errors.New("aah: authentication failed")
+)
+```
+
 
 #### `aah.ErrorHandler` func type
 ```go

@@ -4,7 +4,7 @@ Keywords: permissions, authorization, subject
 ---
 # Understanding Permissions in aah
 
-aah framework defines a `Permission` as a statement that defines an explicit behavior or action. It is a statement of raw functionality in an application and nothing more. Permissions are the lowest-level constructs in security polices, and they explicitly define only `what` the application can do.
+<span class="badge lb-sm">Since v0.8</span> aah framework defines a `Permission` as a statement that defines an explicit behavior or action. It is a statement of raw functionality in an application and nothing more. Permissions are the lowest-level constructs in security polices, and they explicitly define only `what` the application can do.
 
 They do not at all describe `who` is able to perform the action(s).
 

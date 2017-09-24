@@ -94,7 +94,7 @@ scrypt {
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
-<p>It's commonly recommended to use `bcrypt` password hashing algorithm. However real world usage different per application. If you're using `pbkdf2` hashing algorithm, it's highly advised to use pbkdf2 with SHA-512 or SHA-256. Good read [here](https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/), [here](https://crypto.stackexchange.com/questions/15218/is-pbkdf2-hmac-sha1-really-broken).</p>
+<p>It's commonly recommended to use `bcrypt` password hashing algorithm. However real world usage different per application. If you're using `pbkdf2` hashing algorithm, it's highly advised to use pbkdf2 with SHA-512 or SHA-256. Good read <a href="https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/">here</a>, <a href="https://crypto.stackexchange.com/questions/15218/is-pbkdf2-hmac-sha1-really-broken">here</a>.</p>
 </div>
 
 <br>
@@ -137,7 +137,7 @@ aah provides extensibility to add additional password encoder into aah easily. I
 // Choose whichever the argon2 library and implement interface `acrypto.PasswordEncoder`
 // then register it here.
 func init()  {
-  aah.AddPasswordEncoder("argon2", &Argon2Encoder{})
+  aah.AddPasswordAlgorithm("argon2", &Argon2Encoder{})
 }
 ```
 

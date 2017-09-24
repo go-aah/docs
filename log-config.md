@@ -10,7 +10,7 @@ This document describes aah log configurations. Typically log configuration done
 
 Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Security Config](security-config.html).
 
-## receiver
+## log.receiver
 Receiver is where the log values gets logged. Out-of-the-box framework supports `console` and `file` receivers. Also you can add `Hooks` into per aah logger instance, for sending log data to splunk, kibana, etc.
 
 Default value is `console`.
@@ -18,7 +18,7 @@ Default value is `console`.
 receiver = "file"
 ```
 
-## level
+## log.level
 Level indicates the logging levels like `ERROR`, `WARN`, `FATAL`, `PANIC`, `INFO`, `DEBUG` and `TRACE`. Config value can be in lowercase or uppercase.
 
 Default value is `DEBUG`.
@@ -26,7 +26,7 @@ Default value is `DEBUG`.
 level = "info"
 ```
 
-## format
+## log.format
 To define log entry output format. Supported formats are `text` and `json`.
 
 Default value is `text`.
@@ -34,7 +34,7 @@ Default value is `text`.
 format = "json"
 ```
 
-## pattern
+## log.pattern
 Pattern config is defined composable log pattern. Patten flag is used as `%flagname` or `%flagname:format`.
 
 Supported log patterns are:
@@ -64,7 +64,7 @@ Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %message`.
 pattern = "%time:2006-01-02 15:04:05 %level:-5 %shortfile %line %custom:- %message"
 ```
 
-## color
+## log.color
 Log colored output, applicable only to **`console`** receiver type.
 
 Default value is `true`.
@@ -72,7 +72,7 @@ Default value is `true`.
 color = false
 ```    
 
-## file
+## log.file
 File config attribute is applicable only to **`file`** receiver type.
 
 Default value is `aah-log-file.log`.
@@ -83,7 +83,7 @@ file = "myapp.log"
 ## Section: rotate { ... }
 Rotate config section is applicable only to **`file`** receiver type.
 
-### policy
+### log.rotate.policy
 Policy is used to determine rotate policy. Currently it supports `daily`, `lines` and `size`.
 
 Default value is `daily`.
@@ -106,7 +106,7 @@ rotate {
 }
 ```
 
-### size
+### log.rotate.size
 This is applicable only to if **`policy`** is `size`.
 
 Default value is 512mb.
@@ -114,7 +114,7 @@ Default value is 512mb.
 size = "100mb"
 ```
 
-### lines
+### log.rotate.lines
 This is applicable only to if **`policy`** is `lines`.
 
 Default value is 100000.

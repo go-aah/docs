@@ -4,7 +4,7 @@ Keywords: server access log, access log, request log, response log
 ---
 # Server Access Log
 
-To manage aah server effectively it is necessary to know details about the request, response, processing time, client IP address, etc. aah framework provides the flexible and configurable server access log capabilities.
+<span class="badge lb-sm">Since v0.7</span>  To manage aah server effectively it is necessary to know details about the request, response, processing time, client IP address, etc. aah framework provides the flexible and configurable server access log capabilities.
 
 ### Supported Access Log flag or attribute
 

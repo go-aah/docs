@@ -4,6 +4,7 @@ Keywords: faq, aah framework, web framework for Go
 ---
 # Frequently Asked Questions (FAQ)
 
+  * [Does aah support Package Management Tools?](#does-aah-support-package-management-tools)
   * [How to update aah framework to the latest version?](#how-to-update-aah-framework-to-the-latest-version)
   * [How to update individual module bug fix release?](#how-to-update-individual-module-bug-fix-release)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
@@ -15,6 +16,11 @@ Keywords: faq, aah framework, web framework for Go
   * [Is it a problem that aah’s Anti-CSRF protection isn’t linked to a session?](#is-it-a-problem-that-aah-s-anti-csrf-protection-isn-t-linked-to-a-session)
   * [Why might a user encounter a Anti-CSRF validation failure after logging in?](#why-might-a-user-encounter-a-anti-csrf-validation-failure-after-logging-in)
 
+### Does aah support Package Management Tools?
+
+Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works nicely with vendoring. Use your choice of tool (`glide`, `dep`, `govendor`, etc.).
+
+For example: I have responded to aah user for `dep` tool, refer to [GitHub comment](https://github.com/go-aah/aah/issues/109#issuecomment-327225582).
 
 ### How to update aah framework to the latest version?
 

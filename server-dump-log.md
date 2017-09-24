@@ -1,12 +1,12 @@
 Title: Dump Request & Response
-Desc: Dump or Log Request & Response in aah go server into file.
+Desc: Dump Request & Response in aah go server into file.
 Keywords: dump, server dump, dump request, dump response, aah server
 ---
 # Dump Request & Response in aah
 
 aah provides easy to use dump/log HTTP request and response into log file, just enable it.  
 
-Its not just a dump, Log is readable and very helpful for your `Debugging`. You can control dump log by headers only, request body only, response body only, etc.
+Its not just a dump, Log is readable and very helpful for your `Debugging`. You can control dump log by headers, request body, response body, etc.
 
   * [Server Dump Log Configuration](#server-dump-log-configuration)
   * [Sample Dump of REST API tutorial app](#sample-dump-of-rest-api-tutorial-app)

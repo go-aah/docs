@@ -93,8 +93,6 @@ Choose your application type (web or api), default is 'web':
 
 Choose your application Auth Scheme (form, basic), default is 'none':
 
-Choose your session store (cookie or file), default is 'cookie':
-
 Your aah web application was created successfully at '/Users/jeeva/go/src/github.com/jeevatkm/aah-first-app'
 You shall run your application via the command: 'aah run --importpath github.com/jeevatkm/aah-first-app'
 
