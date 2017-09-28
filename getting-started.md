@@ -43,21 +43,22 @@ aah
 **Output:** (you will get similar output)
 ```cfg
 jeeva@mb-pro:~$ aah
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-           aah framework v0.8 -  https://aahframework.org
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+           aah framework v0.9 -  https://aahframework.org
+____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 Usage:
   aah [global options] command [command options] [arguments...]
 
 Commands:
-  new, n       Create new aah 'web' or 'api' application (interactive)
-  run, r       Run aah framework application (supports hot-reload)
-  build, b     Build aah application for deployment
-  list, l      List all aah projects in GOPATH
-  clean, c     Cleans the aah generated files and build directory
-  help, h      Shows a list of commands or help for one command
+  new, n        Create new aah 'web' or 'api' application (interactive)
+  run, r        Run aah framework application (supports hot-reload)
+  build, b      Build aah application for deployment
+  list, l       List all aah projects in GOPATH
+  clean, c      Cleans the aah generated files and build directory
+  switch, s     Switch between aah release and edge version (beta)
+  help, h       Shows a list of commands or help for one command
 
 Global Options:
   -h, --help     show help
@@ -77,9 +78,9 @@ aah new
 
 **Output:**
 ```cfg
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-           aah framework v0.8 -  https://aahframework.org
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+           aah framework v0.9 -  https://aahframework.org
+____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
 
@@ -118,24 +119,24 @@ aah r
 
 **Output:**
 ```cfg
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
-           aah framework v0.8 -  https://aahframework.org
-––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
+‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+           aah framework v0.9 -  https://aahframework.org
+____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
-2017-07-30 22:56:03.880 INFO  Loading aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/aah.project
-2017-07-30 22:56:03.880 INFO  Hot-Reload enabled for environment profile: dev
-2017-07-30 22:56:03.880 INFO  Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-07-30 22:56:04.885 INFO  Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-07-30 22:56:04.899 INFO  aah framework v0.7, requires ≥ go1.8
-2017-07-30 22:56:04.903 INFO  aah application initialized successfully
-2017-07-30 22:56:04.903 INFO  App Name: aah-first-app
-2017-07-30 22:56:04.903 INFO  App Version: 0.0.1
-2017-07-30 22:56:04.903 INFO  App Build Date: 2017-07-30T22:56:03-07:00
-2017-07-30 22:56:04.903 INFO  App Profile: dev
-2017-07-30 22:56:04.903 INFO  App TLS/SSL Enabled: false
-2017-07-30 22:56:04.903 INFO  App Session Mode: stateless
-2017-07-30 22:56:04.903 INFO  aah go server running on :8080
+2017-09-27 22:25:49.463 INFO  Loading aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/aah.project
+2017-09-27 22:25:49.464 INFO  Hot-Reload enabled for environment profile: dev
+2017-09-27 22:25:49.464 INFO  Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
+2017-09-27 22:25:50.894 INFO  Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
+2017-09-27 22:25:50.963 INFO  aah framework v0.9, requires ≥ go1.8
+2017-09-27 22:25:50.969 INFO  aah application initialized successfully
+2017-09-27 22:25:50.969 INFO  aah-first-app App Name: aah-first-app
+2017-09-27 22:25:50.969 INFO  aah-first-app App Version: 0.0.1
+2017-09-27 22:25:50.969 INFO  aah-first-app App Build Date: 2017-09-27T22:25:49-07:00
+2017-09-27 22:25:50.969 INFO  aah-first-app App Profile: dev
+2017-09-27 22:25:50.969 INFO  aah-first-app App TLS/SSL Enabled: false
+2017-09-27 22:25:50.969 INFO  aah-first-app App Session Mode: stateless
+2017-09-27 22:25:50.969 INFO  aah-first-app aah go server running on :8080
 ```
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.

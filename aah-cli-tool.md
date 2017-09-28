@@ -17,6 +17,7 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
   * [run](#command-run)
   * [build](#command-build)
   * [clean](#command-clean) <span class="badge lb-xs">Since v0.7</span>
+  * [switch](#command-switch) <span class="badge lb-xs">Since v0.9</span>
   * [help](#command-help)
   * [Cross Compile Build](#cross-compile-build)
 
@@ -93,6 +94,28 @@ Supported options are-
 ```
 
 Use `aah help clean` to learn more.
+
+
+## Command: switch
+
+`switch` command, alias `s` - is to switch between aah `release` and `edge` version.
+
+Supported options are-
+```cfg
+-w, --whoami  To know which version is currently active
+```
+
+Use `aah help switch` to learn more.
+
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong>
+<ul>
+  <li>Currently it works with only GOPATH. Gradually I will add vendorize support too.</li>
+  <li>Currently it is in beta, help with your feedback for improvements.</li>
+  <li>It always operates on latest version, specific version is not supported.</li>
+</ul>
+</p>
+</div>
 
 
 ## Command: help
