@@ -18,24 +18,24 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
   * [description](#description)
   * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
   * [server { ... }](#section-server)
-    - [timeout { ... }](#section-timeout)
-    - [ssl { ... }](#section-ssl)
-        - [redirect_http { ... }](#section-redirect-http) <span class="badge lb-xs">Since v0.9</span>
-        - [lets_encrypt { ... }](#section-lets-encrypt)
+    - [timeout { ... }](#section-server-timeout)
+    - [ssl { ... }](#section-server-ssl)
+        - [redirect_http { ... }](#section-server-ssl-redirect-http) <span class="badge lb-xs">Since v0.9</span>
+        - [lets_encrypt { ... }](#section-server-ssl-lets-encrypt)
     - [access_log { ... }](server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
   * [request { ... }](#section-request)
-    - [id { ... }](#section-id)
-    - [content_negotiation { ... }](#section-content-negotiation) <span class="badge lb-xs">Since v0.8</span>
-    - [auto_bind { ... }](#section-auto-bind) <span class="badge lb-xs">Since v0.8</span>
+    - [id { ... }](#section-request-id)
+    - [content_negotiation { ... }](#section-request-content-negotiation) <span class="badge lb-xs">Since v0.8</span>
+    - [auto_bind { ... }](#section-request-auto-bind) <span class="badge lb-xs">Since v0.8</span>
   * [i18n { ... }](#section-i18n)
-    - [param_name { ... }](#section-param-name) <span class="badge lb-xs">Since v0.7</span>
+    - [param_name { ... }](#section-i18n-param-name) <span class="badge lb-xs">Since v0.7</span>
   * [format { ... }](#section-format)
   * [runtime { ... }](#section-runtime)
-    - [debug { ... }](#section-debug)
+    - [debug { ... }](#section-runtime-debug)
   * cache { ... }
     - [static { ... }](/static-files.html#cache-control)
   * [render { ... }](#section-render)
-    - [gzip { ... }](#section-gzip)
+    - [gzip { ... }](#section-render-gzip)
   * [view { ... }](#section-view)
   * [security { ... }](security-config.html)
   * [log { ... }](log-config.html)
@@ -119,7 +119,7 @@ Default value is `true`
 keep_alive = true
 ```
 
-### Section: timeout { ... }
+### Section: server.timeout { ... }
 This section is used supply server timeout configuration values.
 
 ### server.timeout.read
@@ -146,7 +146,7 @@ Default value is `60s`
 grace_shutdown = "60s"
 ```
 
-### Section: ssl { ... }
+### Section: server.ssl { ... }
 HTTP server SSL/TLS configuration values. By default it is disabled.
 
 ### server.ssl.enable
@@ -182,7 +182,7 @@ Default value is `false`.
 disable_http2 = true
 ```
 
-### Section: redirect_http { ... }
+### Section: server.ssl.redirect_http { ... }
 <span class="badge lb-sm">Since v0.9</span> Redirect HTTP => HTTPS functionality does protocol switch, so it works with domain and subdomains.
 
 ```cfg
@@ -216,7 +216,7 @@ Default value is `307`.
 code = 307
 ```
 
-### Section: lets_encrypt { ... }
+### Section: server.ssl.lets_encrypt { ... }
 
 ### server.ssl.lets_encrypt.enable
 To enable Let's Encrypt CA auto SSL/TLS certs on the aah go server.
@@ -293,7 +293,7 @@ Default value is `32mb`.
 multipart_size = "32mb"
 ```
 
-### Section: id { ... }
+### Section: request.id { ... }
 aah framework encourages to have unique `Request Id` for each incoming request, it is helpful for traceability. If request already has `X-Request-Id` HTTP header then it does not generate one.
 
 Global Unique Identifier (GUID) generate implementation is based on [Mango DB ObjectId algorithm](https://docs.mongodb.com/manual/reference/method/ObjectId/).
@@ -319,7 +319,7 @@ Default value is `X-Request-Id`.
 header = "X-Request-Id"
 ```
 
-### Section: content_negotiation { ... }
+### Section: request.content_negotiation { ... }
 <span class="badge lb-sm">Since v0.8</span> Content negotiation is used to validate what is being `offered` and `accepted` by server in-terms of request and response. Also known as `Content-Type` restrictions.
 
 ### request.content_negotiation.enable
@@ -350,7 +350,7 @@ Default value is empty list and disabled.
 offered = ["application/json", "text/json"]
 ```
 
-## Section: auto_bind { ... }
+## Section: request.auto_bind { ... }
 Auto Bind configuration used to bind request parameters to controller action parameters.
 
 ### request.auto_bind.priority
@@ -391,7 +391,7 @@ Default value is `en`.
 default = "en"
 ```
 
-### Section: param_name { ... }
+### Section: i18n.param_name { ... }
 Overriding Request Locale `Accept-Language` header value via URL Path parameter or URL Query parameter.
 
 ### i18n.param_name.path
@@ -432,7 +432,7 @@ time = [
 ## Section: runtime { ... }
 aah application runtime configuration values used for debugging, object pooling, etc.
 
-### Section: debug { ... }
+### Section: runtime.debug { ... }
 
 ### runtime.debug.stack_buffer_size
 Choose an appropriate buffer size for collecting all goroutines stack trace dump based on your case.
@@ -475,7 +475,7 @@ Default value is `false`.
 pretty = true
 ```
 
-### Section: gzip { ... }
+### Section: render.gzip { ... }
 Gzip compression configuration for HTTP response.
 
 ### render.gzip.enable

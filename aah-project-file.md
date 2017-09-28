@@ -9,12 +9,13 @@ aah.project file holds the application info, build configuration and hot-reload 
 ### Table of Contents
 
   * [build { ... }](#section-build)
+  * [log { ... }](#section-log)
   * [hot_reload { ... }](#section-hot-reload)  <span class="badge lb-xs">Since v0.7</span>
 
 ## Section: build { ... }
 Build section is used during aah application compile and build process.
 
-### binary_name
+### build.binary_name
 Application binary name.
 
 Default value is `name` attribute value from `aah.conf`.
@@ -22,13 +23,13 @@ Default value is `name` attribute value from `aah.conf`.
 binary_name = ""
 ```
 
-### version
+### build.version
 Used as fallback if `git commit sha` or `AAH_APP_VERSION` environment value is not available.
 ```cfg
 version = "0.0.1"
 ```
 
-### dep_get
+### build.dep_get
 If application is missing any dependencies in `build import path` during a compile and build process, aah CLI executes `go get <package>`. If it's false then build shows error with list of dependencies which are not available.
 
 Default value is `false`.
@@ -36,15 +37,7 @@ Default value is `false`.
 dep_get = true
 ```
 
-### log_level
-Log level is used for aah CLI tool logging.
-
-Default value is `info`.
-```cfg
-log_level = "info"
-```
-
-### flags
+### build.flags
 Flag values is supplied to `go build` command.
 
 Default value is `["-i"]`
@@ -52,7 +45,7 @@ Default value is `["-i"]`
 flags = ["-i"]
 ```
 
-### ldflags
+### build.ldflags
 Ldflags is supplied to `go build` command as `-ldflags ...`.
 
 Default value is `empty` string.
@@ -60,7 +53,7 @@ Default value is `empty` string.
 ldflags = ""
 ```
 
-### tags
+### build.tags
 Tags is supplied to `go build` command as `-tags ...`.
 
 Default value is `empty` string.
@@ -68,7 +61,7 @@ Default value is `empty` string.
 tags = ""
 ```
 
-### ast_excludes
+### build.ast_excludes
 AST excludes is used for `aah.Context` inspection and generating aah application main Go file. For valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
 
 Default value is `["*_test.go", ".*", "*.bak", "*.tmp", "vendor"]`
@@ -76,7 +69,7 @@ Default value is `["*_test.go", ".*", "*.bak", "*.tmp", "vendor"]`
 ast_excludes = ["*_test.go", ".*", "*.bak", "*.tmp", "vendor"]
 ```
 
-### excludes
+### build.excludes
 Packing excludes is used to exclude file/directory during aah application build archive. For valid exclude patterns refer [here](https://golang.org/pkg/path/filepath/#Match).
 
 Default value is `["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests", "logs"]`
@@ -84,13 +77,36 @@ Default value is `["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app",
 excludes = ["*.go", "*_test.go", ".*", "*.bak", "*.tmp", "vendor", "app", "tests", "logs"]
 ```
 
+---
+
+## Section: log { ... }
+<span class="badge lb-sm">Since v0.9</span> Logger settings for the aah CLI tool.
+
+### log.level
+Log level is used for aah CLI tool logging.
+
+Default value is `info`.
+```cfg
+level = "info"
+```
+
+### log.color
+Log colored output setting.
+
+Default value is `true`.
+```cfg
+color = false
+```
+
+---
+
 ## Section: hot_reload { ... }
 
 Hot-Reload is development purpose to help developer. Read more about implementation [here]({{aah_github_issues_url}}/4).
 
 Note: Do not use hot-reload feature for production purpose, it's not recommended.
 
-### enable
+### hot_reload.enable
 To enable hot-reload for development purpose.
 
 Default value is `true`.
@@ -98,11 +114,11 @@ Default value is `true`.
 enable = true
 ```
 
-## Section: watch { ... }
+## Section: hot_reload.watch { ... }
 
 Watch configuration - files/directories exclusion list.
 
-### dir_excludes
+### hot_reload.watch.dir_excludes
 
 To Exclude directory from watch list.
 ```cfg
@@ -111,7 +127,7 @@ To Exclude directory from watch list.
 dir_excludes = [".*"]
 ```
 
-### file_excludes
+### hot_reload.watch.file_excludes
 
 To Exclude file from watch list.
 ```cfg
