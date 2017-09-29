@@ -114,6 +114,7 @@ hashedPassword, err := security.Pbkdf2.Generate([]byte(passwordString))
 
 <br>
 **Configuration**
+
 ```cfg
 pbkdf2 {
   # Default value is `false`
