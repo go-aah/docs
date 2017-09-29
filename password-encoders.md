@@ -12,6 +12,7 @@ Out-of-the-box aah supports three password encoders for authenticating users in 
   * [Adding additional password encoder into aah](#)
 
 Password encoders implements the interface `PasswordEncoder`.
+
 ```go
 // PasswordEncoder interface is used to implement generate password hash and compare given hash & password
 // based chosen hashing type. Such as `bcrypt`, `scrypt` and `pbkdf2`.
@@ -30,6 +31,7 @@ type PasswordEncoder interface {
 
 <br>
 **To hash your password**
+
 ```go
 import "aahframework.org/security.v0"
 
@@ -39,6 +41,7 @@ hashedPassword, err := security.Bcrypt.Generate([]byte(passwordString))
 
 <br>
 **Configuration**
+
 ```cfg
 bcrypt {
   # Default value is `true`
@@ -56,6 +59,7 @@ bcrypt {
 
 <br>
 **To hash your password**
+
 ```go
 import "aahframework.org/security.v0"
 
@@ -65,6 +69,7 @@ hashedPassword, err := security.Scrypt.Generate([]byte(passwordString))
 
 <br>
 **Configuration**
+
 ```cfg
 scrypt {
   # Default value is `false`
@@ -99,6 +104,7 @@ scrypt {
 
 <br>
 **To hash your password**
+
 ```go
 import "aahframework.org/security.v0"
 
@@ -133,6 +139,7 @@ pbkdf2 {
 aah provides extensibility to add additional password encoder into aah easily. Implement the interface `acrypto.PasswordEncoder` then add it to `aah`.
 
 **Registering password encoder**
+
 ```go
 // Choose whichever the argon2 library and implement interface `acrypto.PasswordEncoder`
 // then register it here.
@@ -142,6 +149,7 @@ func init()  {
 ```
 
 **Using registered encoder in auth schemes**
+
 ```cfg
 # In your auth scheme, simply mention the name you have used for the registering. That's it very easy!
 form_auth {
