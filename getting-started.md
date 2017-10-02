@@ -24,13 +24,8 @@ go get -u aahframework.org/tools.v0/aah
 ```
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong></p>
-<p>If you get an error "<u>RPC failed; HTTP 301 curl 22 The requested URL returned error: 301</u>" then set the below git config and try again.</p>
-<p><pre>
-git config --global http.https://aahframework.org.followRedirects true
-</pre></p>
+<p><strong>Note:</strong> If you get an error during aah installation, please report it.</p>
 </div>
-
 
 ## Verify your aah installation
 
@@ -136,6 +131,7 @@ ____________________________________________________________________
 2017-09-27 22:25:50.969 INFO  aah-first-app App Profile: dev
 2017-09-27 22:25:50.969 INFO  aah-first-app App TLS/SSL Enabled: false
 2017-09-27 22:25:50.969 INFO  aah-first-app App Session Mode: stateless
+2017-09-27 22:25:50.969 INFO  aah-first-app App Anti-CSRF Protection Enabled: true
 2017-09-27 22:25:50.969 INFO  aah-first-app aah go server running on :8080
 ```
 

@@ -95,7 +95,9 @@ func init() {
       },
     }
 
-    aah.AddServerTLSConfig(tlsCfg)
+    // Method `AddServerTLSConfig` deprecated in v0.9 and planned to be removed in v1.0.
+    // Use method `SetTLSConfig` instead.
+    aah.SetTLSConfig(tlsCfg)
   })
 }
 ```
