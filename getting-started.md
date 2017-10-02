@@ -24,7 +24,7 @@ go get -u aahframework.org/tools.v0/aah
 ```
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> If you get an error during aah installation, please report it.</p>
+<p><strong>Note:</strong> git config is no longer required, it has been handled in aah go get service. If you get an error during aah installation, please report it.</p>
 </div>
 
 ## Verify your aah installation

@@ -63,6 +63,30 @@ Usage of flag order is up to format composition.
 %time:2006-01-02 15:04:05.000 %level:-5 %appname %insname %reqid %principal %message %fields
 ```
 
+#### Sample: Text log format
+<pre>
+2017-10-01 23:41:05.983 INFO  aahwebsite sfo-aahweb-01 aah go server running on :8080
+2017-10-01 23:41:10.337 DEBUG aahwebsite sfo-aahweb-01 59d1df869bf2340ffaab2e28 Calling interceptor: DocController.Before
+2017-10-01 23:41:10.338 DEBUG aahwebsite sfo-aahweb-01 59d1df869bf2340ffaab2e28 Calling controller: DocController.ShowDoc
+...
+...
+2017-10-01 23:41:26.845 WARN  aahwebsite sfo-aahweb-01 Interrupt signal received
+2017-10-01 23:41:26.846 DEBUG aahwebsite sfo-aahweb-01 Event [OnShutdown] publishing in synchronous mode
+2017-10-01 23:41:26.846 INFO  aahwebsite sfo-aahweb-01 aah application shutdown successful
+</pre>
+
+#### Sample: JSON log format
+<pre>
+{"level":"INFO","timestamp":"2017-10-01T23:41:52-07:00","app_name":"aahwebsite","instance_name":"sfo-aahweb-01","message":"aah go server running on :8080"}
+{"level":"DEBUG","timestamp":"2017-10-01T23:42:00-07:00","app_name":"aahwebsite","instance_name":"sfo-aahweb-01","request_id":"59d1dfb89bf234103a1b35c2","message":"Calling interceptor: DocController.Before"}
+{"level":"DEBUG","timestamp":"2017-10-01T23:42:00-07:00","app_name":"aahwebsite","instance_name":"sfo-aahweb-01","request_id":"59d1dfb89bf234103a1b35c2","message":"Calling controller: DocController.ShowDoc"}
+...
+...
+{"level":"WARN","timestamp":"2017-10-01T23:42:50-07:00","app_name":"aahwebsite","instance_name":"sfo-aahweb-01","message":"Interrupt signal received"}
+{"level":"DEBUG","timestamp":"2017-10-01T23:42:50-07:00","app_name":"aahwebsite","instance_name":"sfo-aahweb-01","message":"Event [OnShutdown] publishing in synchronous mode"}
+{"level":"INFO","timestamp":"2017-10-01T23:42:50-07:00","app_name":"aahwebsite","instance_name":"sfo-aahweb-01","message":"aah application shutdown successful"}
+</pre>
+
 #### Supported Log levels
 
   * ERROR

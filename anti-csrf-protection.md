@@ -63,7 +63,7 @@ Anti-CSRF failures are logged as warnings in the application log.
 The Anti-CSRF protection is based on the following things:
 
   * A Anti-CSRF cookie that is based on a random crypto secret value, which other sites will not have access to.
-      - Secure Cookie is sent with every response. In order to protect against [BREACH](http://breachattack.com/) attacks, the cipher token is not simply the secret; a random salt is prepended to the secret and used to scramble it.
+      - Secure Cookie (AES Encrypted and HMAC Signed) is sent with every response. In order to protect against [BREACH](http://breachattack.com/) attacks, the cipher token is not simply the secret; a random salt is prepended to the secret and used to scramble it.
       - Secure Cookie is set to `HttpOnly`, so scripting (JavaScript) cannot have access to the cookie.
       - For security reasons, the value of the crypto secret is changed each time a user logs in.
   * A hidden form field with the name `anti_csrf_token` present in all outgoing HTML forms. The value of this field is, again, the value of the secret, with a salt which is both added to it and used to scramble it. The salt is regenerated on every call to template func `anitcsrftoken` so that the form field value is changed in every such response. Also it works with multiple forms on the same page.
