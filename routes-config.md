@@ -29,6 +29,7 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
           - [action](#action)
           - [auth](#auth) <span class="badge lb-xs">Since v0.7</span>
           - [max_body_size](#max-body-size) <span class="badge lb-xs">Since v0.8</span>
+          - [anti_csrf_check](#anti_csrf_check) <span class="badge lb-xs">Since v0.9</span>
           - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
 
 Have a look at [aahframework.org routes configuration](https://github.com/go-aah/website/blob/master/config/routes.conf). It is simple one, it gives an idea on how you can do it for your application.
@@ -263,6 +264,14 @@ auth = "form_auth"
 Default value is `0mb`. Global default value in aah.conf is `5mb`.
 ```cfg
 max_body_size = "100mb"
+```
+
+### anti_csrf_check
+<span class="badge lb-sm">Since v0.9</span> Optionally you can disable Anti-CSRF check for particular route. There are cases you might need this option. In-general don't disable the check.
+
+Default value is `true`.
+```cfg
+anti_csrf_check = false
 ```
 
 ---

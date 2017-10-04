@@ -8,7 +8,7 @@ Keywords: faq, aah framework, web framework for Go
   * [How to update aah framework to the latest version?](#how-to-update-aah-framework-to-the-latest-version)
   * [How to update individual module bug fix release?](#how-to-update-individual-module-bug-fix-release)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
-  * [How to use aah framework before the version release?](#how-to-use-aah-framework-before-the-version-release)
+  * [How to try aah framework before the release?](#how-to-try-aah-framework-before-the-release)
   * [How to log all goroutine stacktrace?](#how-to-log-all-goroutine-stacktrace)
   * [Does aah has benchmark against other Go web framework?](#does-aah-has-benchmark-against-other-go-web-framework)
   * [Does aah supports Hot-Reload for Development?](#does-aah-supports-hot-reload-for-development)
@@ -57,17 +57,13 @@ The quick and best way to know about latest configuration is to:
   * Compare your application configuration files (`config/*`) with new configurations then merge it to yours.
   * Congrats! you're on new configurations.
 
-### How to try aah framework before the release version?
+### How to try aah framework before the release?
 
-Of-course you can. Just run below command.
+Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more about [switch command](/aah-cli-tool.html#command-switch).
+
+Just run the below command and the run your app as usual using `aah run`:
 ```cfg
-go get -u aahframework.org/tools.v0-unstable/aah
-```
-
-Refer every package with `-unstable` as suffix:
-```go
-// For example:
-import "aahframework.org/aah.v0-unstable"
+aah switch
 ```
 
 ### How to log all goroutine stacktrace?

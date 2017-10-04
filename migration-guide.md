@@ -9,27 +9,12 @@
 </p>
 </div>
 
-### aah.conf
+### Deprecated
 
-Time Format configuration enhanced to support more formats. So remove these two `date` and `datetime` config and add following config under `format { ... }`
-```cfg
-# Time format for auto parse and bind. aah tries to parse the
-# time value in the order they defined till it gets success
-# otherwise returns the error.
-time = [
-  "2006-01-02T15:04:05Z07:00",
-  "2006-01-02T15:04:05Z",
-  "2006-01-02 15:04:05",
-  "2006-01-02"
-]
-```
+<div class="alert alert-info-blue">
+<p><strong>Please Note:</strong> Deprecated items will not break your functionality, planned to be removed in v1.0 release. However its good to adapt to latest changes.</p>
+</div>
 
-### Breaking changes
-
-#### routes.conf
-
-`not_found { ... }` configuration section in `routes.conf` have been removed in-favor of [Centralized Error Handler](centralized-error-handler.html).
-
-#### ahttp.Request
-
-`Payload` field have been removed in-favor of [Auto parse and bind](/request-parameters-auto-bind.html) feature. Also `Body()` method is introduced in `v0.8` to get access to request body if need be.
+  * Method `AddServerTLSConfig` is deprecated, use method `aah.SetTLSConfig` instead.
+  * Config `security.auth_schemes.<scheme-name>.password_encoder.type = "value"` is deprecated, use `security.auth_schemes.<scheme-name>.password_encoder = "value"` instead.
+  * Config `build.log_level = "value"` is deprecated in `aah.project` file. Use `log.level = "value"` instead.
