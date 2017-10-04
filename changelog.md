@@ -13,6 +13,7 @@
   * Context Based Logger (App Name, App Instance Name, Request ID, Primary Principal and Custom fields) and Child Logger, refer to [documentation](/logging.html), [#111]({{aah_github_issues_url}}/111)
   * Added option to disable color on console logging, refer to [configuration](/log-config.html#log-color) and [CLI configuration](/aah-project-file.html#section-log), [#108]({{aah_github_issues_url}}/108)
   * `aah new` command enhanced to create more customized Web and API application (security, etc)
+  * Added error reason in `aah.Error` struct.
   * Code improvements, Documentation, Website improvements.
 
 #### Bug Fixes
