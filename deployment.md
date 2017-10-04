@@ -11,7 +11,8 @@ Recommended way to deploy aah application is to create platform targeted binary.
 ### Table of Contents
 
   * [Preparation Checklist](#preparation-checklist)
-  * How to: Dockerize **`(upcoming)`**
+  * [Getting started with systemd](getting-started-with-systemd.html)
+  * Getting started with Docker **`(upcoming)`**
 
 ### Preparation Checklist
 
@@ -61,7 +62,3 @@ env {
   }
 }
 ```
-
-### How to: Dockerize
-
-... **`Upcoming`** ...

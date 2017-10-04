@@ -1,7 +1,8 @@
 ## What's new?
 
-  * Auto Parse and Bind - Controller action parameters.
-  * Centralized Error Handler.
-  * Secure HTTP Headers.
-  * Content Negotiation.
-  * Max Request Body Limit.
+  * Anti-CSRF Protection
+  * Server Dump Log - Request & Response
+  * HTTP -> HTTPS redirect
+  * Added `scrypt` and `pbkdf2` password encoders; also you can add custom one too
+  * Context Based Logging and Child Logger
+  * `aah switch` command

@@ -30,14 +30,15 @@ Lifecycle always reflects latest version flow.
           - [Centralized Error Handler](centralized-error-handler.html) gets called with `404` status code.
           - Flow skips to `OnPreReply` server extension point and writing response on the wire.
   * Parse Session Cookie if the session mode is `stateful`
+  * Read and Parse Request
+      - For `GET` method request parse Query parameters
+      - For not `GET` method. Query parameters, Form, Multi-part based on content-type.
+  * Anti-CSRF Protection - secret verification. <span class="badge lb-xs">Since v0.9</span>
   * `OnPreAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
   * Authenticate the incoming request. <span class="badge lb-xs">Since v0.7</span>
   * Populates Authorization info into Subject. <span class="badge lb-xs">Since v0.7</span>
   * Auto Check Authorization roles & permissions based on route `authz` configuration **`upcoming`**
   * `OnPostAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
-  * Read and Parse Request
-      - For `GET` method request parse Query parameters
-      - For not `GET` method. Query parameters and Payload, Form, Multi-part based on content-type.
   * Validate request parameter values **`upcoming`**
   * User-defined middleware(s) execution (basically before `m.Next(ctx)` call).
   * Controller interceptor `Before` is called if exists.

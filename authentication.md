@@ -17,7 +17,7 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
       - [Form-based Auth](#form-based-auth)
       - [Basic Auth](#basic-auth)
       - [Generic Auth](#generic-auth)
-  * [Password Encoders](#password-encoders)
+  * [Password Encoders](password-encoders.html)
 
 
 ## Terminology you’ll need
@@ -39,7 +39,7 @@ By nature of aah security implementation, you can have one or more `Auth Scheme`
   * Configure auth related settings in `routes.conf`
   * For Authorization refer to [authorization guide](authorization.html)
 
-<div class="alert alert-info-blue">
+<div class="alert alert-info-green">
 <p><strong>Security Tip:</strong></p>
 <p>Security best practice is to give generic login failure messages to users because you do not want to aid an attacker trying to break into your system.</p>
 </div>
@@ -53,6 +53,8 @@ aah provides function `isauthenticated` to check whether subject is authenticate
 <a href="/logout">Logout</a>
 {{ end }}
 ```
+
+**Know more** about authorization template funcs [here](authorization.html#template-view-function).
 
 ## Auth Schemes
 
@@ -85,20 +87,18 @@ security {
       # information. Then framework validates the credential using password
       # encoder.
       # It is required value, no default.
-      authenticator = "security/Authentication"
+      authenticator = "security/AuthenticationProvider"
 
       # Framework calls `Authorizer` to get Subject's authorization information,
       # such as Roles, Permissions. Then it populates the Subject instance.
       # It is required value, no default.
-      authorizer = "security/Authorization"
+      authorizer = "security/AuthorizationProvider"
 
       # Password encoder is used to encode the given credential and then compares
       # it with application provide credential.
-      # Currently supported hashing is `bcrypt`, additional hash types (upcoming).
-      password_encoder {
-        # Default value is `bcrypt`.
-        #type = "bcrypt"
-      }
+      # Doc: https://docs.aahframework.org/password-encoders.html
+      # Default value is `bcrypt`.
+      #password_encoder = "bcrypt"
 
       # Field names are used to extract `AuthenticationToken` from request.
       field {
@@ -196,28 +196,26 @@ security {
       # information. Then framework validates the credential using password
       # encoder.
       # It is required value when `file_realm` not configured, no default.
-      authenticator = "security/Authentication"
+      authenticator = "security/AuthenticationProvider"
 
       # Framework calls `Authorizer` to get Subject's authorization information,
       # such as Roles and Permissions. Then it populates the Subject instance.
       # It is required value when `file_realm` not configured, no default.
-      authorizer = "security/Authorization"
+      authorizer = "security/AuthorizationProvider"
 
       # Password encoder is used to encode the given credential and then compares
       # it with application provide credential.
-      # Currently supported hashing is `bcrypt`, additional hash types (upcoming).
-      password_encoder {
-        # Default value is `bcrypt`.
-        #type = "bcrypt"
-      }
+      # Doc: https://docs.aahframework.org/password-encoders.html
+      # Default value is `bcrypt`.
+      #password_encoder = "bcrypt"
     }
   }
 }
 ```
 
-#### Basic Auth - File Realm format/structure
+#### Basic Auth - File Realm format
 
-Repeat this configuration block/section for every user.
+Repeat this configuration block/section for every user. Roles and Permissions is optional one.
 
 ```conf
 <username> {
@@ -272,14 +270,14 @@ security {
 
       # Framework calls `Authenticator` to get the Subject's authentication
       # information. The credential validation is not done by framework, it is
-      # left interface implementation.
+      # left to interface implementation.
       # It is required value, no default.
-      #authenticator = "security/Authentication"
+      #authenticator = "security/AuthenticationProvider"
 
       # Framework calls `Authorizer` to get Subject's authorization information,
       # such as Roles and Permissions. Then it populates the Subject instance.
       # It is required value, no default.
-      #authorizer = "security/Authorization"
+      #authorizer = "security/AuthorizationProvider"
 
       # Header names are used to extract `AuthenticationToken` from request.
       header {
@@ -295,13 +293,3 @@ security {
   }
 }
 ```
-
-## Password Encoders
-
-aah crypto implementation housed in package [acrypto](https://godoc.org/aahframework.org/security.v0/acrypto). All password encoder implements interface `PasswordEncoder`.
-
-Supported Hashing types:
-
-  * `bcrypt`
-  * `scrypt` (upcoming)
-  * `pbkdf2` (upcoming)

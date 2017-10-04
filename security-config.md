@@ -16,6 +16,7 @@ Reference to [App Config](app-config.html), [Routes Config](routes-config.html),
       - [basic auth](authentication.html#basic-auth)
       - [generic auth](authentication.html#generic-auth)
   - [session { ... }](#section-session)
+  - [anti_csrf { ... }](#section-anti-csrf) <span class="badge lb-xs">Since v0.9</span>
   - [http_header { ... }](#section-http-header) <span class="badge lb-xs">Since v0.8</span>
       - [X-XSS-Protection](#header-x-xss-protection)
       - [X-Content-Type-Options](#header-x-content-type-options)
@@ -43,7 +44,7 @@ To configure application security related configuration in the section.
 ### Section: session { ... }
 HTTP state management across HTTP requests.
 
-### mode
+### security.session.mode
 Session mode is to choose whether HTTP session should be persisted or destroyed at the end of each request. Supported values are -
 
 * `stateless` - Session data is destroyed at end of each request
@@ -57,17 +58,19 @@ mode = "stateful"
 ### Section: store { ... }
 Session store is to configure where session values should be persisted. Currently aah framework supports `cookie` and `file` as a store type. Also framework provides extensible `session.Storer` interface to add your custom session store.
 
-### type
+### security.session.store.type
 Currently aah framework supports `cookie` and `file` as a store type.
 
-_**Note:** If you're using cookie session store, you have to be mindful about cookie size limit `4kb`._
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> If you're using cookie session store, you have to be mindful about cookie size limit <code>4kb</code>.</p>
+</div>
 
 Default store type value is `cookie`.
 ```cfg
 type = "cookie"
 ```
 
-### filepath
+### security.session.store.filepath
 Filepath is used for file store to store session data in the file system. This is only applicable for `store.type = "file"`, make sure application has Read/Write access to the directory. Provide absolute path.
 
 Default value is `<app-base-dir>/sessions`.
@@ -75,7 +78,7 @@ Default value is `<app-base-dir>/sessions`.
 filepath = "/path/to/store/session/files"
 ```
 
-### id_length
+### security.session.id_length
 Session Identifier length. Identifier(ID) is generated using random bytes from `crypto/rand` and `HEX` encoding.
 
 Default value is `32`
@@ -83,7 +86,7 @@ Default value is `32`
 id_length = 32
 ```
 
-### ttl
+### security.session.ttl
 Time-to-live value for session data expiry. Valid time units are `m -> minutes`, `h -> hours` and `0`.
 
 Default value is `0`, cookie is deleted when the browser is closed.
@@ -91,7 +94,7 @@ Default value is `0`, cookie is deleted when the browser is closed.
 ttl = "0"
 ```
 
-### prefix
+### security.session.prefix
 HTTP session cookie name prefix value.
 
 Default value is `aah` For e.g.: `aah_session`.
@@ -99,7 +102,7 @@ Default value is `aah` For e.g.: `aah_session`.
 prefix = "aah"
 ```
 
-### domain
+### security.session.domain
 HTTP session cookie domain value.
 
 Default value is `empty` string.
@@ -107,7 +110,7 @@ Default value is `empty` string.
 domain = ""
 ```
 
-### path
+### security.session.path
 HTTP session cookie path value.
 
 Default value is `/`.
@@ -115,7 +118,7 @@ Default value is `/`.
 path = "/"
 ```
 
-### http_only
+### security.session.http_only
 HTTP session cookie HTTPOnly value. This option is to prevents XSS (Cross Site Scripting) attacks, basically it disallows access of cookie to scripts like JavaScript.
 
 Default value is `true`.
@@ -123,7 +126,7 @@ Default value is `true`.
 http_only = true
 ```
 
-### secure
+### security.session.secure
 HTTP session cookie secure value. However, if aah server is not configured with SSL then aah framework sets this value as `false`.
 
 Default value is `true`.
@@ -131,7 +134,7 @@ Default value is `true`.
 secure = true
 ```
 
-### sign_key
+### security.session.sign_key
 HTTP session cookie value signing using `HMAC`. For server farm this value should be same in all instance. For HMAC sign & verify it is recommend to use key size is `32` or `64` bytes.
 
 Default value is `64` bytes (generated when application gets created using `aah new` command).
@@ -139,7 +142,7 @@ Default value is `64` bytes (generated when application gets created using `aah 
 sign_key = "generated-value"
 ```
 
-### enc_key
+### security.session.enc_key
 HTTP session cookie value encryption and decryption using `AES`. For server farm this value should be same in all the instances. AES algorithm is used, valid lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
 
 Default value is `32` bytes (generated when application gets created using `aah new` command).
@@ -147,7 +150,7 @@ Default value is `32` bytes (generated when application gets created using `aah 
 enc_key = "generated-value"
 ```
 
-### cleanup_interval
+### security.session.cleanup_interval
 Cleanup Interval is used to clean the expired session data from the store. This is only applicable for non-cookie store type. Cleanup performed in dedicated goroutine. Valid time units are `m -> minutes`, `h -> hours`.
 
 Default value is `30m`.
@@ -157,14 +160,100 @@ cleanup_interval = "30m"
 
 ---
 
+### Section: anti_csrf { ... }
+Documents the settings belongs to Anti-CSRF Protection.
+
+### security.anti_csrf.enable
+Enabling Anti-CSRF Protection.
+
+Default value is `true`.
+```cfg
+enable = true
+```
+
+### security.anti_csrf.secret_length
+Anti-CSRF secret length. Salted cipher token length `secret_length * 2`.
+
+Default value is `32`.
+```cfg
+secret_length = 64
+```
+
+### security.anti_csrf.header_name
+HTTP Header name for cipher token.
+
+Default value is `X-Anti-CSRF-Token`.
+```cfg
+header_name = "X-Anti-CSRF-Token"
+```
+
+### security.anti_csrf.form_field_name
+Form field name for cipher token
+
+Default value is `anti_csrf_token`.
+```cfg
+form_field_name = "anti_csrf_token"
+```
+
+### security.anti_csrf.prefix
+Anti-CSRF secure cookie prefix.
+
+Default value is `aah`. Cookie name would be `aah_anti_csrf`.
+```cfg
+prefix = "aah"
+```
+
+### security.anti_csrf.domain
+Default value is `empty` string.
+```cfg
+domain = ""
+```
+
+### security.anti_csrf.path
+Default value is `/`.
+```cfg
+path = "/"
+```
+
+### security.anti_csrf.ttl
+Time-to-live for Anti-CSRF secret. Valid time units are "m = minutes", "h = hours" and 0.
+
+Default value is `24h`.
+```cfg
+ttl = "24h"
+```
+
+### security.anti_csrf.sign_key
+Anti-CSRF cookie value signing using `HMAC`. For server farm this should be same in all instance. For HMAC sign & verify it recommend to use key size is `32` or `64` bytes.
+
+Default value is `64` bytes (`aah new` generates strong one).
+```cfg
+sign_key = "<typically generated by 'aah new' cmd>"
+```
+
+### security.anti_csrf.sign_key
+Anti-CSRF cookie value encryption and decryption using `AES`. For server farm this should be same in all instance. AES algorithm is used, valid lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
+
+Default value is `32` bytes (`aah new` generates strong one).
+```cfg
+enc_key = "<typically generated by 'aah new' cmd>"
+```
+
+---
+
 ## Section: http_header { ... }
 
-aah provides application secure headers with many safe defaults. Typically non-empty header values from configuration gets added in the response header.
+<span class="badge lb-sm">Since v0.8</span> aah provides application secure headers with many safe defaults. Typically `non-empty` header values from configuration gets added in the response header.
 
 Framework writes the secure response headers appropriately based on Content-Type.
 
 <div class="alert alert-info-green">
-<p><strong>Tip:</strong> Quick way to verify your application secure headers - <a href="https://securityheaders.io"> https://securityheaders.io</a></p>
+<p><strong>Tip:</strong>
+<ul>
+  <li>Quick way to verify your application secure headers - <a href="https://securityheaders.io"> https://securityheaders.io</a></li>
+  <li>Exclude header from writing, just put <code>empty string</code> as a value.</li>
+</ul>
+</p>
 </div>
 
 ### Header: X-XSS-Protection

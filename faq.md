@@ -4,14 +4,23 @@ Keywords: faq, aah framework, web framework for Go
 ---
 # Frequently Asked Questions (FAQ)
 
+  * [Does aah support Package Management Tools?](#does-aah-support-package-management-tools)
   * [How to update aah framework to the latest version?](#how-to-update-aah-framework-to-the-latest-version)
-  * [How to use aah framework before the version release?](#how-to-use-aah-framework-before-the-version-release)
   * [How to update individual module bug fix release?](#how-to-update-individual-module-bug-fix-release)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
+  * [How to try aah framework before the release?](#how-to-try-aah-framework-before-the-release)
   * [How to log all goroutine stacktrace?](#how-to-log-all-goroutine-stacktrace)
   * [Does aah has benchmark against other Go web framework?](#does-aah-has-benchmark-against-other-go-web-framework)
   * [Does aah supports Hot-Reload for Development?](#does-aah-supports-hot-reload-for-development)
+  * [Is posting an arbitrary CSRF token pair (cookie and POST data) a vulnerability?](#is-posting-an-arbitrary-csrf-token-pair-cookie-and-post-data-a-vulnerability)
+  * [Is it a problem that aah’s Anti-CSRF protection isn’t linked to a session?](#is-it-a-problem-that-aah-s-anti-csrf-protection-isn-t-linked-to-a-session)
+  * [Why might a user encounter a Anti-CSRF validation failure after logging in?](#why-might-a-user-encounter-a-anti-csrf-validation-failure-after-logging-in)
 
+### Does aah support Package Management Tools?
+
+Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works nicely with vendoring. Use your choice of tool (`glide`, `dep`, `govendor`, etc.).
+
+For example: I have responded to aah user for `dep` tool, refer to [GitHub comment](https://github.com/go-aah/aah/issues/109#issuecomment-327225582).
 
 ### How to update aah framework to the latest version?
 
@@ -20,20 +29,6 @@ To update aah framework latest version run below command on your terminal/comman
 go get -u aahframework.org/tools.v0/aah
 ```
 If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
-
-
-### How to try aah framework before the release version?
-
-Of-course you can. Just run below command.
-```cfg
-go get -u aahframework.org/tools.v0-unstable/aah
-```
-
-Refer every package with `-unstable` as suffix:
-```go
-// For example:
-import "aahframework.org/aah.v0-unstable"
-```
 
 ### How to update individual module bug fix release?
 
@@ -62,6 +57,15 @@ The quick and best way to know about latest configuration is to:
   * Compare your application configuration files (`config/*`) with new configurations then merge it to yours.
   * Congrats! you're on new configurations.
 
+### How to try aah framework before the release?
+
+Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more about [switch command](/aah-cli-tool.html#command-switch).
+
+Just run the below command and the run your app as usual using `aah run`:
+```cfg
+aah switch
+```
+
 ### How to log all goroutine stacktrace?
 
 It is very simple to do aah framework. Just set the below config to true. You will get all the stacktrace in the log.
@@ -89,3 +93,17 @@ Yes, aah detects the file change(s) on aah project then it automatically stops t
 <p><strong>Note:</strong></p>
 <p>For static file changes server is not restarted, server is restarted only for Go Source code and Template files. Refer to <a href="https://github.com/go-aah/aah/issues/4">Github Issue #4</a> for implementation details.</p>
 </div>
+
+### Is posting an arbitrary CSRF token pair (cookie and POST data) a vulnerability?
+
+No, this is by design. Without a man-in-the-middle attack, there is no way for an attacker to send a Anti-CSRF token cookie to a victim's browser, so a successful attack would need to obtain the victim's browser's cookie via XSS or similar, in which case an attacker usually doesn't need CSRF attacks.
+
+Some security audit tools flag this as a problem but as mentioned before, an attacker cannot steal a user's browser's Anti-CSRF cookie. "Stealing" or modifying your own token using Firebug, Chrome dev tools, etc. isn't a vulnerability.
+
+### Is it a problem that aah's Anti-CSRF protection isn't linked to a session?
+
+No, this is by design. Not linking CSRF protection to a session allows using the protection on sites such as a pastebin that allow submissions from anonymous users which don’t have a session.
+
+### Why might a user encounter a Anti-CSRF validation failure after logging in?
+
+For security reasons, Anti-CSRF tokens are rotated each time a user logs in. Any page with a form generated before a login will have an old, invalid Anti-CSRF token and need to be reloaded. This might happen if a user uses the back button after a login or if they login in a different browser tab.

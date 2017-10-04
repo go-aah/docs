@@ -29,6 +29,7 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
           - [action](#action)
           - [auth](#auth) <span class="badge lb-xs">Since v0.7</span>
           - [max_body_size](#max-body-size) <span class="badge lb-xs">Since v0.8</span>
+          - [anti_csrf_check](#anti_csrf_check) <span class="badge lb-xs">Since v0.9</span>
           - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
 
 Have a look at [aahframework.org routes configuration](https://github.com/go-aah/website/blob/master/config/routes.conf). It is simple one, it gives an idea on how you can do it for your application.
@@ -172,10 +173,12 @@ edit_user { # route name, it is used for reverse route
 ### path
 Path config attribute value is used to match incoming request by router. It can contain two types of parameters:
 
-* `:name` - Named parameter : It is dynamic path segments. They match anything until the next `/` or the path end. For e.g.: `/blog/:category/:post`
-* `*name` - Catch-all parameter : It match anything until the path end, including the directory index (the `/` before the catch-all). Since they match anything until the end, catch-all parameters `must` always be the final path element. For e.g.: `/assets/*filepath`
+  * `:name` - Named parameter : It is dynamic path segments. They match anything until the next `/` or the path end. For e.g.: `/blog/:category/:post`
+  * `*name` - Catch-all parameter : It match anything until the path end, including the directory index (the `/` before the catch-all). Since they match anything until the end, catch-all parameters `must` always be the final path element. For e.g.: `/assets/*filepath`
 
-Note: `path` must begin with `/`.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> <code>path</code> must begin with <code>/</code>.</p>
+</div>
 
 It is required, no default value.
 ```cfg
@@ -246,6 +249,7 @@ action = "EditUser"
 **Note:**
 
 When routes `auth` attribute is not defined; two possible actions are taken:
+
   * If one or more auth schemes are defined in `security.auth_schemes { ... }` and routes `auth` attribute is not defined then framework treats that route as `403 Forbidden`.
   * Else framework treats that route as `anonymous`.
 
@@ -260,6 +264,14 @@ auth = "form_auth"
 Default value is `0mb`. Global default value in aah.conf is `5mb`.
 ```cfg
 max_body_size = "100mb"
+```
+
+### anti_csrf_check
+<span class="badge lb-sm">Since v0.9</span> Optionally you can disable Anti-CSRF check for particular route. There are cases you might need this option. In-general don't disable the check.
+
+Default value is `true`.
+```cfg
+anti_csrf_check = false
 ```
 
 ---

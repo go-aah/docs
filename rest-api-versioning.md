@@ -21,13 +21,13 @@ _**My thoughts: As of now, aah user have to fetch `version` info according to ve
 This strategy requires the client to specify the version as part of the URL path.
 
 **For example:**
-```
+```cfg
 GET /v1/users
 ```
 
 Your `routes.conf` include [Named parameter](/routes-config.html#section-routes) with key as a `version`. So that version info available to you in the controller via `ctx.Req.PathValue("version")`.
 
-```
+```cfg
 routes {
   path = "/:version"
 
@@ -39,14 +39,17 @@ routes {
 }
 ```
 
-_Tip: URL Path based versioning strategy can be particularly useful if you have requirements to route incoming requests to different servers based on the version, as you can configure Request routing for different API versions._
+<div class="alert alert-info-green">
+<p><strong>Tip:</strong></p>
+<p>URL Path based versioning strategy can be particularly useful if you have requirements to route incoming requests to different servers based on the version, as you can configure Request routing for different API versions.</p>
+</div>
 
 ## Strategy: Accept Header Versioning
 
 This strategy requires the client to specify the version as part of the media type in the HTTP `Accept` header. The version is included as a media type parameter, that supplements the main media type.
 
 **For example:** HTTP request using the accept header versioning strategy.
-```
+```cfg
 GET /v1/users
 Accept: application/json; version=2.0
 ```
@@ -58,12 +61,15 @@ You can access `version` info via `ctx.Req.AcceptContentType.Version()`.
 This strategy requires the client to specify the version as part of the vendor media type in the HTTP `Accept` header.
 
 **For example:** HTTP request using the accept header with vendor media type strategy.
-```
+```cfg
 GET /v1/users
 Accept: application/vnd.mycompany.myapp.customer-v2.2+json
 ```
 
-You can access `version` info via `ctx.Req.AcceptContentType.Version()` and `vendor` info via `ctx.Req.AcceptContentType.Vendor()`.
+You can access:
+
+  * `version` info using `ctx.Req.AcceptContentType.Version()`
+  * `vendor` info using `ctx.Req.AcceptContentType.Vendor()`
 
 
 ## Strategy: URL Query Parameter
@@ -71,7 +77,7 @@ You can access `version` info via `ctx.Req.AcceptContentType.Version()` and `ven
 This strategy is a simple style that includes the version as a URL query parameter.
 
 **For example:**
-```
+```cfg
 GET /users?version=1.1
 ```
 
@@ -82,7 +88,7 @@ You can access `version` info via `ctx.Req.QueryValue("version")`.
 This strategy requires the client to specify the requested version as part of the `hostname` in the URL.
 
 **For example:**
-```
+```cfg
 # The following is an HTTP request to the URL: http://v1.sample.com/users/
 
 GET /users
@@ -91,14 +97,20 @@ Host: v1.sample.com
 
 You can access `version` info via `ctx.Subdomain()`.
 
-_**Note:**_ The HostName strategy may need additional attention on developer machine to use in development/debug mode. Since you may have to configure local DNS mapping in you `host` file. This [rackspace article](https://support.rackspace.com/how-to/modify-your-hosts-file/) covers the steps to modify-your-hosts-file for Mac, Linux and Windows.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>The HostName strategy may need additional attention on developer machine to use in development/debug mode. Since you may have to configure local DNS mapping in you `host` file. This <a href="https://support.rackspace.com/how-to/modify-your-hosts-file/">rackspace article</a> covers the steps to modify-your-hosts-file for Mac, Linux and Windows</p>
+</div>
 
 For example:
-```
+```cfg
 127.0.0.1 sample.com v1.sample.com
 ```
 
-_Tip: HostName based versioning strategy can be particularly useful if you have requirements to route incoming requests to different servers based on the version, as you can configure different DNS records for different API versions._
+<div class="alert alert-info-green">
+<p><strong>Tip:</strong></p>
+<p>HostName based versioning strategy can be particularly useful if you have requirements to route incoming requests to different servers based on the version, as you can configure different DNS records for different API versions.</p>
+</div>
 
-
+<br><br>
 <center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>
