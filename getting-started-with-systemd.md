@@ -30,6 +30,7 @@ Description=aahframework.org
 After=network.target
 
 [Service]
+EnvironmentFile=/home/aah/env_values
 User=aah
 Group=aah
 Type=forking
@@ -96,7 +97,7 @@ sudo systemctl status aahwebsite
 sudo service aahwebsite status
 ```
 <br>
-You will similar output:
+You will get similar output:
 ```cfg
 ● aahwebsite.service - aahframework.org
    Loaded: loaded (/etc/systemd/system/aahwebsite.service; enabled; vendor preset: enabled)

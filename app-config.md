@@ -16,6 +16,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
+  * [instance_name](#instance_name) <span class="badge lb-xs">Since v0.9</span>
   * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-server-timeout)
@@ -55,6 +56,15 @@ name = "mysampleapp"
 A friendly description of application purpose.
 ```cfg
 desc = "aah framework web application"
+```
+
+## instance_name
+
+<span class="badge lb-sm">Since v0.9</span> Application instance name is used when you're running aah application cluster. This value is used in the context based logging, it distinguishes your instance log from other instances.
+
+Typically you can to pass `instance_name` value via aah external config or Environment variable.
+```cfg
+instance_name = $AAH_INSTANCE_NAME
 ```
 
 ## pid_file
