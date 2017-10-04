@@ -16,7 +16,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
-  * [instance_name](#instance_name) <span class="badge lb-xs">Since v0.9</span>
+  * [instance_name](#instance-name) <span class="badge lb-xs">Since v0.9</span>
   * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
   * [server { ... }](#section-server)
     - [timeout { ... }](#section-server-timeout)
