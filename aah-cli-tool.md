@@ -53,9 +53,11 @@ aah new
 
 `run` command, alias `r` - is used to run the aah application.
 
-_Note: It is recommended to use `build` command to create build artifact and deploy it on server instead of using run command._
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> It is recommended to use <code>build</code> command to create build artifact and deploy it on server instead of using run command.</p>
+</div>
 
-Supported options are-
+Supported options are:
 ```cfg
 -i value, --importpath value  Import path of aah application
 -e value, --envprofile value  Environment profile name to activate. e.g: dev, qa, prod
@@ -69,7 +71,7 @@ Use `aah help run` to learn more.
 
 `build` command, alias `b` - is used to create aah application build artifact for deployment. Default location and name is `<app-base-dir>/build/<app-binary-name>-<app-version>-<goos>-<goarch>.zip` or you can use your custom artifact name too.
 
-Supported options are-
+Supported options are:
 ```cfg
 -i value, --importpath value  Import path of aah application
 -e value, --envprofile value  Environment profile name to activate. e.g: dev, qa, prod
@@ -88,7 +90,7 @@ Use `aah help build` to learn more.
 
 `clean` command, alias `c` - is to clean generated files and build directory of the aah project.
 
-Supported options are-
+Supported options are:
 ```cfg
 -i value, --importpath value  Import path of aah application
 ```
@@ -98,11 +100,12 @@ Use `aah help clean` to learn more.
 
 ## Command: switch
 
-`switch` command, alias `s` - is to switch between aah `release` and `edge` version.
+`switch` command, alias `s` - is to switch between aah `release` (currently on your GOPATH) and latest `edge` version.
 
-Supported options are-
+Supported options are:
 ```cfg
--w, --whoami  To know which version is currently active
+-w, --whoami   To know which version is currently active
+-r, --refresh  To refresh edge version to the latest codebase
 ```
 
 Use `aah help switch` to learn more.
@@ -111,8 +114,7 @@ Use `aah help switch` to learn more.
 <p><strong>Note:</strong>
 <ul>
   <li>Currently it works with only GOPATH. Gradually I will add vendorize support too.</li>
-  <li>Currently it is in beta, help with your feedback for improvements.</li>
-  <li>It always operates on latest version, specific version is not supported.</li>
+  <li>It always operates on latest edge version and current release version on your GOPATH, specific version is not supported.</li>
 </ul>
 </p>
 </div>
