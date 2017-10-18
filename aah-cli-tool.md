@@ -12,17 +12,18 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
   * Global Flags
       - `-h, --help` - show help
       - `-v, --version` - print aah framework versions and go version
-  * [list](#command-list) <span class="badge lb-xs">Since v0.6</span>
+  * [list](#command-list)
   * [new](#command-new)
   * [run](#command-run)
   * [build](#command-build)
-  * [clean](#command-clean) <span class="badge lb-xs">Since v0.7</span>
-  * [switch](#command-switch) <span class="badge lb-xs">Since v0.9</span>
+  * [clean](#command-clean)
+  * [switch](#command-switch)
+  * [update](#command-update)
   * [help](#command-help)
   * [Cross Compile Build](#cross-compile-build)
 
 ## Command: list
-`list` command, alias `l` - scans GOPATH and lists all the import paths of aah project. <span class="badge lb-sm">Since v0.6</span>.
+<span class="badge lb-sm">Since v0.6</span> `list` command, alias `l` - it scans GOPATH and lists all the import paths of aah project.
 
 ```cfg
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -88,7 +89,7 @@ Use `aah help build` to learn more.
 
 ## Command: clean
 
-`clean` command, alias `c` - is to clean generated files and build directory of the aah project.
+<span class="badge lb-sm">Since v0.7</span> `clean` command, alias `c` - is to clean generated files and build directory of the aah project.
 
 Supported options are:
 ```cfg
@@ -100,7 +101,7 @@ Use `aah help clean` to learn more.
 
 ## Command: switch
 
-`switch` command, alias `s` - is to switch between aah `release` (currently on your GOPATH) and latest `edge` version.
+<span class="badge lb-sm">Since v0.9</span> `switch` command, alias `s` - is to switch between aah `release` (currently on your GOPATH) and latest `edge` version.
 
 Supported options are:
 ```cfg
@@ -115,6 +116,22 @@ Use `aah help switch` to learn more.
 <ul>
   <li>Currently it works with only GOPATH. Gradually I will add vendorize support too.</li>
   <li>It always operates on latest edge version and current release version on your GOPATH, specific version is not supported.</li>
+</ul>
+</p>
+</div>
+
+
+## Command: update
+
+<span class="badge lb-sm">Since v0.10</span> `update` command, alias `u` - is to update your aah to the latest release version on your GOPATH.
+
+Use `aah help update` to learn more.
+
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong>
+<ul>
+  <li>Currently it works with only GOPATH. Gradually I will add vendorize support too.</li>
+  <li>It always operates on aah latest release version, specific version is not supported.</li>
 </ul>
 </p>
 </div>
