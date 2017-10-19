@@ -246,12 +246,14 @@ action = "EditUser"
   * Inherits the `default_auth` attribute config value if defined.
   * Otherwise it becomes not defined.
 
-**Note:**
-
-When routes `auth` attribute is not defined; two possible actions are taken:
-
-  * If one or more auth schemes are defined in `security.auth_schemes { ... }` and routes `auth` attribute is not defined then framework treats that route as `403 Forbidden`.
-  * Else framework treats that route as `anonymous`.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> When routes <code>auth</code> attribute is not defined; two possible actions are taken:
+<ul>
+  <li>If one or more auth schemes are defined in <code>security.auth_schemes { ... }</code> and routes <code>auth</code> attribute is not defined then framework treats that route as <code>403 Forbidden</code>.</li>
+  <li>Else framework treats that route as <code>anonymous</code>.</li>
+</ul>
+</p>
+</div>
 
 Default value is empty string.
 ```cfg
@@ -269,6 +271,8 @@ max_body_size = "100mb"
 ### anti_csrf_check
 <span class="badge lb-sm">Since v0.9</span> Optionally you can disable Anti-CSRF check for particular route. There are cases you might need this option. In-general don't disable the check.
 
+This attribute is not applicable for REST APIs even if its defined.
+
 Default value is `true`.
 ```cfg
 anti_csrf_check = false
@@ -282,8 +286,46 @@ Configuring namespace/group routes is very easy to define. Simply define `routes
 
 If you're not interested in namespace/group, you can define every routes with full path as traditional approach.
 
-#### Sample:
-Defining route within route definition to make that as namespace/group routes.
+#### Nested routes config works like this:
+```cfg
+routes {
+  <route_name1> {
+    # this route attributes
+
+    # child routes - level 1
+    routes {
+      <route_name11> {
+        # this route attributes
+
+        # child routes - level 2
+        routes {
+          <route_name111> {
+
+            # you can go on any level with your creativity
+
+          }        
+        }
+      }
+    }
+  }
+
+  <route_name2> {
+    # same as above
+  }
+}
+```
+
+
+#### Sample of mapping following URLs as nested routes
+
+```cfg
+/v1/users (GET & POST)
+/v1/users/:id (POST)
+/v1/users/:id/settings (PATCH)
+```
+
+<br>
+Configuration:
 ```cfg
 routes {
   v1_api {
@@ -310,6 +352,7 @@ routes {
           disable_user {
             # /v1/users/:id/settings
             path = "/:id/settings"
+            method = "PATCH"
             controller = "User"
             action = "Disable"
           }
