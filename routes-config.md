@@ -284,22 +284,20 @@ anti_csrf_check = false
 
 Configuring namespace/group routes is very easy to define. Simply define `routes` within route definition to make that as namespace/group routes.
 
-If you're not interested in namespace/group, you can define every routes with full path as traditional approach.
-
 #### Nested routes config works like this:
 ```cfg
 routes {
-  <route_name1> {
+  <route_name1> { # unique route name
     # this route attributes
 
     # child routes - level 1
     routes {
-      <route_name11> {
+      <route_name11> { # unique route name
         # this route attributes
 
         # child routes - level 2
         routes {
-          <route_name111> {
+          <route_name111> { # unique route name
 
             # you can go on any level with your creativity
 
@@ -309,64 +307,96 @@ routes {
     }
   }
 
-  <route_name2> {
+  <route_name2> { # unique route name
     # same as above
   }
 }
 ```
 
+#### Pro Tips for nested/namespace routes
+
+  * `path` -  if its not provided in the child route then inherits parent value as-is otherwise prefix to child path
+  * `method` - provided value otherwise default value is GET
+  * `controller` - if its not provided in the child route then inherits parent value as-is
+  * `action` - if its not provided then action value is chosen based on HTTP method
+  * `auth` -  if its not provided in the child route then inherits parent value as-is
+  * `max_body_size` - if its not provided then `request.max_body_size` config value is used from `aah.conf`
+  * `anti_csrf_check` - default is true for web application, for REST API this doesn't take effect even if its defined
+
 
 #### Sample of mapping following URLs as nested routes
 
 ```cfg
-/v1/users (GET & POST)
-/v1/users/:id (POST)
-/v1/users/:id/settings (PATCH)
+# Let's say you have controller `UserController` and
+# it has actions `List`, Index, `Create`, `Update`, `Delete`, `Settings` and `UpdateSettings`.
+# URLs are:
+Get Users            - GET    /v1/users
+Create User          - POST   /v1/users
+Get User             - GET    /v1/users/:id
+Update User          - PATCH  /v1/users/:id
+Delete User          - DELETE /v1/users/:id
+Get User Settings    - GET    /v1/users/:id/settings
+Update User Settings - PATCH  /v1/users/:id/settings
 ```
 
 <br>
-Configuration:
+Configuration: This is to demonstrate the nested/group/namespace routes. Always go with your creativity.
 ```cfg
 routes {
   v1_api {
     path = "/v1"
 
     routes {
-      list_users {
-        # /v1/users
+      users {
         path = "/users"
         controller = "User"
-        action = "List"
 
-        # adding child routes
-        # this routes section can go to create_user route too, doesn't matter
         routes {
-          edit_user {
-            # /v1/users/:id
-            path = "/:id"
-            method = "POST"
-            controller = "User"
-            action = "Edit"
+          # /v1/users
+          list_users {
+            action = "List"
           }
 
-          disable_user {
-            # /v1/users/:id/settings
-            path = "/:id/settings"
-            method = "PATCH"
-            controller = "User"
-            action = "Disable"
+          # /v1/users
+          create_user {
+            method = "POST"
+          }
+
+          routes {
+            path = "/:id"
+
+            routes {
+              get_user {
+                # Inherits from parents
+              }
+
+              # /v1/users/:id
+              update_user {
+                method = "PATCH"
+              }
+
+              # /v1/users/:id
+              delete_user {
+                method = "DELETE"
+              }
+
+              # /v1/users/:id/settings
+              get_user_settings {
+                path = "/settings"
+                action = "Settings"
+              }
+
+              # /v1/users/:id/settings
+              update_user_settings {
+                path = "/settings"
+                method = "PATCH"
+                action = "UpdateSettings"
+              }
+            }
           }
         }
-      }
-
-      create_user {
-        # /v1/users
-        path = "/users"
-        method = "POST"
-        controller = "User"
-        #action = "Create" # default value is Create
-      }
+      } # end users routes
     }
-  }
+  } # end v1_api
 }
 ```
