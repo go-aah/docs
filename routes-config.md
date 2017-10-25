@@ -171,7 +171,7 @@ edit_user { # route name, it is used for reverse route
 ```
 
 ### path
-Path config attribute value is used to match incoming request by router. It can contain two types of parameters:
+Path config attribute is used to match incoming request by router. It can contain two types of parameters:
 
   * `:name` - Named parameter : It is dynamic path segments. They match anything until the next `/` or the path end. For e.g.: `/blog/:category/:post`
   * `*name` - Catch-all parameter : It match anything until the path end, including the directory index (the `/` before the catch-all). Since they match anything until the end, catch-all parameters `must` always be the final path element. For e.g.: `/assets/*filepath`
@@ -191,14 +191,14 @@ path = "/users"
 ```
 
 ### method
-Method config attribute value is `HTTP` method. It can be multiple `HTTP` methods with comma separated. It can be lowercase or uppercase.
+Method config attribute is used to map `HTTP` method verb. It can be lowercase or uppercase.
 
 Default value is `GET`.
 ```cfg
 # Usages
 method = "POST"
 
-method = "PUT,PATCH"
+method = "PATCH"
 ```
 
 ### controller
@@ -224,7 +224,7 @@ controller = "v1/UserController"
 ### action
 `action` attribute is used to map defined action method from the controller for the `path`.
 
-Default values are mapped based on `HTTP` method. ***Note: for multiple HTTP method mapping no default value, you have to provide one***.
+Default values are mapped based on `HTTP` method.
 
 * `GET` - action is `Index`
 * `POST` - action is `Create`
