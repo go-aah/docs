@@ -106,7 +106,7 @@ Use `aah help clean` to learn more.
 Supported options are:
 ```cfg
 -w, --whoami   To know which version is currently active
--r, --refresh  To refresh edge version to the latest codebase
+-r, --refresh  To refresh edge version to the latest codebase  # since v0.10
 ```
 
 Use `aah help switch` to learn more.

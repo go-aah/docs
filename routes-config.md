@@ -315,9 +315,9 @@ routes {
 
 #### Pro Tips for nested/namespace routes
 
-  * `path` -  if its not provided in the child route then inherits parent value as-is otherwise prefix to child path
+  * `path` -  if its not provided in the child route then inherits parent value as-is (<span class="badge lb-xs">Since v0.10</span>) otherwise prefix to child path
   * `method` - provided value otherwise default value is GET
-  * `controller` - if its not provided in the child route then inherits parent value as-is
+  * `controller` - if its not provided in the child route then inherits parent value as-is <span class="badge lb-xs">Since v0.10</span>
   * `action` - if its not provided then action value is chosen based on HTTP method
   * `auth` -  if its not provided in the child route then inherits parent value as-is
   * `max_body_size` - if its not provided then `request.max_body_size` config value is used from `aah.conf`
@@ -347,16 +347,13 @@ routes {
     path = "/v1"
 
     routes {
+      # /v1/users
       users {
         path = "/users"
         controller = "User"
+        action = "List"
 
         routes {
-          # /v1/users
-          list_users {
-            action = "List"
-          }
-
           # /v1/users
           create_user {
             method = "POST"
