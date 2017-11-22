@@ -62,7 +62,7 @@ desc = "aah framework web application"
 
 <span class="badge lb-sm">Since v0.9</span> Application instance name is used when you're running aah application cluster. This value is used in the context based logging, it distinguishes your instance log from other instances.
 
-Typically you can to pass `instance_name` value via aah external config or Environment variable.
+Typically you can pass `instance_name` value via aah external config or Environment variable.
 ```cfg
 instance_name = $AAH_INSTANCE_NAME
 ```
