@@ -99,10 +99,15 @@ Default value is `8080`
 port = "8080"
 
 # for 80
-port = "80" # port = ""
+port = "80"
+# OR 
+port = ""
 
 # for 443
-port = "443" # port = ""
+port = "443"
+# OR 
+port = ""
+
 ```
 
 ### server.header
