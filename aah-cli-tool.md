@@ -27,13 +27,13 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 
 ```cfg
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-           aah framework v0.9 - https://aahframework.org
+           aah framework v0.10 - https://aahframework.org           
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
-Scanning GOPATH: /Users/jeeva/go/...
+INFO Scanning GOPATH: /Users/jeeva/go/...
 
-4 aah projects were found, import paths are:
+INFO 4 aah projects were found, import paths are:
     github.com/go-aah/tutorials/domain-subdomain
     github.com/go-aah/tutorials/html-minify
     github.com/go-aah/tutorials/i18n-url-query-param
@@ -105,6 +105,7 @@ Use `aah help clean` to learn more.
 
 Supported options are:
 ```cfg
+-v value, --version value  To mention latest release or edge version (default: "edge")
 -w, --whoami   To know which version is currently active
 -r, --refresh  To refresh edge version to the latest codebase  # since v0.10
 ```
@@ -137,6 +138,24 @@ Use `aah help update` to learn more.
 </div>
 
 
+## Command: generate
+
+<span class="badge lb-sm">Since v0.10</span> `generate` command, alias `g` - is to generate boilerplate code, configurations and complement scripts, etc.
+
+Use `aah generate help` to learn more about available generate sub commands.
+
+```cfg
+# For example to generate `systemd` service file
+aah generate script --name systemd --importpath github.com/user/appname
+
+# Short form
+aah g s -n systemd -i github.com/user/appname
+
+# If you're on app path
+aah g s -n systemd
+```
+
+
 ## Command: help
 
 `help` command alias `h` - helps you to learn aah command usage.
@@ -152,7 +171,7 @@ aah help build
 ## Cross Compile Build
 Set environment variables `GOOS` and `GOARCH` before executing `aah build` command. List of available GOOS and GOARCH values, [click here](https://golang.org/doc/install/source#environment).
 
-#### Building linux binary on Mac OS
+#### Building linux binary on macOS
 ```cfg
 env GOOS=linux GOARCH=amd64 aah build --output=/Users/jeeva/build
 
@@ -161,7 +180,7 @@ env GOOS=linux GOARCH=amd64 aah build --output=/Users/jeeva/build
 Your application artifact is here: /Users/jeeva/build/myapp-99bf7df-linux-amd64.zip
 ```
 
-#### Building windows exe on Mac OS
+#### Building windows exe on macOS
 ```cfg
 env GOOS=windows GOARCH=amd64 aah build --output=/Users/jeeva/build
 

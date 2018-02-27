@@ -36,6 +36,7 @@ Group=aah
 Type=forking
 ExecStart=/home/aah/website/aah.sh start
 ExecStop=/home/aah/website/aah.sh stop
+ExecReload=/bin/kill -HUP $MAINPID
 Restart=on-failure
 
 [Install]
@@ -44,7 +45,7 @@ WantedBy=multi-user.target
 
 ## Steps to Configure and Enable
 
-  * **Step 1:** create a service file at `/etc/systemd/system/aahwebsite.service` with above reference for your application.
+  * **Step 1:** create/place a service file at `/etc/systemd/system/aahwebsite.service` with above reference for your application.
   * **Step 2:** we are gonna reload it `sudo systemctl daemon-reload`.
   * **Step 3:** to enable `aahwebsite.service` file; execute `sudo systemctl enable aahwebsite.service`.
   * **Step 4:** congrats, you have successfully created service file.
