@@ -19,6 +19,7 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
   * [clean](#command-clean)
   * [switch](#command-switch)
   * [update](#command-update)
+  * [generate](#command-generate)
   * [help](#command-help)
   * [Cross Compile Build](#cross-compile-build)
 
@@ -144,15 +145,26 @@ Use `aah help update` to learn more.
 
 Use `aah generate help` to learn more about available generate sub commands.
 
+#### Example of systemd service file generate
 ```cfg
-# For example to generate `systemd` service file
 aah generate script --name systemd --importpath github.com/user/appname
 
 # Short form
 aah g s -n systemd -i github.com/user/appname
 
-# If you're on app path
+# If you're on app directory
 aah g s -n systemd
+```
+
+#### Example of docker file generate
+```cfg
+aah generate script --name docker --importpath github.com/user/appname
+
+# Short form
+aah g s -n docker -i github.com/user/appname
+
+# If you're on app directory
+aah g s -n docker
 ```
 
 
