@@ -46,4 +46,3 @@ Page includes details about the implemented functionality and button to go to Us
 Fill out the form fields and submit. As a response, submitted field values displayed on the page.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

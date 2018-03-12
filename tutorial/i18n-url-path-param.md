@@ -35,4 +35,3 @@ aah run -i github.com/go-aah/tutorials/i18n-url-path-param
 Now click on the language links to see i18n in action.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

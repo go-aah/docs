@@ -61,4 +61,3 @@ While you're doing various requests also observe the application logs and API re
   * http://localhost:8080/v1/reportee/:email - Responds user information for given user email address based on authorization. (Secured)
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

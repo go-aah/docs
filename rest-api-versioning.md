@@ -113,4 +113,3 @@ For example:
 </div>
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

@@ -44,4 +44,3 @@ aah run -i github.com/go-aah/tutorials/form-fileupload
 Page includes details about the implemented functionality and button to choose file and upload. It is self explanatory.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

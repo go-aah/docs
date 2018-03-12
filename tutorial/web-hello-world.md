@@ -26,7 +26,7 @@ Enter your application import path: web-hello-world
 
 Choose your application type (web or api), default is 'web': web
 
-Choose your application Auth Scheme (form, basic), default is 'none': 
+Choose your application Auth Scheme (form, basic), default is 'none':
 
 Your aah web application was created successfully at '/Users/jeeva/go-home/src/web-hello-world'
 You shall run your application via the command: 'aah run --importpath web-hello-world'
@@ -63,4 +63,3 @@ Goto this URL http://localhost:8080 in your browser.
 Congratulations, you have successfully created and executed the hello world Web aah application.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

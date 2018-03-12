@@ -61,6 +61,3 @@ And Implements following standard interfaces from `http` library.
   * `http.Hijacker`
   * `http.Pusher`
   * `io.Closer`
-
-
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>
