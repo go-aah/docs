@@ -460,6 +460,14 @@ Default value is `false`.
 all_goroutines = false
 ```
 
+### runtime.debug.strip_src_base
+Whether to strip source `src` base path from file path.
+
+Default value is `false`.
+```cfg
+strip_src_base = true
+```    
+
 ---
 
 ## Section: render { ... }
