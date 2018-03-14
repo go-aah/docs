@@ -10,7 +10,7 @@ This document takes you with few steps to learn and creating a Hello World aah w
 
 Create web application using `aah new` command.
 
-```
+```bash
 jeeva@mb-pro:~$ aah new
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
            aah framework v0.9 - https://aahframework.org
@@ -52,7 +52,7 @@ After modification greet message will look like -
 
 Let's run your hello world Web application.
 
-```
+```bash
 aah run -i web-hello-world
 ```
 

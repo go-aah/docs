@@ -9,7 +9,7 @@ Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP he
 <span class="badge lb-sm">Since v0.10</span> aah framework provides easy to use and flexible way for configure CORS for domain level as well as each route level. Also CORS could be disabled at each route level.
 
 To enable CORS place following config at each domain configuration:
-```cfg
+```conf
 cors {
   enable = true
 }
@@ -22,7 +22,7 @@ CORS configuration live in [`routes.conf`](routes-config.html). Has two parts an
 
 Configure CORS values for each domain/sub-domain in the routes.conf. [Learn more](#section-cors) about each attribute.
 
-```cfg
+```conf
 cors {
   enable = true
   allow_origins = ["https://www.example.com", "http://sample.com"]
@@ -47,7 +47,7 @@ Used to enable/disable CORS for domain/route.
 
 Default value is `false` - for domain level.<br>
 Default value is `true` - for route level.
-```cfg
+```conf
 enable = true
 ```
 
@@ -56,7 +56,7 @@ Used to specify value for `Access-Control-Allow-Origin` header.
 
 Default value is `*` - for domain level.<br>
 Default value for route level - Inherited from parent route/domain.
-```cfg
+```conf
 allow_origins = ["*"]
 ```
 
@@ -65,7 +65,7 @@ Used to specify value for `Access-Control-Allow-Headers` header.
 
 Default values are `Accept`, `AcceptLanguage`, `Authorization`, `Origin` - for domain level.<br>
 Default value for route level - Inherited from parent route/domain.
-```cfg
+```conf
 allow_headers = [
   "Accept",
   "Authorization",
@@ -80,7 +80,7 @@ Used to specify value for `Access-Control-Allow-Methods` header.
 
 Default values are `GET`, `POST`, `HEAD` - for domain level.<br>
 Default value for route level - Inherited from parent route/domain.
-```cfg
+```conf
 allow_methods = ["GET", "POST", "HEAD", "PUT", "DELETE"]
 ```
 
@@ -90,7 +90,7 @@ Used to specify value for `Access-Control-Expose-Headers` header.
 Default value - `cors.allow_headers` values are used if not provided - for domain level.<br>
 Default value for route level - Inherited from parent route/domain.
 
-```cfg
+```conf
 expose_headers = ["X-Custom-Header"]
 ```
 
@@ -99,7 +99,7 @@ Used to specify value for `Access-Control-Max-Age` header.
 
 Default value is `24h` - for domain level.<br>
 Default value for route level - Inherited from parent route/domain.
-```cfg
+```conf
 max_age = "48h"
 ```
 
@@ -108,6 +108,6 @@ Used to specify value for `Access-Control-Allow-Credentials` header.
 
 Default value is `false` - for domain level.<br>
 Default value for route level - Inherited from parent route/domain.
-```cfg
+```conf
 allow_credentials = true
 ```

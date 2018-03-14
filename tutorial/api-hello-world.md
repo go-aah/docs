@@ -10,7 +10,7 @@ This document takes you with few steps to learn and creating a Hello World aah A
 
 Create API application using `aah new` command.
 
-```
+```bash
 jeeva@mb-pro:~$ aah new
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
            aah framework v0.9 - https://aahframework.org
@@ -52,14 +52,14 @@ After modification greet message will look like -
 
 Let's run your hello world API application.
 
-```
+```cfg
 aah run -i api-hello-world
 ```
 
 Goto this URL http://localhost:8080 in your browser.
 
 JSON response:
-```javascript
+```json
 {
     "message": "Hello, World!"
 }

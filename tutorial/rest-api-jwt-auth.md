@@ -12,7 +12,7 @@ Generic Auth has more possibilities, this tutorial implements JSON Web Token (JW
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 

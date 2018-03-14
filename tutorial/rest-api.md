@@ -10,7 +10,7 @@ Take a moment to learn about clean, robust implementation of [auto parse and bin
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 

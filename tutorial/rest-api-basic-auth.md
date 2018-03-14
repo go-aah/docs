@@ -15,7 +15,7 @@ aah framework supports basic auth in two ways. You can use either one.
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 

@@ -10,7 +10,7 @@ Learn more about i18n configuration and how it works [refer here](/i18n.html).
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 

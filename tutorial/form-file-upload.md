@@ -10,7 +10,7 @@ It's easy to handle file, on server side you just call method `Req.SaveFile` wit
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 
