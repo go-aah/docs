@@ -23,10 +23,6 @@ Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs
 go get -u aahframework.org/tools.v0/aah
 ```
 
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong> git config is no longer required, it has been handled in aah go get service. If you get an error during aah installation, please report it.</p>
-</div>
-
 ## Verify your aah installation
 
 Just execute `aah` command on your terminal/command prompt. Learn more about [aah CLI](aah-cli-tool.html).
@@ -39,7 +35,7 @@ aah
 ```cfg
 jeeva@mb-pro:~$ aah
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-           aah framework v0.9 -  https://aahframework.org
+           aah framework v0.10 -  https://aahframework.org
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
@@ -47,13 +43,15 @@ Usage:
   aah [global options] command [command options] [arguments...]
 
 Commands:
-  new, n        Create new aah 'web' or 'api' application (interactive)
-  run, r        Run aah framework application (supports hot-reload)
-  build, b      Build aah application for deployment
-  list, l       List all aah projects in GOPATH
-  clean, c      Cleans the aah generated files and build directory
-  switch, s     Switch between aah release and edge version (beta)
-  help, h       Shows a list of commands or help for one command
+  new, n          Create new aah 'web' or 'api' application (interactive)
+  run, r          Run aah framework application (supports hot-reload)
+  build, b        Build aah application for deployment
+  list, l         List all aah projects in GOPATH
+  clean, c        Cleans the aah generated files and build directory
+  switch, s       Switch between aah release and edge version
+  update, u       Update your aah to the latest release version on your GOPATH
+  generate, g     Generates boilerplate code, configurations and complement scripts (systemd, docker), etc.
+  help, h         Shows a list of commands or help for one command
 
 Global Options:
   -h, --help     show help
@@ -119,20 +117,21 @@ aah r
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
-2017-09-27 22:25:49.463 INFO  Loading aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/aah.project
-2017-09-27 22:25:49.464 INFO  Hot-Reload enabled for environment profile: dev
-2017-09-27 22:25:49.464 INFO  Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-09-27 22:25:50.894 INFO  Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2017-09-27 22:25:50.963 INFO  aah framework v0.9, requires ≥ go1.8
-2017-09-27 22:25:50.969 INFO  aah application initialized successfully
-2017-09-27 22:25:50.969 INFO  aah-first-app App Name: aah-first-app
-2017-09-27 22:25:50.969 INFO  aah-first-app App Version: 0.0.1
-2017-09-27 22:25:50.969 INFO  aah-first-app App Build Date: 2017-09-27T22:25:49-07:00
-2017-09-27 22:25:50.969 INFO  aah-first-app App Profile: dev
-2017-09-27 22:25:50.969 INFO  aah-first-app App TLS/SSL Enabled: false
-2017-09-27 22:25:50.969 INFO  aah-first-app App Session Mode: stateless
-2017-09-27 22:25:50.969 INFO  aah-first-app App Anti-CSRF Protection Enabled: true
-2017-09-27 22:25:50.969 INFO  aah-first-app aah go server running on :8080
+Loaded aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/aah.project
+Hot-Reload enabled for environment profile: dev
+Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
+Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
+2018-03-13 21:39:47.480 INFO  aah framework v0.10, requires ≥ go1.8
+2018-03-13 21:39:47.484 DEBUG Event [OnInit] publishing in synchronous mode
+2018-03-13 21:39:47.487 INFO  aah-first-app aah application initialized successfully
+2018-03-13 21:39:47.487 INFO  aah-first-app App Name: aah-first-app
+2018-03-13 21:39:47.487 INFO  aah-first-app App Version: 0.0.1
+2018-03-13 21:39:47.487 INFO  aah-first-app App Build Date: 2018-03-13T21:39:46-07:00
+2018-03-13 21:39:47.487 INFO  aah-first-app App Profile: dev
+2018-03-13 21:39:47.487 INFO  aah-first-app App TLS/SSL Enabled: false
+2018-03-13 21:39:47.487 INFO  aah-first-app App Session Mode: stateless
+2018-03-13 21:39:47.487 INFO  aah-first-app App Anti-CSRF Protection Enabled: true
+2018-03-13 21:39:47.487 INFO  aah-first-app aah go server running on :8080
 ```
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.

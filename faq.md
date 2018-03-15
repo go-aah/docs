@@ -8,7 +8,7 @@ Keywords: faq, aah framework, web framework for Go
   * [How to update aah framework to the latest version?](#how-to-update-aah-framework-to-the-latest-version)
   * [How to update individual module bug fix release?](#how-to-update-individual-module-bug-fix-release)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
-  * [How to try aah framework before the release?](#how-to-try-aah-framework-before-the-release)
+  * [How to try aah framework edge version?](#how-to-try-aah-framework-edge-version)
   * [How to log all goroutine stacktrace?](#how-to-log-all-goroutine-stacktrace)
   * [Does aah has benchmark against other Go web framework?](#does-aah-has-benchmark-against-other-go-web-framework)
   * [Does aah supports Hot-Reload for Development?](#does-aah-supports-hot-reload-for-development)
@@ -24,15 +24,22 @@ For example: I have responded to aah user for `dep` tool, refer to [GitHub comme
 
 ### How to update aah framework to the latest version?
 
-To update aah framework latest version run below command on your terminal/command prompt.
-```cfg
+To update aah framework latest version run below command on your terminal/command prompt. This updates the aah framework on GOPATH.
+
+If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
+
+
+```bash
+# Since v0.10 release, you could use -
+aah update
+
+# OR
 go get -u aahframework.org/tools.v0/aah
 ```
-If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
 
 ### How to update individual module bug fix release?
 
-aah is modularized design and implementation. So any bug/enhancement can be fixed and released at individual module level without releasing entire framework. How do I update it:
+aah is modularized implementation. So any bug/enhancement could be fixed and released at individual module level without releasing entire framework. How do I update it:
 
 Let's say `i18n` module is released bug fix:
 ```cfg
@@ -57,13 +64,16 @@ The quick and best way to know about latest configuration is to:
   * Compare your application configuration files (`config/*`) with new configurations then merge it to yours.
   * Congrats! you're on new configurations.
 
-### How to try aah framework before the release?
+### How to try aah framework edge version?
 
 Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more about [switch command](/aah-cli-tool.html#command-switch).
 
 Just run the below command and the run your app as usual using `aah run`:
 ```cfg
-aah switch
+aah switch --value edge
+
+# If you're already on aah edge version, then just refresh it
+aah switch --refresh
 ```
 
 ### How to log all goroutine stacktrace?

@@ -6,7 +6,10 @@ Keywords: init.go, application customization, application initialization, aah
 
 <span class="badge lb-sm">Since v0.10</span> aah framework brought `init.go` file to evolves aah towards next step.
 
-Define an implementations in an appropriate package and register it in `init.go`. It adds more flexibility, organized and  maintainable aah application. Its located at `<app-base-dir>/app/init.go`.
+<div class="alert alert-info-green">
+<p><strong>Best Practice:</strong> Define your implementations in an appropriate package and register it in <code>init.go</code>. It adds more flexibility, organized and  maintainable aah application. Its located at <code><app-base-dir>/app/init.go</code>.</p>
+</div>
+
 
 Register your -
 

@@ -22,23 +22,24 @@ Reference to [Session Configuration](security-config.html#section-session).
 
 ### Table of Contents
 
-  * [How to access current Session?](#)
-  * [`session.Storer` Interface](#session-storer-interface)
-  * [Adding User-Defined Store into aah](#adding-user-defined-store-into-aah)
-  * [Configuring User-Defined Store into aah](#configuring-user-defined-store-into-aah)
+  * [How to access current Session?](#how-to-access-current-session)
+  * [Adding User-Defined Store into aah](#adding-user-defined-session-store-into-aah)
 
 ## How to access current Session?
 
-You can access current in two ways from `aah.Context`.
+You could access current in two ways from `aah.Context`.
 
-  * `ctx.Session()` - it internally uses the below call.
+  * `ctx.Session()` - simple wrap to below one.
   * `ctx.Subject().Session`
 
-## `session.Storer` Interface
+
+## Adding User-Defined Session Store into aah
+
+Implement interface `session.Storer` (Refer `session.FileStore` for implementation reference) and register it in aah at `init.go` file. Then configure it in app session config.
 
 ```go
 // Storer is interface for implementing pluggable session storage.
-Storer interface {
+type Storer interface {
 	Init(appCfg *config.Config) error
 	Read(id string) string
 	Save(id, value string) error
@@ -48,9 +49,9 @@ Storer interface {
 }
 ```
 
-## Adding User-Defined Session Store into aah
 
-Add the user-defined custom session store into aah framework.
+### Add user-defined custom session store into aah
+
 ```go
 // Refer `session.FileStore` for implementation sample
 func init() {
@@ -58,7 +59,7 @@ func init() {
 }
 ```
 
-## Configuring User-Defined Session Store into aah
+### Configuring newly registered custom store in the config
 
 Configuring user-defined custom store for session data storage in the `security.conf`.
 ```cfg

@@ -66,6 +66,16 @@ No default value.
 file = "img/favicon.png"
 ```
 
+### base_dir
+
+To define specific base directory for file mapping.
+
+Default value for relative path file mapping is `public_assets.dir`
+
+```cfg
+base_dir = "assets"
+```
+
 #### Sample config for static section
 ```cfg
 static {
@@ -84,6 +94,9 @@ static {
 
     # If it's relative path '/static/' prefixed automatically
     file = "img/favicon.png"
+
+    # Default value for relative path file mapping is `public_assets.dir`
+    #base_dir = "assets"
   }
 }
 ```
