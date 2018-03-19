@@ -44,7 +44,7 @@ INFO 4 aah projects were found, import paths are:
 
 ## Command: new
 
-`new` command, alias `n` - helps you to quick start new aah Web and API application. It is interactive command. Just provide an appropriate inputs.
+`new` command, alias `n` - helps you to quick start new aah Web and API application. It is an interactive command. Just provide an appropriate inputs and choices.
 
 ```cfg
 aah new
@@ -116,7 +116,7 @@ Use `aah help switch` to learn more.
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>
 <ul>
-  <li>Currently it works with only GOPATH. Gradually I will add vendorize support too.</li>
+  <li>It works only on GOPATH. Gradually I may add vendorize support.</li>
   <li>It always operates on latest edge version and current release version on your GOPATH, specific version is not supported.</li>
 </ul>
 </p>
@@ -132,7 +132,7 @@ Use `aah help update` to learn more.
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>
 <ul>
-  <li>Currently it works with only GOPATH. Gradually I will add vendorize support too.</li>
+  <li>It works only on GOPATH. Gradually I may add vendorize support.</li>
   <li>It always operates on aah latest release version, specific version is not supported.</li>
 </ul>
 </p>
