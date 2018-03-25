@@ -1,6 +1,6 @@
 Title: Frequently Asked Questions (FAQ)
 Desc: aah framework Frequently Asked Questions (FAQ)
-Keywords: faq, aah framework, web framework for Go
+Keywords: faq, aah, aah Go web framework
 ---
 # Frequently Asked Questions (FAQ)
 
@@ -18,13 +18,13 @@ Keywords: faq, aah framework, web framework for Go
 
 ### Does aah support Package Management Tools?
 
-Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works nicely with vendoring. Use your choice of tool (`glide`, `dep`, `govendor`, etc.).
+Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works nicely with vendoring. Use your choice of tool (`glide`, `dep`, `govendor`, etc).
 
 For example: I have responded to aah user for `dep` tool, refer to [GitHub comment](https://github.com/go-aah/aah/issues/109#issuecomment-327225582).
 
 ### How to update aah framework to the latest version?
 
-To update aah framework latest version run below command on your terminal/command prompt. This updates the aah framework on GOPATH.
+To update aah framework latest version run below command on your terminal/command prompt. This procedure updates the aah framework only on GOPATH.
 
 If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
 
@@ -70,7 +70,10 @@ Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` comm
 
 Just run the below command and the run your app as usual using `aah run`:
 ```cfg
-aah switch --value edge
+aah switch   # default is edge version for this command
+
+# Switch back to stable/prog release version
+aah switch --value release
 
 # If you're already on aah edge version, then just refresh it
 aah switch --refresh

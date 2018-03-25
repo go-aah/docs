@@ -13,7 +13,7 @@ Create web application using `aah new` command.
 ```bash
 jeeva@mb-pro:~$ aah new
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-           aah framework v0.9 - https://aahframework.org
+           aah framework v0.10 - https://aahframework.org
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
@@ -24,7 +24,9 @@ Based on your inputs, aah CLI tool generates the aah application structure for y
 
 Enter your application import path: web-hello-world
 
-Choose your application type (web or api), default is 'web': web
+Choose your application type (web or api), default is 'web':
+
+Choose your application View Engine (go, pug), default is 'go':
 
 Choose your application Auth Scheme (form, basic), default is 'none':
 

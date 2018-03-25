@@ -1,6 +1,6 @@
 Title: Getting started with aah framework
 Desc: It is very easy to start and work with aah framework. Installing aah framework and CLI tool, Creating your first aah application, Running your aah application, etc.
-Keywords: getting started, aah framework, aah first application, web framework for Go, web framework for Go lang
+Keywords: getting started, aah, aah Go web framework
 ---
 # Getting started with aah framework
 
@@ -19,6 +19,10 @@ Here you will be learning:
 
 Execute below `go get` on your terminal/command prompt. <span class="badge lb-xs">Since v0.7</span> aah CLI is revamped and POSIX flags (short & long) for commands. Also commands has `alias` too.
 
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> aah framework requires ≥ go1.8</p>
+</div>
+
 ```cfg
 go get -u aahframework.org/tools.v0/aah
 ```
@@ -35,7 +39,7 @@ aah
 ```cfg
 jeeva@mb-pro:~$ aah
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-           aah framework v0.10 -  https://aahframework.org
+           aah framework v0.10 - https://aahframework.org
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
@@ -50,7 +54,7 @@ Commands:
   clean, c        Cleans the aah generated files and build directory
   switch, s       Switch between aah release and edge version
   update, u       Update your aah to the latest release version on your GOPATH
-  generate, g     Generates boilerplate code, configurations and complement scripts (systemd, docker), etc.
+  generate, g     Generates boilerplate code, configurations, complement scripts (systemd, docker), etc.
   help, h         Shows a list of commands or help for one command
 
 Global Options:
@@ -72,7 +76,7 @@ aah new
 **Output:**
 ```cfg
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-           aah framework v0.9 -  https://aahframework.org
+           aah framework v0.10 -  https://aahframework.org
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
@@ -84,6 +88,8 @@ Based on your inputs, aah CLI tool generates the aah application structure for y
 Enter your application import path: github.com/jeevatkm/aah-first-app
 
 Choose your application type (web or api), default is 'web':
+
+Choose your application View Engine (go, pug), default is 'go':
 
 Choose your application Auth Scheme (form, basic), default is 'none':
 
@@ -113,7 +119,7 @@ aah r
 **Output:**
 ```cfg
 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-           aah framework v0.9 -  https://aahframework.org
+           aah framework v0.10 -  https://aahframework.org
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
@@ -121,17 +127,18 @@ Loaded aah project file: /Users/jeeva/go/src/github.com/jeevatkm/aah-first-app/a
 Hot-Reload enabled for environment profile: dev
 Compile starts for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
 Compile successful for 'aah-first-app' [github.com/jeevatkm/aah-first-app]
-2018-03-13 21:39:47.480 INFO  aah framework v0.10, requires ≥ go1.8
-2018-03-13 21:39:47.484 DEBUG Event [OnInit] publishing in synchronous mode
-2018-03-13 21:39:47.487 INFO  aah-first-app aah application initialized successfully
-2018-03-13 21:39:47.487 INFO  aah-first-app App Name: aah-first-app
-2018-03-13 21:39:47.487 INFO  aah-first-app App Version: 0.0.1
-2018-03-13 21:39:47.487 INFO  aah-first-app App Build Date: 2018-03-13T21:39:46-07:00
-2018-03-13 21:39:47.487 INFO  aah-first-app App Profile: dev
-2018-03-13 21:39:47.487 INFO  aah-first-app App TLS/SSL Enabled: false
-2018-03-13 21:39:47.487 INFO  aah-first-app App Session Mode: stateless
-2018-03-13 21:39:47.487 INFO  aah-first-app App Anti-CSRF Protection Enabled: true
-2018-03-13 21:39:47.487 INFO  aah-first-app aah go server running on :8080
+2018-03-18 22:03:26.111 INFO  aah framework v0.10, requires ≥ go1.8
+2018-03-18 22:03:26.114 DEBUG Event [OnInit] publishing in synchronous mode
+2018-03-18 22:03:26.126 INFO  aah-first-app aah application initialized successfully
+2018-03-18 22:03:26.126 INFO  aah-first-app App Name: aah-first-app
+2018-03-18 22:03:26.126 INFO  aah-first-app App Version: 0.0.1
+2018-03-18 22:03:26.126 INFO  aah-first-app App Build Date: 2018-03-18T22:03:24-07:00
+2018-03-18 22:03:26.126 INFO  aah-first-app App Profile: dev
+2018-03-18 22:03:26.126 INFO  aah-first-app App TLS/SSL Enabled: false
+2018-03-18 22:03:26.126 INFO  aah-first-app App View Engine: go
+2018-03-18 22:03:26.126 INFO  aah-first-app App Session Mode: stateless
+2018-03-18 22:03:26.126 INFO  aah-first-app App Anti-CSRF Protection Enabled: true
+2018-03-18 22:03:26.126 INFO  aah-first-app aah go server running on :8080
 ```
 
 Open up your browser, navigate to address [http://localhost:8080](http://localhost:8080) to see you first aah application in action.

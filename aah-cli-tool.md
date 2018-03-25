@@ -32,9 +32,9 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 ____________________________________________________________________
 # Report improvements/bugs at https://github.com/go-aah/aah/issues #
 
-INFO Scanning GOPATH: /Users/jeeva/go/...
+Scanning GOPATH: /Users/jeeva/go/...
 
-INFO 4 aah projects were found, import paths are:
+4 aah projects were found, import paths are:
     github.com/go-aah/tutorials/domain-subdomain
     github.com/go-aah/tutorials/html-minify
     github.com/go-aah/tutorials/i18n-url-query-param
