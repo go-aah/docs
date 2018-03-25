@@ -6,7 +6,7 @@ Keywords: versioning, package management, stable version, release version
 
 aah framework release versions as per [Semantic Versioning](http://semver.org/).
 
-aah commitment to provide stable release of framework and it's libraries. aah internally uses `gopkg.in` service codebase to provide versioning.
+aah commitment to provide stable release of framework and it's libraries. aah internally uses `gopkg.in` service codebase to provide versioning and `go get` service.
 
 `aahframework.org/<library-name>.vX` points to appropriate tag versions; `X` denotes version number and it's a stable release for production use.
 
@@ -16,7 +16,7 @@ import "aahframework.org/aah.v0"
 
 ### High Level Info
 
-aah framework codebase is hosted on [Github](https://github.com/go-aah) and Development happens on branch `vX-unstable` for example: `v0-unstable`, `v1-unstable`, etc. and branch `master` is tidy codebase of each release. Github `tags` are stable and production ready.
+aah framework codebase is hosted on [Github](https://github.com/go-aah) and Development happens on branch `vX-edge` for example: `v0-edge`, `v1-edge`, etc. and branch `master` is tidy codebase of each release. Github `tags` are stable and production ready.
 
   * [Learn more about aah release and development process](release-and-development-process.html)
 

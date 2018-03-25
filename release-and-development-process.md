@@ -19,13 +19,13 @@ This document would give an idea how aah framework Development and Release Proce
 aah framework internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
 
   * Github `Tag` is Stable and Production ready.
-  * Default branch is `v0-unstable`, `v1-unstable`, and so on. Development, Bug fix, Pull Request, happens on that.
+  * Default branch is `v0-edge`, `v1-edge`, and so on. Development, Bug fix, Pull Request, happens on that.
       - Note: master is not a default branch for aah framework.
   * Branch `master` is kept as tidy codebase of aah framework.
-  * In the being of every development iteration, version is updated from `v0` set to `v0-unstable` (v1, etc.)
-  * In the release preparation package references are updated from `v0-unstable` to `v0` (v1, etc.)
+  * In the being of every development iteration, version is updated from `v0` set to `v0-edge` (v1, etc.)
+  * In the release preparation package references are updated from `v0-edge` to `v0` (v1, etc.)
   * Travis build, test cases and few manual dry-testing to ensure codebase is stable & ready for the release.
-  * PR created from `v0-unstable` branch (v1, etc.) to `master` branch.
+  * PR created from `v0-edge` branch (v1, etc.) to `master` branch.
   * Release tag gets created from latest `commit sha`, typically readme file update commit of the release.
 
 ## Release Cycle
@@ -47,7 +47,7 @@ aah framework and it's libraries will be maintained in a compatible way `between
   * Check Travis Build is alright and you get green ticket on Github.
   * Execute shell script with `library-name`, `version` and `release` as parameters.
       - `bash <(curl -s https://aahframework.org/dev-util) router v0 release`
-      - It basically does find and replace of `v0-unstable` to `v0`.
+      - It basically does find and replace of `v0-edge` to `v0`.
   * Commit it as `preparing for v<version-number> release`.
       - For e.g.: `preparing for v0.5.2 release`.
   * Update `README.md` with appropriate information (status icons URLs, version no, date, etc).
@@ -55,7 +55,7 @@ aah framework and it's libraries will be maintained in a compatible way `between
       - Typically used for creating release tag with this `commit sha`.
       - We are building `branch` and `master` that is good enough for consistency check and release. Let's use the Travis CI resources optimally for aah framework project.
   * Push it to repo.
-  * Create a `PR` from branch `v0-unstable` to `master` and Merge it.
+  * Create a `PR` from branch `v0-edge` to `master` and Merge it.
   * Update the Documentation on `go-aah/docs` repo.
       - On `go-aah/docs` branch `master` is always the latest release.
       - Create a branch from master for previous release.
