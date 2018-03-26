@@ -1,6 +1,6 @@
 Title: Data Validation
 Desc: aah provides well integrated data validation feature for request parameters such as URL path param, form, JSON, and XML payload.
-Keywords: validation, validator
+Keywords: validation, validator, data validation
 ---
 # aah Data Validation
 
@@ -19,7 +19,7 @@ Validation errors are well integrated with aah [error handling mechanism](/error
 
 ## Route Path Param Validation
 
-Defining route path parameter validation is easy in aah. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9).
+Defining route path parameter validation is very easy in aah. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9).
 
 **Syntax**
 
@@ -82,6 +82,7 @@ func (u *UserController) Create(user *User)  {
 // More info, read https://docs.aahframework.org/error-handling.html
 func (u *UserController) HandleError(e *aah.Error) bool  {
   // handle error
+  return true
 }
 ```
 
@@ -89,7 +90,7 @@ func (u *UserController) HandleError(e *aah.Error) bool  {
 
 Currently no automated validation for URL Query parameter. You have do it manually on-demand basics. How to do?
 
-Import `aahframework.org/valpar.v0` and use method `valpar.ValidateValue(value, "rules")`. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9)
+Use method `aah.ValidateValue(value, "rules")`. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9)
 
   * It returns true if validation passed otherwise false.
 
@@ -97,30 +98,30 @@ Import `aahframework.org/valpar.v0` and use method `valpar.ValidateValue(value, 
 
 ```go
 i := 15
-result := valpar.ValidateValue(i, "gt=1,lt=10")
+result := aah.ValidateValue(i, "gt=1,lt=10")
 
 emailAddress := "sample@sample"
-result := valpar.ValidateValue(emailAddress, "email")
+result := aah.ValidateValue(emailAddress, "email")
 
 numbers := []int{23, 67, 87, 23, 90}
-result := valpar.ValidateValue(numbers, "unique")
+result := aah.ValidateValue(numbers, "unique")
 
 color := "#e25657"
-result := valpar.ValidateValue(color, "iscolor") // alias for 'hexcolor|rgb|rgba|hsl|hsla'
+result := aah.ValidateValue(color, "iscolor") // alias for 'hexcolor|rgb|rgba|hsl|hsla'
 ```
 
 ## Adding Your Custom Validation Functions
 
-You can use all the flexibility provided by library [`gopkg.in/go-playground/validator.v9`](https://github.com/go-playground/validator) to add custom validator implementation.
+You can use all capabilities provided by library [`gopkg.in/go-playground/validator.v9`](https://github.com/go-playground/validator) to add custom validator implementation.
 
 **To obtain aah validator instance**
 
 ```go
-validator := valpar.Validator()
+validator := aah.Validator()
 
 // Add your validation funcs
 ```
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> The recommended spot/place to register custom validation functions are at <code>init.go</code> file.</p>
+<p><strong>Note:</strong> The recommended spot/place to register custom validation functions is at <code>init.go</code> file.</p>
 </div>
