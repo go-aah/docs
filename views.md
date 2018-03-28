@@ -1,6 +1,6 @@
 Title: Views - HTML
 Desc: View is to present user interface for particular application flow and action. OOTB aah provides Go, Pug (Jade) view engines and Custom View engine support.
-Keywords: views, templates, html, go, pug, jade, user-defined view engine
+Keywords: views, template, templates, html, go, pug, jade, user-defined view engine, view engine
 ---
 # Views - HTML
 
@@ -8,8 +8,9 @@ View is to present user interface for particular application flow and action. Fo
 
 OOTB supported view engines are -
 
-  * Go - with partial inheritance feature
-  * Pug (formerly known as Jade)
+  * Default view engine: Go - with flexible, inheritance
+  * External view engines
+    - Pug (formerly known as Jade) [github.com/Joker/jade](https://github.com/Joker/jade)
 
 Reference to [View Config](app-config.html#section-view).
 
@@ -51,12 +52,12 @@ aah provides flexible and meaningful directory structure to organize application
            |--- docs.html
            |--- sitemap.html
       |--- pages
-           |--- app
+           |--- app     # AppController
                 |--- index.html
                 |--- login.html
                 |--- help.html
                 |--- about.html
-           |--- doc
+           |--- doc     # DocController
                 |--- index.html
                 |--- showversion.html
                 |--- overview.html
