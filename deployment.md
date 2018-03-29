@@ -29,7 +29,7 @@ Deploy the application.
 
 ### Sample Route Host name config in prod Environment profile
 
-```cfg
+```conf
 # This is configuration of aahframework.org and docs.aahframework.org websites.
 #
 env {

@@ -12,7 +12,7 @@ Reference to [Anti-CSRF configuration](security-config.html#section-anti-csrf).
 
 ## How to use it
 
-aah automatically protects all the HTML forms on the page. Anti-CSRF protection is enabled by default.
+aah automatically protects all the HTML forms on the page. Anti-CSRF protection is enabled by default for web application.
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>

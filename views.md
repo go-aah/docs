@@ -1,12 +1,16 @@
-Title: Views - HTML UI
-Desc: View is to present user interface for particular application flow and action. Out-of-the-box of the aah provides Partial Inheritance capability using Go built-in template engine and Custom View engine support.
-Keywords: views, templates, html, partial inheritance, user-defined view engine, view directory structure
+Title: Views - HTML
+Desc: View is to present user interface for particular application flow and action. OOTB aah provides Go, Pug (Jade) view engines and Custom View engine support.
+Keywords: views, template, templates, html, go, pug, jade, user-defined view engine, view engine
 ---
-# Views - HTML UI
+# Views - HTML
 
 View is to present user interface for particular application flow and action. For e.g.: login.html, home.html, etc.
 
-Out-of-the-box of the aah provides `Partial Inheritance` capability using Go built-in template engine.
+OOTB supported view engines are -
+
+  * Default view engine: Go - with flexible, inheritance
+  * External view engines
+    - Pug (formerly known as Jade) [github.com/Joker/jade](https://github.com/Joker/jade)
 
 Reference to [View Config](app-config.html#section-view).
 
@@ -16,20 +20,20 @@ Reference to [View Config](app-config.html#section-view).
   * [Template Auto Resolve OR User-Defined Inputs](#template-auto-resolve-or-user-defined-inputs)
   * [Supplying View Argument](#supplying-view-arguments)
   * [Adding User-Defined View Engine into aah](#adding-user-defined-view-engine-into-aah)
-  * [Values made available in `ViewArgs` by framework](#)
+  * [Values made available in `ViewArgs` by framework](#values-made-available-in-viewargs-by-framework)
 
 
 ## View Directory Structure and Usage
 
-aah provides flexible and effective directory structure to organize your view files. Minimizes your copy and paste of view content. Use your creativity, organize and make best use of it.
+aah provides flexible and meaningful directory structure to organize application view files. Use your creativity, organize and make best use of it.
 
-  * `common` - common template segments/parts goes here, Don't Repeat Yourself (`DRY`). Use `import` template function include wherever you need it.
+  * `common` - common template segments/parts goes here, Don't Repeat Yourself (`DRY`). Use `import` or `include` template function include wherever you need it.
   * `errors` - application error pages for 404, 500, 403, etc. Status codes used as file name. <span class="badge lb-sm">Since v0.8</span>
-  * `layouts` - You can define one or more view layout for your application. Default layout name is `master.html`.
-  * `pages` - templates of each controller and it's action. Also you can have your custom page templates.
+  * `layouts` - You can define one or more view layout. Default layout name is `master.<ext>` and file extension based on view engine from config `view.ext`.
+  * `pages` - template of each controller and it's action. Also you can have your custom page templates.
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> each controller and its action can have same template filename like Rails. You can have <code>Index</code> template for every controller.</p>
+<p><strong>Note:</strong> each controller and its action can have same template filename like Rails. You can have <code>index</code> template for every controller.</p>
 </div>
 
 ```cfg
@@ -48,12 +52,12 @@ aah provides flexible and effective directory structure to organize your view fi
            |--- docs.html
            |--- sitemap.html
       |--- pages
-           |--- app
+           |--- app     # AppController
                 |--- index.html
                 |--- login.html
                 |--- help.html
                 |--- about.html
-           |--- doc
+           |--- doc     # DocController
                 |--- index.html
                 |--- showversion.html
                 |--- overview.html
@@ -61,7 +65,7 @@ aah provides flexible and effective directory structure to organize your view fi
 
 ## Template Auto Resolve OR User-Defined Inputs
 
-By default aah framework resolve and render view templates based on-
+By default aah framework resolves and render view templates based on-
 
   * Namespace `Controller` package path
   * Path `Controller` and `Action`
@@ -85,39 +89,36 @@ For Example:
 
 ### User-Defined Inputs
 
-Ok, I understood the framework default behavior, now how I can use it my way?.
+Ok, I understood the framework default behavior, now how I can have it my way?.
 
-Besides the framework auto view resolve when use method `HTML(data)`. Framework gives you full-control of view rendering via [Reply Builder](reply.html#response-content)-
+Besides the aah auto view resolve when using method `HTML(data)` and framework gives you full-control of view rendering via [Reply Builder](reply.html#response-content)-
 
   * `Reply().HTMLl(layout, data)` - layout is user input and framework resolves view template file.
-  * `Reply().HTMLf(filename, data)` - view filename is user input and default `master.html` layout.
+  * `Reply().HTMLf(filename, data)` - view filename is user input and default `master.<ext>` layout.
   * `Reply().HTMLlf(layout, filename, data)` - layout and view filename is user input.
-
-<span class="badge lb-sm">Since v0.6</span> if `filename` starts with `/`; framework uses as-is from `pages` directory.
-
-  * For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
-  * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<packages>/<controller>/mydir/file.html`
+    * <span class="badge lb-sm">Since v0.6</span> if the `filename` starts with `/`; framework uses as-is from `pages` directory.
+    * For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
+    * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<packages>/<controller>/mydir/file.html`
 
 ## Supplying View Arguments
 
 aah provides following ways to add value into `ViewArgs`, templates are render with ViewArgs.
 
-  * `ctx.AddViewArg(key, value)` this method is available in entire request life cycle. For e.g.: adding value via middleware or in the controller.
+  * `ctx.AddViewArg(key, value)` this method is available in entire request life cycle.
+    * For e.g.: adding view arg via middleware or in the controller.
   * Via `Reply().HTML*` methods as a `aah.Data{ ... }` param.
 
-Framework provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` from view template via template function.
+aah provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` on view template via template function.
 
 ## Adding User-Defined View Engine into aah
 
-Currently aah framework supports Go view engine. Don't feel bad, you can added your favorite view engine into aah.
+Currently aah framework supports Go and Pug view engine. Don't feel bad, you can added your favorite view engine into aah.
 
-In the `upcoming` release, I will try to provide pluggable view engine for amber, pongo2, and jade. So you use it selectively. Or you're very welcome to contribute to aah framework.
-
-#### Create your own view engine using `view.Enginer` interface.
+#### Create your own view engine using interface `view.Enginer`
 
 ```go
 // Enginer interface defines a methods for pluggable view engine.
-Enginer interface {
+type Enginer interface {
 	Init(appCfg *config.Config, baseDir string) error
 	Get(layout, path, tmplName string) (*template.Template, error)
 }
@@ -135,17 +136,19 @@ func init()  {
 
 #### Configuring your custom view engine into aah
 
-Goto `view {...}` section in `aah.conf`.
+Goto `view { ... }` section in `aah.conf`.
 
 ```bash
 view {
   engine = "enginename"
+
+  ext = "your-file-extension"
 }
 ```
 
 ## Values made available in `ViewArgs` by framework
 
-Framework provides following values on `ViewArgs`, so you use it templates.
+aah provides following values on `ViewArgs`, so you could use it on templates.
 
   * `Scheme`
   * `Host`

@@ -6,7 +6,10 @@ Keywords: tutorial, html minify, html minifier, pluggable html minify, aah frame
 
 `MinifierFunc` interface and pluggable option of `aah.SetMinifier(...)` is introduced in `v0.6` release.
 
-Ready to use pluggable implementation is here https://github.com/aah-cb/minify.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> By default aah does HTML minify for profile <code>prod</code>. It uses pluggable implementation of <code>github.com/aah-cb/minify</code>.</p>
+</div>
+
 
 ### How to get the aah tutorials source code?
 [HTML Minify tutorial application](https://github.com/go-aah/tutorials/tree/master/html-minify) is very simple one. It's a quick start app using `aah new` command and applied the below steps.
@@ -94,4 +97,3 @@ minify {
 Congratulations, you have successfully implemented HTML Minify in few seconds.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

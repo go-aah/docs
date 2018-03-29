@@ -12,6 +12,7 @@ app                   ⇒ Application Go source codes directory
   └ models            ⇒ Application business layer
   └ security          ⇒ Application security implementation
   └ aah.go            ⇒ aah application main entry point (generated code)
+  └ init.go           ⇒ Application customization/configuration (Since v0.10)
 config                ⇒ Configurations files
   └ aah.conf          ⇒ Application configuration file
   └ routes.conf       ⇒ Application Routes configuration file

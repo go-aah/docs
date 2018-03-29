@@ -10,7 +10,7 @@ Learn more about i18n configuration and how it works [refer here](/i18n.html).
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 
@@ -34,4 +34,3 @@ aah run -i github.com/go-aah/tutorials/i18n-url-query-param
 Now click on the language links to see i18n in action.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

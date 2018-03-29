@@ -16,6 +16,7 @@ Reference to [Routes Config](routes-config.html), [Security Config](security-con
 
   * [name](#name)
   * [description](#description)
+  * [type](#type) <span class="badge lb-xs">Since v0.10</span>
   * [instance_name](#instance-name) <span class="badge lb-xs">Since v0.9</span>
   * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
   * [server { ... }](#section-server)
@@ -57,6 +58,13 @@ A friendly description of application purpose.
 ```cfg
 desc = "aah framework web application"
 ```
+
+## type
+Application type, typically either Web or API.
+```cfg
+type = "api"
+```
+
 
 ## instance_name
 
@@ -465,6 +473,14 @@ Default value is `false`.
 all_goroutines = false
 ```
 
+### runtime.debug.strip_src_base
+Whether to strip source `src` base path from file path.
+
+Default value is `false`.
+```cfg
+strip_src_base = true
+```    
+
 ---
 
 ## Section: render { ... }
@@ -518,17 +534,17 @@ level = 3
 ## Section: view { ... }
 
 ### view.engine
-Choosing view engine for aah application. In the `upcoming` releases framework will provide support to amber, pongo2, and jade. However you can implement on your own with very simple `view.Enginer` interface.
+Choosing view engine for aah application. You could implement on your own with very simple interface `view.Enginer`.
 
-Default value is `go`. Only `go` view engine is supported as of now.
+Default value is `go`.
 ```cfg
 engine = "go"
 ```
 
 ### view.ext
-Choosing your own view file extension. It is used while parsing view template files.
+Choosing your own view file extension. It is used while find, filter and parse view files.
 
-Default value is `html`.
+Default value is chosen based on `view.engine`, while creating a new app using command `aah new`.
 ```cfg
 ext = ".html"
 ```

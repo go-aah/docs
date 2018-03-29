@@ -12,7 +12,7 @@ Generic Auth has more possibilities, this tutorial implements JSON Web Token (JW
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 
@@ -74,4 +74,3 @@ Send JSON payload with username and password.
 And pass token via Header `Authorization: Bearer <token>`.
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

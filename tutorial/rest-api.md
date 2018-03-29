@@ -10,7 +10,7 @@ Take a moment to learn about clean, robust implementation of [auto parse and bin
 
 ### How to get the aah tutorials source code?
 
-```cfg
+```bash
 go get -u -d github.com/go-aah/tutorials
 ```
 
@@ -125,4 +125,3 @@ Send PUT request to http://localhost:8080/v1/posts/1
 Response: 204 No Content
 
 <br><br>
-<center>**Spread the word of `aah`, the web framework for Go. Thank you!**</center>

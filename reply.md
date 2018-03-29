@@ -87,7 +87,10 @@ Done method indicates that reply has already been sent via `aah.Context.Res` and
 </div>
 
 ## Implementing Custom Rendering
-aah provides reply method called `Render` to supply your own implementation of rendering. You can do by implementing interface `aah.Render` or using adaptor `aah.RenderFunc`.
+aah provides reply method called `Render` to supply your own implementation of rendering.
+
+  * You could do by implementing interface `aah.Render`
+  * Or using adaptor func `aah.RenderFunc`.
 
 **Example of interface aah.Render**
 ```go

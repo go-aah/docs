@@ -20,6 +20,7 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [method_not_allowed](#method-not-allowed)
       * [auto_options](#auto-options)
       * [default_auth](#default-auth) <span class="badge lb-xs">Since v0.7</span>
+      * [cors { ... }](cors.html) <span class="badge lb-xs">Since v0.10</span>
       * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed, in-favor of [Centralized Error Handler](centralized-error-handler.html)
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
@@ -171,7 +172,7 @@ edit_user { # route name, it is used for reverse route
 ```
 
 ### path
-Path config attribute value is used to match incoming request by router. It can contain two types of parameters:
+Path config attribute is used to match incoming request by router. It can contain two types of parameters:
 
   * `:name` - Named parameter : It is dynamic path segments. They match anything until the next `/` or the path end. For e.g.: `/blog/:category/:post`
   * `*name` - Catch-all parameter : It match anything until the path end, including the directory index (the `/` before the catch-all). Since they match anything until the end, catch-all parameters `must` always be the final path element. For e.g.: `/assets/*filepath`
@@ -191,14 +192,14 @@ path = "/users"
 ```
 
 ### method
-Method config attribute value is `HTTP` method. It can be multiple `HTTP` methods with comma separated. It can be lowercase or uppercase.
+Method config attribute is used to map `HTTP` method verb. It can be lowercase or uppercase.
 
 Default value is `GET`.
 ```cfg
 # Usages
 method = "POST"
 
-method = "PUT,PATCH"
+method = "PATCH"
 ```
 
 ### controller
@@ -224,7 +225,7 @@ controller = "v1/UserController"
 ### action
 `action` attribute is used to map defined action method from the controller for the `path`.
 
-Default values are mapped based on `HTTP` method. ***Note: for multiple HTTP method mapping no default value, you have to provide one***.
+Default values are mapped based on `HTTP` method.
 
 * `GET` - action is `Index`
 * `POST` - action is `Create`
@@ -246,12 +247,14 @@ action = "EditUser"
   * Inherits the `default_auth` attribute config value if defined.
   * Otherwise it becomes not defined.
 
-**Note:**
-
-When routes `auth` attribute is not defined; two possible actions are taken:
-
-  * If one or more auth schemes are defined in `security.auth_schemes { ... }` and routes `auth` attribute is not defined then framework treats that route as `403 Forbidden`.
-  * Else framework treats that route as `anonymous`.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> When routes <code>auth</code> attribute is not defined; two possible actions are taken:
+<ul>
+  <li>If one or more auth schemes are defined in <code>security.auth_schemes { ... }</code> and routes <code>auth</code> attribute is not defined then framework treats that route as <code>403 Forbidden</code>.</li>
+  <li>Else framework treats that route as <code>anonymous</code>.</li>
+</ul>
+</p>
+</div>
 
 Default value is empty string.
 ```cfg
@@ -269,6 +272,8 @@ max_body_size = "100mb"
 ### anti_csrf_check
 <span class="badge lb-sm">Since v0.9</span> Optionally you can disable Anti-CSRF check for particular route. There are cases you might need this option. In-general don't disable the check.
 
+This attribute is not applicable for REST APIs even if its defined.
+
 Default value is `true`.
 ```cfg
 anti_csrf_check = false
@@ -280,50 +285,116 @@ anti_csrf_check = false
 
 Configuring namespace/group routes is very easy to define. Simply define `routes` within route definition to make that as namespace/group routes.
 
-If you're not interested in namespace/group, you can define every routes with full path as traditional approach.
+#### Nested routes config works like this:
+```cfg
+routes {
+  <route_name1> { # unique route name
+    # this route attributes
 
-#### Sample:
-Defining route within route definition to make that as namespace/group routes.
+    # child routes - level 1
+    routes {
+      <route_name11> { # unique route name
+        # this route attributes
+
+        # child routes - level 2
+        routes {
+          <route_name111> { # unique route name
+
+            # you can go on any level with your creativity
+
+          }        
+        }
+      }
+    }
+  }
+
+  <route_name2> { # unique route name
+    # same as above
+  }
+}
+```
+
+#### Pro Tips for nested/namespace routes
+
+  * `path` -  if its not provided in the child route then inherits parent value as-is (<span class="badge lb-xs">Since v0.10</span>) otherwise prefix to child path
+  * `method` - provided value otherwise default value is GET
+  * `controller` - if its not provided in the child route then inherits parent value as-is <span class="badge lb-xs">Since v0.10</span>
+  * `action` - if its not provided then action value is chosen based on HTTP method
+  * `auth` -  if its not provided in the child route then inherits parent value as-is
+  * `max_body_size` - if its not provided then `request.max_body_size` config value is used from `aah.conf`
+  * `anti_csrf_check` - default is true for web application, for REST API this doesn't take effect even if its defined
+
+
+#### Sample of mapping following URLs as nested routes
+
+```cfg
+# Let's say you have controller `UserController` and
+# it has actions `List`, Index, `Create`, `Update`, `Delete`, `Settings` and `UpdateSettings`.
+# URLs are:
+Get Users            - GET    /v1/users
+Create User          - POST   /v1/users
+Get User             - GET    /v1/users/:id
+Update User          - PATCH  /v1/users/:id
+Delete User          - DELETE /v1/users/:id
+Get User Settings    - GET    /v1/users/:id/settings
+Update User Settings - PATCH  /v1/users/:id/settings
+```
+
+<br>
+Configuration: This is to demonstrate the nested/group/namespace routes. Always go with your creativity.
 ```cfg
 routes {
   v1_api {
     path = "/v1"
 
     routes {
-      list_users {
-        # /v1/users
+      # /v1/users
+      users {
         path = "/users"
         controller = "User"
         action = "List"
 
-        # adding child routes
-        # this routes section can go to create_user route too, doesn't matter
         routes {
-          edit_user {
-            # /v1/users/:id
-            path = "/:id"
+          # /v1/users
+          create_user {
             method = "POST"
-            controller = "User"
-            action = "Edit"
           }
 
-          disable_user {
-            # /v1/users/:id/settings
-            path = "/:id/settings"
-            controller = "User"
-            action = "Disable"
+          routes {
+            path = "/:id"
+
+            routes {
+              get_user {
+                # Inherits from parents
+              }
+
+              # /v1/users/:id
+              update_user {
+                method = "PATCH"
+              }
+
+              # /v1/users/:id
+              delete_user {
+                method = "DELETE"
+              }
+
+              # /v1/users/:id/settings
+              get_user_settings {
+                path = "/settings"
+                action = "Settings"
+              }
+
+              # /v1/users/:id/settings
+              update_user_settings {
+                path = "/settings"
+                method = "PATCH"
+                action = "UpdateSettings"
+              }
+            }
           }
         }
-      }
-
-      create_user {
-        # /v1/users
-        path = "/users"
-        method = "POST"
-        controller = "User"
-        #action = "Create" # default value is Create
-      }
+      } # end users routes
     }
-  }
+  } # end v1_api
 }
 ```

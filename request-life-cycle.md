@@ -23,11 +23,11 @@ Lifecycle always reflects latest version flow.
           - If `Redirect Trailing Slash` opportunity is found then server redirects that request to the new URL. It can be controlled via [`routes.conf`](routes-config.html).
           - It does HTTP auto `OPTIONS`. User defined `OPTIONS` take precedence over auto. It can be controlled via [`routes.conf`](routes-config.html).
           - It does HTTP auto `405 Method Not Allowed`. It can be controlled via [`routes.conf`](routes-config.html).
-          - [Centralized Error Handler](centralized-error-handler.html) gets called with `404` status code.
+          - [Error Handler](error-handling.html) gets called with `404` status code.
       - Finally it skips to `OnPreReply` server extension point and writing response on the wire.
   * Route Found: `aah.Context` is updated with targeted controller and action information. Path Variables are parsed and available at this point via `ctx.Req`.
       - If controller or action is not found in the registry then
-          - [Centralized Error Handler](centralized-error-handler.html) gets called with `404` status code.
+          - [Error Handler](error-handling.html) gets called with `404` status code.
           - Flow skips to `OnPreReply` server extension point and writing response on the wire.
   * Parse Session Cookie if the session mode is `stateful`
   * Read and Parse Request
@@ -51,7 +51,7 @@ Lifecycle always reflects latest version flow.
   * Controller interceptor `Finally` is called if exists. It is always executed.
   * ***Note:*** If any `panic` happens around controller action interceptor `Panic` is called on that controller.
   * User-defined middleware(s) execution (basically after `m.Next(ctx)` call).
-  * If `Reply` is an `Error` type then [Centralized Error Handler](centralized-error-handler.html) is called. <span class="badge lb-xs">Since v0.8</span>
+  * If `Reply` is an `Error` type then [Error Handler](error-handling.html) is called. <span class="badge lb-xs">Since v0.8</span>
   * If the Response is already sent via `ctx.Res` and `ctx.Reply().Done()` is called then framework does not intervene with response, so request completes here.
   * Write Response Header(s) and set Cookies (session cookie, etc.)
   * If it's a Redirect reply then framework redirects it.

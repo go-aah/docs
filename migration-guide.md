@@ -9,12 +9,6 @@
 </p>
 </div>
 
-### Deprecated
 
-<div class="alert alert-info-blue">
-<p><strong>Please Note:</strong> Deprecated items will not break your functionality, planned to be removed in v1.0 release. However its good to adapt to latest changes.</p>
-</div>
-
-  * Method `AddServerTLSConfig` is deprecated, use method `aah.SetTLSConfig` instead.
-  * Config `security.auth_schemes.<scheme-name>.password_encoder.type = "value"` is deprecated, use `security.auth_schemes.<scheme-name>.password_encoder = "value"` instead.
-  * Config `build.log_level = "value"` is deprecated in `aah.project` file. Use `log.level = "value"` instead.
+  * In `v0.10` file `init.go` introduced to evolve aah framework, please add it your version control.
+  * As part Validator implementation, error handling evolved. So `aah.ErrorHandler` have been refactored into `aah.ErrorHandlerFunc`, [more info]({{aah_github_issues_url}}/132).

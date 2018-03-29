@@ -58,7 +58,7 @@ But using this approach there's no way to just say a user has "all printer permi
 
 Wildcard Permissions support the concept of multiple levels or parts. For example, you could restructure the previous simple example by granting a user the permission
 
-```
+```cfg
 printer:query
 ```
 
@@ -66,7 +66,7 @@ The `colon` in this example is a `special character` used to delimit the next pa
 
 In this example, the first part is the domain that is being operated on (printer) and the second part is the action (query) being performed. The other above examples would be changed to:
 
-```
+```cfg
 printer:print
 printer:manage
 ```
@@ -77,7 +77,7 @@ There is `no limit` to the number of parts that can be used, so it is up to your
 
 Each part can contain multiple values. So instead of granting the user both the `printer:print` and `printer:query` permissions, you could simply grant them one:
 
-```
+```cfg
 printer:print,query
 ```
 
@@ -93,12 +93,12 @@ Which would return `true`.
 
 What if you wanted to grant a user all values in a particular part? It would be more convenient to do this than to have to manually list every value. Again, based on the wildcard character, we can do this. If the printer domain had 3 possible actions (query, print, and manage), this:
 
-```
+```cfg
 printer:query,print,manage
 ```
 Simply becomes this:
 
-```
+```cfg
 printer:*
 ```
 
@@ -106,7 +106,7 @@ Then, any permission check for `printer:XXX` will return `true`. Using the wildc
 
 Finally, it is also possible to use the wildcard token in any part of a wildcard permission string. For example, if you wanted to grant a user the `view` action across all domains (not just printers), you could grant this:
 
-```
+```cfg
 *:view
 ```
 
@@ -118,7 +118,7 @@ Another common usage of wildcard permissions is to model `instance-level` Access
 
 So for example you could have
 
-```
+```cfg
 printer:query:lp7200
 printer:print:epsoncolor
 ```
@@ -133,25 +133,25 @@ if ctx.Subject().IsPermitted("printer:query:lp7200") {
 
 This is an `extremely powerful` way to express permissions. But again, having to define multiple instance IDs for all printers does not scale well, particularly when new printers are added to the system. You can instead use a wildcard:
 
-```
+```cfg
 printer:print:*
 ```
 
 This does scale, because it covers any new printers as well. You could even allow access to all actions on all printers:
 
-```
+```cfg
 printer:*:*
 ```
 
 or all actions on a single printer:
 
-```
+```cfg
 printer:*:lp7200
 ```
 
 or even specific actions:
 
-```
+```cfg
 printer:query,print:lp7200
 ```
 
@@ -162,37 +162,37 @@ The `*` wildcard and `,` sub-part separator can be used in any part of the permi
 
 One final thing to note about permission assignments: missing parts imply that the user has access to all values corresponding to that part. In other words,
 
-```
+```cfg
 printer:print
 ```
 
 is equivalent to
 
-```
+```cfg
 printer:print:*
 ```
 
 and
 
-```
+```cfg
 printer
 ```
 
 is equivalent to
 
-```
+```cfg
 printer:*:*
 ```
 
 However, you can only leave off parts from the end of the string, so this:
 
-```
+```cfg
 printer:lp7200
 ```
 
 is **not** equivalent to
 
-```
+```cfg
 printer:*:lp7200
 ```
 
@@ -232,37 +232,37 @@ That is, if a user is assigned the `user:*` permission, this implies that the us
 
 To support implication rules, all permissions are translated in to object instances `authz.Permission`. Implication logic is often more complex than a simple string equality check. All of the wildcard behavior described in this document is actually made possible by the `authz.Permission` implementation. Here are some more wildcard permission strings that show access by implication:
 
-```
+```cfg
 user:*
 ```
 
 _implies_ the ability to also delete a user:
 
-```
+```cfg
 user:delete
 ```
 
 Similarly,
 
-```
+```cfg
 user:*:12345
 ```
 
 _implies_ the ability to also update user account with ID 12345:
 
-```
+```cfg
 user:update:12345
 ```
 
 and
 
-```
+```cfg
 printer
 ```
 
 _implies_ the ability to print to any printer
 
-```
+```cfg
 printer:print
 ```
 
