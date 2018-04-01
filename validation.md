@@ -88,7 +88,11 @@ func (u *UserController) HandleError(e *aah.Error) bool  {
 
 ## How to Validate URL Query Parameters
 
-Currently no automated validation for URL Query parameter. You have do it manually on-demand basics. How to do?
+<div class="alert alert-info-green">
+<p><strong>Pro Tip:</strong> The best way to validate collective query parameters is to bind those values into <code>struct</code> then aah automatically does validation on struct gives you a result.</p>
+</div>
+
+You have do it manually for individual values on-demand basics. How to do?
 
 Use method `aah.ValidateValue(value, "rules")`. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9)
 
