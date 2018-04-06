@@ -286,6 +286,7 @@ anti_csrf_check = false
 Configuring namespace/group routes is very easy to define. Simply define `routes` within route definition to make that as namespace/group routes.
 
 #### Nested routes config works like this:
+
 ```cfg
 routes {
   <route_name1> { # unique route name
@@ -314,7 +315,7 @@ routes {
 }
 ```
 
-#### Pro Tips for nested/namespace routes
+### Pro Tips for nested/namespace routes
 
   * `path` -  if its not provided in the child route then inherits parent value as-is (<span class="badge lb-xs">Since v0.10</span>) otherwise prefix to child path
   * `method` - provided value otherwise default value is GET
@@ -325,7 +326,11 @@ routes {
   * `anti_csrf_check` - default is true for web application, for REST API this doesn't take effect even if its defined
 
 
-#### Sample of mapping following URLs as nested routes
+### Sample of mapping nested routes
+
+ * **Sample 1:** On GitHub, I have provided one of the suggestion for Web and API routes together [see here]({{aah_github_issues_url}}/159#issuecomment-379387539)
+
+#### Sample 2: Let's say following URLs into routes definition
 
 ```cfg
 # Let's say you have controller `UserController` and
@@ -342,6 +347,7 @@ Update User Settings - PATCH  /v1/users/:id/settings
 
 <br>
 Configuration: This is to demonstrate the nested/group/namespace routes. Always go with your creativity.
+
 ```cfg
 routes {
   v1_api {
