@@ -66,7 +66,7 @@ Request Body:
 ```json
 {
     "title": "Hey, my first post",
-    "body": "<p>This is my first blog post</p>",
+    "body": "<p>This is my first blog post</p>"
 }
 ```
 
