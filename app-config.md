@@ -108,12 +108,12 @@ port = "8080"
 
 # for 80
 port = "80"
-# OR 
+# OR
 port = ""
 
 # for 443
 port = "443"
-# OR 
+# OR
 port = ""
 
 ```
@@ -246,7 +246,9 @@ To enable Let's Encrypt CA auto SSL/TLS certs on the aah go server.
 
 Let’s Encrypt is a free, automated, and open certificate authority (CA), they provide free digital certificates in order to enable HTTPS (SSL/TLS) for websites to create a more secure and privacy-respecting Web.
 
-_Note: Let’s Encrypt does not provide certificates for localhost._
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Let’s Encrypt does not provide certificates for localhost.</p>
+</div>
 
 Default value is `false`. Don't forget to enable `server.ssl.enable = true`.
 ```cfg
@@ -498,13 +500,18 @@ Default value is `empty` string.
 default = "json"
 ```
 
-### render.pretty
-Pretty print option is very helpful in `dev` environment profile. It is only applicable to JSON and XML Content-Type.
+### secure_json { ... }
 
-Default value is `false`.
+Secure JSON is to prevent against Cross Site Script Inclusion (XSSI) attacks on JSON response payload aka JSON vulnerability. XSSI attack is only successful if the returned JSON response is executable as JavaScript.
+
+### prefix
+`aah` prevent an attack by prefixing JSON response to make them non-executable.
+
+Default value id `)]}',\n`.
 ```cfg
-pretty = true
+prefix = ")]}',\n"
 ```
+
 
 ### Section: render.gzip { ... }
 Gzip compression configuration for HTTP response.
