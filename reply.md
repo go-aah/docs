@@ -49,6 +49,7 @@ Rich reply methods for the response.
   * `HTMLlf(layout, filename, data)`
   * `JSON(data)`
   * `JSONP(data, callback)`
+  * `SecureJSON(data)`
   * `XML(data)`
   * `Text(str)`
   * `Text(str, args)`
@@ -62,7 +63,8 @@ Rich reply methods for the response.
 
 ## Redirect
   * `Redirect(url)`
-  * `RedirectSts(url, statusCode)`
+  * `RedirectWithStatus(url, status)`
+  * `RedirectSts(url, statusCode)` DEPRECATED in `v0.11.0`: planned to be removed in v1.0 release
 
 ## Replying HTTP Headers
   * `Header(hdr, value)`
@@ -138,10 +140,12 @@ Reply().BadRequest().JSON(data)
 // Default Status Code is 200 OK
 Reply().FileDownload("/User/jeeva/songs/nice.mp3", "name-nice.mp3")
 
-// I just want serve file from controller
-// If file param is relative path, framework resolves it from `static` directory
-// like <app-base-dir>/static/reports/daily.pdf
-Reply().File("reports/daily.pdf")
+// I just want serve file from controller.
+// Path could absolute or relative path.
+// if its relative aah resolve the path app base directory
+// For e.g.: <app-base-dir>/assets/reports/daily.pdf
+Reply().File("assets/reports/daily.pdf")
+Reply().File("/mnt/may/reports/daily.pdf")
 
 // I would like to send binary data
 Reply().Binary(bytes)
@@ -166,6 +170,6 @@ Reply().HTMLl("master-custom.html", data)
 Reply().Error({
   Code: http.StatusNotFound,
   Message: "Resource not found",
-  Data: "relevant data if you would like to send", // this is interface{} type.
+  Data: "relevant data if you would like to send", // this is type interface{}.
 })
 ```

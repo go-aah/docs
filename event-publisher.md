@@ -46,7 +46,7 @@ aah.SubscribeEvent("ProductUpdated", subscribe)
 // OR
 
 // subscribe using callback func
-aah.SubscribeEventf("ProductUpdated", productUpdated)
+aah.SubscribeEventFunc("ProductUpdated", productUpdated)
 ```
 
 ## Unsubscribe from the Event
@@ -65,7 +65,7 @@ aah.UnsubscribeEvent("ProductUpdated", subscribe)
 // OR
 
 // unsubscribe by callback func
-aah.UnsubscribeEvent("ProductUpdated", productUpdated)
+aah.UnsubscribeEventFunc("ProductUpdated", productUpdated)
 ```
 
 ## Publish Event Asynchronously

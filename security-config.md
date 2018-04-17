@@ -321,7 +321,9 @@ Learn more:
   * https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#hsts
   * https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
 
-_Note: Framework checks that application uses SSL on startup then applies this header. Otherwise it does not apply._
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Framework checks that application uses SSL on startup then applies this header. Otherwise it does not apply.</p>
+</div>
 
 ```cfg
 sts {
