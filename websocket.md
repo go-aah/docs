@@ -1,5 +1,5 @@
 Title: WebSocket for Real-time Apps
-Desc: aah provides flexible and easy way to use WebSocket capabilities in aah application. aah draws fine thin line to enables power of usability and provides WebSocket power to the user.
+Desc: aah provides a flexible and easier way to implement WebSocket capabilities into the application. aah draws a thin line to enable maximum usability and provides WebSocket power to the aah user.
 Keywords: websocket, real-time app, real-time communication, aah, aah framework
 ---
 # WebSocket for Real-time Apps
@@ -64,7 +64,7 @@ type HotNewsWebSocket struct {
 func (h *HotNewsWebSocket) ByTopic(topic string)  {
   for {
     // Implementation goes here
-    // Refer to simple chat tutorial to get an idea
+    // Refer to simple chat example to get an idea
     //
   }
 }
@@ -95,6 +95,8 @@ by_topic {
   # By default, 'anti_csrf_check', 'cors' and 'max_body_size' configs are not
   # applicable for WebSocket; even if provided by mistake,
   # it won't affect the WebSocket route.
+  #
+  # Use `server.websocket.origin { ... }` for enforcing SAME-ORIGIN policy.
 }
 ```
 
@@ -126,19 +128,19 @@ func SubscribeWebSocketEvents(_ *aah.Event) {
   // Published before connection gets upgraded to WebSocket.
   // It provides a control of accepting incoming request or reject it
   // using ctx.Abort(errorCode)
-  wse.OnPreConnect(websockets.HandleEvents)     // <= event handler goes here
+  wse.OnPreConnect(websockets.HandleEvents)
 
   // Event: OnPostConnect
   //
   // Published right after the successful WebSocket connection which is
   // established with the aah server.
-  wse.OnPostConnect(websockets.HandleEvents)    // <= event handler goes here
+  wse.OnPostConnect(websockets.HandleEvents)
 
   // Event: OnPostDisconnect
   //
   // Published right after the WebSocket client got disconnected.
   // It could have occurred due to graceful disconnect, network related error, etc.
-  wse.OnPostDisconnect(websockets.HandleEvents) // <= event handler goes here
+  wse.OnPostDisconnect(websockets.HandleEvents)
 
   // Event: OnError
   //
@@ -147,7 +149,7 @@ func SubscribeWebSocketEvents(_ *aah.Event) {
   // and WebSocket upgrade fails.
   //
   //`ctx.ErrorReason()` method can be called to know the reason for the error.
-  wse.OnError(websockets.HandleEvents)          // <= event handler goes here
+  wse.OnError(websockets.HandleEvents)
 }
 
 // SubscribeWebSocketEvents method gets registered on App Start event to
