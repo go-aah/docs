@@ -8,7 +8,7 @@ Incoming requests are handled by the server via routes. Each route describes an 
 
 It would be nice to have diagram to explain the Lifecycle. Later, will do my best.
 
-## Lifecycle
+## HTTP Request
 Lifecycle always reflects latest version flow.
 
   * Captures the request received time, used for server access log.
@@ -71,3 +71,7 @@ Lifecycle always reflects latest version flow.
       - `ctx.Reply().Redirect(...)` was called.
   * Writes data to server access log, if enabled. <span class="badge lb-xs">Since v0.7</span>
   * If its Multipart request with files, it does cleanup.
+
+## WebSocket Request
+
+<center>![WebSocket-Lifecycle]({{aah_cdn_host}}/assets/img/docs/aah-WebSocket-Lifecycle.svg)</center>

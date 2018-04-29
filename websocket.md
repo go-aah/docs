@@ -18,6 +18,7 @@ As always, aah is structured, organized and maintainable. aah shines more with a
   * [Creating WebSocket](#creating-websocket)
   * [Adding WebSocket Route](#adding-route)
   * [WebSocket Events](#events)
+  * [Request Lifecycle](/request-life-cycle.html#websocket-request)
 
 ## Configuration
 
