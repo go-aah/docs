@@ -6,25 +6,20 @@ Keywords: server extension point, aah server extensions, extension point, server
 
 aah go server exposes the App and Request life cycle stages as server events. It is called as Server Extension Point. Function signature is same as events (`aah.EventCallbackFunc`). By default given function executed as they are added sequence unless `priority` is specified.
 
-aah Server events are executed synchronously.
-
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong></p>
-<p>For <code>OnRequest</code>, <code>OnPreAuth</code>, <code>OnPostAuth</code>, <code>OnPreReply</code>, <code>OnAfterReply</code> you can only register/add one event callback function.</p>
-</div>
-
-Reference to [Event Emitter/Publisher](event-publisher.html).
+aah Server events are executed synchronously. Reference to [Event Emitter/Publisher](event-publisher.html).
 
 ### List of Server Extension Points
 
   * [OnInit](#event-oninit)
   * [OnStart](#event-onstart)
   * [OnShutdown](#event-onshutdown)
-  * [OnRequest](#event-onrequest)
-  * [OnPreAuth](#event-onpreauth) <span class="badge lb-xs">Since v0.7</span>
-  * [OnPostAuth](#event-onpostauth) <span class="badge lb-xs">Since v0.7</span>
-  * [OnPreReply](#event-onprereply)
-  * [OnAfterReply](#event-onafterreply)
+  * [HTTP Engine Events](#http-engine-events)
+    - [OnRequest](#event-onrequest)
+    - [OnPreAuth](#event-onpreauth) <span class="badge lb-xs">Since v0.7</span>
+    - [OnPostAuth](#event-onpostauth) <span class="badge lb-xs">Since v0.7</span>
+    - [OnPreReply](#event-onprereply)
+    - [OnAfterReply](#event-onafterreply)
+  * [WebSocket Engine Events](/websocket.html#events)
 
 ## Event: OnInit
 
@@ -110,19 +105,24 @@ func init() {
 }
 ```
 
-## Event: OnRequest
+## HTTP Engine Events
+
+### Event: OnRequest
 
 `OnRequest` event is published for each incoming request to the aah go server.
 
-  * At this point request `Route` is not yet populated/evaluated.
-
-**Note:** The `aah.Context` object passed to the extension functions is decorated with the `ctx.SetURL()` and `ctx.SetMethod()` methods. Calls to these methods will have an impact how the request is routed.
-
-**Supports Multiple:** No
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> aah understands WebSocket route definition mainly by the following two attributes.
+<ul>
+  <li>At this point request <code>Route</code> is not yet populated/evaluated.</li>
+  <li>The <code>aah.Context</code> object passed to the extension functions is decorated with the <code>ctx.SetURL()</code> and <code>ctx.SetMethod()</code> methods. Calls to these methods would have an impact how the request is routed.</li>
+</ul>
+</p>
+</div>
 
 ```go
 func init() {
-  aah.OnRequest(func(e *aah.Event)  {
+  aah.AppHTTPEngine().OnRequest(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic goes here
@@ -130,15 +130,13 @@ func init() {
 }
 ```
 
-## Event: OnPreAuth
+### Event: OnPreAuth
 
 <span class="badge lb-sm">Since v0.7</span> `OnPreAuth` event is published right before the Authentication by security manager.
 
-**Supports Multiple:** No
-
 ```go
 func init() {
-  aah.OnPreAuth(func(e *aah.Event)  {
+  aah.AppHTTPEngine().OnPreAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic goes here
@@ -146,15 +144,13 @@ func init() {
 }
 ```
 
-## Event: OnPostAuth
+### Event: OnPostAuth
 
 <span class="badge lb-sm">Since v0.7</span> `OnPostAuth` event is published right after the Authentication and Authorization info gets populated into Subject by security manager.
 
-**Supports Multiple:** No
-
 ```go
 func init() {
-  aah.OnPostAuth(func(e *aah.Event)  {
+  aah.AppHTTPEngine().OnPostAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic goes here
@@ -162,19 +158,17 @@ func init() {
 }
 ```
 
-## Event: OnPreReply
+### Event: OnPreReply
 
 `OnPreReply` event is published right before writing an reply/response on the wire. At this point response writer is clean nothing is written i.e. Headers, Cookies, Redirects, Status Code and Response Body not written.
 
-**Note:** `OnPreReply` is not called when-
-
-  * `Reply().Done()` was called
-
-**Supports Multiple:** No
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> <code>OnPreReply</code> is not called when; <code>Reply().Done()</code> was called</p>
+</div>
 
 ```go
 func init() {
-  aah.OnPreReply(func(e *aah.Event)  {
+  aah.AppHTTPEngine().OnPreReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic goes here
@@ -182,20 +176,17 @@ func init() {
 }
 ```
 
-## Event: OnAfterReply
+### Event: OnAfterReply
 
 `OnAfterReply` event is published right after the response is written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc.
 
-**Note:** `OnAfterReply` is not called when-
-
-  * `Reply().Done()` was called
-  * `Reply().Redirect(...)` was called
-
-**Supports Multiple:** No
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> <code>OnAfterReply</code> is not called when; <code>Reply().Done()</code> and <code>Reply().Redirect(...)</code> was called</p>
+</div>
 
 ```go
 func init() {
-  aah.OnAfterReply(func(e *aah.Event)  {
+  aah.AppHTTPEngine().OnAfterReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic goes here
