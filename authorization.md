@@ -160,6 +160,6 @@ aah provides following templates/view function for authorization. You have more 
 ```
 
 ----
-## Acknowledgement
+## Attribution
 
 This page documentation includes content from [Shiro security library](https://shiro.apache.org).

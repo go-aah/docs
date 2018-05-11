@@ -136,6 +136,6 @@ type PasswordEncoder interface {
 ```
 
 ----
-## Acknowledgements
+## Attribution
 
 This page documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).

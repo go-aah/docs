@@ -85,6 +85,6 @@ The Anti-CSRF protection cannot protect against man-in-the-middle attacks, so us
 Subdomains within a site will be able to set cookies on the client for the whole domain. By setting the cookie and using a corresponding token, subdomains will be able to circumvent the CSRF protection. The only way to avoid this is to ensure that subdomains are controlled by trusted users (or, are at least unable to set cookies). Note that even without CSRF, there are other vulnerabilities, such as session fixation, that make giving subdomains to untrusted parties a bad idea, and these vulnerabilities cannot easily be fixed with current browsers.
 
 ----
-## Acknowledgement
+## Attribution
 
 This page documentation includes content from django and Laravel CSRF documentation.

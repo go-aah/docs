@@ -275,6 +275,6 @@ For every permission check (for example, a call to `Subject().IsPermitted`), all
 Currently Authorization information is fetched on every request via registered `authz.Authorizer`. It is recommended to implement `Cache` on your application side. Just know that with this default behavior, as the number of permissions assigned to a user or their roles increase, the time to perform the check will necessarily increase.
 
 ----
-## Acknowledgement
+## Attribution
 
 This page documentation includes content from [Shiro Security library](https://shiro.apache.org).

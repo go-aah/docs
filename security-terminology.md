@@ -52,6 +52,6 @@ A Session is a stateful data context associated with a single Subject/User who i
 A Subject is just fancy security term that basically means a security-specific `view` of an application user. A Subject does not always need to reflect a human being though - it can represent an external process calling your application, or perhaps a daemon system account that executes something intermittently over a period of time (such as a cron job). It is basically a representation of any entity that is doing something with the application.
 
 ----
-## Acknowledgement
+## Attribution
 
 This document documentation includes content from [Shiro Security library](https://shiro.apache.org).
