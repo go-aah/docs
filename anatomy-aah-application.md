@@ -6,29 +6,45 @@ Keywords: anatomy, layout, mvc, architectural, directories, aah application layo
 
 The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern.
 
-```cfg
+### Bird's-eye View
+
+```conf
+app                   ⇒ Application Go source codes directory
+config                ⇒ Configurations files directory
+   └ env              ⇒ Environment profile configurations directory
+i18n                  ⇒ Internationalization and Localization message files directory
+views                 ⇒ View Template files directory - not created for API app
+static                ⇒ Static public assets directory - not created for API app
+logs                  ⇒ Logs directory (default is console on 'dev' profile)
+tests                 ⇒ Go test source directory (upcoming), use Go standard way for unit tests
+build                 ⇒ Application build directory
+```
+
+### Detailed View
+
+```conf
 app                   ⇒ Application Go source codes directory
   └ controllers       ⇒ Application controllers
   └ models            ⇒ Application business layer
   └ security          ⇒ Application security implementation
   └ aah.go            ⇒ aah application main entry point (generated code)
-  └ init.go           ⇒ Application customization/configuration (Since v0.10)
-config                ⇒ Configurations files
+  └ init.go           ⇒ Application customization/configuration (Since v0.10.0)
+config                ⇒ Configurations files directory
   └ aah.conf          ⇒ Application configuration file
   └ routes.conf       ⇒ Application Routes configuration file
   └ security.conf     ⇒ Application Security configuration file
-  env                 ⇒ Environment profile configurations
-    └ dev.conf        ⇒ Dev - Environment profile config
-    └ prod.conf       ⇒ Prod - Environment profile config
-i18n                  ⇒ Internationalization and Localization message files
+  └ env               ⇒ Environment profile configurations directory
+      └ dev.conf      ⇒ Dev - Environment profile config
+      └ prod.conf     ⇒ Prod - Environment profile config
+i18n                  ⇒ Internationalization and Localization message files directory
   └ messages.en       ⇒ Message file
   └ messages.en-US    ⇒ Message file
   └ messages.en-CA    ⇒ Message file
-views                 ⇒ Template files - not created for API (aah supports partial inheritance)
+views                 ⇒ View Template files directory - not created for API
   └ common            ⇒ Common view template files, it can be imported to any page template
   └ layouts           ⇒ Application view layout files, master template for page template
   └ pages             ⇒ Page template files, corresponding template for controller action
-static                ⇒ Static public assets - not created for API
+static                ⇒ Static public assets directory - not created for API
   └ css               ⇒ CSS files
   └ js                ⇒ Javascript files
   └ img               ⇒ Image files
@@ -38,14 +54,12 @@ tests                 ⇒ Go test source directory (upcoming), use Go standard w
 build                 ⇒ Application build directory
 .gitignore            ⇒ Typical Go .gitignore file and aah project ignore files
 aah.project           ⇒ aah project configuration; build config, hot-reload, etc.
-app-name.pid          ⇒ Application PID file (created during app startup)
+app-name.pid          ⇒ Application PID file (created on every app startup)
 ```
 
 #### Packaged aah application will have following directories/files
 ```cfg
 bin              ⇒ Application binary under bin directory
-aah.sh           ⇒ *nix startup file
-aah.cmd          ⇒ Windows startup file
 ```
 
 #### Packaged aah application won't have following directories/files
