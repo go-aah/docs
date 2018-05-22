@@ -121,7 +121,7 @@ vfs {
   }
 
   # This config speeds up the single binary build process.
-  # No need to spend time in gzipping previously compressed content.
+  # No need to spend time in gzipping for compressed content type.
   #
   # Even without this config, aah decides best on what to gzip.
   no_gzip = [".png", ".jpeg", ".jpg", ".gif", ".bmp", ".tiff", ".tif"

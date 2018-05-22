@@ -1,8 +1,8 @@
-Title: Dump Request & Response
-Desc: Dump Request & Response in aah go server into file.
+Title: aah Dump Request & Response
+Desc: Server Dump - Request & Response in aah go server into file.
 Keywords: dump, server dump, dump request, dump response, aah server
 ---
-# Dump Request & Response in aah
+# Server Dump - Request & Response
 
 aah provides easy to use dump/log HTTP request and response into log file, just enable it.  
 
@@ -14,47 +14,42 @@ Its not just a dump, Log is readable and very helpful for your `Debugging`. You 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>
 <ul>
-  <li>It is not recommended to enable 'Request and Response dump' in <code>production</code> profile. It may be impact your application performance.</li>
-  <li>Keep an eye on <code>disk usage</code> when you enable aah server dump.</li>
-  <li>Dump log is not applicable for Static files delivery and non-readable content types.</li>
+  <li>It is not recommended to enable 'Request and Response dump' for <code>production use</code>. It may have application performance degrade.</li>
+  <li>Keep an eye on <code>disk usage</code> when aah server dump is enabled.</li>
+  <li>Server Dump log is not applicable for Static files delivery and non-readable content types.</li>
 </ul>
 </p>
 </div>
 
 ## Server Dump Log Configuration
 
-Add `dump_log` section under the config `server` section in the `aah.conf`.
+`dump_log` configuration goes under the config section `server { ... }` in the `aah.conf`.
 
-```cfg
-server {
-  # ...
-  # -------------------------------------------------------
-  # Dump Request & Response Details
-  # Such as URL, Proto, Headers, Body, etc.
-  # Note: Dump is not applicable for Static Files delivery.
-  # Doc: https://docs.aahframework.org/server-dump-log.html
-  # -------------------------------------------------------
-  dump_log {
-    # Default value is `false`.
-    enable = true
+```bash
+# -------------------------------------------------------
+# Dump Request & Response Details
+# Such as URL, Proto, Headers, Body, etc.
+# Note: Dump is not applicable for Static Files delivery.
+# Doc: https://docs.aahframework.org/server-dump-log.html
+# -------------------------------------------------------
+dump_log {
+  # Default value is `false`.
+  enable = true
 
-    # Absolute path to dump log file or relative path.
-    # Default location is application logs directory
-    #file = "{{ .AppName }}-dump.log"
+  # Absolute path to dump log file or relative path.
+  # Default location is application logs directory
+  #file = "{{ .AppName }}-dump.log"
 
-    # Log Request body into dump log. aah dumps body for JSON, XML, Form
-    # HTML and Plain Text content types.
-    # Default value is `false`.
-    #request_body = true
+  # Log Request body into dump log. aah dumps body for JSON, XML, Form
+  # HTML and Plain Text content types.
+  # Default value is `false`.
+  #request_body = true
 
-    # Log Request body into dump log. aah dumps body for JSON, XML, Form
-    # HTML, and Plain Text content types.
-    # Default value is `false`.
-    #response_body = true
-  }
-  # ...  
+  # Log Request body into dump log. aah dumps body for JSON, XML, Form
+  # HTML, and Plain Text content types.
+  # Default value is `false`.
+  #response_body = true
 }
-
 ```
 
 ## Sample Dump of REST API tutorial app

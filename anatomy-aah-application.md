@@ -13,8 +13,8 @@ app                   ⇒ Application Go source codes directory
 config                ⇒ Configurations files directory
    └ env              ⇒ Environment profile configurations directory
 i18n                  ⇒ Internationalization and Localization message files directory
-views                 ⇒ View Template files directory - not created for API app
-static                ⇒ Static public assets directory - not created for API app
+views                 ⇒ View Template files directory
+static                ⇒ Static public assets directory
 logs                  ⇒ Logs directory (default is console on 'dev' profile)
 tests                 ⇒ Go test source directory (upcoming), use Go standard way for unit tests
 build                 ⇒ Application build directory

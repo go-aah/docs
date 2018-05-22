@@ -6,9 +6,17 @@ Keywords: aah binary, aah app binary, flags, hot-reload, without restart, cross 
 
 This page describe the aah application binary capabilities and artifact details.
 
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong> <code>Since v0.11.0</code> aah supports single and non-single binary build artifact packaging. It is trade off, choose it according to need.</p>
+<div class="alert alert-info-green">
+<p><strong>News:</strong> Since <code>v0.11.0</code> aah supports single and non-single binary build artifact packaging.</p>
 </div>
+
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>Go binary have no runtime dependencies (such as Go installation, GOPATH, libraries, etc.), once binary is built for targeted Operating System (OS); then it runs on any machine of targeted OS.</p>
+<p><u>For example:</u></p>
+<p>Building aah binary for Linux 64-bit OS - <code>env GOOS=linux GOARCH=amd64 aah build &lt;args-goes-here></code></p>
+</div>
+
 
 ### Table of Contents
 

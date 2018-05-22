@@ -63,9 +63,9 @@ Creates the Reverse URL for the given route name with arguments. Additional argu
   * How to I get host url for root domain or sub-domain on template file?
       - Ans: `host` is the keyword or virtual route name
           - For example: this is applicable to `rurlm` func too.
-              - `{{ rurl "host" }}` - on root domain template file
-              - `{{ rurl "root.host" }}` - on sub-domain template file
-              - `{{ rurl "docs.host" }}` - on root domain template file access sub-domain host URL
+              - `{{ rurl . "host" }}` - on root domain template file
+              - `{{ rurl . "root.host" }}` - on sub-domain template file
+              - `{{ rurl . "docs.host" }}` - on root domain template file access sub-domain host URL
 
 ```go
 // route name and arguments
