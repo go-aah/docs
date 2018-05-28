@@ -4,7 +4,7 @@ Keywords: websocket, real-time app, real-time communication, aah, aah framework
 ---
 # WebSocket for Real-time Apps
 
-aah provides a flexible and easier way to implement `WebSocket` capabilities into the application. aah draws a thin line to enable maximum usability and provides WebSocket power to the aah user.
+aah provides a flexible and easier way to implement `WebSocket` capabilities into the application. aah enables maximum usability and provides WebSocket power to the user.
 
 As always, aah is structured, organized and maintainable. aah shines more with application growth.
 
@@ -18,6 +18,7 @@ As always, aah is structured, organized and maintainable. aah shines more with a
   * [Creating WebSocket](#creating-websocket)
   * [Custom ID](#custom-id)
   * [Adding WebSocket Route](#adding-route)
+  * [Sending Header on Connection Upgrade](#sending-header-on-connection-upgrade)
   * [WebSocket Events](#events)
   * [Request Lifecycle](/request-life-cycle.html#websocket-request)
 
@@ -115,11 +116,32 @@ by_topic {
 }
 ```
 
+## Sending Header on Connection Upgrade
+
+aah sends `ctx.Header` values during a successful WebSocket connection upgrade.
+
+**Note:** Incoming request headers are accessible via `ctx.Req.Header`.
+
+```go
+// Adding header into `ws.Context`
+// Use event `ws.OnPreConnect` to add header into context.
+func AddHeaderIntoContext(eventName string, ctx *ws.Context)  {
+  ctx.Header.Set("My-Header", "Header value")
+}
+```
+
 ## Events
 
-aah provides following events as part of the WebSocket lifecycle. It is published for each WebSocket connection made to the aah server.
+aah provides following events as part of the [WebSocket lifecycle](/request-life-cycle.html#websocket-request). It is published for each WebSocket connection made to the aah server.
 
-As a recommended approach, create an event handler under appropriate package and register it in the file `init.go`.
+As a recommended approach, create an event handler in appropriate package and register it in the file `app/init.go`.
+
+Event | Description
+----- | -----------
+OnPreConnect | Published just before connection gets upgraded to WebSocket. It provides a control of accepting incoming request or reject it using `ctx.Abort(errorCode)`
+OnPostConnect | Published just after the successful WebSocket connection is established with the aah server.
+OnPostDisconnect | Published just after the WebSocket client got disconnected. It could have occurred due to graceful disconnect, network related error, etc.
+OnError | Published whenever error occurs in the lifecycle such as Origin Check failed, WebSocket or WebSocket Action not found, WebSocket Action parameter parse error, and WebSocket upgrade fails. <br><br>Call method `ctx.ErrorReason()` to know the reason for the error.
 
 ### Event Callback Signature
 
@@ -128,7 +150,7 @@ As a recommended approach, create an event handler under appropriate package and
 func(eventName string, ctx *ws.Context)
 ```
 
-### Snippet from app/init.go
+### Code Snippet from app/init.go
 
 ```go
 // WebSocket Events
@@ -143,30 +165,18 @@ func SubscribeWebSocketEvents(_ *aah.Event) {
 
   // Event: OnPreConnect
   //
-  // Published before connection gets upgraded to WebSocket.
-  // It provides a control of accepting incoming request or reject it
-  // using ctx.Abort(errorCode)
   wse.OnPreConnect(websockets.HandleEvents)
 
   // Event: OnPostConnect
   //
-  // Published right after the successful WebSocket connection which is
-  // established with the aah server.
   wse.OnPostConnect(websockets.HandleEvents)
 
   // Event: OnPostDisconnect
   //
-  // Published right after the WebSocket client got disconnected.
-  // It could have occurred due to graceful disconnect, network related error, etc.
   wse.OnPostDisconnect(websockets.HandleEvents)
 
   // Event: OnError
   //
-  // Published whenever error occurs in the lifecycle such as Origin Check failed,
-  // WebSocket/WebSocket Action not found, WebSocket Action parameter parse error,
-  // and WebSocket upgrade fails.
-  //
-  //`ctx.ErrorReason()` method can be called to know the reason for the error.
   wse.OnError(websockets.HandleEvents)
 }
 

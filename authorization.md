@@ -92,11 +92,11 @@ For more information on Users, aka Subjects, please check out the [Understanding
 
 ### In Application
 
-aah supports Authorization check via Configuration and Programmatically.
+aah supports Authorization check by Configuration and `Go` code.
 
 ### Via Configuration
 
-<span class="badge lb-sm">Since v0.11.0</span> Define roles and permissions per route in `routes.conf`; aah does the Authorization check automatically using provided configuration for the Route. On failure it calls [Error Handling flow](error-handling.html).
+<span class="badge lb-sm">Since v0.11.0</span> Define roles and permissions per route in `routes.conf`; aah does the Authorization check automatically using provided configuration for the Route. On failure, it calls [Error Handling flow](error-handling.html).
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong> Child Route inherits parent <code>authorization { ... }</code> config if not defined.</p>
@@ -105,7 +105,7 @@ aah supports Authorization check via Configuration and Programmatically.
 ```bash
 # Authorization (access rights/privileges)
 #
-# Note: It is not evaluated, if `<route>.auth` attribute is `anonymous`.
+# Note: Authorization will not be performed, if `<route>.auth` attribute is `anonymous`.
 authorization {
   # Satisfy value is used to evaluate the result of `roles` and `permissions` attribute.
   #
@@ -140,11 +140,11 @@ authorization {
 }
 ```
 
-### Programmatically
+### Via Go code
 
-Check roles and permissions programmatically on `Go` code with structures like `if` and `else` blocks.
+The user can check the roles and permissions programmatically on `Go` code with structures like `if` and `else` blocks.
 
-First we get access to the current [Subject/User](security-subject.html). Then we would call appropriate authorization method with `Subject` instance.
+Firstly, get access to the current [Subject/User](security-subject.html). Then, call appropriate authorization methods with `Subject` instance.
 
 ```go
 subject := ctx.Subject()
@@ -152,23 +152,25 @@ subject := ctx.Subject()
 
 **Authorization Methods**
 
-  * `HasRole`
-  * `HasAnyRole`
-  * `HasAllRoles`
-  * `IsPermitted`
-  * `IsPermittedAll`
+Method | Description
+------ | -----------
+HasRole | Returns true if Subject has the specified role, otherwise false.
+HasAnyRole | Returns true if Subject has any-one of the specified roles, otherwise false.
+HasAllRoles | Returns true if the Subject has all of the specified roles, otherwise false.
+IsPermitted | Returns true if Subject is permitted to perform an action or to access a resource summarized by the specified permission string, otherwise false.
+IsPermittedAll | Returns true if the Subject implies all of the specified permission strings, otherwise false.
 
 **For Example-**
 
 ```go
-// Check Subject has role `administrator`.
+// Checks if Subject has role `administrator`.
 if ctx.Subject().HasRole("administrator") {
   // allow access
 } else {
   // don't allow access
 }
 
-// Check Subject has permission to read and edit newsletter
+// Checks if Subject has permission to read and edit newsletter.
 if ctx.Subject().IsPermitted("newsletter:read,write") {
   // allow access
 } else {
@@ -178,7 +180,7 @@ if ctx.Subject().IsPermitted("newsletter:read,write") {
 
 ### In View/Template file
 
-aah provides templates/view functions for authorization in a flexible way.
+aah provides templates/view functions to perform authorization in a flexible way on view files.
 
   * `hasrole`
   * `hasanyrole`
@@ -188,7 +190,7 @@ aah provides templates/view functions for authorization in a flexible way.
 
 **For Example:**
 
-Check whether Subject/User has permission to manage users then show the link to Manage Users.
+Checks if Subject has permission to manage users. If true, then shows the link.
 
 ```html
 <html>
@@ -203,4 +205,4 @@ Check whether Subject/User has permission to manage users then show the link to 
 ----
 ## Attribution
 
-This page documentation includes content from [Shiro security library](https://shiro.apache.org).
+This documentation includes content from [Shiro security library](https://shiro.apache.org).
