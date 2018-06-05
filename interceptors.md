@@ -1,36 +1,45 @@
 Title: Interceptors
-Desc: An interceptor pattern is offer a way to change, or augment, their usual processing cycle. aah framework provides per Controller and per Action level. Key aspects of the pattern are that the change is transparent and used automatically.
+Desc: aah provides per `Controller` and per `Action` level interceptor. To stop the execution flow, use `ctx.Abort()` within the interceptor.
 Keywords: interceptor, per controller interceptor, per action interceptor, before, after, finally, panic
 ---
 # Interceptors
 
-An interceptor pattern is offers a way to change, or augment, their usual processing cycle. Key aspects of the pattern are that, the change is transparent and used automatically.
+An interceptor pattern offers a way to change or augment their usual processing cycle. Key aspects of the pattern are that the change is transparent and used automatically.
 
-aah framework provides per `Controller` and per `Action` level. It is very **good spot** for performing `Authorization check`, if its satisfies move on otherwise call `Context.Abort()` to stop the flow.
+aah provides per `Controller` and per `Action` level interceptor. To stop the execution flow, use `ctx.Abort()` within the interceptor.
 
-In the order of execution/calling in the request life cycle-
+#### The order of interceptor execution in the request life cycle -
 
-  * `Before()` - Always called if present
-  * `Before<ActionName>()` - Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic),  `Context.Abort()`
-  * Controller action gets called
-  * `After<ActionName>()` - Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic), `Context.Abort()`
-  * `After()` - Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic), `Context.Abort()`
-  * `Panic<ActionName>(r interface{})` - Always called if present in the event of `panic`
-  * `Panic(r interface{})` - Always called if present in the event of `panic`, except `Panic<ActionName>(...)` not exists, it propagates to framework.
-  * `Finally<ActionName>()` - Always called if present.
-  * `Finally()` - Always called if present.
+Interceptor | Description
+----------- | -----------
+`Before` | Always called if present
+`Before<ActionName>` | Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic),  `ctx.Abort()`
+ | **Controller action gets called**
+`After<ActionName>` | Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic), `ctx.Abort()`
+`After` | Always called if present, except [`panic()`](https://golang.org/pkg/builtin/#panic), `ctx.Abort()`
+`Panic<ActionName>` | Always called if present in the event of `panic`
+`Panic` | Always called if present in the event of `panic` except when `Panic<ActionName>(r)` does not exist. In that case, it propagates to framework.
+`Finally<ActionName>` | Always called if present.
+`Finally` | Always called if present.
 
-#### Note
-  * `Panic` interceptors method has a parameter.
-  * If `Context.Abort()` is called, subsequent interceptors and Targeted `Action` won't be called. Control goes to framework.
-      * Let's say you do some logic check and call `Abort()` in the interceptor `Before()` the remaining request life cycle skipped and control goes to framework.  
-      * Let's say you call `Abort()` in the Targeted Action then remaining request life cycle skipped and control goes to framework.
-
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong>
+<ul>
+  <li><code>Panic</code> interceptors method has a parameter.</li>
+  <li>If <code>ctx.Abort()</code> was called, subsequent interceptors and targeted controller <code>Action</code> will not be called. Control goes back to the framework flow.<br><br>
+  <strong>For example:<br></strong>
+  <ul>
+    <li>Let's say, method <code>ctx.Abort()</code> called in interceptor <code>Before()</code>. Then remaining request lifecycle skipped and control goes back to framework.</li>
+  </ul>
+  </li>
+</ul>
+</p>
+</div>
 
 ### Example
 
 ```go
-// UserController implementation.
+// UserController ...
 type UserController struct {
   *aah.Context
 }
@@ -39,55 +48,59 @@ type UserController struct {
 // Controller Level Interceptors
 //___________________________________
 
-// Before is called for every action in the Controller
+// Before interceptor is called for every action in the Controller.
 func (u *UserController) Before() {
-  log.Info("UserController before interceptor called")
+  u.Log().Info("UserController before interceptor is called")
 }
 
-// After is called for every action in the Controller
+// After interceptor is called for every action in the Controller.
 func (u *UserController) After() {
-  log.Info("UserController after interceptor called")
+  u.Log().Info("UserController after interceptor is called")
 }
 
-// Finally is called for every action in the Controller except `Context.Abort()`
+// Finally interceptor is called for every action in the Controller
+// except when `ctx.Abort()`.
 func (u *UserController) Finally() {
-  log.Info("UserController finally interceptor called")
+  u.Log().Info("UserController finally interceptor is called")
 }
 
-// Panic is called for every action in the Controller except `Context.Abort()`,
-// if action level Panic interceptor present
-// Note: Panic interceptor has parameter
+// Panic interceptor is called for every action in the Controller
+// except when
+//
+//  - `ctx.Abort()` is called
+//
+//  - action level Panic interceptor is present
+//
+// Note: Panic interceptor has a parameter
 func (u *UserController) Panic(r interface{}) {
-  log.Info("UserController panic interceptor called")
+  u.Log().Info("UserController panic interceptor is called")
 }
 
 //‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 // Actions
 //___________________________________
 
-// Login action is for performing login.
+// Login action to perform login.
 func (u *UserController) Login() {
-  log.Info("UserController login action called")
+  u.Log().Info("UserController login action is called")
 }
 
-// Logout action is for performing logout
+// Logout action to perform logout.
 func (u *UserController) Logout() {
-  log.Info("UserController logout action called")
+  u.Log().Info("UserController logout action is called")
 }
 
 //‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 // Controller Action Level Interceptors
-//
-// just couple of example.
 //_____________________________________
 
-// BeforeLogin is called for before `Login` action
+// BeforeLogin is called before `Login` action.
 func (u *UserController) BeforeLogin() {
-  log.Info("UserController login before action interceptor called")
+  u.Log().Info("UserController before login action interceptor is called")
 }
 
-// AfterLogout is called after `Logout` action
+// AfterLogout is called after `Logout` action.
 func (u *UserController) AfterLogout() {
-  log.Info("UserController logout after action interceptor called")
+  u.Log().Info("UserController after logout action interceptor is called")
 }
 ```

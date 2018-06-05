@@ -1,605 +1,743 @@
 Title: aah.conf Application Configuration
-Desc: aah configuration structure is very flexible, you can override every config settings in environment profiles also external config file.
-Keywords: app config, application configuration, aah.conf, HOCON, configuration
+aah configuration syntax and structure is easy and flexible. aah supports the concept of profile that helps easily organize the configurations across different environments that are defined by profile.
+Keywords: app config, application configuration, aah.conf, HOCON, configuration, external config
 ---
 # aah Application Configuration
 
-The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
+aah configuration syntax and structure is easy and flexible. It is very much similar to HOCON syntax. Learn more about [configuration syntax](configuration.html).
 
-aah configuration structure is very flexible it is called as `aah.conf`. You can override every config value in the environment profiles also external config file.
+aah supports the concept of profile that helps easily organize the configurations across different environments that are defined by profile.
 
-You can add your custom config values into app config. Also it can be overridden in the environment profiles.
-
-Reference to [Routes Config](routes-config.html), [Security Config](security-config.html), [Log Config](log-config.html).
+aah application configuration file called `aah.conf`.
 
 ### Table of Contents
 
   * [name](#name)
   * [description](#description)
-  * [type](#type) <span class="badge lb-xs">Since v0.10</span>
-  * [instance_name](#instance-name) <span class="badge lb-xs">Since v0.9</span>
-  * [pid_file](#pid-file) <span class="badge lb-xs">Since v0.8</span>
-  * [server { ... }](#section-server)
+  * [type](#type)
+  * [instance_name](#instance-name)
+  * [pid_file](#pid-file)
+  * [server { ... }](#section-server)    
     - [timeout { ... }](#section-server-timeout)
+    - [redirect { ... }](#section-server-redirect) <sup class="new-sup">new</sup>
     - [ssl { ... }](#section-server-ssl)
-        - [redirect_http { ... }](#section-server-ssl-redirect-http) <span class="badge lb-xs">Since v0.9</span>
+        - [redirect_http { ... }](#section-server-ssl-redirect-http)
         - [lets_encrypt { ... }](#section-server-ssl-lets-encrypt)
-    - [access_log { ... }](server-access-log.html#access-log-configuration) <span class="badge lb-xs">Since v0.7</span>
+    - [websocket { ... }](websocket.html) <sup class="new-sup">new</sup>
+    - [access_log { ... }](server-access-log.html)
+    - [dump_log { ... }](server-dump-log.html)
   * [request { ... }](#section-request)
     - [id { ... }](#section-request-id)
-    - [content_negotiation { ... }](#section-request-content-negotiation) <span class="badge lb-xs">Since v0.8</span>
-    - [auto_bind { ... }](#section-request-auto-bind) <span class="badge lb-xs">Since v0.8</span>
+    - [content_negotiation { ... }](#section-request-content-negotiation)
+    - [auto_bind { ... }](#section-request-auto-bind)
   * [i18n { ... }](#section-i18n)
-    - [param_name { ... }](#section-i18n-param-name) <span class="badge lb-xs">Since v0.7</span>
+    - [param_name { ... }](#section-i18n-param-name)
   * [format { ... }](#section-format)
   * [runtime { ... }](#section-runtime)
     - [debug { ... }](#section-runtime-debug)
-  * cache { ... }
+  * [cache { ... }](#section-cache)
     - [static { ... }](/static-files.html#cache-control)
   * [render { ... }](#section-render)
+    - [secure_json { ... }](#section-render) <sup class="new-sup">new</sup>
     - [gzip { ... }](#section-render-gzip)
   * [view { ... }](#section-view)
   * [security { ... }](security-config.html)
   * [log { ... }](log-config.html)
   * [env { ... }](#section-env) - Environment profile overrides
 
-Have a look at [aahframework.org app configuration](https://github.com/go-aah/website/blob/master/config/aah.conf). It is moderate one, it gives an idea on how you can do it for your application.
 
 ## name
-Application name, non-whitespace is recommend.
 
-Default value is `basename` of import path.
-```cfg
+Application name, non-whitespace is recommended.
+
+```bash
+# Default value is `basename` of import path.
 name = "mysampleapp"
 ```
 
 ## description
-A friendly description of application purpose.
-```cfg
+
+A friendly description of application.
+
+```bash
 desc = "aah framework web application"
 ```
 
 ## type
-Application type, typically either Web or API.
-```cfg
+
+Application type, typically these `web`, `api`, `websocket`.
+
+```bash
 type = "api"
 ```
 
-
 ## instance_name
 
-<span class="badge lb-sm">Since v0.9</span> Application instance name is used when you're running aah application cluster. This value is used in the context based logging, it distinguishes your instance log from other instances.
+Application instance name could be used when running aah application cluster. It is used in context based logging and it helps to distinguishes each application instance from log information.
 
-Typically you can pass `instance_name` value via aah external config or Environment variable.
-```cfg
+Supply `instance_name` value via aah external config or Environment variable.
+
+```bash
 instance_name = $AAH_INSTANCE_NAME
 ```
 
 ## pid_file
-<span class="badge lb-sm">Since v0.8</span> Configure file path of application PID file to be written. Ensure application has appropriate permission and directory exists.
 
-Default value is `<app-base-dir>/<app-binary-name>.pid`
-```cfg
+Configure file path of application PID file to be written. Ensure that the application process has appropriate permissions and the existence of the directory.
+
+```bash
+# Default value is `<app-base-dir>/<app-binary-name>.pid`.
 pid_file = "/path/to/pidfile.pid"
 ```
 
 ---
 
 ## Section: server { ... }
-HTTP server configuration values.
 
-### server.address
-Server `address` is used to bind against host address, IP address, UNIX socket.
+aah server configurations, such as address, port, server header, timeout, WebSocket, SSL, Let's Encrypt, access log, dump log, etc.
 
-Default value is `empty` string.
-```cfg
-address = ""
+`server { ... }` configuration goes into `aah.conf`.
 
-# for unix socket
-address = "unix:/tmp/aahframework.sock"
+```bash
+# -----------------------------------------------------------------------------
+# aah Server Configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-server
+# -----------------------------------------------------------------------------
+server {
+  # Address is used to bind against host address, IP address, UNIX socket.
+  #
+  # For unix socket: unix:/tmp/aahframework.sock
+  # Default value is `empty` string.
+  #address = ""
+
+  # Port is used to bind server listener on particular port.
+  #
+  # For standard port `80` and `443`, put empty string or a value
+  # Default value is 8080.
+  #port = ""
+
+  # Header value is written as HTTP header `Server: aah-go-server`.
+  #
+  # To exclude header `Server` from writing, simply comment it out.
+  header = "aah-go-server"  
+
+  # Mapped to `http.Server.MaxHeaderBytes`.
+  # Default value is `1mb`.
+  #max_header_bytes = "1mb"
+
+  # HTTP server keep alive option.
+  # Default value is `true`.
+  #keep_alive = true
+}
 ```
 
-### server.port
-Server `port` number is used to bind on particular port number. For port `80` and `443`, put empty string or actual value.
+## Section: server.timeout { ... }
 
-Default value is `8080`
-```cfg
-port = "8080"
+aah server timeout for read, write and graceful shutdown.
 
-# for 80
-port = "80"
-# OR
-port = ""
+`timeout { ... }` configuration goes under the config section `server { ... }`.
 
-# for 443
-port = "443"
-# OR
-port = ""
+```bash
+# -----------------------------------------------------------------------------
+# aah server timeout configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-server-timeout
+#
+# Valid time units are "s = seconds", "m = minutes"
+# -----------------------------------------------------------------------------
+timeout {
+  # Mapped to `http.Server.ReadTimeout`, is the maximum duration that takes to
+  # read the entire request, including the body.
+  #
+  # Default value is `90s`.
+  #read = "90s"
 
+  # Mapped to `http.Server.WriteTimeout`, is the maximum duration before timing
+  # out writes of the response. It is reset whenever a new request's header is
+  # read.
+  #
+  # Default value is `90s`.
+  #write = "90s"
+
+  # aah server graceful shutdown timeout
+  #
+  # Default value is `60s`.
+  #grace_shutdown = "60s"
+}
 ```
 
-### server.header
-<span class="badge lb-sm">Since v0.8</span> Header value written as `Server` HTTP header. If you do not want to include `Server` header, comment it out.
+## Section: server.redirect { ... }
 
-Default value is `aah-go-server`.
-```cfg
-header = "aah-go-server"
-```  
+aah server redirect configuration for `WWW => Non-WWW` and vice versa.
 
-### server.max_header_bytes
-HTTP server max header bytes size. It is mapped to `http.Server.MaxHeaderBytes`.
+`redirect { ... }` configuration goes under section `server { ... }`.
 
-Default value is `1mb`
-```cfg
-max_header_bytes = "1mb"
+```bash
+# -----------------------------------------------------------------------------
+# Server redirects configuration (www => non-www, vice versa), its applicable
+# to all domains/subdomains configured in `routes.conf`
+#
+# NOTE: Its applicable to hostname only; not protocol. For `http => https`
+# refer to config section `server.ssl.redirect_http`.
+# -----------------------------------------------------------------------------
+redirect {
+  # Enabling redirects.
+  # Default value is `false`.
+  #enable = true
+
+  # Possible values are
+  #   - `www`     - aahframework.org      => www.aahframework.org
+  #   - `non-www` - www.aahframework.org  => aahframework.org
+  # Default value is `non-www`.
+  #to = "www"
+
+  # Redirect code.
+  # Default value is 301 MovedPermanently RFC 7231.
+  #code = 301
+}
 ```
 
-### server.keep_alive
-HTTP server keep-alive option.
+## Section: server.ssl { ... }
 
-Default value is `true`
-```cfg
-keep_alive = true
+aah server SSL/TLS configurations. By default, they are disabled.
+
+`ssl { ... }` configuration goes under the config section `server { ... }`.
+
+```bash
+# -----------------------------------------------------------------------------
+# aah server SSL configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-server-ssl
+# -----------------------------------------------------------------------------
+ssl {
+  # To enable SSL/TLS on the aah go server.
+  # Default value is `false`.
+  #enable = false
+
+  # SSL cert file, it is required if `server.ssl.enable = true`.
+  #
+  # Default value is `empty` string.
+  #cert = ""
+
+  # SSL key file, it is required if `server.ssl.enable = true`.
+  #
+  # Default value is `empty` string.
+  #key = ""
+
+  # By default Go enables the HTTP/2 on SSL/TLS.
+  #
+  # For some reason, if use case needs disabling HTTP/2; not to worry,
+  # aah provides the ability to disable HTTP/2.
+  #
+  # Default value is `false`.
+  #disable_http2 = true
+}
 ```
 
-### Section: server.timeout { ... }
-This section is used supply server timeout configuration values.
+## Section: server.ssl.redirect_http { ... }
 
-### server.timeout.read
-Server read timeout is mapped to `http.Server.ReadTimeout`. Valid time units are `s -> seconds`, `m -> minutes`.
+aah server HTTP to HTTPS redirects configuration.
 
-Default value is `90s`
-```cfg
-read = "90s"
+`redirect_http { ... }` configuration goes under the config section `server.ssl { ... }`.
+
+```bash
+# -----------------------------------------------------------------------------------
+# Redirect configuration HTTP => HTTPS functionality does protocol switch, it works
+# with domain and subdomains.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-server-ssl-redirect-http
+#
+# For Example:
+#   http://aahframework.org      => https://aahframework.org
+#   http://www.aahframework.org  => https://www.aahframework.org
+#   http://docs.aahframework.org => https://docs.aahframework.org
+# -----------------------------------------------------------------------------------
+redirect_http {
+  # Enabling HTTP => HTTPS redirects.
+  #
+  # Default value is `false`.
+  #enable = true
+
+  # Port no. of HTTP requests to listen.
+  # For standard port `80` put empty string or a value.
+  #
+  # It is required value, no default.
+  port = "8080"
+
+  # Redirect HTTP status code
+  #
+  # Default value is `307`.
+  #code = 307
+}
 ```
 
-### server.timeout.write
-Server write timeout is mapped to `http.Server.WriteTimeout`. Valid time units are `s -> seconds`, `m -> minutes`.
+## Section: server.ssl.lets_encrypt { ... }
 
-Default value is `90s`
-```cfg
-write = "90s"
+`lets_encrypt { ... }` configuration goes under the config section `server.ssl { ... }`.
+
+```bash
+# ----------------------------------------------------------------------------------
+# Let’s Encrypt is a free, automated, and open certificate authority (CA).
+# It provides free digital certificates in order to enable HTTPS (SSL/TLS)
+# for websites to create a more secure and privacy-respecting Web.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-server-ssl-lets-encrypt
+#
+# NOTE: Let’s Encrypt does not provide certificates for `localhost`.
+# ----------------------------------------------------------------------------------
+lets_encrypt {
+  # To get SSL certificate from Let's Encrypt CA, enable it.
+  #
+  # Don't forget to enable `server.ssl.enable = true`.
+  #
+  # Default value is `false`.
+  #enable = false
+
+  # Host policy controls which domains the autocert will attempt
+  # to retrieve new certificates for. It does not affect cached certs.
+  #
+  # It is required value, no default.
+  #host_policy = ["example.org", "docs.example.org"]
+
+  # Renew before optionally specifies how early the certificates should
+  # be renewed before they expire.
+  #
+  # Default value is `10` days.
+  #renew_before = 10
+
+  # Email optionally specifies a contact email address. This is used in
+  # Let's Encrypt to notify any problems with the issued certificates.
+  # If the Client's account key is already registered, then Email is not used.
+  #email = "jeeva@myjeeva.com"
+
+  # Force RSA makes the autocert generate certificates with 2048-bit RSA keys.
+  # If false, a default is used. Currently, the default is EC-based keys
+  # using the P-256 curve.
+  #force_rsa = false
+
+  # Cache optionally stores and retrieves previously-obtained certificates
+  # autocert manager. By default, certs will only be cached for the lifetime
+  # of the autocert manager.
+  #
+  # autocert manager passes the Cache certificates data encoded in PEM,
+  # with private/public parts combined in a single `Cache.Put` call,
+  # private key first.
+  #
+  # Default value is `empty` string.
+  #cache_dir = "/Users/jeeva/autocert"
+}
 ```
-
-### server.timeout.grace_shutdown
-Server grace shutdown timeout. Used when app receive the SIGINT, SIGTERM and does graceful shutdown. Valid time units are `s -> seconds`, `m -> minutes`.
-
-Default value is `60s`
-```cfg
-grace_shutdown = "60s"
-```
-
-### Section: server.ssl { ... }
-HTTP server SSL/TLS configuration values. By default it is disabled.
-
-### server.ssl.enable
-To enable SSL/TLS on the aah go server.
-
-Default value is `false`.
-```cfg
-enable = true
-```
-
-### server.ssl.cert
-HTTPS server certificate file. Path to the cert file. It is required value if `server.ssl.enable = true`.
-
-Default value is `empty` string.
-```cfg
-cert = ""
-```
-
-### server.ssl.key
-HTTPS server cert key file. Path to the key file. It is required value if `server.ssl.enable = true`.
-
-Default value is `empty` string.
-```cfg
-key = ""
-```
-
-### server.ssl.disable_http2
-Go lang by default enables the HTTP/2 on TLS. For some reason if your use case needs disabling HTTP/2; not to worry, aah framework covers it for you. Just set this config value to `true`.
-
-Default value is `false`.
-
-```cfg
-disable_http2 = true
-```
-
-### Section: server.ssl.redirect_http { ... }
-<span class="badge lb-sm">Since v0.9</span> Redirect HTTP => HTTPS functionality does protocol switch, so it works with domain and subdomains.
-
-```cfg
-For example:
-   http://aahframework.org      => https://aahframework.org
-   http://www.aahframework.org  => https://www.aahframework.org
-   http://docs.aahframework.org => https://docs.aahframework.org
-```
-
-### server.ssl.redirect_http.enable
-To enabling HTTP => HTTPS redirects.
-
-Default is value is `false`.
-```cfg
-enable = true
-```
-
-### server.ssl.redirect_http.port
-Port no. of HTTP requests to listen. For standard port `80` put empty string or a value.
-
-It is required value, no default.
-```cfg
-port = "8080"
-```
-
-### server.ssl.redirect_http.code
-Redirect code to be used when redirecting HTTP request.
-
-Default value is `307`.
-```cfg
-code = 307
-```
-
-### Section: server.ssl.lets_encrypt { ... }
-
-### server.ssl.lets_encrypt.enable
-To enable Let's Encrypt CA auto SSL/TLS certs on the aah go server.
-
-Let’s Encrypt is a free, automated, and open certificate authority (CA), they provide free digital certificates in order to enable HTTPS (SSL/TLS) for websites to create a more secure and privacy-respecting Web.
-
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong> Let’s Encrypt does not provide certificates for localhost.</p>
-</div>
-
-Default value is `false`. Don't forget to enable `server.ssl.enable = true`.
-```cfg
-enable = true
-```
-
-### server.ssl.lets_encrypt.host_policy
-Host policy controls which domains the `autocert` will attempt to retrieve new certificates for. It does not affect cached certs. It is array of domain and sub-domain names.
-
-It is required, no default value.
-```cfg
-host_policy = ["example.org", "docs.example.org"]
-```
-
-### server.ssl.lets_encrypt.renew_before
-Renew before optionally specifies how early certificates should be renewed before they expire.
-
-Default value is `10` days.
-```cfg
-renew_before = 10
-```
-
-### server.ssl.lets_encrypt.email
-Email optionally specifies a contact email address. This is used by CAs, such as Let's Encrypt, to notify about problems with issued certificates. If the Client's account key is already registered, Email is not used.
-
-Default value is `empty` string.
-```cfg
-email = "jeeva@myjeeva.com"
-```
-
-### server.ssl.lets_encrypt.force_rsa
-Force RSA makes the `autocert` generate certificates with 2048-bit RSA keys. If false, a default is used.
-
-Default is `EC`-based keys using the `P-256` curve.
-```cfg
-force_rsa = false
-```
-
-### server.ssl.lets_encrypt.cache_dir
-Cache optionally stores and retrieves previously-obtained certificates autocert manager. By default certs will only be cached for the lifetime of the autocert manager.
-
-Autocert manager passes the Cache certificates data encoded in PEM, with private/public parts combined in a single Cache.Put call, private key first.
-
-Default value is `empty` string.
-```cfg
-cache_dir = "/path/to/store/cache/certs"
-```
-
----
 
 ## Section: request { ... }
-Request configuration values.
 
-### request.max_body_size
-<span class="badge lb-sm">Since v0.8</span> Max request body size for all incoming HTTP requests except `MultipartForm`. Also you can override this size for individual route on specific cases in `routes.conf` if need be.
+HTTP request configurations, such as Max body size, Request ID, Content Negotiation, Action auto bind parameters, etc.
 
-Default value is `5mb`.
-```cfg
-max_body_size = "10mb"
+`request { ... }` configuration goes into `aah.conf`.
+
+```bash
+# -----------------------------------------------------------------------------
+# Request configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-request
+# -----------------------------------------------------------------------------
+request {
+  # Max request body size for all incoming HTTP requests except `MultipartForm`.
+  #
+  # It can also be overridden at individual route level in `routes.conf`.
+  #
+  # Default value is `5mb`.
+  #max_body_size = "5mb"
+
+  # Default value is `32mb`. Choose a value that is best suitable for the
+  # individual app use case
+  #
+  # Note: To be removed in-favor of config `request.max_body_size` in upcoming
+  # version of aah.
+  #multipart_size = "32mb"
+}
 ```
 
-### request.multipart_size
-Request Multi-part size is used for form parsing when request `Content-Type` is `multipart/form-data`.
+## Section: request.id { ... }
 
-Default value is `32mb`.
-```cfg
-multipart_size = "32mb"
+HTTP request ID for traceability.
+
+`id { ... }` configuration goes under the config section `request { ... }`.
+
+```bash
+# -----------------------------------------------------------------------------
+# aah framework encourages to have a unique `Request ID` for each incoming
+# request. It helps in traceability. If a request already has `X-Request-Id`
+# HTTP header, then aah does not generate one.
+#
+# GUID is generated using MangoDB ObjectId algorithm.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-request-id
+# -----------------------------------------------------------------------------
+id {
+  # To enable/disable request ID generation.
+  # Default value is `true`.
+  enable = true
+
+  # HTTP header name for Request ID. If a request already has HTTP header, then
+  # aah does not generate one.
+  #
+  # Default value is `X-Request-Id`, customize it per use case.
+  #header = "X-Request-Id"
+}
 ```
 
-### Section: request.id { ... }
-aah framework encourages to have unique `Request Id` for each incoming request, it is helpful for traceability. If request already has `X-Request-Id` HTTP header then it does not generate one.
+## Section: request.content_negotiation { ... }
 
-Global Unique Identifier (GUID) generate implementation is based on [Mango DB ObjectId algorithm](https://docs.mongodb.com/manual/reference/method/ObjectId/).
+HTTP request Content Negotiation such as Offered and Accepted.
 
-* 4-byte value representing the seconds since the Unix epoch,
-* 3-byte machine identifier,
-* 2-byte process id, and
-* 3-byte counter, starting with a random value.
+`content_negotiation { ... }` configuration goes under the config section `request { ... }`.
 
-### request.id.enable
-To enable/disable request ID generation.
+```bash
+# --------------------------------------------------------------------------------------
+# Content Negotiation is used to validate what is being `offered` and `accepted`
+# by the server in-terms of request and response. It is also known as
+# `Content-Type` restrictions.
+#
+# Perfect for REST API, can also be used for web application if needed.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-request-content-negotiation
+# --------------------------------------------------------------------------------------
+content_negotiation {
+  # To enable/disable Content Negotiation.
+  # Default value is `false`.
+  #enable = true
 
-Default value is `true`.
-```cfg
-enable = true
-```
+  # Accepted - `Content-Type` HTTP header RFC 2616, 10.4.16
+  #
+  # For example: Client sends Content-Type header as `application/xml`.
+  # However, server only supports JSON payload as request body.
+  # Then, aah responds with 415 Unsupported Media Type.
+  #
+  # Default value is empty list and disabled.
+  #accepted = ["application/json", "text/json"]
 
-### request.id.header
-HTTP header name for generated Request ID. If request already has HTTP header then it does not generate one.
-
-Default value is `X-Request-Id`.
-```cfg
-header = "X-Request-Id"
-```
-
-### Section: request.content_negotiation { ... }
-<span class="badge lb-sm">Since v0.8</span> Content negotiation is used to validate what is being `offered` and `accepted` by server in-terms of request and response. Also known as `Content-Type` restrictions.
-
-### request.content_negotiation.enable
-To enable/disable Content Negotiation for your application.
-
-Default value is `false`.
-```cfg
-enable = true
-```
-
-### request.content_negotiation.accepted
-Accepted - `Content-Type` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.16).
-
-<u>For example:</u> Client sends `Content-Type` header as `application/xml`. However server only supports JSON payload as request body. Then server responds with `415 Unsupported Media Type`.
-
-Default value is empty list and disabled.
-```cfg
-accepted = ["application/json", "text/json"]
-```
-
-### request.content_negotiation.offered
-Offered - `Accept` HTTP header [RFC2616](https://tools.ietf.org/html/rfc2616#section-10.4.7).
-
-<u>For example:</u> Client sends Accept header as `application/xml`. However server only supports serving JSON i.e. `application/json`. Then server responds with `406 Not Acceptable`.
-
-Default value is empty list and disabled.
-```cfg
-offered = ["application/json", "text/json"]
+  # Offered - `Accept` HTTP header RFC 2616, 10.4.7
+  #
+  # For example: Client sends Accept header as `application/xml`.
+  # However, server supports serving JSON alone i.e. `application/json`.
+  # In that case, aah server responds with 406 Not Acceptable.
+  #
+  # Default value is empty list and disabled.
+  #offered = ["application/json", "text/json"]
+}
 ```
 
 ## Section: request.auto_bind { ... }
-Auto Bind configuration used to bind request parameters to controller action parameters.
 
-### request.auto_bind.priority
-Priority is used to select the bind source priority.
-```cfg
-P -> Path Parameter
-F -> Form Parameter
-Q -> Query Parameter
+`auto_bind { ... }` configuration goes under the config section `request { ... }`.
+
+```bash
+# -----------------------------------------------------------------------------
+# Auto Bind configuration for Controller Action parameters.
+# Doc: https://docs.aahframework.org/app-config.html#section-request-auto-bind
+# -----------------------------------------------------------------------------
+auto_bind {
+  # Priority is used to select the bind source priority.
+  #   P -> Path Parameter
+  #   F -> Form Parameter
+  #   Q -> Query Parameter
+  #
+  # If the value is not found it initializes with Go zero value.
+  #
+  # For Example:
+  # Let's say controller action named `OrderInfo` and it has parameter called
+  # `orderId`.
+  # So, aah tries to parse and bind based on the priority.
+  # The `orderId` present in `Path` as well as in `Form`. aah picks the value
+  # from `Path`.
+  #
+  # NOTE: It is recommended to have unique names in the request parameter.
+  #
+  # Default value is `PFQ`.
+  #priority = "PFQ"
+
+  # Tag Name is used to bind values to struct exported fields.
+  # Default value is `bind`.
+  #tag_name = "bind"
+}
 ```
-
-<u>For example:</u> Let's say you have a controller action named `OrderInfo` and its has parameter called `orderId`. So framework tries to parse and bind based on the priority. The `orderId` present in `Path` and `Form`, framework parse and binds the value from `Path`.
-
-Typically recommended to have unique names in the request parameter though :) If value is not found then it returns with default Go zero value.
-
-Default value is `PFQ`.
-```cfg
-priority = "PFQ"
-```
-
-### request.auto_bind.tag_name
-Tag Name is used for bind values to struct exported fields.
-
-Default value is `bind`.
-```cfg
-tag_name = "bind"
-```
-
----
 
 ## Section: i18n { ... }
-Internationalization and Localization configuration values.
 
-### i18n.default
-It is used as fallback value if framework is unable to determine the locale information from HTTP Request as per RFC7231 and `lang` Query parameter is not present.
+i18n - Internationalization, Localization configurations.
 
-Default value is `en`.
-```cfg
-default = "en"
+`i18n { ... }` configuration goes into `aah.conf`.
+
+```bash
+# -----------------------------------------------------------------------------
+# i18n Internationalization configuration.
+# Doc: https://docs.aahframework.org/app-config.html#section-i18n
+# -----------------------------------------------------------------------------
+i18n {
+  # Default config is used as fallback if aah is unable to determine the
+  # locale from HTTP Request.
+  #
+  # Default value is `en`.
+  #default = "en"
+
+   # parameter or URL Query parameter.
+  param_name {
+    # Path Param name
+    #
+    # i.e. `/:lang/home.html`, `/:lang/aboutus.html`, etc.
+    # For e.g.: `/en/home.html`, `/en/aboutus.html`, `/zh-CN/home.html`,
+    # `/zh-CN/aboutus.html` etc.
+    #
+    # Default value is `lang`.
+    #path = "locale"
+
+    # Query Param name
+    #
+    # i.e `?lang=en`, `?lang=zh-CN`, etc.
+    #
+    # Default value is `lang`.
+    #query = "locale"
+  }
+}
 ```
-
-### Section: i18n.param_name { ... }
-Overriding Request Locale `Accept-Language` header value via URL Path parameter or URL Query parameter.
-
-### i18n.param_name.path
-Specify URL Path Parameter name i.e. `/:lang/home.html`, `/:lang/aboutus.html`, etc.  For e.g.: `/en/home.html`, `/en/aboutus.html`, `/zh-CN/home.html`, `/zh-CN/aboutus.html` etc.
-
-Default value is `lang`
-```cfg
-path = "locale"
-```
-
-### i18n.param_name.query
-Specify URL Query Param name i.e `?lang=en`, `?lang=zh-CN`, etc.
-
-Default value is `lang`
-```cfg
-query = "locale"
-```
-
----
 
 ## Section: format { ... }
-Date, Time format values. These formats used to parse in the order they defined while [Auto Parse and Bind](request-parameters-auto-bind.html) into controller action parameters.
 
-Any parse error result in 400 Bad Request.
+`format { ... }` configuration goes into `aah.conf`.
 
-### format.time
-```cfg
-time = [
-  "2006-01-02T15:04:05Z07:00",
-  "2006-01-02T15:04:05Z",
-  "2006-01-02 15:04:05",
-  "2006-01-02"
-]
+```bash
+# -----------------------------------------------------------------------------
+# Format Configuration
+#
+# Any parse error result in 400 Bad Request.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-format
+# -----------------------------------------------------------------------------
+format {
+  # Time format configuration
+  # Date and Time format config values are used to parse in the order in which
+  # they are defined.
+  #
+  # It is used in the auto parse and bind request parameters on type `time.Time`.
+  time = [
+    "2006-01-02T15:04:05Z07:00",
+    "2006-01-02T15:04:05Z",
+    "2006-01-02 15:04:05",
+    "2006-01-02"
+  ]
+}
 ```
-
----
 
 ## Section: runtime { ... }
-aah application runtime configuration values used for debugging, object pooling, etc.
 
-### Section: runtime.debug { ... }
+aah runtime configurations, such as stack trace buffer size, capture all goroutines stack, strip `GOPATH` information from stack trace log.
 
-### runtime.debug.stack_buffer_size
-Choose an appropriate buffer size for collecting all goroutines stack trace dump based on your case.
+`runtime { ... }` configuration goes into `aah.conf`.
 
-Default value is `2mb`.
-```cfg
-stack_buffer_size = "2mb"
+```bash
+# -----------------------------------------------------------------------------
+# Runtime configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-runtime
+# -----------------------------------------------------------------------------
+runtime {
+
+}
 ```
 
-### runtime.debug.all_goroutines
-Whether to collect all the Go routines details or not.
+## Section: runtime.debug { ... }
 
-Default value is `false`.
-```cfg
-all_goroutines = false
+`debug { ... }` configuration goes under the config section `runtime { ... }`.
+
+```bash
+# -----------------------------------------------------------------------------
+# Debug configuration
+# Used to collect stack trace at runtime and parsing of stack trace.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-runtime-debug
+# -----------------------------------------------------------------------------
+debug {
+  # Stack buffer size for collecting all go routines stack trace dump at runtime.
+  # Default value is `2mb`.
+  #stack_buffer_size = "2mb"
+
+  # Whether to collect all the Go routines details or not.
+  # Default value is `false`.
+  #all_goroutines = true
+
+  # Whether to strip source `src` base path from file path on stack trace.
+  # Default value is `false`.
+  #strip_src_base = true
+}
 ```
-
-### runtime.debug.strip_src_base
-Whether to strip source `src` base path from file path.
-
-Default value is `false`.
-```cfg
-strip_src_base = true
-```    
-
----
 
 ## Section: render { ... }
 
-### render.default
-aah framework identifies the `Content-Type` value automatically, when `aah.Reply()` builder Content-Type value is not set. It identifies in the order of:
+aah reply/response configurations, such as default fallback content type, secure JSON, Gzip compression, etc.
 
-  * Based on URL file extension, supported `.html`, `.htm`, `.json`, `.js`, `.xml` and `.txt`
-  * Request Accept Header - Most Qualified one as per [RFC7321](https://tools.ietf.org/html/rfc7231#section-5.3)
-  * Config `render.default` value supported types are `html`, `json`, `xml` and `text`
-  * Finally aah framework uses `http.DetectContentType` method
+`render { ... }` configuration goes into `aah.conf`.
 
-Default value is `empty` string.
-```cfg
-default = "json"
+```bash
+# -----------------------------------------------------------------------------
+# Render configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-render
+# -----------------------------------------------------------------------------
+render {
+  # aah infers the `Content-Type` value automatically
+  # if `Reply()` builder does not have value.
+  #
+  # It infers in the order of:
+  #  - URL file extension - supports `.html`, `.htm`, `.json`, `.js`, `.xml`
+  #    and `.txt`,
+  #
+  #  - Request Accept Header - Most Qualified one as per RFC 7321 .
+  #      * Supports vendor type as per RFC 4288.
+  #
+  #  - Fallback to `render.default` value - supports `html`, `json`, `xml` and `text`.
+  #
+  # Default value is `empty` string.
+  #default = "html"
+
+  # Secure JSON config is to prevent Cross Site Script Inclusion (XSSI) attacks
+  # on JSON response payload (aka JSON vulnerability). XSSI attack is only
+  # successful if the returned JSON response is executable as JavaScript.
+  #
+  # aah prefixes JSON response to make them non-executable on
+  # method `Reply().JSONSecure()`.
+  #
+  # Default value is `)]}',\n`.
+  #secure_json {
+  #  prefix = ")]}',\n"
+  #}
+}
 ```
 
-### secure_json { ... }
+## Section: render.gzip { ... }
 
-Secure JSON is to prevent against Cross Site Script Inclusion (XSSI) attacks on JSON response payload aka JSON vulnerability. XSSI attack is only successful if the returned JSON response is executable as JavaScript.
+HTTP Response Gzip compression configuration.
 
-### prefix
-`aah` prevent an attack by prefixing JSON response to make them non-executable.
+`gzip { ... }` configuration goes under the config section `render { ... }`.
 
-Default value id `)]}',\n`.
-```cfg
-prefix = ")]}',\n"
+```bash
+# -----------------------------------------------------------------------------
+# Gzip Configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-render-gzip
+# -----------------------------------------------------------------------------
+gzip {
+  # By default, aah does Gzip compression. However, aah ensures that HTTP
+  # client is capable to accept Gzip response.
+  #
+  # NOTE: If you have web server (`nginx`, `httpd`, etc) enabled with Gzip
+  # in-front of aah server, disable the gzip in aah application.
+  # There is no benefit in doing double compression; just CPU cycle gets wasted.
+  #
+  # Default value is `true`.
+  #enable = true
+
+  # Gzip compression levels.
+  # Valid levels are  1 = BestSpeed to 9 = BestCompression.
+  #
+  # Default value is `4`.
+  #level = 4
+}
 ```
 
+## Section: cache { ... }
 
-### Section: render.gzip { ... }
-Gzip compression configuration for HTTP response.
+aah cache configurations, such as Static files HTTP Cache-Control header, etc.
 
-### render.gzip.enable
-By default Gzip compression is enabled in aah framework, however framework ensures HTTP client does accepts Gzip response otherwise it won't use the Gzip compression.
+`cache { ... }` configuration goes into `aah.conf`.
 
-<div class="alert alert-info-green">
-<p><strong>Tip:</strong> If you have `nginx` or `apache` web server enabled with gzip in-front of aah go server then set this value to `false`. There is not point in doing double compression.<p>
-</div>
+```bash
+# -----------------------------------------------------------------------------
+# Cache configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-cache
+# -----------------------------------------------------------------------------
+cache {
 
-Default value is `true`.
-```cfg
-enable = true
+}
 ```
-
-### render.gzip.level
-Used to control Gzip compression levels. Valid levels are `1 = BestSpeed` to `9 = BestCompression`.
-
-Default value is `5`.
-```cfg
-level = 3
-```
-
----
 
 ## Section: view { ... }
 
-### view.engine
-Choosing view engine for aah application. You could implement on your own with very simple interface `view.Enginer`.
+aah view engine configurations, such as
 
-Default value is `go`.
-```cfg
-engine = "go"
+`view { ... }` configuration goes into `aah.conf`.
+
+```bash
+# -----------------------------------------------------------------------------
+# View configuration
+# Doc: https://docs.aahframework.org/app-config.html#section-view
+# -----------------------------------------------------------------------------
+view {
+  # Application view engine.
+  # Default value is `go`.
+  engine = "go"
+
+  # View file extension.
+  #
+  # Default value is chosen based on `view.engine` while creating a new app
+  # via command `aah new`.
+  ext = ".html"
+
+  # Config case_sensitive is used to resolve view file name and path.
+  # For e.g.: "/views/pages/app/login.tmpl" == "/views/pages/App/Login.tmpl"
+  #
+  # Default value is `false`.
+  #case_sensitive = false
+
+  # To use custom Go template delimiters for view files.
+  # Default value is `{{.}}`.
+  #delimiters = "{{.}}"
+
+  # aah supports multi-layouts for views. The page layout name of aah is
+  # `master.html`. aah supports non-layout too.
+  #
+  # NOTE: To use layouts with this setting, just provide layout name explicitly
+  # via methods `Reply().HTMLlf` or `Reply().HTMLl`.
+  #
+  # Default value is `true`. Available since v0.6
+  #default_layout = false
+}
 ```
 
-### view.ext
-Choosing your own view file extension. It is used while find, filter and parse view files.
+## Section: security { ... }
 
-Default value is chosen based on `view.engine`, while creating a new app using command `aah new`.
-```cfg
-ext = ".html"
+aah security configurations are defined in separate file to organize better and included using `include` reference in the aah.conf.
+
+`security { ... }` configuration goes into `aah.conf` via file inclusion. Refer to [Security Config](security-config.html).
+
+```bash
+# -----------------------------------------------------------------------------
+# Security configuration
+# Doc: https://docs.aahframework.org/security-config.html
+# -----------------------------------------------------------------------------
+include "./security.conf"
 ```
-
-### view.case_sensitive
-Whether you need a case sensitive view file resolve or not.
-
-Default value is `false`.
-```cfg
-# for e.g.: "/views/pages/app/login.tmpl" == "/views/pages/App/Login.tmpl"
-case_sensitive = false
-```
-
-### view.delimiters
-To use custom Go template delimiters on view files.
-
-Default value is `{{.}}`
-```cfg
-delimiters = "{{.}}"
-```
-
-### view.default_layout
-By default aah framework chooses the default app layout as `master.html` if you do not provide one. However you may have a need that certain pages without layout. So use this option to disable the default layout for HTML rendering.
-
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong> With this setting you can still use layouts, just provide layout name via <code>Reply().HTMLlf</code> or <code>Reply().HTMLl</code> methods</p>
-</div>
-
-Default value is `true`. <span class="badge lb-sm">Since v0.6</span>
-```cfg
-default_layout = false
-```
-
----
 
 ## Section: env { ... }
-Application environment profiles, to override app config for respective environment. For e.g: `dev`, `qa`, `prod` etc.
 
-## env.active
-Indicates active profile name for application configuration.
+aah supports the concept of profile that helps easily organize the configurations across different environments that are defined by profile.
 
-Default value is `dev`.
-```cfg
-active = "dev"
-```
+For e.g: `dev`, `qa`, `prod` etc.
 
-## include - This is for example purpose, you can use `include` at any levels
-Including all the environment profile overrides from `env` directory within `config` directory.
-```cfg
-include "./env/*.conf"
+`env { ... }` configuration goes into `aah.conf`.
+
+```bash
+# -----------------------------------------------------------------------------
+# Environment Profiles
+#
+# For e.g.: dev, qa, prod, etc.
+#
+# Doc: https://docs.aahframework.org/app-config.html#section-env
+# -----------------------------------------------------------------------------
+env {
+  # Active profile name for the application configuration.
+  #
+  # For e.g.: To activate environment profile via application binary
+  # /path/to/binary/aahwebsite -profile prod
+  #
+  # Default value is `dev`.
+  #active = "dev"
+
+  # Environment profile configurations
+  # Load all the configuration files from `appbasedir/config/env/*.conf`.
+  include "./env/*.conf"
+}
 ```
