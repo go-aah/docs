@@ -4,9 +4,7 @@ Keywords: routes config, routes configuration, namespace routes, group routes, r
 ---
 # aah Routes Configuration
 
-aah Routes configuration is flexible and effective. The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
-
-Reference to [App Config](app-config.html), [Security Config](security-config.html), [Log Config](log-config.html).
+aah Routes configuration is flexible and effective. The configuration syntax is used by aah framework is very similar to HOCON syntax. Learn more about [configuration syntax](configuration.html).
 
 ### Table of Contents
 
@@ -21,7 +19,6 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
       * [auto_options](#auto-options)
       * [default_auth](#default-auth) <span class="badge lb-xs">Since v0.7</span>
       * [cors { ... }](cors.html) <span class="badge lb-xs">Since v0.10</span>
-      * [not_found { ... }](#section-not-found) <span class="badge lb-xs lb-drop-color">On v0.8</span> removed, in-favor of [Centralized Error Handler](centralized-error-handler.html)
       * [static { ... }](static-files.html)
       * [routes { ... }](#section-routes)
           - [path](#path)
@@ -29,13 +26,13 @@ Reference to [App Config](app-config.html), [Security Config](security-config.ht
           - [controller](#controller)
           - [action](#action)
           - [auth](#auth) <span class="badge lb-xs">Since v0.7</span>
+          - [authorization { ... }](authorization.html#via-configuration)  <span class="badge lb-xs">Since v0.11</span>
           - [max_body_size](#max-body-size) <span class="badge lb-xs">Since v0.8</span>
           - [anti_csrf_check](#anti_csrf_check) <span class="badge lb-xs">Since v0.9</span>
-          - [Namespace/Group routes { &hellip; }](#namespace-group-routes)
-
-Have a look at [aahframework.org routes configuration](https://github.com/go-aah/website/blob/master/config/routes.conf). It is simple one, it gives an idea on how you can do it for your application.
+  * [Namespace/Group routes { &hellip; }](#namespace-group-routes)
 
 ## Section: domains { ... }
+
 Domain and sub-domain configuration goes into section `domains { ... }`.
 
 ## Section: unique keyname - user defined
@@ -134,26 +131,10 @@ Default value is empty string.
 default_auth = "form_auth"
 ```
 
-### Section: not_found { ... }
-<span class="badge lb-sm lb-drop-color">On v0.8</span> configuration is removed in-favor of [Centralized Error Handler](centralized-error-handler.html).
-
-<strike>Define your custom `NotFound` implementation. It is invoked when no matching route is found. If not defined default one is invoked. This is optional section.
-
-Create your controller and action of your choice. Then register in the routes config. You may call `IsStaticRoute()` in the NotFound action to know whether the incoming request is `static or application route`.
-
-`controller` and `action` is required value if `not_found` section is defined.
-```cfg
-not_found {
-  controller = "App"
-  action = "NotFound"
-}
-```
-</strike>
-
 ---
 
 ## Section: routes { ... }
-Routes section is used to define application routes. It is easy to Individual routes or namespace/group routes.
+Routes section is used to define application routes. It is easy to define individual routes or namespace/group routes.
 
 Each route definition has config attributes called `path`, `method` `controller`, and `action`. Some has default value if it's not set.
 
@@ -287,7 +268,7 @@ Configuring namespace/group routes is very easy to define. Simply define `routes
 
 #### Nested routes config works like this:
 
-```cfg
+```bash
 routes {
   <route_name1> { # unique route name
     # this route attributes
@@ -317,13 +298,16 @@ routes {
 
 ### Pro Tips for nested/namespace routes
 
-  * `path` -  if its not provided in the child route then inherits parent value as-is (<span class="badge lb-xs">Since v0.10</span>) otherwise prefix to child path
-  * `method` - provided value otherwise default value is GET
-  * `controller` - if its not provided in the child route then inherits parent value as-is <span class="badge lb-xs">Since v0.10</span>
-  * `action` - if its not provided then action value is chosen based on HTTP method
-  * `auth` -  if its not provided in the child route then inherits parent value as-is
-  * `max_body_size` - if its not provided then `request.max_body_size` config value is used from `aah.conf`
-  * `anti_csrf_check` - default is true for web application, for REST API this doesn't take effect even if its defined
+Route Attribute | Notes
+--------------- | -----
+path | If its not provided in the child route then inherits parent value as-is (<span class="badge lb-xs">Since v0.10</span>) otherwise prefix to child path.
+method | Provided value otherwise default value is GET.
+controller | If its not provided in the child route then inherits parent value as-is <span class="badge lb-xs">Since v0.10</span>.
+action | If its not provided then action value is chosen based on HTTP method.
+auth | If its not provided in the child route then inherits parent value as-is.
+authorization | To define roles and permissions check; if its not provided in the child route then inherits parent value as-is.
+max_body_size | If its not provided then `request.max_body_size` config value is used from `aah.conf`.
+anti_csrf_check | Default is true for web application, for REST API this doesn't take effect even if its defined.
 
 
 ### Sample of mapping nested routes
@@ -332,7 +316,7 @@ routes {
 
 #### Sample 2: Let's say following URLs into routes definition
 
-```cfg
+```bash
 # Let's say you have controller `UserController` and
 # it has actions `List`, Index, `Create`, `Update`, `Delete`, `Settings` and `UpdateSettings`.
 # URLs are:
@@ -348,7 +332,7 @@ Update User Settings - PATCH  /v1/users/:id/settings
 <br>
 Configuration: This is to demonstrate the nested/group/namespace routes. Always go with your creativity.
 
-```cfg
+```bash
 routes {
   v1_api {
     path = "/v1"

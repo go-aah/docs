@@ -8,8 +8,6 @@ The configuration syntax is used by aah framework is very similar to HOCON synta
 
 This document describes aah log configurations. Typically log configuration done at every environment profile level and you override it via external config file.
 
-Reference to [App Config](app-config.html), [Routes Config](routes-config.html), [Security Config](security-config.html).
-
 ## log.receiver
 Receiver is where the log values gets logged. Out-of-the-box framework supports `console` and `file` receivers. Also you can add `Hooks` into per aah logger instance, for sending log data to splunk, kibana, etc.
 

@@ -4,7 +4,7 @@ Keywords: aah binary, aah app binary, flags, hot-reload, without restart, cross 
 ---
 # aah Application Binary
 
-This page describe the aah application binary capabilities and artifact details.
+This page describe the aah application binary capabilities and its artifact details.
 
 <div class="alert alert-info-green">
 <p><strong>News:</strong> Since <code>v0.11.0</code> aah supports single and non-single binary build artifact packaging.</p>
@@ -14,7 +14,7 @@ This page describe the aah application binary capabilities and artifact details.
 <p><strong>Note:</strong></p>
 <p>Go binary have no runtime dependencies (such as Go installation, GOPATH, libraries, etc.), once binary is built for targeted Operating System (OS); then it runs on any machine of targeted OS.</p>
 <p><u>For example:</u></p>
-<p>Building aah binary for Linux 64-bit OS - <code>env GOOS=linux GOARCH=amd64 aah build &lt;args-goes-here></code></p>
+<p>Building aah binary for Linux 64-bit OS - <code>env GOOS=linux GOARCH=amd64 aah build &lt;args></code></p>
 </div>
 
 
@@ -24,7 +24,7 @@ This page describe the aah application binary capabilities and artifact details.
   * [Start](#start)
   * [Stop](#stop)
   * [Reload](#reload)
-  * [Finding Embedded Files](#finding-embedded-files) <sup>for aah single binary</sup>
+  * [Know your Embedded Files](#know-your-embedded-files) <sup>for aah single binary</sup>
   * [Cross Compile Build](#cross-compile-build)
   * [Build Artifact Naming Convention](#build-artifact-naming-convention)
 
@@ -69,7 +69,7 @@ $ kill -INT <process-id>
 $ kill -HUP <process-id>
 ```
 
-Application logs information similar to below-
+Application logs information would appear similar to below-
 
 ```bash
 2018-05-19 22:51:08.452 WARN  aahwebsite sfo-aahweb-01 Hangup signal (SIGHUP) received
@@ -85,7 +85,7 @@ Application logs information similar to below-
 2018-05-19 22:51:08.564 INFO  aahwebsite sfo-aahweb-01 Application hot-reload and reinitialization was successful
 ```
 
-## Finding Embedded Files
+## Know your Embedded Files
 
 <span class="badge lb-sm">Since v0.11.0</span> aah supports single binary build packaging.
 

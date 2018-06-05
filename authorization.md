@@ -28,6 +28,8 @@ Those are all decisions determining what a user has access to.
       - [In View/Template file](#in-view-template-file)
 
 
+**Upcoming Feature:** aah would support dynamic add and remove roles/permissions at runtime with `Subject` instance. It means, you won’t have to force application users to logout and login back in order to get their new roles/permissions.
+
 ### Elements of Authorization
 
 Authorization has three core elements that referenced quite a bit in aah- `permissions`, `roles`, and `users`.
@@ -72,8 +74,6 @@ Most people view roles as what we define as an implicit role where your applicat
 An explicit role has permissions `explicitly` assigned to it and therefore is an `explicit` collection of permissions. Permission checks in code are a reflection of an explicit role. You can view patient data because because you have the `view patient` data permission as part of your `administrator` role. You can create an account because you have the `create account` permission as part of your `bank teller` role. You can perform these actions, not because of some implicit role name based on a string but because the corresponding permission was explicitly assigned to your role.
 
 The big benefits of explicit roles are _easier manageability_ and _lower maintenance_ of your application. If you ever need to add, remove, or change a role, you can do so without touching your source code.
-
-**`Upcoming`** In aah framework, you’ll also be able to dynamically add, remove, or change roles at runtime and your authorization checks will always have up to date values. This means you won’t have to force users to log out and log back in order to get their new permissions.
 
 ## Users Defined
 

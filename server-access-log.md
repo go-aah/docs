@@ -46,7 +46,7 @@ Access log processing handled in separate routine, it won't stand in way.
 
 Add `access_log` section under the config `server` section in the `aah.conf`.
 
-```cfg
+```bash
 server {
   # ...
 

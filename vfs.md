@@ -6,7 +6,7 @@ Keywords: vfs, fs, virtual filesystem, filesystem, mount, aah vfs, in-memory fil
 
 aah introduced the Virtual FileSystem (VFS) feature in <span class="badge lb-sm">v0.11.0</span> [`aahframework.org/vfs`](https://github.com/go-aah/vfs).
 
-  * Tiny in-memory FileSystem
+  * In-memory FileSystem
   * Ability to `mount` FileSystem directory into virtual directory
   * The `mounted` virtual directory is accessible via `aah.AppVFS()` within aah application
   * A single consistent APIs for accessing Virtual and Physical FileSystem

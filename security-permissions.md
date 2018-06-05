@@ -277,4 +277,4 @@ Currently Authorization information is fetched on every request via registered `
 ----
 ## Attribution
 
-This page documentation includes content from [Shiro Security library](https://shiro.apache.org).
+This documentation includes content from [Shiro Security library](https://shiro.apache.org).

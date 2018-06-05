@@ -14,7 +14,7 @@ Its not just a dump, Log is readable and very helpful for your `Debugging`. You 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>
 <ul>
-  <li>It is not recommended to enable 'Request and Response dump' for <code>production use</code>. It may have application performance degrade.</li>
+  <li>It is not recommended to enable Request and Response dump on <code>production system</code>. It may have application performance degrade.</li>
   <li>Keep an eye on <code>disk usage</code> when aah server dump is enabled.</li>
   <li>Server Dump log is not applicable for Static files delivery and non-readable content types.</li>
 </ul>

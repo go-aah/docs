@@ -23,10 +23,12 @@ Familiarize yourself with aah framework security [Terminology](security-terminol
 
 ## Terminology to know
 
-  * **Subject** - Security specific user ‘view’ of an application user. It can be a human being, a third-party process, a server connecting to an application, or even a cron job. Basically, it is anything or anyone communicating with application.
-  * **Principals** - A subjects identifying attributes. First name, last name, email address, username, social security number, etc.
-  * **Credential** - secret data that are used to verify identities. Passwords, x509 certificates, etc.
-  * **Authenticator** - An application implements the interface `authc.Authenticator` to provide authentication information for authenticating subject/user.
+Term | Description
+---- | -----------
+Subject | Security specific user `view` of an application user. It can be a human being, a third-party process, a server connecting to an application, or even a cron job. Basically, it is anything or anyone communicating with application.
+Principals | A subjects identifying attributes. First name, last name, email address, username, social security number, etc.
+Credential | Secret data that are used to verify identities. Passwords, x509 certificates, etc.
+Authenticator | An application implements the interface `authc.Authenticator` to provide authentication information for authenticating subject/user.
 
 ## Authentication Scheme
 
@@ -313,7 +315,7 @@ In generic auth scheme -
       - Such as `authc.ErrAuthenticationFailed` or `authc.ErrSubjectNotExists`; then aah would responds caller with `401 Unauthorized`.
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> Generic auth scheme has more possibilities. Credential validation is not done by aah. It could be used for auth scheme's like JWT, OAuth, etc.</p>
+<p><strong>Note:</strong> Generic auth scheme has more possibilities. Credential validation is not done by aah.</p>
 </div>
 
 Configuration goes under section `security.auth_schemes { ... }`.

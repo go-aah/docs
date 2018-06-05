@@ -50,7 +50,7 @@ The interface `scheme.Schemer` is way aah framework provides pluggable and confi
 Currently ready to use schemes are `scheme.FormAuth`, `scheme.BasicAuth` and `scheme.GenericAuth` direct implementation of interface `scheme.Schemer`.
 
 ```go
-Schemer interface {
+type Schemer interface {
 	// Init method gets called by framework during an application start.
 	Init(appCfg *config.Config, keyName string) error
 
@@ -114,18 +114,11 @@ type Authorizer interface {
 
 ### PasswordEncoder
 
-The interface `PasswordEncoder` is used to implement user password encoding such as `bcrypt`, `scrypt`, `pbkdf2`, `sha1`, `sha256`, etc.
-
-**Note:**
-
-Currently aah framework supports `bcrypt` password encoder, remaining encoders are **`upcoming`**.
+The interface `PasswordEncoder` is used to implement user password encoding such as `bcrypt`, `scrypt`, and `pbkdf2`.
 
 ```go
 // PasswordEncoder interface is used to encode and compare given hash and password
-// based chosen hashing type. Such as `bcrypt`, `scrypt`, `pbkdf2`, `sha1`, `sha256`, `
-// sha512` and `md5`.
-//
-// Currently `bcrypt` is supported by aah framework, remaining encoders are `upcoming`.
+// based chosen hashing type. Such as `bcrypt`, `scrypt`, and `pbkdf2`.
 //
 // Caution: If you're using an unsecure hashing, your application is exposed to security
 // issues. Consider using `bcrypt`, `scrypt`, or `pbkdf2`. Good read about
@@ -138,4 +131,4 @@ type PasswordEncoder interface {
 ----
 ## Attribution
 
-This page documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).
+This documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).

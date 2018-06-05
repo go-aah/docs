@@ -37,9 +37,9 @@ Lifecycle always reflects latest version flow.
   * `OnPreAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
   * Authenticate the incoming request. <span class="badge lb-xs">Since v0.7</span>
   * Populates Authorization info into Subject. <span class="badge lb-xs">Since v0.7</span>
-  * Auto Check Authorization roles & permissions based on route `authz` configuration **`upcoming`**
+  * Auto Check Authorization roles & permissions based on route `authorization` configuration
   * `OnPostAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
-  * Validate request parameter values **`upcoming`**
+  * Validate request parameter values
   * User-defined middleware(s) execution (basically before `m.Next(ctx)` call).
   * Controller interceptor `Before` is called if exists.
   * Controller-Action interceptor `Before<ActionName>` is called if exists.
