@@ -27,9 +27,6 @@ Those are all decisions determining what a user has access to.
       - [In Application](#in-application)
       - [In View/Template file](#in-view-template-file)
 
-
-**Upcoming Feature:** aah would support dynamic add and remove roles/permissions at runtime with `Subject` instance. It means, you won’t have to force application users to logout and login back in order to get their new roles/permissions.
-
 ### Elements of Authorization
 
 Authorization has three core elements that referenced quite a bit in aah- `permissions`, `roles`, and `users`.
@@ -55,6 +52,7 @@ The permissions above all specify an actions (open, read, delete, etc) on a reso
 <ul>
   <li>aah supports ACL, RBAC, ABAC, or custom (name your own). This is the capabilities of aah security design and implementation.</li>
   <li>Construct the permission string the way application want; as long as <code>authz.Authorizer</code> knows how to work with it. aah <code>Permission</code> is powerful and intuitive, learn more <a href="security-permissions.html">Understanding Permissions in aah</a>.</li>
+  <li>aah supports dynamically add/remove roles and permissions at runtime with `Subject` instance. It means, you won’t have to force application users to logout and login back in order to get their new roles/permissions.</li>
 </ul>
  </p>
 </div>
