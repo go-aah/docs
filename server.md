@@ -1,85 +1,95 @@
 Title: aah Server
-Desc: aah server is in-built web server provided by Go lang. HTTP, HTTPS, UNIX Socket, Let's Encrypt, Custom TLS Config, etc. Server provides flexible configuration on aah.conf.
+Desc: aah server is built using Go provided http.Server. It supports HTTP, HTTPS, UNIX Socket, Let's Encrypt cert and TLS Config. It provides a flexible configuration via aah.conf
 Keywords: aah server, go http server, aah go server, http server, web server, let's encrypt, unix socket
 ---
 # aah Server
 
-aah server is a in-built HTTP server provided by Go lang. On top aah framework provides flexible way to configure `server { ... }` in the `aah.conf` and exploit the capabilities.
+aah server is built using Go provided `http.Server`. It supports HTTP, HTTPS, UNIX Socket, Let's Encrypt cert and TLS Config. It gives a flexible way to configure `server { ... }` in `aah.conf`.
 
-Reference to [Server Config](app-config.html#section-server), [Server Extension](server-extension.html).
+Learn [Server Config](app-config.html#section-server), [Server Extension](server-extension.html), [Access Log](server-access-log.html), [Dump Request and Response](server-dump-log.html).
 
-### Capabilities
+### Table of Contents
 
   * [HTTP](#http)
   * [HTTPS](#https)
       - [Let's Encrypt Auto Cert](#let-s-encrypt-auto-cert)
   * [UNIX Socket](#unix-socket)
-  * [Custom TLS Config](#custom-tls-config)
-      - [How to do?](#how-to-do)
-      - [Example: To improve SSL score](#example-to-improve-ssl-score)
+  * [TLS Config](#tls-config)
+      - [How to?](#how-to)
+      - [Example: Hardening SSL Ciphers](#example-hardening-ssl-ciphers)
 
 ## HTTP
 
-Starts the server based on provided `address` and `port` with HTTP protocol.
+aah starts the HTTP server based on the `address` and `port` configured.
 
 ## HTTPS
 
-Starts the server if `server.ssl.enable` set to `true` with given SSL cert and key. In the HTTPS mode by default framework sets the header `Strict-Transport-Security` with `max-age=31536000; includeSubDomains`, know more about [STS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet).
+aah starts the server if `server.ssl.enable` is set to `true` with the given SSL cert and key. In HTTPS mode, aah sets the header `Strict-Transport-Security` with `max-age=31536000; includeSubDomains`. Know more about [STS](https://www.owasp.org/index.php/HTTP_Strict_Transport_Security_Cheat_Sheet).
 
 ### Let's Encrypt Auto Cert
 
-aah framework supports auto Let's Encrypt certs, you can set `server.ssl.lets_encrypt.enable` to `true` to enable it. Have a look on configuration [here](app-config.html#section-lets-encrypt) for more options.
+aah supports automatic Let's Encrypt certs. To enable this functionality, set config `server.ssl.lets_encrypt.enable` to `true`. For more options, have a look at the [configuration](app-config.html#section-server-ssl-lets-encrypt).
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> Let's Encrypt does not provide certificates for localhost.</p>
+<p><strong>Note:</strong> Let's Encrypt CA does not provide certificates for localhost.</p>
 </div>
 
 ## UNIX Socket
 
-To start the aah application on `UNIX` socket; set the `server.address` to socket file.
+To start the aah server on `UNIX` socket, set `server.address` to socket file.
 
 **Example:**
-```cfg
+
+```bash
 address = "unix:/tmp/myapp.sock"
 ```
 
-## Custom TLS Config
+## TLS Config
 
-aah provides flexible way to provide custom TLS configuration for the server via `aah.AddServerTLSConfig(...)`.
-
-### How to do?
-
-There are two ways you can add the custom TLS config-
-
-  * Via `aah.OnInit` event - It is `recommended` approach. Since you have access to `aah.AppConfig()` values.
-  * Via `func init()`
+aah HTTPS server mode is amenable in customizing TLS configuration via `aah.SetTLSConfig()`.
 
 ```go
-// Via `aah.OnInit` event - recommended approach
-func init() {
-  aah.OnInit(func(e *aah.Event) {
-    // `aah.AppConfig()` values available for you
 
-    aah.AddServerTLSConfig(&tls.Config{
-      // config goes here
+func init()  {
+  aah.SetTLSConfig(/* TLS config comes here */)
+}
+```
+
+### How to?
+
+The TLS config can be added by using either of the following two ways-
+
+  * `aah.OnInit` event - This way is better since `aah.AppConfig()` values are readily accessible.
+  * `func init()`
+
+```go
+// On file <app-base-dir>/app/init.go
+func init() {
+  // Using `aah.OnInit` event
+  aah.OnInit(func(e *aah.Event) {
+    // `aah.AppConfig()` values are readily accessible
+
+    aah.SetTLSConfig(&tls.Config{
+      // configure TLS
     })
   })
 }
 
-// Via `func init()`
+// Without using `aah.OnInit` event
 func init() {
-  aah.AddServerTLSConfig(&tls.Config{
-    // config goes here
+  aah.SetTLSConfig(&tls.Config{
+    // configure TLS
   })
 }
 ```
 
-### Example: To improve your SSL score
+### Example: Hardening SSL Ciphers
+
 ```go
+// On file <app-base-dir>/app/init.go
 func init() {
-  // You can use `aah.OnStart` event too.
   aah.OnInit(func(e *aah.Event) {
-    // `aah.AppConfig()` values available for you
+    // `aah.AppConfig()` values are readily accessible
 
     // Customizing a TLS config
     tlsCfg := &tls.Config{
@@ -88,15 +98,13 @@ func init() {
       PreferServerCipherSuites: true,
       CipherSuites: []uint16{
         tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
-        tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256, // Required for HTTP/2
+        tls.TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,
         tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
         tls.TLS_RSA_WITH_AES_256_GCM_SHA384,
         tls.TLS_RSA_WITH_AES_256_CBC_SHA,
       },
     }
 
-    // Method `AddServerTLSConfig` deprecated in v0.9 and planned to be removed in v1.0.
-    // Use method `SetTLSConfig` instead.
     aah.SetTLSConfig(tlsCfg)
   })
 }
