@@ -2,13 +2,79 @@ Title: Anti-CSRF
 Desc: aah provides automatic Anti-CSRF (Cross Site Request Forgery) for the aah web application.
 Keywords: anti-csrf, csrf protection, anti-xsrf, xsrf protection, csrf
 ---
-# Anti-CSRF
+# Anti-CSRF (Cross Site Request Forgery protection)
 
-<span class="badge lb-sm">Since v0.9</span> aah provides automatic Anti-CSRF (Cross Site Request Forgery) for the aah web application. This type of attack occurs when a malicious website contains a link, a form button or some JavaScript that is intended to perform some action on your website. CSRF uses the credentials of a logged-in user who visits the malicious site in their browser. A related type of attack, `login CSRF`, where an attacking site tricks user browser to log into a site with someone else's credentials, is also covered.
+<span class="badge lb-sm">Since v0.9</span> aah provides automatic Anti-CSRF (Cross Site Request Forgery protection) for the aah web application. CSRF attack occurs when a malicious website contains a link, a form button or some JavaScript that is intended to perform some action on your website. CSRF uses the credentials of a logged-in user who visits the malicious site in their browser. A related type of attack, `login CSRF`, where an attacking site tricks user browser to log into a site with someone else's credentials, is also covered.
 
 The first defense against CSRF attack is to ensure that GET requests (and other `safe` methods, as defined by [RFC 7231, 4.2.1](https://tools.ietf.org/html/rfc7231.html#section-4.2.1)) are side effect free. Requests via `unsafe` methods, such as POST, PUT, and DELETE on HTML forms are automatically protected.
 
-Reference to [Anti-CSRF configuration](security-config.html#section-anti-csrf).
+### Table of Contents
+
+  * [Configuration](#configuration)
+  * [How to use it?](#how-to-use-it)
+  * [AJAX Requests](#ajax-requests)
+  * [Rejected Requests](#rejected-requests)
+  * [How it works?](#how-it-works)
+  * [Limitations](#limitations)
+
+## Configuration
+
+`anti_csrf { ... }` configuration goes under the config section `security { ... }`.
+
+```bash
+# -----------------------------------------------------------------------------
+# Anti-CSRF (Cross Site Request Forgery protection)
+#
+# Doc: https://docs.aahframework.org/anti-csrf-protection.html
+# -----------------------------------------------------------------------------
+anti_csrf {
+  # Enabling Anti-CSRF.
+  # Default value is `true`.
+  #enable = true
+
+  # Anti-CSRF secret length. Salted cipher token length `secret_length * 2`.
+  # Default value is `32`.
+  #secret_length = 32
+
+  # HTTP Header name for cipher token
+  # Default value is `X-Anti-CSRF-Token`.
+  #header_name = "X-Anti-CSRF-Token"
+
+  # Form field name for cipher token
+  # Default value is `anti_csrf_token`.
+  #form_field_name = "anti_csrf_token"
+
+  # Anti-CSRF secure cookie prefix
+  # Default value is `aah`. Cookie name would become `aah_anti_csrf`.
+  #prefix = "aah"
+
+  # Default value is `empty` string.
+  #domain = ""
+
+  # Default value is `/`.
+  #path = "/"
+
+  # Time-to-live for Anti-CSRF secret. Valid time units are "m = minutes",
+  # "h = hours" and 0.
+  #
+  # Default value is `24h`.
+  #ttl = "24h"
+
+  # Anti-CSRF cookie value signing using `HMAC`. For server farm this
+  # should be same in all instance. For HMAC sign & verify it recommend to use
+  # key size is `32` or `64` bytes.
+  #
+  # Default value is `64` bytes (`aah new` generates strong one using `crypto/rand`).
+  sign_key = "a0b4537382d31be684ad7a92537ecca96367f151309201abbdc6df2f976776c7"
+
+  # Anti-CSRF cookie value encryption and decryption using `AES`. For server
+  # farm this should be same in all instance. AES algorithm is used, valid
+  # lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
+  #
+  # Default value is `32` bytes (`aah new` generates strong one using `crypto/rand`).
+  enc_key = "2976a9d457266ef2f864c1d94055f9bf"
+}
+```
 
 ## How to use it?
 
@@ -18,16 +84,16 @@ aah automatically protects all the HTML forms on the page. Anti-CSRF is enabled 
 <p><strong>Note:</strong>
 <ul>
   <li>Disabling Anti-CSRF is not recommended for web applications.</li>
-  <li>Form field name and HTTP header can be customized in security configuration, refer <a href="security-config.html#section-anti-csrf">here</a></li>
+  <li>Form field name and HTTP header can be customized via configuration, refer <a href="#configuration">here</a></li>
 </ul>
 </p>
 </div>
 
-### AJAX Requests
+## AJAX Requests
 
 For AJAX request, the Anti-CSRF token can be stored in a HTML meta tag and in each XMLHttpRequest (set a custom `X-Anti-CSRF-Token` header to the value of the meta tag). This is often easier because many JavaScript frameworks provide hooks that allow headers to be set on every request.
 
-#### Acquiring the token
+### Acquiring the token
 
 Add HTML meta on the page.
 
@@ -36,7 +102,7 @@ Add HTML meta on the page.
 ```
 Once the meta tag is created, instruct a library like jQuery to automatically add the token to all request headers.
 
-#### Setting the token on the AJAX request
+### Setting the token on the AJAX request
 
 Finally, set the header on the AJAX request, while protecting the CSRF token from being sent to other domains using [settings.crossDomain](https://api.jquery.com/jQuery.ajax/) in jQuery 1.5.1 and newer:
 
@@ -64,7 +130,7 @@ The error page is generic, so providing view for `403` error code via [Centraliz
 
 Anti-CSRF failures are logged as warnings in the application log.
 
-## How it works
+## How it works?
 
 The Anti-CSRF is based on the following things:
 

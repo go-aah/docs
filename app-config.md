@@ -1,8 +1,8 @@
-Title: aah.conf Application Configuration
-aah configuration syntax and structure is easy and flexible. aah supports the concept of profile that helps easily organize the configurations across different environments that are defined by profile.
+Title: aah Application Configuration
+Desc: aah configuration syntax and structure is easy and flexible. aah supports the concept of profile that helps easily organize the configurations across different environments that are defined by profile.
 Keywords: app config, application configuration, aah.conf, HOCON, configuration, external config
 ---
-# aah Application Configuration
+# Application Configuration
 
 aah configuration syntax and structure is easy and flexible. It is very much similar to HOCON syntax. Learn more about [configuration syntax](configuration.html).
 
@@ -10,7 +10,7 @@ aah supports the concept of profile that helps easily organize the configuration
 
 aah application configuration file called `aah.conf`.
 
-### Table of Contents
+### Configurations
 
   * [name](#name)
   * [description](#description)
@@ -43,7 +43,7 @@ aah application configuration file called `aah.conf`.
   * [view { ... }](#section-view)
   * [security { ... }](security-config.html)
   * [log { ... }](log-config.html)
-  * [env { ... }](#section-env) - Environment profile overrides
+  * [env { ... }](#section-env) - Environment profile(s) gets defined in this section.
 
 
 ## name
@@ -100,7 +100,7 @@ aah server configurations, such as address, port, server header, timeout, WebSoc
 
 ```bash
 # -----------------------------------------------------------------------------
-# aah Server Configuration
+# Server configuration
 # Doc: https://docs.aahframework.org/app-config.html#section-server
 # -----------------------------------------------------------------------------
 server {
@@ -169,7 +169,7 @@ timeout {
 
 aah server redirect configuration for `WWW => Non-WWW` and vice versa.
 
-`redirect { ... }` configuration goes under section `server { ... }`.
+`redirect { ... }` configuration goes under config section `server { ... }`.
 
 ```bash
 # -----------------------------------------------------------------------------
@@ -366,7 +366,7 @@ HTTP request ID for traceability.
 # request. It helps in traceability. If a request already has `X-Request-Id`
 # HTTP header, then aah does not generate one.
 #
-# GUID is generated using MangoDB ObjectId algorithm.
+# GUID is generated using MongoDB ObjectId algorithm.
 #
 # Doc: https://docs.aahframework.org/app-config.html#section-request-id
 # -----------------------------------------------------------------------------

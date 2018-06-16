@@ -102,8 +102,6 @@ aah supports Authorization check by Configuration and `Go` code.
 
 ```bash
 # Authorization (access rights/privileges)
-#
-# Note: Authorization will not be performed, if `<route>.auth` attribute is `anonymous`.
 authorization {
   # Satisfy value is used to evaluate the result of `roles` and `permissions` attribute.
   #
