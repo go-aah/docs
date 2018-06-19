@@ -19,6 +19,7 @@ Refer [aah OAuth2 - Social Login]({{aah-examples}}/oauth2-social-login) example,
   * [Configurations](#configuration)
       - [oauth_scheme_name { ... }](#section-oauth-scheme-key)
   * [Example Config](#example-config)
+  * [`state` Parameter](#state-parameter)
   * [Known Provider's Endpoints](#known-provider-endpoints)
       - [OAuth2 provider names](#oauth2-provider-names-just-alphabetically-ordered)
       - [Configuring OAuth2 Endpoint URLs](#configuring-oauth2-endpoint-urls)
@@ -136,6 +137,23 @@ google_auth {
     success = "/success.html"
   }
 }
+```
+
+## `state` Parameter
+
+OAuth2 authorization protocols provides `state` parameter. During an authentication, aah sends `state` parameter in the authorization request and then OAuth2 authorization server would return this parameter value as-is in the response while redirecting to caller application.
+
+The state parameter is used to protect against [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) (aka CSRF, or sea surf).
+
+
+#### aah OAuth2 state parameter created as follows
+
+Note: state code is valid for 10 minutes.
+
+```
+state parameter is "32 byte secure random string using 'crypto/rand' : time stamp in UTC unix nano"
+
+then, HMAC SHA-256 signed and base64 URL safe encoded
 ```
 
 ## Known Provider Endpoints
