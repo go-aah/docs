@@ -8,6 +8,8 @@ aah provides easy to use dump/log HTTP request and response into log file, just 
 
 Its not just a dump, Log is readable and very helpful for your `Debugging`. You can control dump log by headers, request body, response body, etc.
 
+### Table of Contents
+
   * [Server Dump Log Configuration](#server-dump-log-configuration)
   * [Sample Dump of REST API tutorial app](#sample-dump-of-rest-api-tutorial-app)
 
@@ -23,15 +25,15 @@ Its not just a dump, Log is readable and very helpful for your `Debugging`. You 
 
 ## Server Dump Log Configuration
 
-`dump_log` configuration goes under the config section `server { ... }` in the `aah.conf`.
+`dump_log { ... }` configuration goes under the config section `server { ... }` in the `aah.conf`.
 
 ```bash
-# -------------------------------------------------------
+# -----------------------------------------------------------------------------
 # Dump Request & Response Details
-# Such as URL, Proto, Headers, Body, etc.
 # Note: Dump is not applicable for Static Files delivery.
+#
 # Doc: https://docs.aahframework.org/server-dump-log.html
-# -------------------------------------------------------
+# -----------------------------------------------------------------------------
 dump_log {
   # Default value is `false`.
   enable = true
@@ -56,7 +58,7 @@ dump_log {
 
 This is just a sample dump log from REST API tutorial.
 
-```cfg
+```bash
 =======================================================================
 
 URI: http://localhost:8080/v1/posts

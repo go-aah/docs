@@ -41,7 +41,7 @@ It is important to understand that permissions do not have knowledge of `who` ca
 
 ### Levels of permission granularity
 
-The permissions above all specify an actions (open, read, delete, etc) on a resource (door, file, customer record, etc). In aah framework, you can define a permission to `any depth` you like. Here are a few common permission levels in order of granularity.
+The permissions above all specify an actions (open, read, delete, etc) on a resource (door, file, customer record, etc). In aah, you can define a permission to `any depth` you like. Here are a few common permission levels in order of granularity.
 
   * **Resource Level** - This is the broadest and easiest to build. A user can edit customer records or open doors. The resource is specified but not a specific instance of that resource.
   * **Instance Level** - The permission specifies the instance of a resource. A user can edit the customer record for Apple or open the kitchen door.
@@ -61,7 +61,7 @@ The permissions above all specify an actions (open, read, delete, etc) on a reso
 
 In the context of Authorization, Roles are effectively a collection of permissions used to simplify the management of permissions and users. So users can be assigned roles instead of being assigned permissions directly, which can get complicated with larger user bases and more complex applications. So, for example, a bank application might have an `administrator` role or a `bank teller` role.
 
-There are two types of roles that you need to be aware of and aah framework will support both.
+There are two types of roles that you need to be aware of and aah supports both.
 
 ### Implicit Roles
 
@@ -75,7 +75,7 @@ The big benefits of explicit roles are _easier manageability_ and _lower mainten
 
 ## Users Defined
 
-A user is the `who` of an application. In aah framework, though, the concept of a user is really the [Subject](security-subject.html) instance. aah use word `Subject` instead of user because user usually implies a human being and in aah a Subject can be anything interacting with your application– whether it be a human or a service.
+A user is the `who` of an application. In aah, though; the concept of a user is really the [Subject](security-subject.html) instance. aah use word `Subject` instead of user because user usually implies a human being and in aah a Subject can be anything interacting with your application– whether it be a human or a service.
 
 Users are allowed to perform certain actions in your application through their association with roles or direct permissions. So you are able to open a customer record because you've been assigned the _open customer record_ permission, either through a role you’ve been assigned or through a direct permission assignment.
 

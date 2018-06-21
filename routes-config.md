@@ -19,7 +19,7 @@ Learn [configuration syntax](configuration.html).
 
 ## Domain Configuration
 
-One or more domain/subdomain configuration gets configured.
+Domain/subdomain configuration gets configured as a config section.
 
 `domain_name_key { ... }` configuration goes under the config section `domains { ... }` in `routes.conf`.
 <br>
@@ -29,7 +29,7 @@ One or more domain/subdomain configuration gets configured.
 # Choose an `unique keyname` to define domain section and its configuration.
 # Tip: domain name address, port no values to create a domain key, etc.
 #
-# Doc: https://docs.aahframework.org/routes-config.html
+# Doc: https://docs.aahframework.org/routes-config.html#domain-configuration
 #------------------------------------------------------------------------------
 domain_key_name {
   # Name of the domain routes config.
@@ -78,7 +78,7 @@ domain_key_name {
   # Supported values are `auth_scheme_key_name`, `anonymous` and `authenticated`.
   #
   # Default value is empty string.
-  default_auth = "form_auth"
+  default_auth = ""
 
   # Anti-CSRF (Cross-Site Request Forgery protection)
   # aah protects all HTML forms automatically.
@@ -205,23 +205,18 @@ Configuring nested routes (aka group routes, namespace) in aah is easy. Basicall
 #
 # Doc: https://docs.aahframework.org/routes-config.html#routes-configuration
 # -----------------------------------------------------------------------------
-routes {
-  # unique route name
-  <route_name1> {
+routes {  
+  <route_name1> {                 # unique route name
     # this route attributes
 
-    # child routes - level 1
-    routes {
-      # unique route name
-      <route_name11> {
+    routes {                      # child routes - level 1      
+      <route_name11> {            # unique route name
         # this route attributes
 
-        # child routes - level 2
-        routes {
-          # unique route name
-          <route_name111> {
+        routes {                  # child routes - level 2          
+          <route_name111> {       # unique route name
 
-            # you can go on any level with your creativity
+            # Could go on any level with your creativity
 
           }        
         } # end - child routes - level 2
@@ -229,8 +224,7 @@ routes {
     } # end - child routes - level 1
   }
 
-  # unique route name
-  <route_name2> {
+  <route_name2> {                 # unique route name
     # same as above
   }
 }
@@ -274,46 +268,35 @@ routes {
   v1_api {
     path = "/v1"
 
-    routes {
-      # /v1/users
-      users {
+    routes {      
+      users {                               # /v1/users
         path = "/users"
         controller = "UserController"
         action = "List"
 
-        routes {
-          # /v1/users
-          create_user {
+        routes {          
+          create_user {                     # /v1/users
             method = "POST"
           }
 
           routes {
             path = "/:id"
 
-            routes {
-              # /v1/users/:id
-              get_user {
+            routes {              
+              get_user {                    # /v1/users/:id
                 # Inherits from parents
               }
-
-              # /v1/users/:id
-              update_user {
+              update_user {                 # /v1/users/:id
                 method = "PATCH"
-              }
-
-              # /v1/users/:id
-              delete_user {
+              }              
+              delete_user {                 # /v1/users/:id
                 method = "DELETE"
               }
-
-              # /v1/users/:id/settings
-              get_user_settings {
+              get_user_settings {           # /v1/users/:id/settings
                 path = "/settings"
                 action = "Settings"
               }
-
-              # /v1/users/:id/settings
-              update_user_settings {
+              update_user_settings {        # /v1/users/:id/settings
                 path = "/settings"
                 method = "PATCH"
                 action = "UpdateSettings"

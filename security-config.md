@@ -1,21 +1,23 @@
 Title: aah Security Configuration
-Desc: aah Security configuration to configure Authentication, Authorization, Session Management, Security Headers, CSRF, etc.
+Desc: aah Security configuration is to configure Authentication, Authorization, Session Management, Security Headers, CSRF, etc.
 Keywords: security config, security configuration, authentication, authorization, session config, auth config, csrf, HOCON
 ---
 # aah Security Configuration
 
-aah Security configuration is to configure Authentication, Authorization, Session Management, Secure Headers, Anti-CSRF, etc. The configuration syntax is used by aah framework is very similar to HOCON syntax. Learn more about [configuration syntax](configuration.html).
+aah Security configuration is to configure Authentication, Authorization, Session Management, Secure Headers, Anti-CSRF, etc. The aah config syntax is very similar to HOCON. Learn [configuration syntax](configuration.html).
 
 ### Table of Contents
 
 * [security { ... }](#section-security)
-  - [auth_schemes { ... }](#section-auth-schemes) <span class="badge lb-xs">Since v0.7</span>
-      - [form auth](authentication.html#form-based-auth)
-      - [basic auth](authentication.html#basic-auth)
-      - [generic auth](authentication.html#generic-auth)
+  - [auth_schemes { ... }](authentication.html)
+      - [form](auth-schemes/form.html#configuration)
+      - [basic](auth-schemes/basic.html#configuration)
+      - [oauth2](auth-schemes/oauth2.html#configuration)
+      - [generic](auth-schemes/generic.html#configuration)
+  - [password_encoder { ... }](password-encoders.html)
   - [session { ... }](#section-session)
-  - [anti_csrf { ... }](#section-anti-csrf) <span class="badge lb-xs">Since v0.9</span>
-  - [http_header { ... }](#section-http-header) <span class="badge lb-xs">Since v0.8</span>
+  - [anti_csrf { ... }](#section-anti-csrf)
+  - [http_header { ... }](#section-http-header)
       - [X-XSS-Protection](#header-x-xss-protection)
       - [X-Content-Type-Options](#header-x-content-type-options)
       - [X-Frame-Options](#header-x-frame-options)
@@ -26,222 +28,115 @@ aah Security configuration is to configure Authentication, Authorization, Sessio
       - [X-Permitted-Cross-Domain-Policies](#header-x-permitted-cross-domain-policies)
 
 ## Section: security { ... }
-To configure application security related configuration in the section.
+
+To configure application security configuration such as Auth schemes, Password Encoder, Session, Anti-CSRF, secure HTTP headers.
 
 ---
 
-### Section: auth_schemes { ... }
-`auth_schemes` section is used to configure application authentication and authorization. Out-of-the-box aah framework supports following schemes-
+## Section: session { ... }
 
-  * [FormAuth](authentication.html#form-based-auth) - Register your own dynamic integration of Authentication and Authorization.
-  * [BasicAuth](authentication.html#basic-auth) - File realm or implement your own dynamic integration of Authentication and Authorization.
-  * [GenericAuth](authentication.html#generic-auth) - brings more possibilities.
+aah session management supports stateful and stateless.
 
----
+`session { ... }` configuration goes under the config section `security { ... }`.
 
-### Section: session { ... }
-HTTP state management across HTTP requests.
+```bash
+# -----------------------------------------------------------------------------
+# Session configuration
+# HTTP state management across multiple requests.
+#
+# Doc: https://docs.aahframework.org/security-config.html#section-session
+# -----------------------------------------------------------------------------
+session {
+  # Session mode
+  #   - `stateless` - Session data is destroyed at end of each request
+  #   - `stateful` - Session data is persisted on session store
+  #
+  # Default value is `stateless` for API and `stateful` for Web app.
+  mode = "stateful"
 
-### security.session.mode
-Session mode is to choose whether HTTP session should be persisted or destroyed at the end of each request. Supported values are -
+  # Session store is to choose where session value should be persisted.
+  store {
+    # aah supports `cookie` and `file` as store type out of the box.
+    # And provides extensible `session.Storer` interface for implementing
+    # custom session store.
+    #
+    # Note: While using cookie session store, be mindful about cookie size limit.
+    #
+    # Default value is `cookie`.
+    type = "cookie"
 
-* `stateless` - Session data is destroyed at end of each request
-* `stateful` - Session data is persisted based on store type config
+    # Filepath is used for file session store in the file system.
+    # This is only applicable when `type = "file"`, make sure application has
+    # Read/Write access to the directory. Provide absolute path.
+    #
+    # Default value is `<app-base-dir>/sessions`.
+    #filepath = "/path/to/session/directory"
+  }
 
-Default value is `stateless` for API and `stateful` for Web application.
-```cfg
-mode = "stateful"
-```
+  # Session ID length
+  # Default value is `32`.
+  id_length = 32
 
-### Section: store { ... }
-Session store is to configure where session values should be persisted. Currently aah framework supports `cookie` and `file` as a store type. Also framework provides extensible `session.Storer` interface to add your custom session store.
+  # Time-to-live for session data. Valid time units are "m = minutes",
+  # "h = hours" and 0.
+  #
+  # Default value is `0`, cookie is deleted when the browser is closed.
+  ttl = "0"
 
-### security.session.store.type
-Currently aah framework supports `cookie` and `file` as a store type.
+  # Session cookie name prefix.
+  # Default value is `aah_<app-name>` For e.g.: `aah_myapp_session`
+  prefix = "aah_myapp_session"
 
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong> If you're using cookie session store, you have to be mindful about cookie size limit <code>4kb</code>.</p>
-</div>
+  # Default value is `empty` string.
+  domain = ""
 
-Default store type value is `cookie`.
-```cfg
-type = "cookie"
-```
+  # Default value is `/`.
+  path = "/"
 
-### security.session.store.filepath
-Filepath is used for file store to store session data in the file system. This is only applicable for `store.type = "file"`, make sure application has Read/Write access to the directory. Provide absolute path.
+  # HTTP session cookie HTTPOnly value. This option is to prevents XSS
+  # (Cross Site Scripting) attacks, basically it disallows access of
+  # cookie to scripts like JavaScript.
+  #
+  # Default value is `true`.
+  http_only = true
 
-Default value is `<app-base-dir>/sessions`.
-```cfg
-filepath = "/path/to/store/session/files"
-```
+  # HTTP session cookie secure value.
+  #
+  # Default value is `true`. However if aah server is not configured with SSL
+  # then aah sets this value as false.
+  secure = true
 
-### security.session.id_length
-Session Identifier length. Identifier(ID) is generated using random bytes from `crypto/rand` and `HEX` encoding.
+  # HTTP session cookie value signing using `HMAC`. For server farm this
+  # value should be same in all instance. For HMAC sign & verify it recommend to use
+  # key size is `32` or `64` bytes.
+  #
+  # Default value is `64` bytes (`aah new` generates strong one using `crypto/rand`).
+  sign_key = "829747ee8378bc6e84fcb226d586b98976fc4e80f90dd0df59542a553cfa3e7f"
 
-Default value is `32`
-```cfg
-id_length = 32
-```
+  # HTTP session cookie value encryption and decryption using `AES`. For server
+  # farm this value should be same in all instance. AES algorithm is used, valid
+  # lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
+  #
+  # Default value is `32` bytes (`aah new` generates strong one using `crypto/rand`).
+  enc_key = "d98b1966eb94e9fa35e25e611beba369"
 
-### security.session.ttl
-Time-to-live value for session data expiry. Valid time units are `m -> minutes`, `h -> hours` and `0`.
-
-Default value is `0`, cookie is deleted when the browser is closed.
-```cfg
-ttl = "0"
-```
-
-### security.session.prefix
-HTTP session cookie name prefix value.
-
-Default value is `aah` For e.g.: `aah_session`.
-```cfg
-prefix = "aah"
-```
-
-### security.session.domain
-HTTP session cookie domain value.
-
-Default value is `empty` string.
-```cfg
-domain = ""
-```
-
-### security.session.path
-HTTP session cookie path value.
-
-Default value is `/`.
-```cfg
-path = "/"
-```
-
-### security.session.http_only
-HTTP session cookie HTTPOnly value. This option is to prevents XSS (Cross Site Scripting) attacks, basically it disallows access of cookie to scripts like JavaScript.
-
-Default value is `true`.
-```cfg
-http_only = true
-```
-
-### security.session.secure
-HTTP session cookie secure value. However, if aah server is not configured with SSL then aah framework sets this value as `false`.
-
-Default value is `true`.
-```cfg
-secure = true
-```
-
-### security.session.sign_key
-HTTP session cookie value signing using `HMAC`. For server farm this value should be same in all instance. For HMAC sign & verify it is recommend to use key size is `32` or `64` bytes.
-
-Default value is `64` bytes (generated when application gets created using `aah new` command).
-```cfg
-sign_key = "generated-value"
-```
-
-### security.session.enc_key
-HTTP session cookie value encryption and decryption using `AES`. For server farm this value should be same in all the instances. AES algorithm is used, valid lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
-
-Default value is `32` bytes (generated when application gets created using `aah new` command).
-```cfg
-enc_key = "generated-value"
-```
-
-### security.session.cleanup_interval
-Cleanup Interval is used to clean the expired session data from the store. This is only applicable for non-cookie store type. Cleanup performed in dedicated goroutine. Valid time units are `m -> minutes`, `h -> hours`.
-
-Default value is `30m`.
-```cfg
-cleanup_interval = "30m"
-```
-
----
-
-### Section: anti_csrf { ... }
-Documents the settings belongs to Anti-CSRF Protection.
-
-### security.anti_csrf.enable
-Enabling Anti-CSRF Protection.
-
-Default value is `true`.
-```cfg
-enable = true
-```
-
-### security.anti_csrf.secret_length
-Anti-CSRF secret length. Salted cipher token length `secret_length * 2`.
-
-Default value is `32`.
-```cfg
-secret_length = 64
-```
-
-### security.anti_csrf.header_name
-HTTP Header name for cipher token.
-
-Default value is `X-Anti-CSRF-Token`.
-```cfg
-header_name = "X-Anti-CSRF-Token"
-```
-
-### security.anti_csrf.form_field_name
-Form field name for cipher token
-
-Default value is `anti_csrf_token`.
-```cfg
-form_field_name = "anti_csrf_token"
-```
-
-### security.anti_csrf.prefix
-Anti-CSRF secure cookie prefix.
-
-Default value is `aah`. Cookie name would be `aah_anti_csrf`.
-```cfg
-prefix = "aah"
-```
-
-### security.anti_csrf.domain
-Default value is `empty` string.
-```cfg
-domain = ""
-```
-
-### security.anti_csrf.path
-Default value is `/`.
-```cfg
-path = "/"
-```
-
-### security.anti_csrf.ttl
-Time-to-live for Anti-CSRF secret. Valid time units are "m = minutes", "h = hours" and 0.
-
-Default value is `24h`.
-```cfg
-ttl = "24h"
-```
-
-### security.anti_csrf.sign_key
-Anti-CSRF cookie value signing using `HMAC`. For server farm this should be same in all instance. For HMAC sign & verify it recommend to use key size is `32` or `64` bytes.
-
-Default value is `64` bytes (`aah new` generates strong one).
-```cfg
-sign_key = "<typically generated by 'aah new' cmd>"
-```
-
-### security.anti_csrf.sign_key
-Anti-CSRF cookie value encryption and decryption using `AES`. For server farm this should be same in all instance. AES algorithm is used, valid lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
-
-Default value is `32` bytes (`aah new` generates strong one).
-```cfg
-enc_key = "<typically generated by 'aah new' cmd>"
+  # Cleanup Interval is used to clean the expired session data from session store.
+  # It is only applicable for non-cookie store type.
+  # Cleanup performed in dedicated goroutine. Valid time units are
+  # `m -> minutes`, `h -> hours`.
+  #
+  # Default value is `30m`.
+  cleanup_interval = "30m"
+}
 ```
 
 ---
 
 ## Section: http_header { ... }
 
-<span class="badge lb-sm">Since v0.8</span> aah provides application secure headers with many safe defaults. Typically `non-empty` header values from configuration gets added in the response header.
+<span class="badge lb-sm">Since v0.8</span> aah provides response secure headers with many safe defaults. Typically `non-empty` header values from configuration gets added into response header.
+
+`http_header { ... }` configuration goes under the config section `security { ... }`.
 
 Framework writes the secure response headers appropriately based on Content-Type.
 
@@ -255,6 +150,7 @@ Framework writes the secure response headers appropriately based on Content-Type
 </div>
 
 ### Header: X-XSS-Protection
+
 Designed to enable the cross-site scripting (XSS) filter built into modern web browsers. This is usually enabled by default, but using this header will enforce it.
 
 Learn more:
@@ -265,11 +161,12 @@ Learn more:
 Encouraged to make use of header `Content-Security-Policy` with enhanced policy to reduce XSS risk along with header `X-XSS-Protection`.
 
 Default values is `1; mode=block`.
-```cfg
+```bash
 xxssp = "1; mode=block"
 ```
 
 ### Header: X-Content-Type-Options
+
 Prevents Content Sniffing or MIME sniffing.
 
 Learn more:
@@ -278,11 +175,12 @@ Learn more:
   * https://en.wikipedia.org/wiki/Content_sniffing
 
 Default value is `nosniff`.
-```cfg
+```bash
 xcto = "nosniff"
 ```
 
 ### Header: X-Frame-Options
+
 Prevents Clickjacking.
 
 Learn more:
@@ -291,11 +189,12 @@ Learn more:
   * https://www.keycdn.com/blog/x-frame-options/
 
 Default value is `SAMEORIGIN`.
-```cfg
+```bash
 xfo = "SAMEORIGIN"
 ```
 
 ### Header: Referrer-Policy
+
 This header governs which referrer information, sent in the Referer header, should be included with requests made.
 
 Referrer Policy has been a W3C Candidate Recommendation since 26 January 2017.
@@ -307,11 +206,12 @@ Learn more:
   * https://www.w3.org/TR/referrer-policy/
 
 Default value is `no-referrer-when-downgrade`.
-```cfg
+```bash
 rp = "no-referrer-when-downgrade"
 ```
 
 ### Header: Strict-Transport-Security (STS, aka HSTS)
+
 STS header that lets a web site tell browsers that it should only be communicated with using HTTPS, instead of using HTTP.
 
 Learn more:
@@ -323,7 +223,7 @@ Learn more:
 <p><strong>Note:</strong> Framework checks that application uses SSL on startup then applies this header. Otherwise it does not apply.</p>
 </div>
 
-```cfg
+```bash
 sts {
   # The time, in seconds, that the browser should remember that this site
   # is only to be accessed using HTTPS. Valid time units are
@@ -342,6 +242,7 @@ sts {
 ```
 
 ### Header: Content-Security-Policy (CSP)
+
 Provides a rich set of policy directives that enable fairly granular control over the resources that a page is allowed. Prevents XSS risks.
 
 Learn more:
@@ -362,10 +263,11 @@ Read above references and define your policy.
 </div>
 
 No default values, you have to provide it.
-```cfg
+
+```bash
 csp {
   # Set of directives to govern the resources load on a page.
-  #directives = ""
+  directives = ""
 
   # By default, violation reports aren't sent. To enable violation reporting,
   # you need to specify the report-uri policy directive.
@@ -379,6 +281,7 @@ csp {
 ```
 
 ### Header: Public-Key-Pins (PKP, aka HPKP)
+
 This header prevents the Man-in-the-Middle Attack (MITM) with forged certificates.
 
 Learn more:
@@ -400,7 +303,8 @@ Read above references and define your keys.
 </div>
 
 No default values, you have to provide it.
-```cfg
+
+```bash
 pkp {
   # The Base64 encoded Subject Public Key Information (SPKI) fingerprint.
   # These values gets added as `pin-sha256=<key1>; ...`.
@@ -430,6 +334,7 @@ pkp {
 ```
 
 ### Header: X-Permitted-Cross-Domain-Policies
+
 Restrict Adobe Flash Player's or PDF documents access via crossdomain.xml, and this header.
 
 Learn more:
@@ -438,6 +343,7 @@ Learn more:
   * https://www.adobe.com/devnet/adobe-media-server/articles/cross-domain-xml-for-streaming.html
 
 Default value is `master-only`.
-```cfg
+
+```bash
 xpcdp = "master-only"
 ```

@@ -14,27 +14,28 @@ There are a number of valid strategies to approach API versioning. Typically API
   * [Strategy: URL Query Parameter](#strategy-url-query-parameter)
   * [Strategy: HostName](#strategy-hostname)
 
-_**My thoughts: As of now, aah user have to fetch `version` info according to versioning strategy they choose. Not sure, is it worth have one Method returns the version number based on chosen strategy. Let me know your thoughts.**_
+_**Wondering: As of now, aah user have to fetch `version` info according to versioning strategy they choose. Not sure, is it worth have one Method returns the version number based on chosen strategy. Let me know your thoughts.**_
 
 ## Strategy: URL Path
 
 This strategy requires the client to specify the version as part of the URL path.
 
 **For example:**
+
 ```cfg
 GET /v1/users
 ```
 
 Your `routes.conf` include [Named parameter](/routes-config.html#section-routes) with key as a `version`. So that version info available to you in the controller via `ctx.Req.PathValue("version")`.
 
-```cfg
+```bash
 routes {
   path = "/:version"
 
   routes {
     path = "/users"
-    ...
-    ...
+
+    # ...
   }
 }
 ```
@@ -49,6 +50,7 @@ routes {
 This strategy requires the client to specify the version as part of the media type in the HTTP `Accept` header. The version is included as a media type parameter, that supplements the main media type.
 
 **For example:** HTTP request using the accept header versioning strategy.
+
 ```cfg
 GET /v1/users
 Accept: application/json; version=2.0
@@ -61,6 +63,7 @@ You can access `version` info via `ctx.Req.AcceptContentType.Version()`.
 This strategy requires the client to specify the version as part of the vendor media type in the HTTP `Accept` header.
 
 **For example:** HTTP request using the accept header with vendor media type strategy.
+
 ```cfg
 GET /v1/users
 Accept: application/vnd.mycompany.myapp.customer-v2.2+json
@@ -77,6 +80,7 @@ You can access:
 This strategy is a simple style that includes the version as a URL query parameter.
 
 **For example:**
+
 ```cfg
 GET /users?version=1.1
 ```
@@ -88,7 +92,8 @@ You can access `version` info via `ctx.Req.QueryValue("version")`.
 This strategy requires the client to specify the requested version as part of the `hostname` in the URL.
 
 **For example:**
-```cfg
+
+```bash
 # The following is an HTTP request to the URL: http://v1.sample.com/users/
 
 GET /users
@@ -103,6 +108,7 @@ You can access `version` info via `ctx.Subdomain()`.
 </div>
 
 For example:
+
 ```cfg
 127.0.0.1 sample.com v1.sample.com
 ```

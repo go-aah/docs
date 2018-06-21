@@ -124,7 +124,7 @@ aah supports both human readable and machine parseable log format.
 
 ## Unified Logging
 
-Surely you will be using many libraries with aah framework. Those might provide standard Go logger for logging. This is where unified logging shines.
+Surely you will be using many libraries with aah. Those might provide standard Go logger for logging. This is where unified logging shines.
 
 Use `log.ToGoLogger()` to bind that logger with aah logger then you get unified logging at one place.
 

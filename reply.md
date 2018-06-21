@@ -154,7 +154,7 @@ Reply().Binary(bytes)
 Reply().Readfrom(reader)
 
 // Replying redirect login page using `route name`
-Reply().Redirect(c.ReverseURL("user_login"))
+Reply().Redirect(c.RouteURL("user_login"))
 
 // Replying HTML response with cookie and view arguments
 Reply().

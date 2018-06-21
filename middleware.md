@@ -4,7 +4,7 @@ Keywords: middleware, writing middleware, abort middleware, native middleware in
 ---
 # Middlewares
 
-aah framework provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware.
+aah provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware.
 
 ### Table of Contents
 
@@ -88,7 +88,7 @@ func customMiddleware(ctx *Context, m *Middleware) {
 
 ## Bring Go lang native middleware into aah
 
-aah framework expands the possibilities via reuse/existing middlewares.
+aah expands the possibilities via reuse/existing middlewares.
 
   * [http.Handler](https://golang.org/pkg/net/http/#Handler)
   * [http.HandlerFunc](https://golang.org/pkg/net/http/#HandlerFunc)

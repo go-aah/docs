@@ -86,7 +86,7 @@ The `config` directory contains the application's configuration files. aah confi
 
 ### The `i18n` directory (Not applicable to API application)
 
-The `i18n` directory contains internationalization and localization message files. Message filename format is  `message.<Language-ID>`. Language is combination of `Language + Region` value. aah framework implements Language code as per  two-letter `ISO 639-1` standard and Region code as per two-letter `ISO 3166-1` standard, [know more](i18n.html).
+The `i18n` directory contains internationalization and localization message files. Message filename format is  `message.<Language-ID>`. Language is combination of `Language + Region` value. aah implements Language code as per  two-letter `ISO 639-1` standard and Region code as per two-letter `ISO 3166-1` standard, [know more](i18n.html).
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong> <code>i18n</code> feature can be used with API application too, if needed.</p>
@@ -94,7 +94,7 @@ The `i18n` directory contains internationalization and localization message file
 
 ### The `views` directory (Not applicable to API application)
 
-The `views` directory contains application view templates. aah framework supports partial inheritance with Go template engine, [know more](views.html). There are three main directories:
+The `views` directory contains application view templates. aah supports partial inheritance with Go template engine, [know more](views.html). There are three main directories:
 
   * `common` - Common view template files, it can be imported to any page template via `import` or `include` template func.
   * `layouts` - Application view layout template files. You can have as many you want.
@@ -124,6 +124,6 @@ The `tests` directory is for application functional tests (`upcoming`). Use Go c
 
 ### The `.gitignore` file
 
-The `.gitignore` file includes standard Go language ignores from Github and additionally aah framework ignores:
+The `.gitignore` file includes standard Go language ignores from Github and additionally aah ignores:
 
   * `aah.go`, `*.pid`, `build/*`

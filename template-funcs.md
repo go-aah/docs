@@ -4,7 +4,7 @@ Keywords: template funcs, funcmap, template func map, aah template funcs
 ---
 # View Template Functions
 
-By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah framework provides template functions to access configuration, request parameters, security check, session values, flash values, etc.
+By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah provides template functions to access configuration, request parameters, security check, session values, flash values, etc.
 
 ### Table of Contents
 

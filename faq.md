@@ -5,10 +5,10 @@ Keywords: faq, aah, aah Go web framework
 # Frequently Asked Questions (FAQ)
 
   * [Does aah support Package Management Tools?](#does-aah-support-package-management-tools)
-  * [How to update aah framework to the latest version?](#how-to-update-aah-framework-to-the-latest-version)
+  * [How to update aah to the latest version?](#how-to-update-aah-to-the-latest-version)
   * [How to update individual module bug fix release?](#how-to-update-individual-module-bug-fix-release)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
-  * [How to try aah framework edge version?](#how-to-try-aah-framework-edge-version)
+  * [How to try aah edge version?](#how-to-try-aah-edge-version)
   * [How to log all goroutine stacktrace?](#how-to-log-all-goroutine-stacktrace)
   * [Does aah has benchmark against other Go web framework?](#does-aah-has-benchmark-against-other-go-web-framework)
   * [Does aah supports Hot-Reload for Development?](#does-aah-supports-hot-reload-for-development)
@@ -22,9 +22,9 @@ Yes, of course. As described in [versioning documentation](versioning.html#packa
 
 For example: I have responded to aah user for `dep` tool, refer to [GitHub comment](https://github.com/go-aah/aah/issues/109#issuecomment-327225582).
 
-### How to update aah framework to the latest version?
+### How to update aah to the latest version?
 
-To update aah framework latest version run below command on your terminal/command prompt. This procedure updates the aah framework only on GOPATH.
+To update aah latest version run below command on your terminal/command prompt. This procedure updates the aah only on GOPATH.
 
 If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
 
@@ -42,7 +42,8 @@ go get -u aahframework.org/tools.v0/aah
 aah is modularized implementation. So any bug/enhancement could be fixed and released at individual module level without releasing entire framework. How do I update it:
 
 Let's say `i18n` module is released bug fix:
-```cfg
+
+```bash
 # Check the existing version
 aah -v
 
@@ -64,12 +65,13 @@ The quick and best way to know about latest configuration is to:
   * Compare your application configuration files (`config/*`) with new configurations then merge it to yours.
   * Congrats! you're on new configurations.
 
-### How to try aah framework edge version?
+### How to try aah edge version?
 
 Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more about [switch command](/aah-cli-tool.html#command-switch).
 
 Just run the below command and the run your app as usual using `aah run`:
-```cfg
+
+```bash
 aah switch   # default is edge version for this command
 
 # Switch back to stable/prog release version
@@ -81,8 +83,9 @@ aah switch --refresh
 
 ### How to log all goroutine stacktrace?
 
-It is very simple to do aah framework. Just set the below config to true. You will get all the stacktrace in the log.
-```cfg
+It is very simple to do aah. Just set the below config to true. You will get all the stacktrace in the log.
+
+```bash
 runtime {
   debug {
     # Whether to collect all the Go routines details or not.
@@ -94,7 +97,7 @@ runtime {
 
 ### Does aah has benchmark against other Go web framework?
 
-Well, aah framework goal is to achieve full stack web framework capabilities for modern Web & API application. As you know we have many micro frameworks and few full stack in the Go community with own set of goals and own perspectives.
+Well, aah goal is to achieve full stack web framework capabilities for modern Web, API and WebSocket applications.
 
 I have responded to aah user on [Github Issue #81](https://github.com/go-aah/aah/issues/81#issuecomment-315589889), about what I have done. Thanks.
 
@@ -104,7 +107,7 @@ Yes, aah detects the file change(s) on aah project then it automatically stops t
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
-<p>For static file changes server is not restarted, server is restarted only for Go Source code and Template files. Refer to <a href="https://github.com/go-aah/aah/issues/4">Github Issue #4</a> for implementation details.</p>
+<p>For static file and template files changes server is not restarted, server is restarted only for Go Source code.</p>
 </div>
 
 ### Is posting an arbitrary CSRF token pair (cookie and POST data) a vulnerability?

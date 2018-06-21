@@ -7,9 +7,9 @@ Keywords: password, password encoder, authentication
 Out-of-the-box aah supports three password encoders for authenticating users in your application. A good  read about [password hashing security](https://crackstation.net/hashing-security.htm).
 
   * [bcrypt Algorithm](#bcrypt-algorithm)
-  * [scrypt Algorithm](#scrypt-algorithm)&nbsp;&nbsp;<span class="badge lb-xs">Since v0.9</span>
-  * [pbkdf2 Algorithm](#pbkdf2-algorithm)&nbsp;&nbsp;<span class="badge lb-xs">Since v0.9</span>
-  * [Adding additional password encoder into aah](#)
+  * [scrypt Algorithm](#scrypt-algorithm)
+  * [pbkdf2 Algorithm](#pbkdf2-algorithm)
+  * [Adding additional password encoder into aah](#adding-additional-password-encoder-into-aah)
 
 Password encoders implements the interface `PasswordEncoder`.
 
@@ -24,13 +24,11 @@ type PasswordEncoder interface {
 }
 ```
 
-
 ## bcrypt Algorithm
 
 `bcrypt` password hashing algorithm, good read [here](https://security.stackexchange.com/a/6415), [here](https://en.wikipedia.org/wiki/Bcrypt). Configure bcrypt encoder in `security.conf` at section `password_encoder { ... }`.
 
-<br>
-**To hash your password**
+#### To hash your password
 
 ```go
 import "aahframework.org/security.v0"
@@ -39,10 +37,9 @@ import "aahframework.org/security.v0"
 hashedPassword, err := security.Bcrypt.Generate([]byte(passwordString))
 ```
 
-<br>
-**Configuration**
+#### Configuration
 
-```cfg
+```bash
 bcrypt {
   # Default value is `true`
   enable = true
@@ -57,8 +54,7 @@ bcrypt {
 
 `scrypt` password hashing algorithm, good read [here](https://pthree.org/2016/06/28/lets-talk-password-hashing/), [here](https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet). Configure scrypt encoder in `security.conf` at section `password_encoder { ... }`.
 
-<br>
-**To hash your password**
+#### To hash your password
 
 ```go
 import "aahframework.org/security.v0"
@@ -67,10 +63,9 @@ import "aahframework.org/security.v0"
 hashedPassword, err := security.Scrypt.Generate([]byte(passwordString))
 ```
 
-<br>
-**Configuration**
+#### Configuration
 
-```cfg
+```bash
 scrypt {
   # Default value is `false`
   enable = true
@@ -102,8 +97,7 @@ scrypt {
 <p>It's commonly recommended to use `bcrypt` password hashing algorithm. However real world usage different per application. If you're using `pbkdf2` hashing algorithm, it's highly advised to use pbkdf2 with SHA-512 or SHA-256. Good read <a href="https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/">here</a>, <a href="https://crypto.stackexchange.com/questions/15218/is-pbkdf2-hmac-sha1-really-broken">here</a>.</p>
 </div>
 
-<br>
-**To hash your password**
+#### To hash your password
 
 ```go
 import "aahframework.org/security.v0"
@@ -112,10 +106,9 @@ import "aahframework.org/security.v0"
 hashedPassword, err := security.Pbkdf2.Generate([]byte(passwordString))
 ```
 
-<br>
-**Configuration**
+#### Configuration
 
-```cfg
+```bash
 pbkdf2 {
   # Default value is `false`
   enable = true
@@ -139,7 +132,7 @@ pbkdf2 {
 
 aah provides extensibility to add additional password encoder into aah easily. Implement the interface `acrypto.PasswordEncoder` then add it to `aah`.
 
-**Registering password encoder**
+#### Registering password encoder
 
 ```go
 // Choose whichever the argon2 library and implement interface `acrypto.PasswordEncoder`
@@ -149,9 +142,9 @@ func init()  {
 }
 ```
 
-**Using registered encoder in auth schemes**
+#### Using registered encoder in auth schemes
 
-```cfg
+```bash
 # In your auth scheme, simply mention the name you have used for the registering. That's it very easy!
 form_auth {
   #...

@@ -65,7 +65,7 @@ aah provides flexible and meaningful directory structure to organize application
 
 ## Template Auto Resolve OR User-Defined Inputs
 
-By default aah framework resolves and render view templates based on-
+By default aah resolves and render view templates based on-
 
   * Namespace `Controller` package path
   * Path `Controller` and `Action`
@@ -112,7 +112,7 @@ aah provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormP
 
 ## Adding User-Defined View Engine into aah
 
-Currently aah framework supports Go and Pug view engine. Don't feel bad, you can added your favorite view engine into aah.
+Currently aah supports Go and Pug view engine. Don't feel bad, you can added your favorite view engine into aah.
 
 #### Create your own view engine using interface `view.Enginer`
 

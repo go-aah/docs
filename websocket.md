@@ -109,8 +109,7 @@ by_topic {
   action = "ByTopic"
 
   # By default, 'anti_csrf_check', 'cors' and 'max_body_size' configs are not
-  # applicable for WebSocket; even if provided by mistake,
-  # it won't affect the WebSocket route.
+  # applicable for WebSocket; even if provided, it won't affect the WebSocket route.
   #
   # Use `server.websocket.origin { ... }` for enforcing SAME-ORIGIN policy.
 }

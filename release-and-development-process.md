@@ -4,7 +4,7 @@ Keywords: release process, development process, dev process, release cycle
 ---
 # Release & Development Process
 
-This document would give an idea how aah framework Development and Release Process. I will be improving process efficiency iteratively as project moves on.
+This document would give an idea how aah Development and Release Process. I will be improving process efficiency iteratively as project moves on.
 
 ## Table of Contents
 
@@ -16,12 +16,12 @@ This document would give an idea how aah framework Development and Release Proce
 
 ## Insights
 
-aah framework internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
+aah internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
 
   * Github `Tag` is Stable and Production ready.
   * Default branch is `v0-edge`, `v1-edge`, and so on. Development, Bug fix, Pull Request, happens on that.
-      - Note: master is not a default branch for aah framework.
-  * Branch `master` is kept as tidy codebase of aah framework.
+      - Note: master is not a default branch for aah.
+  * Branch `master` is kept as tidy codebase of aah.
   * In the being of every development iteration, version is updated from `v0` set to `v0-edge` (v1, etc.)
   * In the release preparation package references are updated from `v0-edge` to `v0` (v1, etc.)
   * Travis build, test cases and few manual dry-testing to ensure codebase is stable & ready for the release.
@@ -39,7 +39,7 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
 
 ## API Stability
 
-aah framework and it's libraries will be maintained in a compatible way `between major version` unless some vital bugs prevent me from doing so. I don't take API changes lightly.
+aah and it's libraries will be maintained in a compatible way `between major version` unless some vital bugs prevent me from doing so. I don't take API changes lightly.
 
 ## Process to Release Framework/Library
 
@@ -53,7 +53,7 @@ aah framework and it's libraries will be maintained in a compatible way `between
   * Update `README.md` with appropriate information (status icons URLs, version no, date, etc).
   * Commit it as `readme update for v<version-number> release [ci skip]`.
       - Typically used for creating release tag with this `commit sha`.
-      - We are building `branch` and `master` that is good enough for consistency check and release. Let's use the Travis CI resources optimally for aah framework project.
+      - We are building `branch` and `master` that is good enough for consistency check and release. Let's use the Travis CI resources optimally for aah project.
   * Push it to repo.
   * Create a `PR` from branch `v0-edge` to `master` and Merge it.
   * Update the Documentation on `go-aah/docs` repo.

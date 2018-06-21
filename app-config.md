@@ -108,13 +108,13 @@ server {
   #
   # For unix socket: unix:/tmp/aahframework.sock
   # Default value is `empty` string.
-  #address = ""
+  address = ""
 
   # Port is used to bind server listener on particular port.
   #
   # For standard port `80` and `443`, put empty string or a value
-  # Default value is 8080.
-  #port = ""
+  # Default value is `8080`.
+  port = "8080"
 
   # Header value is written as HTTP header `Server: aah-go-server`.
   #
@@ -123,11 +123,11 @@ server {
 
   # Mapped to `http.Server.MaxHeaderBytes`.
   # Default value is `1mb`.
-  #max_header_bytes = "1mb"
+  max_header_bytes = "1mb"
 
   # HTTP server keep alive option.
   # Default value is `true`.
-  #keep_alive = true
+  keep_alive = true
 }
 ```
 
@@ -149,19 +149,19 @@ timeout {
   # read the entire request, including the body.
   #
   # Default value is `90s`.
-  #read = "90s"
+  read = "90s"
 
   # Mapped to `http.Server.WriteTimeout`, is the maximum duration before timing
   # out writes of the response. It is reset whenever a new request's header is
   # read.
   #
   # Default value is `90s`.
-  #write = "90s"
+  write = "90s"
 
   # aah server graceful shutdown timeout
   #
   # Default value is `60s`.
-  #grace_shutdown = "60s"
+  grace_shutdown = "60s"
 }
 ```
 
@@ -182,17 +182,17 @@ aah server redirect configuration for `WWW => Non-WWW` and vice versa.
 redirect {
   # Enabling redirects.
   # Default value is `false`.
-  #enable = true
+  enable = true
 
   # Possible values are
   #   - `www`     - aahframework.org      => www.aahframework.org
   #   - `non-www` - www.aahframework.org  => aahframework.org
   # Default value is `non-www`.
-  #to = "www"
+  to = "non-www"
 
   # Redirect code.
   # Default value is 301 MovedPermanently RFC 7231.
-  #code = 301
+  code = 301
 }
 ```
 
@@ -210,17 +210,17 @@ aah server SSL/TLS configurations. By default, they are disabled.
 ssl {
   # To enable SSL/TLS on the aah go server.
   # Default value is `false`.
-  #enable = false
+  enable = false
 
   # SSL cert file, it is required if `server.ssl.enable = true`.
   #
   # Default value is `empty` string.
-  #cert = ""
+  cert = ""
 
   # SSL key file, it is required if `server.ssl.enable = true`.
   #
   # Default value is `empty` string.
-  #key = ""
+  key = ""
 
   # By default Go enables the HTTP/2 on SSL/TLS.
   #
@@ -228,7 +228,7 @@ ssl {
   # aah provides the ability to disable HTTP/2.
   #
   # Default value is `false`.
-  #disable_http2 = true
+  disable_http2 = false
 }
 ```
 
@@ -254,7 +254,7 @@ redirect_http {
   # Enabling HTTP => HTTPS redirects.
   #
   # Default value is `false`.
-  #enable = true
+  enable = false
 
   # Port no. of HTTP requests to listen.
   # For standard port `80` put empty string or a value.
@@ -265,7 +265,7 @@ redirect_http {
   # Redirect HTTP status code
   #
   # Default value is `307`.
-  #code = 307
+  code = 307
 }
 ```
 
@@ -289,29 +289,29 @@ lets_encrypt {
   # Don't forget to enable `server.ssl.enable = true`.
   #
   # Default value is `false`.
-  #enable = false
+  enable = false
 
   # Host policy controls which domains the autocert will attempt
   # to retrieve new certificates for. It does not affect cached certs.
   #
   # It is required value, no default.
-  #host_policy = ["example.org", "docs.example.org"]
+  host_policy = ["example.org", "docs.example.org"]
 
   # Renew before optionally specifies how early the certificates should
   # be renewed before they expire.
   #
   # Default value is `10` days.
-  #renew_before = 10
+  renew_before = 10
 
   # Email optionally specifies a contact email address. This is used in
   # Let's Encrypt to notify any problems with the issued certificates.
   # If the Client's account key is already registered, then Email is not used.
-  #email = "jeeva@myjeeva.com"
+  email = "youremail@example.com"
 
   # Force RSA makes the autocert generate certificates with 2048-bit RSA keys.
   # If false, a default is used. Currently, the default is EC-based keys
   # using the P-256 curve.
-  #force_rsa = false
+  force_rsa = false
 
   # Cache optionally stores and retrieves previously-obtained certificates
   # autocert manager. By default, certs will only be cached for the lifetime
@@ -322,7 +322,7 @@ lets_encrypt {
   # private key first.
   #
   # Default value is `empty` string.
-  #cache_dir = "/Users/jeeva/autocert"
+  cache_dir = "/Users/jeeva/autocert"
 }
 ```
 
@@ -338,19 +338,12 @@ HTTP request configurations, such as Max body size, Request ID, Content Negotiat
 # Doc: https://docs.aahframework.org/app-config.html#section-request
 # -----------------------------------------------------------------------------
 request {
-  # Max request body size for all incoming HTTP requests except `MultipartForm`.
+  # Max request body size for all incoming HTTP requests.
   #
-  # It can also be overridden at individual route level in `routes.conf`.
+  # It can be overridden at individual route level in the `routes.conf`.
   #
   # Default value is `5mb`.
-  #max_body_size = "5mb"
-
-  # Default value is `32mb`. Choose a value that is best suitable for the
-  # individual app use case
-  #
-  # Note: To be removed in-favor of config `request.max_body_size` in upcoming
-  # version of aah.
-  #multipart_size = "32mb"
+  max_body_size = "5mb"
 }
 ```
 
@@ -362,7 +355,7 @@ HTTP request ID for traceability.
 
 ```bash
 # -----------------------------------------------------------------------------
-# aah framework encourages to have a unique `Request ID` for each incoming
+# aah encourages to have a unique `Request ID` for each incoming
 # request. It helps in traceability. If a request already has `X-Request-Id`
 # HTTP header, then aah does not generate one.
 #
@@ -379,7 +372,7 @@ id {
   # aah does not generate one.
   #
   # Default value is `X-Request-Id`, customize it per use case.
-  #header = "X-Request-Id"
+  header = "X-Request-Id"
 }
 ```
 
@@ -402,7 +395,7 @@ HTTP request Content Negotiation such as Offered and Accepted.
 content_negotiation {
   # To enable/disable Content Negotiation.
   # Default value is `false`.
-  #enable = true
+  enable = false
 
   # Accepted - `Content-Type` HTTP header RFC 2616, 10.4.16
   #
@@ -411,7 +404,7 @@ content_negotiation {
   # Then, aah responds with 415 Unsupported Media Type.
   #
   # Default value is empty list and disabled.
-  #accepted = ["application/json", "text/json"]
+  accepted = ["application/json", "text/json"]
 
   # Offered - `Accept` HTTP header RFC 2616, 10.4.7
   #
@@ -420,7 +413,7 @@ content_negotiation {
   # In that case, aah server responds with 406 Not Acceptable.
   #
   # Default value is empty list and disabled.
-  #offered = ["application/json", "text/json"]
+  offered = ["application/json", "text/json"]
 }
 ```
 
@@ -451,11 +444,11 @@ auto_bind {
   # NOTE: It is recommended to have unique names in the request parameter.
   #
   # Default value is `PFQ`.
-  #priority = "PFQ"
+  priority = "PFQ"
 
   # Tag Name is used to bind values to struct exported fields.
   # Default value is `bind`.
-  #tag_name = "bind"
+  tag_name = "bind"
 }
 ```
 
@@ -475,7 +468,7 @@ i18n {
   # locale from HTTP Request.
   #
   # Default value is `en`.
-  #default = "en"
+  default = "en"
 
    # parameter or URL Query parameter.
   param_name {
@@ -486,14 +479,14 @@ i18n {
     # `/zh-CN/aboutus.html` etc.
     #
     # Default value is `lang`.
-    #path = "locale"
+    path = "lang"
 
     # Query Param name
     #
     # i.e `?lang=en`, `?lang=zh-CN`, etc.
     #
     # Default value is `lang`.
-    #query = "locale"
+    query = "lang"
   }
 }
 ```
@@ -555,15 +548,15 @@ runtime {
 debug {
   # Stack buffer size for collecting all go routines stack trace dump at runtime.
   # Default value is `2mb`.
-  #stack_buffer_size = "2mb"
+  stack_buffer_size = "2mb"
 
   # Whether to collect all the Go routines details or not.
   # Default value is `false`.
-  #all_goroutines = true
+  all_goroutines = false
 
   # Whether to strip source `src` base path from file path on stack trace.
   # Default value is `false`.
-  #strip_src_base = true
+  strip_src_base = false
 }
 ```
 
@@ -592,7 +585,7 @@ render {
   #  - Fallback to `render.default` value - supports `html`, `json`, `xml` and `text`.
   #
   # Default value is `empty` string.
-  #default = "html"
+  default = "html"
 
   # Secure JSON config is to prevent Cross Site Script Inclusion (XSSI) attacks
   # on JSON response payload (aka JSON vulnerability). XSSI attack is only
@@ -602,9 +595,9 @@ render {
   # method `Reply().JSONSecure()`.
   #
   # Default value is `)]}',\n`.
-  #secure_json {
-  #  prefix = ")]}',\n"
-  #}
+  secure_json {
+    prefix = ")]}',\n"
+  }
 }
 ```
 
@@ -628,13 +621,13 @@ gzip {
   # There is no benefit in doing double compression; just CPU cycle gets wasted.
   #
   # Default value is `true`.
-  #enable = true
+  enable = true
 
   # Gzip compression levels.
   # Valid levels are  1 = BestSpeed to 9 = BestCompression.
   #
   # Default value is `4`.
-  #level = 4
+  level = 4
 }
 ```
 
@@ -680,11 +673,11 @@ view {
   # For e.g.: "/views/pages/app/login.tmpl" == "/views/pages/App/Login.tmpl"
   #
   # Default value is `false`.
-  #case_sensitive = false
+  case_sensitive = false
 
   # To use custom Go template delimiters for view files.
   # Default value is `{{.}}`.
-  #delimiters = "{{.}}"
+  delimiters = "{{.}}"
 
   # aah supports multi-layouts for views. The page layout name of aah is
   # `master.html`. aah supports non-layout too.
@@ -693,7 +686,7 @@ view {
   # via methods `Reply().HTMLlf` or `Reply().HTMLl`.
   #
   # Default value is `true`. Available since v0.6
-  #default_layout = false
+  default_layout = true
 }
 ```
 
@@ -734,7 +727,7 @@ env {
   # /path/to/binary/aahwebsite -profile prod
   #
   # Default value is `dev`.
-  #active = "dev"
+  active = "dev"
 
   # Environment profile configurations
   # Load all the configuration files from `appbasedir/config/env/*.conf`.

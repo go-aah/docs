@@ -1,5 +1,5 @@
 Title: aah CLI Tool
-Desc: aah CLI tool is development buddy for developers to take advantage aah framework capabilities.
+Desc: aah CLI tool is development buddy for developers to take advantage aah capabilities.
 Keywords: aah CLI tool, ClI tool, hot-reload, cross compile, commands, run, new, build, version, list, clean, generate, migrate, switch, update
 ---
 # aah CLI Tool

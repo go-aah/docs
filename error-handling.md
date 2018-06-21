@@ -41,7 +41,7 @@ Let's take look at aah error object structure and aah errors.
 
 #### `aah.Error` Struct
 ```go
-// Error structure used to represent the error details in the aah framework.
+// Error structure used to represent the error details in the aah.
 type Error struct {
   Reason  error       `json:"-" xml:"-"`
   Code    int         `json:"code,omitempty" xml:"code,omitempty"`

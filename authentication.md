@@ -6,7 +6,7 @@ Keywords: authentication, security, subject, principals, credentials, form auth,
 
 <span class="badge lb-sm">Since v0.7</span> Authentication is the process of identity verification – system trying to validate an subject/user is who they say they are. To do so, a subject/user needs to provide some sort of proof of identity that your system understands and trust.
 
-Familiarize yourself with aah framework security [Terminology](security-terminology.html), [Design](security-design.html) and [Permissions](security-permissions.html).
+Familiarize yourself with aah security [Terminology](security-terminology.html), [Design](security-design.html) and [Permissions](security-permissions.html).
 
 ### Table of Contents
 

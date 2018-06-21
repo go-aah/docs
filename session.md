@@ -12,7 +12,7 @@ aah Session library provides HTTP state management for web application and State
   * HMAC Signed session data
   * AES Encrypted session data
 
-Out-of-the-box aah framework provides `Cookie` and `File` as a Session Store to persist encrypted session data. Also it provides extensible interface `session.Storer` for adapting other storage types; like Key-Value Database, NoSQL Database, and RDBMS. For your own store implementation, please refer `session.FileStore`; its very easy.
+Out-of-the-box aah provides `Cookie` and `File` as a Session Store to persist encrypted session data. Also it provides extensible interface `session.Storer` for adapting other storage types; like Key-Value Database, NoSQL Database, and RDBMS. For your own store implementation, please refer `session.FileStore`; its very easy.
 
 Non-cookie store session data is maintained via store interface. Only `Session ID` is transmitted over the wire via Cookie.
 

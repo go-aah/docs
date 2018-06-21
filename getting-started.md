@@ -4,7 +4,7 @@ Keywords: getting started, aah, aah Go web framework
 ---
 # Getting started with aah framework
 
-It is easy to start and work with aah framework. Let's make sure you have [Go environment ready](prerequisites.html).
+It is easy to start and work with aah. Let's make sure you have [Go environment ready](prerequisites.html).
 
 Here you will be learning:
 

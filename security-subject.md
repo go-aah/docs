@@ -4,7 +4,7 @@ Keywords: subject, user, principals, authorization
 ---
 # aah Subject
 
-Without question, the most important concept in aah framework is the `Subject`. Subject is just a security term that means a security-specific `view` of an application user. A aah Subject instance represents both security state and operations for a single application user.
+Without question, the most important concept in aah is the `Subject`. Subject is just a security term that means a security-specific `view` of an application user. A aah Subject instance represents both security state and operations for a single application user.
 
 These operations include:
 
@@ -14,7 +14,7 @@ These operations include:
 
 aah originally wanted to call it `User` since that "just makes sense", but we decided against it.: too many applications have existing APIs that already have their own User `struct`, and aah didn't want to conflict with those. Also, in the security world, the term `Subject` is actually the recognized nomenclature.
 
-aah framework API encourages a `Subject`-centric programming paradigm for applications. When coding application logic, most application developers want to know who the currently executing user is. While the application can usually look up any user via their own mechanisms (UserService, etc), when it comes to security, the most important question is "Who is the current user?"
+aah API encourages a `Subject`-centric programming paradigm for applications. When coding application logic, most application developers want to know who the currently executing user is. While the application can usually look up any user via their own mechanisms (UserService, etc), when it comes to security, the most important question is "Who is the current user?"
 
 Application code based on only the current user/Subject is much more natural and intuitive.
 
@@ -101,4 +101,4 @@ Piece of cake, right?
 ctx.Subject().Logout()
 ```
 
-This simple API constitutes 90% of what aah framework end-users will ever have to deal with when using aah security.
+This simple API constitutes 90% of what aah end-users will ever have to deal with when using aah security.

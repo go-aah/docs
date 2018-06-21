@@ -4,7 +4,7 @@ Keywords: log configuration, logger configuration, log config
 ---
 # aah Log Configuration
 
-The configuration syntax is used by aah framework is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
+The configuration syntax is used by aah is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
 
 This document describes aah log configurations. Typically log configuration done at every environment profile level and you override it via external config file.
 

@@ -4,19 +4,19 @@ Keywords: security design, security architecture, security implementation
 ---
 # aah Security Design & Implementation
 
-aah framework's design goals are to simplify application security by being intuitive and easy to use. aah core design models how most people think about application security - in the context of someone (or something) interacting with an application.
+aah's design goals are to simplify application security by being intuitive and easy to use. aah core design models how most people think about application security - in the context of someone (or something) interacting with an application.
 
 Software applications are usually designed based on user stories. That is, you'll often design user interfaces or service APIs based on how a user would (or should) interact with the software. For example, you might say, "If the user interacting with my application is logged in, I will show them a button they can click to view their account information. If they are not logged in, I will show a sign-up button."
 
 This example statement indicates that applications are largely written to satisfy user requirements and needs. Even if the ‘user’ is another software system and not a human being, you still write code to reflect behavior based on who (or what) is currently interacting with your software.
 
-aah framework reflects these concepts in its own design. By matching what is already intuitive for software developers, aah framework remains intuitive and easy to use in practically any application.
+aah reflects these concepts in its own design. By matching what is already intuitive for software developers, aah remains intuitive and easy to use in practically any application.
 
-aah framework security module is `aahframework.org/security.vX`.
+aah security module is `aahframework.org/security.vX`.
 
 ## Design
 
-At high level aah framework security implementations are all highly modular in design. It simplifies and enables flexible configuration with pluggability. The SecurityManager implementation does not do much at all. Instead, the SecurityManager implementations mostly act as a lightweight 'container', delegating almost all behavior to nested/wrapped components.
+At high level aah security implementations are all highly modular in design. It simplifies and enables flexible configuration with pluggability. The SecurityManager implementation does not do much at all. Instead, the SecurityManager implementations mostly act as a lightweight 'container', delegating almost all behavior to nested/wrapped components.
 
 **Components:** [SecurityManager](#securitymanager), [SessionManager](#sessionmanager), [Subject](#subject)
 
@@ -24,7 +24,7 @@ At high level aah framework security implementations are all highly modular in d
 
 ### SecurityManager
 
-aah framework encourages a `security.Subject`-centric programming approach, most application developers will rarely, if ever, interact with the SecurityManager directly. Even so, it is still important to know how the SecurityManager functions.
+aah encourages a `security.Subject`-centric programming approach, most application developers will rarely, if ever, interact with the SecurityManager directly. Even so, it is still important to know how the SecurityManager functions.
 
 SecurityManager implementations, this includes:
 
@@ -37,7 +37,7 @@ SecurityManager implementations, this includes:
 
 ### SessionManager
 
-The `SessionManager` knows how to create and manage user Session lifecycles to provide a robust Session experience for users. The `session.Storer` interface provides an capability to use any backend of your choice for the session store. Out-of-the-box aah framework provides cookie and file store.
+The `SessionManager` knows how to create and manage user Session lifecycles to provide a robust Session experience for users. The `session.Storer` interface provides an capability to use any backend of your choice for the session store. Out-of-the-box aah provides cookie and file store.
 
 ### Subject
 
@@ -50,7 +50,7 @@ The interface `scheme.Schemer` is a way to provides pluggable auth scheme for th
 Currently ready to use schemes are `scheme.FormAuth`, `scheme.BasicAuth` and `scheme.GenericAuth` direct implementation of interface `scheme.Schemer`.
 
 ```go
-// Schemer interface is used to create Auth Scheme for aah framework.
+// Schemer interface is used to create Auth Scheme for aah.
 type Schemer interface {
 	// Init method gets called by aah during an application start.
 	//
