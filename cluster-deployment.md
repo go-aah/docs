@@ -1,31 +1,31 @@
 Title: Cluster Deployment
-Desc: aah cluster deployment of Web application and API application.
+Desc: aah cluster deployment of Web applications and API applications.
 Keywords: cluster deployment, cluster, deployment, web, api
 ---
 # aah Cluster Deployment
 
-This document provides aah cluster deployment references for Web and RESTful API.
+This document provides aah cluster deployment checklist for Web and RESTful API applications.
 
   * [Web Application Cluster](#web-application-cluster)
   * [RESTful API Cluster](#restful-api-cluster)
 
 ## Web Application Cluster
 
-`aah` web application cluster deployment is typically same as industry known way. Deploy as many nodes as required by your traffic, high availability, etc.
+`aah` web application cluster deployment is the same as the industry known practice. Deploy as many nodes as required. The number of nodes varies depending on various factors such as traffic and high availability.
 
-Typically application configuration is same in all nodes in the cluster except node specific config values. For example: `instance_name`. Following checklist is to provide key configuration reference:
+Typically, application configuration is the same for all nodes in the cluster except for node-specific config values; `instance_name`, as an example. The following checklist provides key configuration references:
 
-  * **Instance Name:** Provide aah `instance_name` config value via Environment Variable or External Config file. `instance_name` value is important one; it helps you to distinguish application log from various nodes in the aah cluster.
-      * Let's say your web application name is "User Portal". For example: `instance_name = "sfo-up-web-01"`, `instance_name = "sfo-up-web-02"`. Refer to [logging](logging.html#understanding-aah-logging).
-  * **Session Management:** Ensure section `security.session { ... }` config values from `security.conf` is same in all nodes in the cluster to process user session. For example: `security.session.sign_key`, `security.session.enc_key`, etc.
-  * **Anti-CSRF:** Ensure section `security.anti_csrf { ... }` config values from `security.conf` is same in all nodes in the cluster to prevent CSRF attacks properly. For example: `security.anti_csrf.sign_key`, `security.anti_csrf.enc_key`, etc.
+  * **Instance Name:** Provide aah `instance_name` config value via Environment Variable or External Config file. `instance_name` value is an important one; it helps to distinguish application log from various nodes in the aah cluster.
+      * As an illustration, an aah web application named "User Portal" (referred as 'up') deployed in SFO region with `n` nodes in a cluster, then the instance names will be `sfo-up-web-01`, `sfo-up-web-02`, `sfo-up-web-03`, ... `sfo-up-web-n`.
+  * **Session Management:** In security.conf, ensure section `security.session { ... }` config values are same for all nodes in the cluster to process user session properly; notable configs are `sign_key` and `enc_key`.
+  * **Anti-CSRF:** In security.conf, ensure section `security.anti_csrf { ... }` config values from `security.conf` is the same for all nodes in the cluster to prevent CSRF attacks properly; notable configs are `sign_key` and `enc_key`.
 
 
 ## RESTful API Cluster
 
-`aah` RESTful API cluster deployment is typically same as industry known way. Deploy as many nodes as required by your traffic, high availability, etc.
+`aah` RESTful API cluster deployment is also the same as the regular industry known practice. Deploy as many nodes as required. The number of nodes varies depending on various factors such as traffic and high availability.
 
-Typically application configuration is same in all nodes in the cluster except node specific config values. For example: `instance_name`.
+Typically, application configuration is the same for all nodes in the cluster except for node-specific config values; `instance_name`, as an example.
 
-  * **Instance Name:** Provide aah `instance_name` config value via Environment Variable or External Config file. `instance_name` value is important one; it helps you to distinguish application log from various nodes in the aah cluster.
-      * Let's say your API service name is "User Subscription Service". For example: `instance_name = "sfo-uss-api-01"`, `instance_name = "sfo-uss-api-02"`. Refer to [logging](logging.html#understanding-aah-logging).
+  * **Instance Name:** Provide aah `instance_name` config value via Environment Variable or External Config file. `instance_name` value is an important one; it helps to distinguish application log from various nodes in the aah cluster.
+      * As an illustration, an aah API service named "User Subscription Service" (referred as 'uss') deployed in SFO region with `n` nodes in a cluster, then the instance names will be `sfo-uss-api-01`, `sfo-uss-api-02`, `sfo-uss-api-03`, ... `sfo-uss-api-n`.

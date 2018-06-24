@@ -1,44 +1,47 @@
 Title: Session Management
-Desc: aah Session provides HTTP state management for web application and Stateless session for API application. HMAC Signed session data, AES Encrypted session data, Extensible session.Storer interface.
-Keywords: session, stateless session, stateful session, http state management, hmac signed, aes encrypted, external store
+Desc: aah session provides HTTP state management for web applications and stateless session for API applications. aah session is HMAC signed and AES encrypted. aah customizes session storage via interface `session.Storer`.
+Keywords: session, stateless session, stateful session, http state management, hmac signed, aes encrypted, external storage
 ---
 # Session Management
 
-aah Session library provides HTTP state management for web application and Stateless session for API application.
+aah session library provides HTTP state management for web applications and stateless session for API applications.
 
 **Features:**
 
-  * Extensible `session.Storer` interface
   * HMAC Signed session data
   * AES Encrypted session data
+  * Extensible `session.Storer` interface
 
-Out-of-the-box aah provides `Cookie` and `File` as a Session Store to persist encrypted session data. Also it provides extensible interface `session.Storer` for adapting other storage types; like Key-Value Database, NoSQL Database, and RDBMS. For your own store implementation, please refer `session.FileStore`; its very easy.
+The library provides ready-to-use `Cookie` and `File` session store to persist signed and encrypted session data. For custom session store (Key-Value Database, NoSQL Database, RDBMS, etc.), implement interface `session.Storer` and register in file `<app-base-dir>/app/init.go` (refer `session.FileStore`; it is very easy to follow).
 
-Non-cookie store session data is maintained via store interface. Only `Session ID` is transmitted over the wire via Cookie.
+<div class="alert alert-info-green">
+<p><strong>Note:</strong> In non-cookie session store, only `Session ID` is transmitted over the wire via Cookie.</p>
+</div>
 
-If you would like to add values of your custom types in the session. You have to register your custom types using `gob.Register(...)`.
-
-Reference to [Session Configuration](security-config.html#section-session).
+To add values of custom data types in the session, register them using `gob.Register(...)`.
 
 ### Table of Contents
 
   * [How to access current Session?](#how-to-access-current-session)
   * [Adding User-Defined Store into aah](#adding-user-defined-session-store-into-aah)
+  * [Session Configuration](security-config.html#section-session)
 
-## How to access current Session?
+## How to access current session?
 
-You could access current in two ways from `aah.Context`.
+Current session can be accessed via `ctx.Session()`.
 
-  * `ctx.Session()` - simple wrap to below one.
-  * `ctx.Subject().Session`
+## Adding user-defined session store into aah
 
+Steps to add user-defined session store into aah:
 
-## Adding User-Defined Session Store into aah
+  1. Implement interface `session.Storer` (Refer `session.FileStore`).
+  2. Register it in aah at `init.go` file.
+  3. Configure it in app session config.
 
-Implement interface `session.Storer` (Refer `session.FileStore` for implementation reference) and register it in aah at `init.go` file. Then configure it in app session config.
+### Step 1: Implement interface `session.Storer`
 
 ```go
-// Storer is interface for implementing pluggable session storage.
+//Implement interface `session.Storer` for custom session storage
 type Storer interface {
 	Init(appCfg *config.Config) error
 	Read(id string) string
@@ -50,19 +53,18 @@ type Storer interface {
 ```
 
 
-### Add user-defined custom session store into aah
+### Step 2: Add the newly created custom session store into aah
 
 ```go
-// Refer `session.FileStore` for implementation sample
+// Refer `session.FileStore` for implementation
 func init() {
   aah.AddSessionStore("redis", &RedisSessionStore{})
 }
 ```
 
-### Configuring newly registered custom store in the config
+### Step 3: Configure the added custom session store in the config file `security.conf`
 
-Configuring user-defined custom store for session data storage in the `security.conf`.
-```cfg
+```bash
 security {
   session {
     # ....
@@ -75,3 +77,5 @@ security {
   }
 }
 ```
+
+Read more about [authentication](authentication.html) and [authorization](authorization.html). 
