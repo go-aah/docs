@@ -1,47 +1,46 @@
-Title: Error Handling
-Desc: aah provides flexible error handling and flow to handle application validation, response errors at various levels.
+Title: aah Error Handling
+Desc: aah is versatile and seamless about handling errors, validating data and generating error responses at various levels.
 Keywords: error handling, centralized error handling, default error handler
 ---
 # aah Error Handling
 
-aah error handling is made for modern Web and API application. It propagates all the errors [Validation Error, Authentication, Authorization, Route Not Found, Content-Negotiation, etc.] in the below mentioned order. You have complete control over each error happening within your application and how it should be treated, etc.
+aah is versatile and seamless about handling errors. It is made for modern Web and API applications. It propagates all types of errors- Validation, Authentication, Authorization, Route Not Found and Content-Negotiation.
 
-The propagation order is -
+The propagation order is listed below -
 
   * Controller level error handler <span class="badge lb-xs">Since v0.10</span>
   * Centralized error handler <span class="badge lb-xs">Since v0.8</span>
   * Default error handler
 
-Benefits of aah flexible error handling, you could -
+Benefits of aah error handling:
 
-  * Handle error at each controller locally
-  * Handle error at application level
-  * Handle error then send custom HTTP code with various response types.
-  * Filter/process appropriate error then send notification email, slack, etc.
-  * Log error information; also send it to external systems. For e.g: Kibana, Prometheus, Splunk, Sentry, Airbrake, etc.
-
-Seamlessly integrated across within framework and its flow.
+  * Handle errors in each controller locally
+  * Achieve application level error handling
+  * Send custom HTTP code with various response types after handling errors
+  * Filter appropriate errors and send notification emails, slacks, etc in response.
+  * Log error informations and send messages to external systems such as Kibana, Prometheus, Splunk, Sentry and Airbrake.
 
 <div class="alert alert-info-green">
-<p><strong>Tip:</strong> Possible to handle error at each level, also possible to propagate to further above if needed.</p>
+<p><strong>Tip:</strong> Easy to handle errors at each level. It is also amenable to propagate further if needed.</p>
 </div>
 
 ### Table of Contents
 
   * [aah Error Struct and aah Errors](#aah-error-struct-and-aah-errors)
   * [Defining Controller Level Error Handler](#defining-controller-level-error-handler)
-  * [Registering Your Centralized Error Handler](#registering-your-centralized-error-handler)
+  * [Registering Centralized Error Handler](#registering-centralized-error-handler)
   * [Default Error Handler](#default-error-handler)
   * [Reply().Error(err)](#reply-error-err)
   * [Sample: Easy to read error stacktrace](#sample-easy-to-read-error-stacktrace)
 
 ## aah Error Struct and aah Errors
 
-Let's take look at aah error object structure and aah errors.
+Let us take a look at aah error object structure and aah errors.
 
 #### `aah.Error` Struct
+
 ```go
-// Error structure used to represent the error details in the aah.
+// Error structure is used to represent the error information in aah framework.
 type Error struct {
   Reason  error       `json:"-" xml:"-"`
   Code    int         `json:"code,omitempty" xml:"code,omitempty"`
@@ -50,7 +49,11 @@ type Error struct {
 }
 ```
 <br>
-For framework generated errors, field `Reason` would be from these errors -
+
+#### aah errors
+
+For framework generated errors, field `Reason` holds an appropriate text from any one of these common errors.
+
 ```go
 var (
 	ErrPanicRecovery              = errors.New("aah: panic recovery")
@@ -62,60 +65,66 @@ var (
 	ErrContentTypeNotAccepted     = errors.New("aah: content type not accepted")
 	ErrContentTypeNotOffered      = errors.New("aah: content type not offered")
 	ErrHTTPMethodNotAllowed       = errors.New("aah: http method not allowed")
+	ErrNotAuthenticated           = errors.New("aah: not authenticated")
 	ErrAccessDenied               = errors.New("aah: access denied")
 	ErrAuthenticationFailed       = errors.New("aah: authentication failed")
+	ErrAuthorizationFailed        = errors.New("aah: authorization failed")
+	ErrSessionAuthenticationInfo  = errors.New("aah: session authentication info")
+	ErrUnableToGetPrincipal       = errors.New("aah: unable to get principal")
 	ErrGeneric                    = errors.New("aah: generic error")
 	ErrValidation                 = errors.New("aah: validation error")
+	ErrRenderResponse             = errors.New("aah: render response error")
+	ErrWriteResponse              = errors.New("aah: write response error")
 )
 ```
 
 
 ## Defining Controller Level Error Handler
 
-It's very easy, just implement interface `aah.ErrorHandler` into your controller. aah would propagate all the errors happening within that controller to this handler.
+Controller level error handler can be implemented using interface `aah.ErrorHandler` on controller. aah propagates all controller specific errors to this handler.
 
 ```go
-// ErrorHandler is interface for implement controller level error handling
+// ErrorHandler is an interface to implement controller level error handling
 type ErrorHandler interface {
-	// HandleError method is to handle error on your controller
+	// HandleError method is to handle controller specific errors
 	//
-	//  - Return `true`, if you have handled your errors, aah just writes the reply on the wire.
+	//  - Returns `true` if one or more errors are handled. aah just writes the reply on the wire.
 	//
-	//  - Return `false`, you may or may not handled the error, aah would propagate the error
-  // further onto centralized error handler, if not handled and then finally default
-  // error handler would take place.
+	//  - Return `false` if one or more errors could not be handled. aah propagates the error(s)
+  // further onto centralized error handler. If not handled, then finally default
+  // error handler takes control.
 	HandleError(err *Error) bool
 }
 ```
 
-## Registering Your Centralized Error Handler
+## Registering Centralized Error Handler
 
-Just implement this error func `aah.ErrorHandlerFunc` in an appropriate package and register via [`init.go`](/init.go-file.html) file.
+Implement error func `aah.ErrorHandlerFunc` in a suitable package and register via [`init.go`](/init.go-file.html) file.
 
 ```go
-// ErrorHandlerFunc is function type, it used to define centralized error handler
-// for your application.
+// ErrorHandlerFunc is a function type. It is used to define a centralized error handler
+// for an application.
 //
-//  - Return `true`, if you have handled your errors, aah just writes the reply on the wire.
+//  - Returns `true` when one or more errors are handled. aah just writes the reply on the wire.
 //
-//  - Return `false`, you may or may not handled the error, aah would propagate the error
-// further to default error handler.
+//  - Returns `false' when one or more errors could not be handled. aah propagates the error(s)
+// to default error handler.
 type ErrorHandlerFunc func(ctx *Context, err *Error) bool
 ```
 
-Then you could handle all application errors via this function. Such as handle by `Request Host`, `Error Code`, etc. Then reply appropriate error response.
+All application errors can be handled via this function- handle by `Request Host`, `Error Code`, etc; then it replies appropriate error(s).
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> If its was an application <code>panic</code> then field <code>aah.Error.Data</code> holds the recovered value from panic.</p>
+<p><strong>Note:</strong> If it is an application <code>panic</code>, then field <code>aah.Error.Data</code> holds the recovered value from panic.</p>
 </div>
 
-### Just for an example
+### For Illustration Purposes
 
 ```go
 package util
 
-// Implement your error handler with `aah.ErrorHandlerFunc` func type.
-// This is just an idea, Go with your creativity :)
+// Implement error handler with `aah.ErrorHandlerFunc` func type.
+// This is just an idea. Creativity can very well play here :)
 func AppErrorHandler(ctx *aah.Context, err *aah.Error) bool {
   switch ctx.Req.Host {
   case "mydomain.com":
@@ -149,7 +158,7 @@ func AppErrorHandler(ctx *aah.Context, err *aah.Error) bool {
   return true
 }
 
-// Register your App Error Handler at `init.go` file
+// Register App Error Handler at `init.go` file
 func init()  {
   aah.SetErrorHandler(util.AppErrorHandler)
 }
@@ -157,22 +166,23 @@ func init()  {
 
 ## Default Error Handler
 
-Default error handler is to handle all errors from the application and writes the reply on the wire based on `Content-Type` (if reply Content-Type is not set then Content-Type is derived from header `Accept` otherwise it fallbacks to config value `render.default` from aah.conf). It is capable of writing response in `JSON`, `XML`, `HTML` and `Plain Text`.
+Default error handler is to handle all errors from the application and writes the reply on the wire based on `Content-Type`. If reply Content-Type is not set, then Content-Type is derived from header `Accept`; otherwise, it falls back to config value `render.default` from aah.conf. The default error handler is capable of writing response in `JSON`, `XML`, `HTML` and `Plain Text`.
 
-Web application has special flow for HTML error page rendering, it typically works by naming your error view file the same as HTTP status code. Default error handler:
+Web application has special flow for HTML error page rendering. It generally works by naming the error view file, which is the same as HTTP status code.
 
-  * First it does lookup under `views/errors/<http-status-code>.<extension>` if found then it render that file.
-      - For example: `views/errors/500.html`, `views/errors/404.html`
-  * Otherwise it uses framework default HTML error template.
+The default error handler looks for the error view file `views/errors/<http-status-code>.<extension>`.
+
+  * If found, then it renders that file.
+      - See `views/errors/500.html` and `views/errors/404.html` for examples
+  * If not found, then it uses framework default HTML error template.
 
 <span class="badge lb-sm">Since v0.8</span> `aah new` command generates the web application with two error files (500.html, 404.html) under `views/errors`.
 
 ## Reply().Error(err)
 
-`Reply().Error()` reply is gets processed by Controller level, Centralized Error Handler then your reply is written on the wire.
+`Reply().Error()` reply gets processed by Controller level, Centralized Error Handler then the reply is written on the wire.
 
-It is recommended to use method `Error()` for all the application error responses.
-
+It is highly recommended to use method `Error()` for all application error responses.
 
 ## Sample: Easy to read error stacktrace
 

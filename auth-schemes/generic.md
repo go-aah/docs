@@ -4,13 +4,13 @@ Keywords: generic, generic auth, auth scheme, authentication, jwt auth, jwt toke
 ---
 # Generic Auth Scheme
 
-aah provides generic auth scheme as an extensible feature. It means authentication responsibility lies with user, aah doesn't validate the credentials and its quiet flexible. For example: Implementing JWT auth scheme, etc.
+aah provides generic auth scheme as an extensible feature. It means authentication responsibility lies with the user; JWT auth scheme implementation, for example. aah does not validate the credentials. It is quiet flexible too.
 
-Two steps to make use of generic auth scheme -
+There are two steps to make use of generic auth scheme -
 
-  * Implement `authc.Authenticator` to authenticate after successful authentication provide subject's authentication info to aah
+  * Implement interface `authc.Authenticator` to authenticate. After successful authentication, provide subject's authentication info to aah
       - aah treats any non-nil error as `401 Unauthorized`
-      - For e.g.: returning `authc.ErrAuthenticationFailed`, `authc.ErrSubjectNotExists` appropriately
+      - For example, returning `authc.ErrAuthenticationFailed` and `authc.ErrSubjectNotExists` appropriately
   * Implement `authz.Authorizer` to provide subject's [roles and permissions](/security-permissions.html)
 
 Refer [aah RESTFul API JWT auth]({{aah-examples}}/rest-api-jwt-auth) example.
@@ -23,7 +23,7 @@ Refer [aah RESTFul API JWT auth]({{aah-examples}}/rest-api-jwt-auth) example.
 
 ## Configuration
 
-aah supports one or more `generic` auth scheme.
+aah supports one or more `generic` auth schemes.
 
 ### Section: generic_scheme_key { ... }
 
@@ -32,7 +32,7 @@ aah supports one or more `generic` auth scheme.
 ```bash
 # -----------------------------------------------------------------------------
 # Generic auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/generic.html
 # -----------------------------------------------------------------------------
@@ -43,8 +43,8 @@ generic_auth_key {
   # It is required value, no default.
   scheme = "generic"
 
-  # Implement `` To provide subject's authentication info during a login flow, implement
-  # interface `authc.Authenticator` and configure here.
+  # Implement interface `authc.Authenticator` to provide subject's authentication
+  # info during login flow and configure here.
   #
   # It is required value, no default.
   authenticator = "security/AuthenticationProvider"
@@ -61,7 +61,7 @@ generic_auth_key {
     #identity = "Authorization"
 
     # Optional credential header
-    # Typically it's not used, however in the industry people do use it
+    #
     # Default value is empty string.
     #credential = "X-AuthPass"
   }
@@ -75,7 +75,7 @@ JWT auth scheme implemented using generic auth scheme. Configuration from [aah R
 ```bash
 # -----------------------------------------------------------------------------
 # Generic auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/generic.html
 # -----------------------------------------------------------------------------

@@ -4,12 +4,12 @@ Keywords: basic, basic auth, auth scheme, authentication
 ---
 # Basic Auth Scheme
 
-aah provides easy to use Basic auth scheme and it supports two realms. Choose per use case. <br><br>
+aah provides an easy to use Basic auth scheme. It supports two realms, file and dynamic. Choose per use case. <br><br>
 
 Realm | Description
 ---- | -----------
-File | Having known set of users defined in the config file. Plus aah supports roles and permissions in the configuration.
-Dynamic | Subject's data resides in datasource (such as credentials, roles, permissions). Implementing interface `authc.Authenticator` and `authz.Authorizer` to provide authentication and authorization details. Approach is similar to Form auth scheme. Refer [aah RESTFul APIs Basic Auth]({{aah-examples}}/rest-api-basic-auth) example.
+File | Having known set of users defined in the config file. In addition, aah supports roles and permissions in the configuration.
+Dynamic | Subject's data resides in datasources such as credentials, roles, and permissions. Implement interfaces `authc.Authenticator` and `authz.Authorizer` to provide authentication and authorization details. This approach is similar to Form auth scheme. Refer [aah RESTFul APIs Basic Auth]({{aah-examples}}/rest-api-basic-auth) example.
 
 ### Table of Contents
 
@@ -22,7 +22,7 @@ Dynamic | Subject's data resides in datasource (such as credentials, roles, perm
 
 ## Configuration
 
-aah supports one or more `basic` auth scheme.
+aah supports one or more `basic` auth schemes.
 
 ### Realm: File
 
@@ -31,7 +31,7 @@ aah supports one or more `basic` auth scheme.
 ```bash
 # -----------------------------------------------------------------------------
 # Basic auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/basic.html
 # -----------------------------------------------------------------------------
@@ -44,8 +44,8 @@ basic_scheme_key {
 
   # Realm name is used for `Www-Authenticate` HTTP header.
   #
-  # Note: Modern browsers are not respecting this values now a days.
-  # However aah does its due diligence.
+  # Note: Modern browsers are not utilizing this value now a days.
+  # However, aah does its due diligence.
   realm_name = "Protected"
 
   # Basic auth realm file path. Path have to be absolute path.
@@ -69,7 +69,7 @@ Repeat this configuration section for every user. Roles and Permissions attribut
 
 ```bash
 <username> {
-  # Password is require value.
+  # Password is the required value.
   password = "encrypted password value"
 
   # Roles attribute is optional.
@@ -109,7 +109,7 @@ mark {
 ```bash
 # -----------------------------------------------------------------------------
 # Basic auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/basic.html
 # -----------------------------------------------------------------------------
@@ -123,7 +123,7 @@ basic_scheme_key {
   # Realm name is used for `Www-Authenticate` HTTP header.
   #
   # Note: Modern browsers are not respecting this values now a days.
-  # However aah does its due diligence.
+  # However, aah does its due diligence.
   realm_name = "Protected"
 
   # To provide subject's authentication info during a login flow, implement
@@ -156,7 +156,7 @@ Configuration from [aah RESTFul APIs Basic Auth]({{aah-examples}}/rest-api-basic
 ```bash
 # -----------------------------------------------------------------------------
 # Basic auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/basic.html
 # -----------------------------------------------------------------------------

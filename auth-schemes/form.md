@@ -4,7 +4,7 @@ Keywords: form, auth scheme, authentication, form based auth
 ---
 # Form Auth Scheme (aka Form based Auth)
 
-aah provides easy to use form-based auth. Three steps to make use of Form auth scheme -
+aah provides an easy to use form-based auth. Three steps are involved in making use of Form auth scheme -
 
   * Implement `authc.Authenticator` to provide subject's authentication info
   * Implement `authz.Authorizer` to provide subject's [roles and permissions](/security-permissions.html)
@@ -20,7 +20,7 @@ Refer [aah Form Auth]({{aah-examples}}/form-based-auth) example.
 
 ## Configuration
 
-aah supports one or more `form` auth scheme. For e.g.: using datasource, Active Directory, REST APIs, etc.
+aah supports one or more `form` auth schemes such as using datasource, Active Directory, REST APIs, etc.
 
 ### Section: form_scheme_key { ... }
 
@@ -29,7 +29,7 @@ aah supports one or more `form` auth scheme. For e.g.: using datasource, Active 
 ```bash
 # -----------------------------------------------------------------------------
 # Form auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/form.html
 # -----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ form_scheme_key {
   # Default value is `bcrypt`.
   #password_encoder = "bcrypt"
 
-  # To configure field names to extract `AuthenticationToken`
+  # Configure field names to extract `AuthenticationToken`
   # from the HTTP request.
   field {
     # Default value is `username`
@@ -81,11 +81,12 @@ form_scheme_key {
     # Login submit URL, used to submit login credential for authentication via
     # POST request.
     #
-    # Route name is derived from user defined auth scheme key.
-    # For e.g.: auth scheme key is `form_auth` then route name would be
-    # `form_auth_login_submit__aah`. On login page -
+    # Route name is derived from the user-defined auth scheme key.
+    # For example:
+    # auth scheme key ~ `form_auth` then route name => `form_auth_login_submit__aah`.
+    # On login page -
     # `<form method="post" action="{{ rurl . "form_auth_login_submit__aah" }}">`
-    #
+
     # Default value is `/login`.
     #login_submit = "/login"
 
@@ -95,13 +96,13 @@ form_scheme_key {
     # Default value is `/login.html?error=true`.
     #login_failure = "/login.html?error=true"
 
-    # By default aah redirects user to requested page after success authentication
-    # otherwise sends user to this URL.
+    # By default, aah redirects the user to the requested page after successful
+    # authentication; otherwise, aah sends the user to this URL.
     #
     # Default value is `/`.
     #default_target = "/"
 
-    # Always redirect to `default_target` URL, regardless of the requested page/URL.
+    # Always redirects to `default_target` URL regardless of the requested page/URL.
     #
     # Default value is `false`.
     #always_to_default = false
@@ -116,7 +117,7 @@ Configuration from [aah Form Auth]({{aah-examples}}/form-based-auth) example.
 ```bash
 # -----------------------------------------------------------------------------
 # Form auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/form.html
 # -----------------------------------------------------------------------------
