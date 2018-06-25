@@ -8,10 +8,10 @@ Keywords: controller, request, response, reply, view arg, cookies, extending con
 
 ### Table of Contents
 
-  * [How to create a Controller in aah framework?](#how-to-create-a-controller-in-aah-framework)
+  * [How to create a Controller in aah?](#how-to-create-a-controller-in-aah)
   * [Extending aah Controller](#extending-aah-controller)
 
-## How to create a `Controller` in aah framework?
+## How to create a `Controller` in aah?
 
 A `Controller` is any `struct` type that embeds the `aah.Context` (Note: this is not a standard package `context.Context`). The controller gets access to -
 
@@ -21,7 +21,7 @@ A `Controller` is any `struct` type that embeds the `aah.Context` (Note: this is
   * [Subject](#subject)
   * [Session](#session)
   * [i18n Message](#i18n-message)
-  * [Reverse URL](#reverse-url)
+  * [Route URL](#route-url)
   * [View Arg](#view-arg)
   * [Is Static Route](#is-static-route)
 
@@ -78,7 +78,7 @@ Read more about [Subject](security-subject.html),
 
 ## Session
 
-In aah framework default session mode is `stateless`, of-course via [configuration](security-config.html#mode) you can enable `stateful`. Framework does `HMAC` sign and `AES` encryption to secure session data.
+In aah default session mode is `stateless`, of-course via [configuration](security-config.html#mode) you can enable `stateful`. Framework does `HMAC` sign and `AES` encryption to secure session data.
 
 It is perfect for Web and API application-
 
@@ -91,30 +91,30 @@ To learn more about `Session` object [click here](session.html).
 
 i18n messages is for internationalization and localization. To learn more [click here](i18n.html).
 
-## Reverse URL
+## Route URL
 
-aah framework provides a convenient way to create reverse route URL via two methods.
+aah provides a convenient way to create reverse route URL via two methods.
 
-  * `ReverseURL` - method generates the URL for given route name (defined in the `routes.conf`) and arguments.
-  * `ReverseURLm` - method generates the URL for given route name (defined in the `routes.conf`) and `map` of named arguments. Remaining provided values added as URL Query parameters.
+  * `RouteURL` - method generates the URL for given route name (defined in the `routes.conf`) and arguments.
+  * `RouteURLNamedArgs` - method generates the URL for given route name (defined in the `routes.conf`) and `map` of named arguments. Remaining provided values added as URL Query parameters.
 
 ```go
 // let's say route named `login` has path `/login.html`
-ReverseURL("login")
+RouteURL("login")
 
 // Output
 "//<host-name:port-no-if-present>/login.html"
 
 
 // let's say route named `user_info` has path `/v1/users/:userId`
-ReverseURL("user_info", 100001)
+RouteURL("user_info", 100001)
 
 // Output
 "//<host-name:port-no-if-present>/v1/users/100001"
 
 
 // let's say route named 'product_info' has path `/product/:productId`
-ReverseURLm("product_info", map[string]interface{}{
+RouteURLNamedArgs("product_info", map[string]interface{}{
   "id": "5564HFGFG56207",
   "lang": "es",
 })
@@ -137,7 +137,7 @@ u.AddViewArg("Username", "Jeevanandam M.").
 aah.Context enables you to identify the current incoming request is static or application route using `IsStaticRoute()` method. For e.g: if you have register custom `NotFound` handler in the route config, this method is very handy.
 
 ```go
-// true - static route
+// true - static file route
 // false - application route
 a.IsStaticRoute()
 ```

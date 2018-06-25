@@ -1,10 +1,10 @@
 Title: aah Routes Configuration
 Desc: Application Routes configuration - domains, subdomains and wildcard subdomain.
-Keywords: routes config, routes configuration, namespace routes, group routes, routes
+Keywords: routes config, routes configuration, namespace routes, group routes, routes, nested routes
 ---
 # aah Routes Configuration
 
-aah Routes configuration is used to configure application domains and subdomains static and application routes.
+aah Routes configuration is used to configure application domains and subdomains, static and application routes.
 
 Learn [configuration syntax](configuration.html).
 
@@ -19,15 +19,16 @@ Learn [configuration syntax](configuration.html).
 
 ## Domain Configuration
 
-Domain/subdomain configuration gets configured as a config section.
+One or more domain/subdomain configurations get configured.
 
-`domain_name_key { ... }` configuration goes under the config section `domains { ... }` in `routes.conf`.
+`domain_name_key { ... }` configuration goes under config section `domains { ... }` in `routes.conf`.
 <br>
 ```bash
 #------------------------------------------------------------------------------
 # Domain/subdomain Key Name
-# Choose an `unique keyname` to define domain section and its configuration.
-# Tip: domain name address, port no values to create a domain key, etc.
+# Choose a `unique keyname` to define domain section and its configuration.
+# Tip: domain name address, port no values could be used to create a 
+# meaningful domain key, etc.
 #
 # Doc: https://docs.aahframework.org/routes-config.html#domain-configuration
 #------------------------------------------------------------------------------
@@ -35,50 +36,53 @@ domain_key_name {
   # Name of the domain routes config.
   name = "app name routes"
 
-  # aah natively multi-tenants, it supports domains and subdomains.
+  # aah is natively multi-tenant. It supports domains and subdomains.
   # Config `host` is used to determine domain/subdomain for the incoming request.
   # Wildcard subdomain is supported too.
   #
-  # It is environment specific values, so define it in profile configuration.
-  # For e.g: for aah website `prod` profile has mapping for
-  # aahframework.org, docs.aahframework.org.
+  # It is an environment specific value, so define it in profile configuration.
+  # For example: In aah website, `prod` profile has mapping for
+  # aahframework.org and docs.aahframework.org.
   host = "localhost"
 
-  # Port is used to along with config `host` to identify incoming request.
+  # Port is used along with config `host` to identify incoming request.
   #
   # For standard port `80` and `443`, put empty string or a value
   # Default value is `8080`.
   port = "80"
 
-  # Denotes this domain is a subdomain. Wildcard subdomain supported.
+  # Denotes whether a domain is a subdomain. Wildcard subdomain is supported.
   # Default value is `false`.
   subdomain = false
 
-  # Redirect trailing slash is to enable automatic redirection if the current
-  # route can't be matched but a `route` for the path with (without)
+  # Redirect trailing slash is to enable automatic redirection if current
+  # route can't be matched but a `route` for the path with or without
   # the trailing slash exists.
   #
   # Default value is `true`.
   redirect_trailing_slash = true
 
   # aah supports `405 MethodNotAllowed` status with `Allow` header as per
-  # `RFC7231`. Perfect for RESTful APIs.
+  # `RFC7231`, perfect for RESTful APIs.
   #
   # Default value is `true`.
   method_not_allowed = true
 
   # aah supports HTTP `OPTIONS` request automatic replies.
-  # User defined `OPTIONS` routes take priority over the automatic replies.
-  # Perfect for RESTful APIs.
+  # User defined `OPTIONS` routes take priority over automatic replies.
+  # It is perfect for RESTful APIs.
   #
   # Default value is `true`.
   auto_options = true
 
   # Default auth is used when route does not have attribute `auth` defined.
-  # Supported values are `auth_scheme_key_name`, `anonymous` and `authenticated`.
+  # Supported values are
+  #   - auth_scheme_key_name
+  #   - anonymous
+  #   - authenticated
   #
   # Default value is empty string.
-  default_auth = ""
+  default_auth = "auth_scheme_key_name"
 
   # Anti-CSRF (Cross-Site Request Forgery protection)
   # aah protects all HTML forms automatically.
@@ -108,15 +112,15 @@ domain_key_name {
 # -----------------------------------------------------------------------------
 routes {
   # -----------------------------------------------------------------------------
-  # Choose an `unique name` for each route name, its unique within one domain
-  # configuration. Route name is used to get Route URL in the Controller.
-  # For e.g.: ctx.RouteURL("index")
+  # Choose a `unique name` for each route name. It is unique within one domain
+  # configuration. Route name is used to get the Route URL in the Controller-
+  # ctx.RouteURL("index"), as an example.
   # -----------------------------------------------------------------------------
   index {
-    # Path is used to match incoming request URL. It must begins with `/`.
-    # aah supports two types of path parameter definition:
-    #   - `:variablename` is called named parameter
-    #   - `*variablename` is called catch-all parameter
+    # Path is used to match incoming request URL. It must begin with `/`.
+    # aah supports two types of path parameter definitions:
+    #   - `:paramName` is called as named parameter
+    #   - `*paramName` is called as catch-all parameter
     #
     # Supports route constraints for the parameter.
     #
@@ -128,23 +132,23 @@ routes {
     path = "/"
 
     # HTTP verb/method mapping.
-    #   - Supports multiple `HTTP` verbs with comma separated
+    #   - Supports multiple `HTTP` verbs as comma-separated values
     #   - Supports lowercase and uppercase
     #
     # Default value is `GET`.
     method = "GET"
 
-    # Controller mapping for the mapped `path` and `method`.
-    # It is fully qualified package path with controller name.
+    # Controller mapping for mapped `path` and `method`.
+    # It becomes a fully qualified package path with controller name.
     #
-    # For e.g.- (controller defined with or without package prefix)
+    # Examples- (controller is defined with or without package prefix)
     #   - UserController
     #   - /v1/user/UserController
     #   - /v2/user/UserController
     #   - /v1/admin/permission/PermissionsController
     #   - /v2/admin/permission/PermissionsController
     #
-    # It is required value, no default.
+    # It is the required value and not a default one.
     controller = "AppController"
 
     # Action mapping for the mapped controller.
@@ -165,25 +169,26 @@ routes {
     #   - anonymous
     #   - authenticated
     #
-    # Default value is derived:
-    #   - Inherits the parent route `auth` attribute value if defined
-    #   - Otherwise, inherits the `default_auth` attribute config value if defined
-    #   - Otherwise it becomes undefined (empty string)
+    # Default value is derived in any one these three ways:
+    #   - Checks if parent route `auth` attribute value is defined and inherits it.
+    #   - If not, then checks if `default_auth` attribute config value is defined
+    # and inherits it.
+    #   - Otherwise, it becomes undefined (empty string)
     #
-    # When undefined, possible outcomes could be:
-    #   - If auth schemes defined in security.conf then `403 Forbidden`
-    #   - Otherwise aah treats it as `anonymous`
+    # When undefined, possible outcomes are:
+    #   - If auth schemes are defined in security.conf, then `403 Forbidden`
+    #   - Otherwise, aah treats it as `anonymous`
     auth = "anonymous"
 
-    # Max HTTP request body size, ability to control route request body size.
-    # It gets applied to payload supported HTTP verbs such as POST, PUT and DELETE.
+    # Max HTTP request body size gives the ability to control route request body size.
+    # It gets applied to payload supported HTTP verbs, such as POST, PUT and DELETE.
     #
     # Default value is from app config `request.max_body_size` which is `5mb`.
     max_body_size = "5mb"
 
     # Anti-CSRF config attribute is used to enable/disable CSRF protection.
-    #   - For RESTful API route disable it
-    #   - Generally do not disable Anti-CSRF for the web applications
+    #   - For RESTful API route, disable it
+    #   - Generally do not disable Anti-CSRF for web applications
     #
     # Default value is `true`.
     anti_csrf_check = true
@@ -195,9 +200,9 @@ routes {
 
 ## Samples of Nested Routes
 
-Configuring nested routes (aka group routes, namespace) in aah is easy. Basically just define `routes { ... }` with route any definition.
+Configuring nested routes (aka group routes and namespace) in aah is easy. Basically just define section `routes { ... }` with route any routes definition.
 
-#### To give an idea, take a look at below config structure:
+#### Take a look at the below config structure illustration:
 
 ```bash
 # -----------------------------------------------------------------------------
@@ -205,18 +210,23 @@ Configuring nested routes (aka group routes, namespace) in aah is easy. Basicall
 #
 # Doc: https://docs.aahframework.org/routes-config.html#routes-configuration
 # -----------------------------------------------------------------------------
-routes {  
-  <route_name1> {                 # unique route name
+routes {
+  # unique route name
+  <route_name1> {
     # this route attributes
 
-    routes {                      # child routes - level 1      
-      <route_name11> {            # unique route name
+    # child routes - level 1
+    routes {
+      # unique route name
+      <route_name11> {
         # this route attributes
 
-        routes {                  # child routes - level 2          
-          <route_name111> {       # unique route name
+        # child routes - level 2
+        routes {
+          # unique route name
+          <route_name111> {
 
-            # Could go on any level with your creativity
+            # you can go on any level with your creativity
 
           }        
         } # end - child routes - level 2
@@ -224,7 +234,8 @@ routes {
     } # end - child routes - level 1
   }
 
-  <route_name2> {                 # unique route name
+  # unique route name
+  <route_name2> {
     # same as above
   }
 }
@@ -234,20 +245,20 @@ routes {
 
 Route Attribute | Description
 --------------- | -----------
-path | Inherits parent `path` config as-is if child one is not defined otherwise prefixes parent `path` with child path
-method | Provided value otherwise defaults is `GET`.
-controller | Inherits parent `controller` config as-is if child one is not defined
-action | Value is chosen based on HTTP verb if its not defined
-auth | Inherits parent `auth` config as-is if child one is not defined
+path | Inherits parent `path` config as-is if child config is not defined; otherwise aah prefixes parent `path` with child path
+method | Provided value otherwise default value used; i.e. `GET`.
+controller | Inherits parent `controller` config as-is if child config is not defined
+action | Value is chosen based on HTTP verb if it is not defined
+auth | Inherits parent `auth` config as-is if child config is not defined
 authorization | Inherits parent `authorization` config as-is if child one is not defined
-max_body_size | If its not provided then uses `request.max_body_size` config value from `aah.conf`
-anti_csrf_check | Default value is true for web applications. It does not apply for REST API application. <br><br>**Note:** If you have APIs within web application then set this attribute to `false`
+max_body_size | If it is not specified, then uses `request.max_body_size` config value from `aah.conf`
+anti_csrf_check | Default value is true for web applications. It does not apply for REST API applications. <br><br>**Note:** If you have APIs within a web application, then set this attribute to `false`
 
 
 ### Demo
 
 ```bash
-# Let's say you have controller `UserController` and
+# Let us say controller `UserController` and
 # it has actions `List`, Index, `Create`, `Update`, `Delete`, `Settings` and `UpdateSettings`.
 
 # URLs are:
@@ -261,42 +272,53 @@ Update User Settings - PATCH  /v1/users/:id/settings
 ```
 
 <br>
-#### NOTE: This is to demonstrate the nested routes. Always go with your creativity.
+#### NOTE: This is just to demonstrate the nested routes. Creativity has no end, right? :)
 
 ```bash
 routes {
   v1_api {
     path = "/v1"
 
-    routes {      
-      users {                               # /v1/users
+    routes {
+      # /v1/users
+      users {
         path = "/users"
         controller = "UserController"
         action = "List"
 
-        routes {          
-          create_user {                     # /v1/users
+        routes {
+          # /v1/users
+          create_user {
             method = "POST"
           }
 
           routes {
             path = "/:id"
 
-            routes {              
-              get_user {                    # /v1/users/:id
-                # Inherits from parents
+            routes {
+              # /v1/users/:id
+              get_user {
+                # Inherits from parent[[s]]
               }
-              update_user {                 # /v1/users/:id
+
+              # /v1/users/:id
+              update_user {
                 method = "PATCH"
-              }              
-              delete_user {                 # /v1/users/:id
+              }
+
+              # /v1/users/:id
+              delete_user {
                 method = "DELETE"
               }
-              get_user_settings {           # /v1/users/:id/settings
+
+              # /v1/users/:id/settings
+              get_user_settings {
                 path = "/settings"
                 action = "Settings"
               }
-              update_user_settings {        # /v1/users/:id/settings
+
+              # /v1/users/:id/settings
+              update_user_settings {
                 path = "/settings"
                 method = "PATCH"
                 action = "UpdateSettings"

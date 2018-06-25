@@ -6,13 +6,13 @@ Keywords: oauth2, auth scheme, authentication, social login
 
 <span class="badge lb-sm">Since v0.11.0</span> aah supports [OAuth2](https://oauth.net/2/) auth scheme, library  `golang.org/x/oauth2` have been integrated with aah.
 
-Three steps to make use of OAuth2 scheme -
+OAuth2 auth scheme can be achieved in three steps -
 
   * Configure client credentials
   * Implement `authc.PrincipalProvider` to provide subject principals based on OAuth2 provider
   * Implement `authz.Authorizer` to provide subject's [roles and permissions](/security-permissions.html)
 
-Refer [aah OAuth2 - Social Login]({{aah-examples}}/oauth2-social-login) example, it demonstrates Facebook, Google and GitHub social login.
+Refer [aah OAuth2 - Social Login]({{aah-examples}}/oauth2-social-login) example. It demonstrates Facebook, Google and GitHub social login(s).
 
 ### Table of Contents
 
@@ -26,7 +26,7 @@ Refer [aah OAuth2 - Social Login]({{aah-examples}}/oauth2-social-login) example,
 
 ## Configuration
 
-Easy to use and flexible, supports one or more `OAuth2` auth scheme (For e.g.: configuring multiple social login, etc).
+OAuth2 auth scheme provides an easy to use and flexible configuration. It supports one or more `OAuth2` auth schemes; configuring multiple social login, for example.
 
 
 ### Section: oauth_scheme_key { ... }
@@ -36,7 +36,7 @@ Easy to use and flexible, supports one or more `OAuth2` auth scheme (For e.g.: c
 ```bash
 # -----------------------------------------------------------------------------
 # OAuth2 auth scheme
-# Choose unique key name, it gets used as route auth.
+# Choose a unique key name. It gets used as route auth.
 #
 # Doc: https://docs.aahframework.org/auth-schemes/oauth2.html
 # -----------------------------------------------------------------------------
@@ -74,8 +74,8 @@ oauth_scheme_key {
     scopes = ["profile", "email"]
 
     provider {
-      # aah is aware of few OAuth2 providers auth and token URLs via library.
-      # So just configure the name here.
+      # aah is aware of some of the OAuth2 providers auth and token URLs via library.
+      # So, just configure the name here.
       # Refer https://docs.aahframework.org/auth-schemes/oauth2.html#known-provider-endpoints
       name = "facebook"
 
@@ -92,21 +92,21 @@ oauth_scheme_key {
   url {
     # OAuth Login URL
     #
-    # Default value is derived from user defined auth scheme key.
-    # For e.g.: auth scheme key is `github_auth` then login would be
-    # `/github-auth/login`.
+    # Default value is derived from the user-defined auth scheme key.
+    # For example:
+    # auth scheme key ~ `github_auth` then login => `/github-auth/login`.
     #login = "oauth2/login"
 
     # Redirect/callback URL is used to receive request from OAuth2 provider
     # after successful authentication.
     #
-    # Default value is derived from user defined auth scheme key.
-    # For e.g.: auth scheme key is `github_auth` then callback would be
-    # `/github-auth/callback`.
+    # Default value is derived from the user-defined auth scheme key.
+    # For example:
+    # auth scheme key ~ `github_auth` then callback => `/github-auth/callback`.
     #redirect = "oauth2/callback"
 
     # Success URL is used to redirect after successful authentication
-    # and authorization at application.
+    # and authorization.
     # Default value is `/`.
     #success = "/success.html"
   }
@@ -115,7 +115,7 @@ oauth_scheme_key {
 
 ## Example Config
 
-This is one of the OAuth2 provider configuration from [aah OAuth2 Social login]({{aah-examples}}/oauth2-social-login) example.
+This is one of the OAuth2 provider configurations from [aah OAuth2 Social login]({{aah-examples}}/oauth2-social-login) example.
 
 ```bash
 # OAuth2 provider: Google
@@ -141,7 +141,7 @@ google_auth {
 
 ## `state` Parameter
 
-OAuth2 authorization protocols provides `state` parameter. During an authentication, aah sends `state` parameter in the authorization request and then OAuth2 authorization server would return this parameter value as-is in the response while redirecting to caller application.
+OAuth2 authorization protocols provide `state` parameter. During authentication, aah sends `state` parameter in the authorization request and then OAuth2 authorization server returns this parameter value as-is in response to caller application redirect.
 
 The state parameter is used to protect against [XSRF](http://en.wikipedia.org/wiki/Cross-site_request_forgery) (aka CSRF, or sea surf).
 
@@ -158,7 +158,7 @@ then, HMAC SHA-256 signed and base64 URL safe encoded
 
 ## Known Provider Endpoints
 
-aah is aware of few OAuth2 providers auth and token URL via oauth2 library. So just mention the name in `client.provider.name`.
+aah is aware of some of the OAuth2 providers auth and token URLs via oauth2 library. So, just mention the name in `client.provider.name`.
 
 #### OAuth2 provider names, just alphabetically ordered -
 

@@ -1,14 +1,14 @@
 Title: aah Routing
-Desc: aah supports domain and subdomains seamlessly and reverse route lookup by route name effectively.
-Keywords: routing url, routing algorithm, routing
+Desc: aah supports domains and subdomains seamlessly. It provides route URL lookup by route name effectively.
+Keywords: routing url, routing algorithm, routing, request routing
 ---
 # aah Routing
 
-aah supports domain and subdomains seamlessly and reverse route lookup by route name effectively.
+aah supports domains and subdomains seamlessly. It provides route URL lookup by route name effectively.
 
-The router is optimized for high performance and a small memory footprint. It scales well with very long paths and a large number of routes. A radix tree structure is used for efficient matching.
+The router is optimized for high performance and a small memory footprint. It scales well with very long paths and a large number of routes. Radix tree structure is used for efficient matching.
 
-aah internally uses customized version of [httprouter](https://github.com/julienschmidt/httprouter) developed by [@julienschmidt](https://github.com/julienschmidt).
+aah internally uses customized version of [httprouter](https://github.com/julienschmidt/httprouter), developed by [@julienschmidt](https://github.com/julienschmidt).
 
 ### Table of Contents
 
@@ -19,16 +19,16 @@ aah internally uses customized version of [httprouter](https://github.com/julien
 
 ## Highlights
 
-  * **URI Parameters** - Give the path segment a name and access it as action method parameters.
+  * **URI Parameters** - Give path segment a name and access it as action method parameters.
   * **Perfect for RESTful APIs** - Build sensible, hierarchical RESTful APIs. Router has builtin native support for [OPTIONS requests](http://zacstewart.com/2012/04/14/http-options-method.html) and `405 Method Not Allowed` replies.
   * **Only explicit matches** - a request can only match exactly one or no route. As a result, there are also no unintended matches, which makes it great for SEO and improves the user experience.
-  * **Stop caring about trailing slashes** - Choose the URL style you like, the router automatically redirects the client if a trailing slash is missing or if there is one extra. Of course it only does if the new path has a controller action. Behavior could be disabled at domain level using `redirect_trailing_slash = false` in the [routes config](routes-config.html).
-  * **Path auto-correction** - Besides detecting the missing or additional trailing slash at no extra cost, the router can also fix wrong cases and remove superfluous path elements (like `../` or `//`). Is [CAPTAIN CAPS LOCK](http://www.urbandictionary.com/define.php?term=Captain+Caps+Lock) one of your users? router can help user by making a case-insensitive look-up and redirecting user to the correct URL.
-  * **Zero Garbage** - The matching and dispatching process generates zero bytes of garbage. In fact, the only heap allocations that are made, is by building the slice of the key-value pairs for path parameters. If the request path contains no parameters, not a single heap allocation is necessary.
+  * **Stop caring about trailing slashes** - Choose the URL style you like, the router automatically redirects the client if a trailing slash is missing or if there is one extra. Of course, it does only if the new path has a controller action. Behavior could be disabled at domain level using `redirect_trailing_slash = false` in the [routes config](routes-config.html).
+  * **Path auto-correction** - Besides detecting the missing or additional trailing slash at no extra cost, the router can also fix wrong cases and remove superfluous path elements (like `../` or `//`). Is [CAPTAIN CAPS LOCK](http://www.urbandictionary.com/define.php?term=Captain+Caps+Lock) one of your users? Router can help user by making a case-insensitive look-up and by redirecting to the correct URL.
+  * **Zero Garbage** - The matching and dispatching process generates zero bytes of garbage. In fact, the only heap allocations that are made, is by building the slice of the key-value pairs for path parameters. If the request path contains no parameters, not even a single heap allocation is necessary.
 
 ## Route Definitions
 
-aah `routes.conf` composed of four major config sections. Such `domains`, `domain`, `static routes` and `application routes`.
+aah `routes.conf` is composed of four major config sections, such as `domains`, `domain`, `static routes` and `application routes`.
 
 Learn [routes configuration](routes-config.html) attributes and its purpose.
 
@@ -40,18 +40,18 @@ Learn [routes configuration](routes-config.html) attributes and its purpose.
 # Doc: https://docs.aahframework.org/routing.html
 # -----------------------------------------------------------------------------
 domains {
-  # Choose an `unique keyname` to define domain section and its configuration.
+  # Choose a `unique keyname` to define domain section and its configuration.
   # Tip: Use app name, domain name address, port no values to create a domain key.
   #
-  # For e.g.: aahframework { ... }, docs_aahframework { ... }
+  # Examples: aahframework { ... }, docs_aahframework { ... }
   domain_key_name {
 
     #
-    # Domain configurations - for example host, port, CORS, etc.
+    # Domain configurations - host, port and CORS, for example.
     #
 
     # Static files Routes Configuration
-    # Optional section, for e.g.: API and WebSocket apps
+    # Optional section- API and WebSocket apps, as examples
     static {
       # ...
     }
@@ -59,7 +59,7 @@ domains {
     # Routes Configuration
     routes {
 
-      # domain routes goes here
+      # domain routes comes here
 
     } # end - routes
 
@@ -67,18 +67,18 @@ domains {
 
 
 
-  # Choose an `unique keyname` to define domain section and its configuration.
+  # Choose a `unique keyname` to define domain section and its configuration.
   # Tip: Use app name, domain name address, port no values to create a domain key.
   #
-  # For e.g.: aahframework { ... }, docs_aahframework { ... }
+  # Examples: aahframework { ... }, docs_aahframework { ... }
   domain_key_name {
 
     #
-    # Domain configurations - for example host, port, CORS, etc.
+    # Domain configurations - host, port and CORS, for example.
     #
 
     # Static files Routes Configuration
-    # Optional section, for e.g.: API and WebSocket apps
+    # Optional section- API and WebSocket apps, as examples
     static {
       # ...
     }
@@ -86,7 +86,7 @@ domains {
     # Routes Configuration
     routes {
 
-      # domain routes goes here
+      # domain routes comes here
 
     } # end - routes
 
@@ -97,7 +97,7 @@ domains {
 
 ## Route Constraints
 
-Route constraints gives capability to restrict/validate route parameters (aka URI parameters) before request sent to controller action.
+Route constraints give the capability to restrict/validate route parameters (aka URI parameters) before the request sent to controller action.
 
 ```bash
 # Syntax
@@ -108,7 +108,7 @@ Route constraints gives capability to restrict/validate route parameters (aka UR
 <p><strong>Note:</strong>
 <ul>
 <li>Constraint failure would result in 400 BadRequest via aah <a href="error-handling.html">error handling</a> flow.</li>
-<li>Supports multiple constraints on parameter, separated by a <code>,</code> for e.g.: <code>:paramName[gte=10,lte=50]</code> </li>
+<li>Supports multiple constraints on parameter, separated by a <code>,</code>. For instance: <code>:paramName[gte=10,lte=50]</code> </li>
 <li>Data type constraints are implicit in aah</li>
 </ul></p>
 </div>
