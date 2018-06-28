@@ -79,12 +79,16 @@ type Gziper interface {
 
 ## For Single Binary
 
-  * The mounted directories get embedded into aah's single binary when built with `aah build --single`.
+  * The mounted directories get embedded into aah's single binary when built with `aah build --single` or `aah b -s`.
   * Embed packaging uses same exclusion list from config `build.excludes`.
   * During the development phase, VFS loads files and directories from Physical FileSystem. Basically, the `aah run` command.
   * It appropriately does `Gzip compression`, while embedding files into binary.
   * Static Files delivery - serves Gzip file data. No decompression is done at this stage.
   * The embedded file path can be searchable via aah application binary flag `-list "regex pattern"`. This is the trivial way to know which files have got embedded into the binary.
+
+<div class="alert alert-info-yellow">
+<p><strong>Note:</strong> Typically antivirus considers Go binary byte code generated files as a threat, so it would clean/delete generate files. You may have to add $GOPATH or application path in the antivirus exclusion.</p>
+</div>
 
 ## For Non-Single Binary
 

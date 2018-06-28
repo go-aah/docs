@@ -72,19 +72,19 @@ scrypt {
 
   # CPU/Memory Cost
   # Default value is `2^15`
-  #cpu_memory_cost = 32768
+  cpu_memory_cost = 32768
 
   # Default value is `8`
-  #block_size = 8
+  block_size = 8
 
   # Default value is `1`
-  #parallelization = 1
+  parallelization = 1
 
   # Default value is `32`
-  #derived_key_length = 32
+  derived_key_length = 32
 
   # Default value is `24`
-  #salt_length = 24
+  salt_length = 24
 }
 ```
 
@@ -114,17 +114,17 @@ pbkdf2 {
   enable = true
 
   # Default value is `10000`
-  #iteration = 10000
+  iteration = 10000
 
   # Default value is `32`
-  #derived_key_length = 32
+  derived_key_length = 32
 
   # Default value is `24`
-  #salt_length = 24
+  salt_length = 24
 
   # Supported SHA's are `sha-1`, `sha-224`, `sha-256`, `sha-384`, `sha-512`.
   # Default value is `sha-512`
-  #hash_algorithm = "sha-512"
+  hash_algorithm = "sha-512"
 }
 ```
 

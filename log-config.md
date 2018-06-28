@@ -4,41 +4,20 @@ Keywords: log configuration, logger configuration, log config
 ---
 # aah Log Configuration
 
-The configuration syntax is used by aah is very similar to HOCON syntax. To learn more about **[configuration syntax](configuration.html)**.
+This document describes aah log configurations. Typically log configuration done at environment profile level.
 
-This document describes aah log configurations. Typically log configuration done at every environment profile level and you override it via external config file.
+Learn about aah [configuration syntax](configuration.html).
 
-## log.receiver
-Receiver is where the log values gets logged. Out-of-the-box framework supports `console` and `file` receivers. Also you can add `Hooks` into per aah logger instance, for sending log data to splunk, kibana, etc.
+### Table of Contents
 
-Default value is `console`.
-```cfg
-receiver = "file"
+  * [Pattern](#pattern)
+  * [Configuration](#configuration)
+
+## Pattern
+
+List of aah supported log patterns. It used to compose log entry.
+
 ```
-
-## log.level
-Level indicates the logging levels like `ERROR`, `WARN`, `FATAL`, `PANIC`, `INFO`, `DEBUG` and `TRACE`. Config value can be in lowercase or uppercase.
-
-Default value is `DEBUG`.
-```cfg
-level = "info"
-```
-
-## log.format
-To define log entry output format. Supported formats are `text` and `json`.
-
-Default value is `text`.
-```cfg
-format = "json"
-```
-
-## log.pattern
-Pattern config is defined composable log pattern. Patten flag is used as `%flagname` or `%flagname:format`.
-
-Supported log patterns are:
-```cfg
-FmtFlags is the list of log format flags supported by aah log library
-Usage of flag order is up to format composition.
   level     - outputs ERROR, WARN, FATAL, PANIC, INFO, DEBUG, TRACE
   appname   - outputs Application Name
   insname   - outputs Application Instance Name
@@ -53,69 +32,104 @@ Usage of flag order is up to format composition.
   fields    - outputs field values into log entry
   custom    - outputs string as-is into log entry
 ```
+
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> Log pattern is not applicable of JSON log format.</p>
+<p><strong>Note:</strong> Log pattern is not applicable to JSON log format.</p>
 </div>
 
-Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %message`.
-```cfg
+#### Example
+
+```bash
 pattern = "%time:2006-01-02 15:04:05 %level:-5 %shortfile %line %custom:- %message"
 ```
 
-## log.color
-Log colored output, applicable only to **`console`** receiver type.
+## Configuration
 
-Default value is `true`.
-```cfg
-color = false
-```    
+`log { ... }` section configuration goes in env/dev.conf (`dev { ... }`), env/prod.conf (`prod { ... }`), etc.
 
-## log.file
-File config attribute is applicable only to **`file`** receiver type.
+```bash
+# -----------------------------------------------------------------------------
+# Log Configuration
+#
+# Doc: https://docs.aahframework.org/logging.html
+# Doc: https://docs.aahframework.org/log-config.html
+# -----------------------------------------------------------------------------
+log {
+  # Receiver is used to configure where is log values gets logged to. 
+  # aah supports `console` and `file` receivers. Hooks for extension.
+  #
+  # Default value is `console`.
+  receiver = "file"
 
-Default value is `aah-log-file.log`.
-```cfg
-file = "myapp.log"
+  # Level indicates the logging levels like `ERROR`, `WARN`, `INFO`, `DEBUG`,
+  # `TRACE`, FATAL and PANIC. Config value can be in lowercase or uppercase.
+  #
+  # Default value is `debug`.
+  level = "warn"
+
+  # Format is to define log entry output format. Supported formats are `text` and `json`.
+  #
+  # Default value is `text`.
+  format = "json"
+
+  # Pattern is used to configure log entry format via receivers
+  # into receivers. Learn more about flags
+  # and format - https://docs.aahframework.org/log-config.html#pattern
+  #
+  # Default value is `%time:2006-01-02 15:04:05.000 %level:-5 %appname %insname %reqid %principal %message %fields`
+  pattern = "%time:2006-01-02 15:04:05.000 %level:-5 %appname %insname %reqid %principal %message %fields"
+
+  # File attribute is applicable only to `file` receiver type.
+  #
+  # Default value is `aah-log-file.log`.
+  file = "appname.log"
+
+  # Rotate config section is applicable only to `file` receiver type.
+  #
+  # Default rotation is 'daily'.
+  rotate {
+    # Policy is used to determine rotate policy. aah supports `daily`,
+    # `lines` and `size` policies.
+    #
+    # Default value is `daily`.
+    policy = "daily"
+
+    # This is applicable only to if `mode` is `size`.
+    #
+    # Default value is 100MB.
+    #size = 500
+
+    # This is applicable only to if `mode` is `lines`.
+    #
+    # Default value is unlimited.
+    #lines = 100000
+  }
+}
 ```
 
-## Section: rotate { ... }
-Rotate config section is applicable only to **`file`** receiver type.
+### Example of configuring Rotation Policy
 
-### log.rotate.policy
-Policy is used to determine rotate policy. Currently it supports `daily`, `lines` and `size`.
-
-Default value is `daily`.
-```cfg
+```bash
 # daily rotation, it's default one.
 rotate {
   policy = "daily"
 }
+```
+<br>
 
+```bash
 # size based rotation
 rotate {
   policy = "size"
   size = "512mb"
 }
+```
+<br>
 
+```bash
 # line based rotation
 rotate {
   policy = "lines"
   lines = 100000
 }
-```
-
-### log.rotate.size
-This is applicable only to if **`policy`** is `size`.
-
-Default value is 512mb.
-```cfg
-size = "100mb"
-```
-
-### log.rotate.lines
-This is applicable only to if **`policy`** is `lines`.
-
-Default value is 100000.
-```cfg
-lines = 50000
 ```

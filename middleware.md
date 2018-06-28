@@ -1,5 +1,5 @@
 Title: Middlewares
-Desc: aah framework provides a way to create user-defined Middleware for your application very similar to Go lang standard middleware. Bring Go lang native middleware into aah.
+Desc: aah framework provides a way to create user-defined Middleware for application very similar to Go lang standard middleware. Bring Go lang native middleware into aah.
 Keywords: middleware, writing middleware, abort middleware, native middleware into aah
 ---
 # Middlewares
@@ -14,7 +14,7 @@ aah provides a way to create user-defined `Middleware` for your application very
 
 ## Writing Middleware
 
-To create your own custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function.
+To create custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function.
 
 You can add your middleware into aah in three ways-
 
@@ -44,11 +44,11 @@ func myCustomMiddleware2(ctx *Context, m *Middleware) {
 // Adding a Middleware into aah
 func init() {
   // executed in the order of middleware added
-  aah.Middlewares(myCustomMiddleware1, myCustomMiddleware2)
+  aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
 
   // OR
   aah.OnStart(func(e *aah.Event) {
-    aah.Middlewares(myCustomMiddleware1, myCustomMiddleware2)
+    aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
   })
 }
 ```
@@ -100,5 +100,5 @@ func printURL(w http.ResponseWriter, r *http.Request) {
   fmt.Println("URL:", r.URL.Path)
 }
 
-aah.Middlewares(aah.ToMiddleware(printURL))
+aah.AppHTTPEngine().Middlewares(aah.ToMiddleware(printURL))
 ```
