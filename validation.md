@@ -60,7 +60,7 @@ func (u *UserController) HandleError(e *aah.Error) bool  {
 ## How to Validate URL Query Parameters
 
 <div class="alert alert-info-green">
-<p><strong>Tips:</strong> The best way to validate collective query parameters is to bind those values into <code>struct</code> then aah automatically does validation on struct and gives a result.</p>
+<p><strong>Tip:</strong> The best way to validate collective query parameters is to bind those values into <code>struct</code> then aah automatically does validation on struct and gives a result.</p>
 </div>
 
 Doing it manually for individual values on-demand basics.

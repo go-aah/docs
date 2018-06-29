@@ -13,7 +13,7 @@ There are two steps to make use of generic auth scheme -
       - For example, returning `authc.ErrAuthenticationFailed` and `authc.ErrSubjectNotExists` appropriately
   * Implement `authz.Authorizer` to provide subject's [roles and permissions](/security-permissions.html)
 
-Refer [aah RESTFul API JWT auth]({{aah-examples}}/rest-api-jwt-auth) example.
+Refer [aah RESTFul API JWT auth]({{aah_examples_url}}/rest-api-jwt-auth) example.
 
 ### Table of Contents
 
@@ -70,7 +70,7 @@ generic_auth_key {
 
 ## Example Config: jwt_auth
 
-JWT auth scheme implemented using generic auth scheme. Configuration from [aah RESTFul API JWT auth]({{aah-examples}}/rest-api-jwt-auth) example.
+JWT auth scheme implemented using generic auth scheme. Configuration from [aah RESTFul API JWT auth]({{aah_examples_url}}/rest-api-jwt-auth) example.
 
 ```bash
 # -----------------------------------------------------------------------------

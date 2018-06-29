@@ -11,4 +11,4 @@
 
 
   * In `v0.10` file `init.go` introduced to evolve aah framework, please add it your version control.
-  * As part Validator implementation, error handling evolved. So `aah.ErrorHandler` have been refactored into `aah.ErrorHandlerFunc`, [more info]({{aah_github_issues_url}}/132).
+  * As part Validator implementation, error handling evolved. So `aah.ErrorHandler` have been refactored into `aah.ErrorHandlerFunc`, [more info]({{aah_issues_url}}/132).

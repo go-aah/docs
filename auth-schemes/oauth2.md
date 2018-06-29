@@ -12,7 +12,7 @@ OAuth2 auth scheme can be achieved in three steps -
   * Implement `authc.PrincipalProvider` to provide subject principals based on OAuth2 provider
   * Implement `authz.Authorizer` to provide subject's [roles and permissions](/security-permissions.html)
 
-Refer [aah OAuth2 - Social Login]({{aah-examples}}/oauth2-social-login) example. It demonstrates Facebook, Google and GitHub social login(s).
+Refer [aah OAuth2 - Social Login]({{aah_examples_url}}/oauth2-social-login) example. It demonstrates Facebook, Google and GitHub social login(s).
 
 ### Table of Contents
 
@@ -115,7 +115,7 @@ oauth_scheme_key {
 
 ## Example Config
 
-This is one of the OAuth2 provider configurations from [aah OAuth2 Social login]({{aah-examples}}/oauth2-social-login) example.
+This is one of the OAuth2 provider configurations from [aah OAuth2 Social login]({{aah_examples_url}}/oauth2-social-login) example.
 
 ```bash
 # OAuth2 provider: Google

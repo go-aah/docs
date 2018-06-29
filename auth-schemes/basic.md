@@ -9,7 +9,7 @@ aah provides an easy to use Basic auth scheme. It supports two realms, file and 
 Realm | Description
 ---- | -----------
 File | Having known set of users defined in the config file. In addition, aah supports roles and permissions in the configuration.
-Dynamic | Subject's data resides in datasources such as credentials, roles, and permissions. Implement interfaces `authc.Authenticator` and `authz.Authorizer` to provide authentication and authorization details. This approach is similar to Form auth scheme. Refer [aah RESTFul APIs Basic Auth]({{aah-examples}}/rest-api-basic-auth) example.
+Dynamic | Subject's data resides in datasources such as credentials, roles, and permissions. Implement interfaces `authc.Authenticator` and `authz.Authorizer` to provide authentication and authorization details. This approach is similar to Form auth scheme. Refer [aah RESTFul APIs Basic Auth]({{aah_examples_url}}/rest-api-basic-auth) example.
 
 ### Table of Contents
 
@@ -151,7 +151,7 @@ basic_scheme_key {
 
 ## Example Config: basic_auth
 
-Configuration from [aah RESTFul APIs Basic Auth]({{aah-examples}}/rest-api-basic-auth) example.
+Configuration from [aah RESTFul APIs Basic Auth]({{aah_examples_url}}/rest-api-basic-auth) example.
 
 ```bash
 # -----------------------------------------------------------------------------

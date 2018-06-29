@@ -1,63 +1,77 @@
 Title: aah Request and Response
-Desc: Insights into aah Request and Response
+Desc: Insights into aah Request and Response capabilities.
 Keywords: request, response
 ---
 # aah Request and Response
 
-This document provides an insights into aah `Request` and `Response` capabilities. So that you can use it effectively.
+This document provides an insights into aah `Request` and `Response` capabilities. So that it could be utilized effectively.
 
-### Request
+### Table of Contents
 
-aah Request object improved from standard request object. For typical application usage for e.g.: Parsing HTTP headers per RFC's (Content-type, Accept content-type, Locale, Gzip), identifying Request Scheme, etc.
+  * [Request](#request)
+  * [Response](#response)
 
-#### Fields
+## Request
 
-  * <u>Scheme</u> - protocol value `https` or `http`; it's a derived value from `X-Forwarded-Proto` if present used as-is, `http` if TLS is nil and `https` if TLS is not nil.
-  * <u>Host, Method, Path, Header</u> - it is typically same as standard one, provided here for conventional access.
-  * <u>ContentType</u> - the parsed value of HTTP header `Content-Type` per `RFC1521`.
-  * <u>AcceptContentType</u> - it is negotiated value from HTTP Header `Accept`. In the order of URL extension, Accept header per `RFC7231` and Vendor Types per `RFC4288`
-  * <u>AcceptEncoding</u> - it is negotiated value from HTTP Header the `Accept-Encoding` per `RFC7231`.
-  * <u>Locale</u> - it is negotiated value from HTTP Header `Accept-Language` per `RFC7231`.
-  * <u>Params</u> - it contains values from Path, Form, Query and File.
-  * <u>Payload</u> - <span class="badge lb-xs lb-drop-color">On v0.8</span> removed in-favor of [Auto Parse and Bind](request-parameters-auto-bind.html) or if you wanna access to request body use `Body()`. <s>it holds the value from HTTP request body in bytes slice for `Content-Type` JSON and XML otherwise nil.</s>
-  * <u>ClientIP</u> - remote client IP address aka Remote IP. Parsed in the order of `X-Forwarded-For`, `X-Real-IP` and finally `http.Request.RemoteAddr`.
-  * <u>IsGzipAccepted</u> - whether client supported Gzip compression or not.
-  * <u>Referer</u> - value of HTTP header `Referer` or `Referrer`.
-  * <u>UserAgent</u> - value of HTTP header `User-Agent`.
+aah [Request](https://godoc.org/aahframework.org/ahttp.v0#Request) extends form of standard request struct. It provides necessary values (derived and processed per RFCs).
 
-#### Methods
+### Fields
 
-Learn about [auto parse and bind](request-parameters-auto-bind.html) here.
+Field Name | Description
+----------- | -----------
+Scheme | Request protocol value `https` or `http`, it's a inferred value. [Know more](https://godoc.org/aahframework.org/ahttp.v0#Scheme)
+Host | Value of correct Host source from HTTP request
+Method | Value of HTTP verb name, such as GET, POST, etc
+Path | Request URL Path e.g. `/app/login.html`
+Header | HTTP request headers
+PathParams | URL path parameters values that was defined routes.conf
+Referer | Value of HTTP header `Referer` or `Referrer`
+UserAgent | Value of HTTP header `User-Agent`
+IsGzipAccepted | Inferred value as bool, whether HTTP client supports Gzip compression or not.
 
-  * <u>PathValue</u> - returns value for given Path param key otherwise empty string. For eg.: `/users/:userId` => `PathValue("userId")`.
-  * <u>QueryValue</u> - returns value for given URL query param key otherwise empty string.
-  * <u>QueryArrayValue</u> - returns array value for given URL query param key otherwise empty string slice.
-  * <u>FormValue</u> - returns value for given form key otherwise empty string.
-  * <u>FormArrayValue</u> - returns array value for given form key otherwise empty string slice.
-  * <u>FormFile</u> - returns the first file for the provided form key otherwise returns error. It is caller responsibility to close the file.
-  * <u>Body</u> - <span class="badge lb-xs">Since v0.8</span> returns the request body as `io.Reader`.
-  * <u>Cookie</u> - returns a named cookie from HTTP request otherwise error.
-  * <u>Cookies</u> - returns all the cookies from HTTP request.
-  * <u>IsJSONP</u> - returns true if request URL query string has `callback=function_name`.
-  * <u>IsAJAX</u> - returns true if the request header `X-Requested-With` is `XMLHttpRequest` otherwise false.
-  * <u>Unwrap</u> <span class="badge lb-xs">Since v0.7</span> - returns the standard Go HTTP request instance.
-  * <u>SaveFile</u> <span class="badge lb-xs">Since v0.8</span> - saves an uploaded multipart file for given key from the HTTP request into given destination file.
-  * <u>SaveFiles</u> <span class="badge lb-xs">Since v0.8</span> - saves an uploaded multipart file(s) for the given key from the HTTP request into given destination directory. It uses the filename as uploaded filename from the request.
+### Methods
 
-### Response
+Method Name | Description
+----------- | -----------
+AcceptContentType | Negotiated value of HTTP Header `Accept`. The resolve order is URL extension, Accept header per `RFC7231` and Vendor Types per `RFC4288`
+AcceptEncoding | Negotiated value of HTTP Header the `Accept-Encoding` per `RFC7231`
+ContentType | Parsed value of HTTP header `Content-Type` per RFC1521
+Body | Returns the HTTP request body `io.ReadCloser`
+SaveFile | Saves an uploaded request multipart file for the given key into given destination file
+Locale | Negotiated value of HTTP Header `Accept-Language` per `RFC7231`
+ClientIP | Returns remote Client IP address aka Remote IP. It parses in the order of given set of headers otherwise it uses default header set `X-Forwarded-For`, `X-Real-IP`, `X-Appengine-Remote-Addr` and finally `http.Request.RemoteAddr`
+Cookie | Returns a named cookie from HTTP request otherwise error
+Cookies | Returns all the cookies from HTTP request
+IsJSONP | Returns true if request URL query string has `callback=<function_name>`
+IsAJAX | Returns true if request header `X-Requested-With` is `XMLHttpRequest` otherwise false
+URL | Returns request URL instance
+Unwrap | Returns the underlying *http.Request instance of Go HTTP server, direct interaction with raw object is not encouraged.
 
-aah Response Writer is improved from standard response writer and compliant with `http.ResponseWriter`. So you can simply pass on `ctx.Res` anywhere it's needed.
+<div class="alert alert-info-green">
+<p>It is highly recommended to use Auto Parse and Bind feature on controller action arguments. Non-controller (like middleware, etc.) location use following method appropriately.</p>
+</div>
 
-aah `ahttp.ResponseWriter` captures following details:
+<br>
 
-  * `Status()` - returns response status code.
-  * `BytesWritten()` - returns the total number of bytes written into response.
-  * `Unwrap()` - returns the standard `ResponseWriter` if needed.
+Method Name | Description
+----------- | -----------
+PathValue | Returns value for given Path param key otherwise empty string. For eg.: `/users/:userId` => `PathValue("userId")`
+QueryValue | Returns value for given URL query param key otherwise empty string
+QueryArrayValue | Returns array value for given URL query param key otherwise empty string slice
+FormValue | Returns value for given form key otherwise empty string
+FormArrayValue | Returns array value for given form key otherwise empty string slice
+FormFile | Returns the first file for the provided form key otherwise returns error. It is caller responsibility to close the file
 
-And Implements following standard interfaces from `http` library.
+## Response
 
-  * `http.CloseNotifier`
-  * `http.Flusher`
-  * `http.Hijacker`
-  * `http.Pusher`
-  * `io.Closer`
+aah resposne writer implements interfaces `http.ResponseWriter`, `http.CloseNotifier`, `http.Flusher`, `http.Hijacker`, `http.Pusher` and `io.Closer`.
+
+And captuers following details -
+
+  * `Status()` - returns response status code
+  * `BytesWritten()` - returns the total number of bytes written into response
+  * `Unwrap()` - returns the underlying `ResponseWriter`
+
+<div class="alert alert-info-green">
+<p>It is highly recommended to use <a>Reply Builder</a> to compose response.</p>
+</div>

@@ -10,7 +10,7 @@ aah provides an easy to use form-based auth. Three steps are involved in making 
   * Implement `authz.Authorizer` to provide subject's [roles and permissions](/security-permissions.html)
   * Configure form auth URLs as needed
 
-Refer [aah Form Auth]({{aah-examples}}/form-based-auth) example.
+Refer [aah Form Auth]({{aah_examples_url}}/form-based-auth) example.
 
 ### Table of Contents
 
@@ -112,7 +112,7 @@ form_scheme_key {
 
 ## Example Config: form_auth
 
-Configuration from [aah Form Auth]({{aah-examples}}/form-based-auth) example.
+Configuration from [aah Form Auth]({{aah_examples_url}}/form-based-auth) example.
 
 ```bash
 # -----------------------------------------------------------------------------

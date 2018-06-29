@@ -31,7 +31,6 @@ Deploy the application.
 
 ```bash
 # This is configuration of aahframework.org and docs.aahframework.org websites.
-#
 env {
   prod {
     #...

@@ -204,7 +204,7 @@ func init() {
 
 ### Event: OnHeaderReply
 
-Event `OnHeaderReply` is published before writing HTTP header `Status`. At this point, all the headers except the header `Status` get written on the `http.ResponseWriter`.
+<span class="badge lb-sm">Since v0.11.0</span> Event `OnHeaderReply` is published before writing HTTP header `Status`. At this point, all the headers except the header `Status` get written on the `http.ResponseWriter`.
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong> <code>OnHeaderReply</code> is not called when; <code>Reply().Done()</code> and <code>Reply().Redirect(...)</code> was called</p>
