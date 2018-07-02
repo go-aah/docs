@@ -87,7 +87,7 @@ type Gziper interface {
   * The embedded file path can be searchable via aah application binary flag `-list "regex pattern"`. This is the trivial way to know which files have got embedded into the binary.
 
 <div class="alert alert-info-yellow">
-<p><strong>Note:</strong> Typically antivirus considers Go binary byte code generated files as a threat, so it would clean/delete generate files. You may have to add $GOPATH or application path in the antivirus exclusion.</p>
+<p><strong>Note:</strong> Antiviruses may considers Go binary byte code source files as a threat, so it would clean/delete generate files that would cause aah CLI to fail/hang. Add $GOPATH or particular application path as exclusion in the antivirus.</p>
 </div>
 
 ## For Non-Single Binary
