@@ -19,7 +19,8 @@
   * Added option to override to the `path` value in nested routes using `^` [#190]({{aah_issues_url}}/190)
   * No more intermediate startup scripts (aah.sh, aah.cmd), same experience with single and non-single binary [#178]({{aah_issues_url}}/178), [#183]({{aah_issues_url}}/183) 
   * Added support `www => non-www` and vice versa [#177]({{aah_issues_url}}/177), [documentation](app-config.html#section-server-redirect)
-  * No hassle, single domain application does not need configuration of domain mapping [#163]({{aah_issues_url}}/163)
+  * No hassle, single domain application does not need domain mapping configuration on environment profile [#163]({{aah_issues_url}}/163)
   * Request and Response code optimization [#157]({{aah_issues_url}}/157)
   * Removed deprecated methods in-favour of new command `aah migrate code` [#186]({{aah_issues_url}}/186)
+  * Removed `render.pretty` config option in-favor of REST client editor tool and browser support [#165]({{aah_issues_url}}/165)
   * Overall code and documentation improvements
