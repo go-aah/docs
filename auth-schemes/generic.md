@@ -58,12 +58,12 @@ generic_auth_key {
   # Header names are used to extract `AuthenticationToken` from the HTTP request.
   header {
     # Default value is 'Authorization'.
-    #identity = "Authorization"
+    identity = "Authorization"
 
     # Optional credential header
     #
     # Default value is empty string.
-    #credential = "X-AuthPass"
+    credential = "X-AuthPass"
   }
 }
 ```

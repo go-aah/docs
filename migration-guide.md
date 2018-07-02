@@ -1,14 +1,30 @@
 ## Migration Guide
 
-<div class="alert alert-info-blue">
-<p><strong>FAQ:</strong>
-  <ul>
-    <li><a href="/faq.html#how-to-update-aah-framework-to-the-latest-version">How to update aah framework to the latest version?</a></li>
-    <li><a href="/faq.html#how-to-adapt-to-latest-aah-configuration">How to adapt to latest aah configuration?</a></li>
-  </ul>
-</p>
-</div>
+aah getting improved every release, with `v0.11.0` migration took next step 😊
+
+#### Update aah framework
+
+```bash
+# Since v0.10.0 release
+aah update
+
+# OR
+go get -u aahframework.org/tools.v0/aah
+```
+
+#### Migrate application 
+
+```bash
+# Since v0.11.0 release
+aah migrate code --importpath github.com/user/appname
+
+# OR
+aah m c -i github.com/user/appname
+```
 
 
-  * In `v0.10` file `init.go` introduced to evolve aah framework, please add it your version control.
-  * As part Validator implementation, error handling evolved. So `aah.ErrorHandler` have been refactored into `aah.ErrorHandlerFunc`, [more info]({{aah_issues_url}}/132).
+#### Run application 
+
+```bash
+aah run --importpath github.com/user/appname
+```

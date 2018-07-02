@@ -37,7 +37,7 @@ For example: I have responded to aah user for `dep` tool, refer to [GitHub comme
 
 ### How to adapt to latest aah configuration?
 
-The best way is to have a look at aah documentation https://docs.aahframework.org
+The best way is to have a look at aah documentation https://docs.aahframework.org on respective configuration docs.
 
 ### How to try aah edge version?
 

@@ -59,7 +59,7 @@ basic_scheme_key {
   # Doc: https://docs.aahframework.org/password-encoders.html
   #
   # Default value is `bcrypt`.
-  #password_encoder = "bcrypt"
+  password_encoder = "bcrypt"
 }
 ```
 
@@ -145,7 +145,7 @@ basic_scheme_key {
   # Doc: https://docs.aahframework.org/password-encoders.html
   #
   # Default value is `bcrypt`.
-  #password_encoder = "bcrypt"
+  password_encoder = "bcrypt"
 }
 ```
 

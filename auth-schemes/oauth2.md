@@ -94,21 +94,22 @@ oauth_scheme_key {
     #
     # Default value is derived from the user-defined auth scheme key.
     # For example:
-    # auth scheme key ~ `github_auth` then login => `/github-auth/login`.
-    #login = "oauth2/login"
+    #   auth scheme key ~ `github_auth` then login URL => `/github-auth/login`.
+    login = "oauth2/login"
 
     # Redirect/callback URL is used to receive request from OAuth2 provider
     # after successful authentication.
     #
     # Default value is derived from the user-defined auth scheme key.
     # For example:
-    # auth scheme key ~ `github_auth` then callback => `/github-auth/callback`.
-    #redirect = "oauth2/callback"
+    #   auth scheme key ~ `github_auth` then callback URL => `/github-auth/callback`.
+    redirect = "oauth2/callback"
 
     # Success URL is used to redirect after successful authentication
     # and authorization.
+    #
     # Default value is `/`.
-    #success = "/success.html"
+    success = "/success.html"
   }
 }
 ```
