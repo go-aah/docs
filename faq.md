@@ -4,7 +4,7 @@ Keywords: faq, aah, aah Go web framework
 ---
 # Frequently Asked Questions (FAQ)
   
-  * [How to update aah to the latest version?](#how-to-update-aah-to-the-latest-version)
+  * [How to update aah to latest version?](#how-to-update-aah-to-latest-version)
   * [Does aah support Package Management Tools?](#does-aah-support-package-management-tools)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
   * [How to try aah edge version?](#how-to-try-aah-edge-version)
@@ -15,11 +15,32 @@ Keywords: faq, aah, aah Go web framework
   * [Is it a problem that aah’s Anti-CSRF protection isn’t linked to a session?](#is-it-a-problem-that-aah-s-anti-csrf-protection-isn-t-linked-to-a-session)
   * [Why might a user encounter a Anti-CSRF validation failure after logging in?](#why-might-a-user-encounter-a-anti-csrf-validation-failure-after-logging-in)
 
-### How to update aah to the latest version?
+### How to update aah to latest version?
 
-To update aah latest version run below command on your terminal/command prompt. This procedure updates the aah only on GOPATH.
+#### Update aah CLI 
 
-If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
+macOS Homebrew support is introduced in `v0.11.0`, simply do -
+
+```bash
+# First install
+brew install go-aah/tap/aah
+
+# If aah is already installed, do
+brew upgrade aah
+```
+
+#### Update aah framework
+
+```bash
+go get -u aahframework.org/aah.v0
+
+# To update aah framework using package management tool, refer the respective tool documentation. 
+# Example: `glide update`
+```
+
+#### `go get` way
+
+It updates aah CLI and framework in GOPATH. 
 
 ```bash
 # Since v0.10 release

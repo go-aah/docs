@@ -19,7 +19,8 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 <p><strong>Best Practice:</strong> For production use (aka <code>-profile prod</code>), it is recommended to follow build and deploy approach instead of using <code>aah run</code>.</p>
 </div>
 
-```conf
+```cfg
+jeeva@mb-pro:~$ aah
 ---------------------------------------------------------------
                     aah framework v0.11.0
 ---------------------------------------------------------------

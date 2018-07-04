@@ -9,54 +9,44 @@ It is very easy to start and work with aah. Let's make sure you have [Go environ
 ### Table of Contents
 
   * [Installing aah CLI and framework](#installing-aah-cli-and-framework)
+    - [macOS](#macos)
+    - [go get](#go-get)
   * [Verifying aah CLI](#verify-aah-cli)
   * [Creating first aah application](#creating-first-aah-application)
   * [Running aah application](#running-aah-application)
 
 ## Installing aah CLI and framework
 
-Execute below `go get` on your terminal/command prompt to install aah CLI and framework codebase.
+### macOS
 
 ```bash
-# aah framework requires ≥ go1.8
+# installing aah CLI
+brew install go-aah/tap/aah
+
+# installing aah framework in GOPATH
+go get -u aahframework.org/aah.v0
+```
+
+### go get
+
+`go get` install aah CLI as well as framework in $GOPATH.
+
+```bash
+# aah requires ≥ go1.8
 go get -u aahframework.org/tools.v0/aah
 ```
 
 ## Verify aah CLI
 
-Just execute `aah` command on your terminal/command prompt. Learn more about [aah CLI](aah-cli-tool.html).
+Checking aah CLI version. Learn more about [aah CLI](aah-cli-tool.html).
 
 ```bash
-aah
-```
+aah --version
 
-**Output:**
-
-```cfg
-jeeva@mb-pro:~$ aah
----------------------------------------------------------------
-                    aah framework v0.11.0
----------------------------------------------------------------
-# Report improvements/bugs at https://aahframework.org/issues #
-
-Usage:
-  aah [global options] command [command options] [arguments...]
-
-Commands:
-  new, n          Creates new aah 'web', 'api' or 'websocket' application (interactive)
-  run, r          Runs aah application (supports hot-reload)
-  build, b        Builds aah application for deployment (single or non-single)
-  list, l         Lists all the aah projects on your GOPATH
-  clean, c        Cleans the aah generated files and build directory
-  switch, s       Switches between aah release and edge version
-  update, u       Updates aah to the latest release version on your GOPATH
-  generate, g     Generates boilerplate code, configurations, complement scripts (systemd, docker), etc.
-  migrate, m      Migrates application codebase to current version of aah (currently beta)
-  help, h         Shows a list of commands or help for one command
-
-Global Options:
-  -h, --help     Shows help
-  -v, --version  Prints cli, aah, go and aah libraries version
+# Output
+cli v0.11.0
+aah v0.11.0
+go   v1.10.0
 ```
 
 Congratulations, you have successfully installed aah CLI and framework and it's ready to use :).

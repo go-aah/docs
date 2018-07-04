@@ -92,7 +92,7 @@ form_scheme_key {
     login_submit = "/login"
 
     # Login failure URL, on failure during authentication process, aah
-    # sends user to this URL.
+    # sends the user to this URL.
     #
     # Default value is `/login.html?error=true`.
     login_failure = "/login.html?error=true"
@@ -113,13 +113,12 @@ form_scheme_key {
 
 ## Auto Semantic Route Configuration
 
-<span class="badge lb-sm">Since v0.11.0</span> aah does auto semantic route configuration of route `login submit` for all domains if auth scheme `form` is configured in it.
+<span class="badge lb-sm">Since v0.11.0</span> aah does auto semantic route configuration of route `login submit` for all domains provided auth scheme `form` is configured in it.
 
-  * aah scans `security.auth_schemes { ... }` to check whether auth scheme `form` is configured for the domain
-  * If configured then aah automatically adds the route named `<auth-scheme-name>_login_submit__aah` for the domain
-  * On view files, form action URL could be accessed as `{{ rurl . "<auth-scheme-name>_login_submit__aah" }}`
-  * Also it could be overriden if user configures route named `<auth-scheme-name>_login_submit__aah` then aah won't add it
-
+  * aah scans `security.auth_schemes { ... }` to see whether auth scheme `form` is configured for the domain
+  * If configured, then aah automatically adds route `<auth-scheme-name>_login_submit__aah` to the domain
+  * If user configures the route `<auth-scheme-name>_login_submit__aah`, then aah will not add it. In other words, it will be overridden
+  * In view files, form action URL can be accessed as `{{ rurl . "<auth-scheme-name>_login_submit__aah" }}`
 
 ## Example Config: form_auth
 
@@ -148,7 +147,7 @@ form_auth_login_submit__aah {
   method = "POST"
   auth = "form_auth"
   # max_body_size value from `request.max_body_size`
-  max_body_size = "5mb" 
+  max_body_size = "5mb"
 }
 ```
 
