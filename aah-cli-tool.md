@@ -12,6 +12,8 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 
   * [Commands](#commands)
   * [Cross Compile Build](#cross-compile-build)
+  * [vgo Support on-demand](#vgo-support)
+  * [AAHPATH](#aahpath)
 
 ## Commands
 
@@ -68,4 +70,25 @@ env GOOS=windows GOARCH=amd64 aah build --output /Users/jeeva/build
 # Output:
 ...
 Application artifact is here: /Users/jeeva/build/myapp-99bf7df-windows-amd64.zip
+```
+
+
+## vgo Support
+
+In `v0.11.0`, aah CLI brings `vgo` on-demand support. aah user could try out `vgo` via setting environment varaiable.
+
+```bash
+env AAHVGO=true aah run
+```
+
+## AAHPATH
+
+`AAHPATH` is introduced in v0.11.0.
+
+  * It is step towards aah CLI binary distribution. `v0.11.0` includes Homebrew channel 
+  * Also started a work for adapting to `Versioned Go (vgo)` into aah
+
+```bash
+# `AAHPATH` default value is -
+$HOME/.aah
 ```

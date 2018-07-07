@@ -25,7 +25,8 @@ aah has automated build process for Docker Image creation. Supported Docker tags
 
   * [Pull aah Docker Image](#pull-aah-docker-image)
   * [Handy `generate` Command](#handy-generate-command)
-  *
+  * [Using Dockerfile.*](#using-dockerfile)
+  * [Compile aah application inside the Docker container](#compile-aah-application-inside-the-docker-container)
 
 ## Pull aah Docker Image
 
@@ -89,7 +90,7 @@ docker run -it -p 8080:8080 "yourapp:dev" aah run
 docker run -p 8080:8080 "yourapp:latest"
 ```
 
-## Compile your app inside the Docker container
+## Compile aah application inside the Docker container
 
 There might a occasions you would like to build your application inside the container and get the build artifact. You can write something like:
 
