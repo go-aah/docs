@@ -1,5 +1,5 @@
-Title: aah Request Lifecycle
-Desc: Incoming requests are handled by the server via routes. Each incoming request passes through a pre-defined list of steps, user-defined steps and optional server extensions. Each route describes an HTTP endpoint with a path, method, controller, and action.
+Title: aah Request Lifecycle for HTTP and WebSocket
+Desc: This document describes aah Request Lifecycle for HTTP and WebSocket.
 Keywords: aah request lifecycle, request lifecycle, incoming request, lifecycle
 ---
 # aah Request Lifecycle
@@ -8,8 +8,9 @@ Incoming requests are handled by the server via routes. Each route describes an 
 
 It would be nice to have diagram to explain the Lifecycle. Later, will do my best.
 
-## Lifecycle
-Lifecycle always reflects latest version flow.
+## HTTP Request
+
+Lifecycle always reflects aah latest version.
 
   * Captures the request received time, used for server access log.
   * `aah.Context` is prepared for the request. i.e. parsing and creating `ahttp.Request` instance and `ahttp.ResponseWriter` instance.
@@ -18,7 +19,7 @@ Lifecycle always reflects latest version flow.
       - Note: route is not evaluated at this point.
   * Route Lookup: Based on request path.
       - If it's static file route then server process that request via `http.ServeContent`.
-          - `OnPreReply` and `OnAfterReply` server extension points applicable to Static File delivery. does call .
+          - `OnPreReply` and `OnPostReply` server extension points applicable to Static File delivery. does call .
       - If no route found then below one of the action performed based on request.
           - If `Redirect Trailing Slash` opportunity is found then server redirects that request to the new URL. It can be controlled via [`routes.conf`](routes-config.html).
           - It does HTTP auto `OPTIONS`. User defined `OPTIONS` take precedence over auto. It can be controlled via [`routes.conf`](routes-config.html).
@@ -33,25 +34,25 @@ Lifecycle always reflects latest version flow.
   * Read and Parse Request
       - For `GET` method request parse Query parameters
       - For not `GET` method. Query parameters, Form, Multi-part based on content-type.
-  * Anti-CSRF Protection - secret verification. <span class="badge lb-xs">Since v0.9</span>
-  * `OnPreAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
-  * Authenticate the incoming request. <span class="badge lb-xs">Since v0.7</span>
-  * Populates Authorization info into Subject. <span class="badge lb-xs">Since v0.7</span>
-  * Auto Check Authorization roles & permissions based on route `authz` configuration **`upcoming`**
-  * `OnPostAuth` server extension point. <span class="badge lb-xs">Since v0.7</span>
-  * Validate request parameter values **`upcoming`**
+  * Anti-CSRF Protection - secret verification.
+  * `OnPreAuth` server extension point.
+  * Authenticate the incoming request.
+  * Populates Authorization info into Subject.
+  * Auto Check Authorization roles & permissions based on route `authorization` configuration
+  * `OnPostAuth` server extension point.
+  * Validate request parameter values
   * User-defined middleware(s) execution (basically before `m.Next(ctx)` call).
   * Controller interceptor `Before` is called if exists.
   * Controller-Action interceptor `Before<ActionName>` is called if exists.
   * Targeted controller `Action` is called.
       - Auto Parse and Bind, [know more](request-parameters-auto-bind.html)
-          * It sanitizes the request parameter to prevent XSS attacks, it's highly recommended to use <span class="badge lb-xs">Since v0.8</span>
+          * It sanitizes the request parameter to prevent XSS attacks, it's highly recommended to use
   * Controller-Action interceptor `After<ActionName>` is called if exists.
   * Controller interceptor `After` is called if exists.
   * Controller interceptor `Finally` is called if exists. It is always executed.
   * ***Note:*** If any `panic` happens around controller action interceptor `Panic` is called on that controller.
   * User-defined middleware(s) execution (basically after `m.Next(ctx)` call).
-  * If `Reply` is an `Error` type then [Error Handler](error-handling.html) is called. <span class="badge lb-xs">Since v0.8</span>
+  * If `Reply` is an `Error` type then [Error Handler](error-handling.html) is called.
   * If the Response is already sent via `ctx.Res` and `ctx.Reply().Done()` is called then framework does not intervene with response, so request completes here.
   * Write Response Header(s) and set Cookies (session cookie, etc.)
   * If it's a Redirect reply then framework redirects it.
@@ -66,8 +67,12 @@ Lifecycle always reflects latest version flow.
   * Writing reply on the wire-
       - Response Status - default is 200 OK, if not provided.
       - Response body bytes.
-  * `OnAfterReply` server extension point: Always called. Response is already written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc. Except when-
+  * `OnPostReply` server extension point: Always called. Response is already written on the wire. Nothing we can do about the response, however context has a valuable information such as response bytes size, response status code, etc. Except when-
       - `ctx.Reply().Done()` was called, refer godoc for more info.
       - `ctx.Reply().Redirect(...)` was called.
-  * Writes data to server access log, if enabled. <span class="badge lb-xs">Since v0.7</span>
+  * Writes data to server access log, if enabled.
   * If its Multipart request with files, it does cleanup.
+
+## WebSocket Request
+
+<center>![WebSocket-Lifecycle]({{aah_cdn_host}}/assets/img/docs/aah-WebSocket-Lifecycle.svg)</center>

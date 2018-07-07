@@ -4,7 +4,7 @@ Keywords: aah config, aah configuration, HOCON, forge, config syntax, configurat
 ---
 # aah framework Configuration
 
-The configuration syntax used by aah framework is `forge` developed by [@brettlangdon](https://github.com/brettlangdon") which is very similar to HOCON syntax. aah uses enhanced version of forge by the author of aah framework [@jeevatkm](https://github.com/jeevatkm). Syntax applies to `aah.conf`, `routes.conf`, `security.conf`, `i18n` message files and `aah.project` file.
+The configuration syntax used by aah framework is `forge` developed by [@brettlangdon](https://github.com/brettlangdon") which is very similar to HOCON syntax. aah uses enhanced version of forge by the author of aah [@jeevatkm](https://github.com/jeevatkm). Syntax applies to `aah.conf`, `routes.conf`, `security.conf`, `i18n` message files and `aah.project` file.
 
 ### Table of Contents
 

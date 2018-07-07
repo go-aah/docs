@@ -1,30 +1,30 @@
 Title: Release & Development Process
-Desc: Insight into aah framework project Release and Development Process.
+Desc: aah framework project Release and Development Process.
 Keywords: release process, development process, dev process, release cycle
 ---
 # Release & Development Process
 
-This document would give an idea how aah framework Development and Release Process. I will be improving process efficiency iteratively as project moves on.
+This document would give an idea about aah Development and Release Process. I will be improving process efficiency iteratively as project grow.
 
-## Table of Contents
+### Table of Contents
 
   * [Insights](#insights)
   * [Release Cycle](#release-cycle)
   * [API Stability](#api-stability)
-  * [Process to Release Framework/Library](#process-to-release-framework-library)
+  * [Process to Release Framework and Library](#process-to-release-framework-and-library)
   * [Broadcast Framework Release](#broadcast-framework-release)
 
 ## Insights
 
-aah framework internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
+aah internally uses `gopkg.in` codebase for [Package Versioning](versioning.html) and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
 
   * Github `Tag` is Stable and Production ready.
   * Default branch is `v0-edge`, `v1-edge`, and so on. Development, Bug fix, Pull Request, happens on that.
-      - Note: master is not a default branch for aah framework.
-  * Branch `master` is kept as tidy codebase of aah framework.
-  * In the being of every development iteration, version is updated from `v0` set to `v0-edge` (v1, etc.)
-  * In the release preparation package references are updated from `v0-edge` to `v0` (v1, etc.)
-  * Travis build, test cases and few manual dry-testing to ensure codebase is stable & ready for the release.
+      - Note: master is not a default branch.
+  * Branch `master` is kept as tidy codebase of aah.
+  * In the being of every development iteration, package version number increment and updated to `0.1.0-edge`
+  * In the release preparation package version is update from `0.1.0-edge` to `0.1.0`
+  * Travis build, test cases and manual testing to ensure codebase is stable & ready for the release.
   * PR created from `v0-edge` branch (v1, etc.) to `master` branch.
   * Release tag gets created from latest `commit sha`, typically readme file update commit of the release.
 
@@ -39,40 +39,35 @@ aah framework internally uses `gopkg.in` codebase for [Package Versioning](versi
 
 ## API Stability
 
-aah framework and it's libraries will be maintained in a compatible way `between major version` unless some vital bugs prevent me from doing so. I don't take API changes lightly.
+aah and it's libraries will be maintained in a compatible way `between major version` unless some vital bugs prevent me from doing so. I don't take API changes lightly.
 
-## Process to Release Framework/Library
+## Process to Release Framework and Library
 
   * Make good effort for Unit testing and code coverage
-  * Check Travis Build is alright and you get green ticket on Github.
-  * Execute shell script with `library-name`, `version` and `release` as parameters.
-      - `bash <(curl -s https://aahframework.org/dev-util) router v0 release`
-      - It basically does find and replace of `v0-edge` to `v0`.
-  * Commit it as `preparing for v<version-number> release`.
-      - For e.g.: `preparing for v0.5.2 release`.
-  * Update `README.md` with appropriate information (status icons URLs, version no, date, etc).
-  * Commit it as `readme update for v<version-number> release [ci skip]`.
-      - Typically used for creating release tag with this `commit sha`.
-      - We are building `branch` and `master` that is good enough for consistency check and release. Let's use the Travis CI resources optimally for aah framework project.
-  * Push it to repo.
-  * Create a `PR` from branch `v0-edge` to `master` and Merge it.
-  * Update the Documentation on `go-aah/docs` repo.
-      - On `go-aah/docs` branch `master` is always the latest release.
-      - Create a branch from master for previous release.
-          - These previous release branch docs are accessible from https://docs.aahframework.org by version-number.
-          - For e.g.: new release `v0.6` so create branch called `v0.5` from master (preserving previous release docs).
-      - Update the documentation on the branch `master` for the release and add Release Notes, Changelog and Migration Info.
-      - Push it `go-aah/docs` repo.
+  * Check Travis Build is alright and you get green ticket on Github
+  * Update `README.md` with appropriate information (status icons URLs, version no, date, etc)
+  * Commit it as `readme update for v<version-number> release [ci skip]`
+      - Typically used for creating release tag with this `commit sha`
+      - We are building `branch` and `master` that is good enough for consistency check and release. Let's use the Travis CI resources optimally for aah project
+  * Push it to repo
+  * Create a `PR` from branch `vX-edge` to `master` and Merge it
+  * Update the Documentation on `go-aah/docs` repo
+      - Branch `master` is always the latest release documentation
+      - Create a branch from master for previous release
+          - These previous release branch docs are accessible from https://docs.aahframework.org by version-number
+          - For e.g.: new release `v0.6` so create branch called `v0.5` from master (preserving previous release docs)
+      - Update the documentation on the branch `master` for the release and add Release Notes, Changelog and Migration Info
+      - Push it `go-aah/docs` repo
   * Create a Release Tag and Publish
-      - Tag name must comply with `SemVer` For example: v0.1, v1.0, v1.0.1 etc.
-      - Release Title is `v<version-number> Release`.
-      - In `Describe` release text box, put the links to official website for release notes, changelog, migration info.
-      - Hit the `Publish` release button.
-  * Refer Broadcast section about making release announcement.
+      - Tag name must comply with `SemVer` For example: v0.1, v1.0.0, v1.0.1 etc
+      - Release Title is `v<version-number> Release`
+      - In `Describe` release text box, put the links to official website for release notes, changelog, migration info. Typically https://docs.aahframework.org/release-notes.html
+      - Hit the `Publish` release button
+  * Refer [Broadcast](#broadcast-framework-release) section for making release announcement
 
 ## Broadcast Framework Release
 
-We have to broadcast new release of Framework on -
+We have to broadcast new releases of framework and libraries on -
 
 **aah community:** Framework and Libraries release.
 
@@ -86,3 +81,5 @@ We have to broadcast new release of Framework on -
   * Golang Nuts: https://groups.google.com/forum/#!forum/golang-nuts
   * Golang Reddit: https://www.reddit.com/r/golang/
   * Golang Google+: https://plus.google.com/communities/114112804251407510571
+  * Golang Slack: https://gophers.slack.com/messages/showandtell/
+

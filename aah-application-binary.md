@@ -1,79 +1,101 @@
 Title: aah Application Binary
-Desc: Learn more about aah application binary internals, run flags, OS signals, cross compile build and artifact naming convention.
-Keywords: aah binary, aah app binary, flags, os signals, cross compile, artifact, artifact naming
+Desc: Learn about aah application binary capabilities; such as run flags, hot-reload without restart, cross compile build and artifact naming convention.
+Keywords: aah binary, aah app binary, flags, hot-reload, without restart, cross compile, artifact, artifact naming
 ---
-# Learn more about aah Application Binary
+# aah Application Binary
 
-Page describe the aah application binary artifact details.
+This page describe the aah application binary capabilities and its artifact details.
 
-## Table of Contents
+<div class="alert alert-info-green">
+<p><strong>News:</strong> Since <code>v0.11.0</code> aah supports single and non-single binary build artifact packaging.</p>
+</div>
 
-  * [Input Flags](#flags)
-  * [Start/Stop script](#start-stop-script)
-  * [OS Signals](#os-signals)
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong></p>
+<p>Go binary have no runtime dependencies (such as Go installation, GOPATH, libraries, etc.), once binary is built for targeted Operating System (OS); then it runs on any machine of targeted OS.</p>
+<p><u>For example:</u></p>
+<p>Building aah binary for Linux 64-bit OS - <code>env GOOS=linux GOARCH=amd64 aah build &lt;args></code></p>
+</div>
+
+
+### Table of Contents
+
+  * [Input Flags](#input-flags)
+  * [Start](#start)
+  * [Stop](#stop)
+  * [Reload](#reload)
+  * [Know your Embedded Files](#know-your-embedded-files) <sup>for aah single binary</sup>
   * [Cross Compile Build](#cross-compile-build)
   * [Build Artifact Naming Convention](#build-artifact-naming-convention)
 
-## Flags
+## Input Flags
 
 Application binary supports following input flags.
 
-  * `-version` - display the binary name, version and build date.
-  * `-config` - absolute path of external configuration file, it gets merge into application config before the initialize.
-  * `-profile` - environment profile name to activate. e.g: dev, qa, prod.
+<script src="https://asciinema.org/a/kOM5GHnrMowBH6YYhTI57zfwh.js" id="asciicast-kOM5GHnrMowBH6YYhTI57zfwh" data-speed="2" data-theme="monokai" data-rows="14" async></script>
 
-### version
+## Start
 
-`version` flag outputs the binary name, version, and build date. Also build information is available via `aah.AppBuildInfo()` method at runtime.
+<span class="badge lb-sm">Since v0.11.0</span> No intermediate script to start, stop, etc.
 
-```bash
-# For e.g.: application binary name is `aahwebsite`
-aahwebsite -version
+To start aah application, simply use the binary input flags.
 
-# output
-Binary Name : aahwebsite
-Version     : 381eaa8
-Build Date  : 2017-04-25T21:00:45-07:00
-```
-
-### config
-
-Supplying external configuration file. It gets merged into application configuration before the initialize.
+**For example**
 
 ```bash
-aahwebsite -config /etc/aahwebsite/site.conf
+$ /home/aah/website/bin/aahwebsite -profile prod
 ```
 
-### profile
+## Stop
 
-Environment profile name to active on startup.
+aah application binary listens to `SIGINT` and `SIGTERM` OS signal. On receiving these signals -
+
+  * application performs the graceful shutdown with timeout of `server.timeout.grace_shutdown` from `aah.conf`.
+  * Then aah fires the `OnShutdown` server extension event.
 
 ```bash
-aahwebsite -profile qa
+$ kill -TERM <process-id>
+
+# OR
+
+$ kill -INT <process-id>
 ```
 
-## Start/Stop script
+## Reload
 
-aah build artifact contains two startup scripts named `aah.sh` is for `*NIX` and `aah.cmd` is for `Windows`. However you can create your own startup scripts as per your need with supported input [flags](#flags).
-
-  * `*NIX` script supports `{start|stop|restart|version}`
-  * `Windows` script supports `{start|stop|version}`
-
-Note: `start` command accepts profile and config arguments.
+<span class="badge lb-sm">Since v0.10.0</span> aah application binary supports `Hot-Reload` via `SIGHUP`. Basically application perform same steps as application start but reloading config, i18n, views, etc. without restart.
 
 ```bash
-# For e.g: `aah.sh` *NIX start script with arguments.
-./aah.sh start qa
-./aah.sh start qa /Users/jeeva/external-config.conf
-
-
-# To stop
-./aah.sh stop
+$ kill -HUP <process-id>
 ```
 
-## OS Signals
+Application logs information would appear similar to below-
 
-aah application binary listens to `SIGINT` and `SIGTERM` OS signal. On receiving these signals application performs the graceful shutdown with timeout of config value `server.timeout.grace_shutdown` from `aah.conf` and then fires the `OnShutdown` server event.
+```bash
+2018-05-19 22:51:08.452 WARN  aahwebsite sfo-aahweb-01 Hangup signal (SIGHUP) received
+2018-05-19 22:51:08.452 INFO  aahwebsite sfo-aahweb-01 Application hot-reload and reinitialization starts ...
+2018-05-19 22:51:08.455 INFO  aahwebsite sfo-aahweb-01 Configuration files reload succeeded
+2018-05-19 22:51:08.456 INFO  aahwebsite sfo-aahweb-01 Configuration values reinitialize succeeded
+2018-05-19 22:51:08.456 INFO  aahwebsite sfo-aahweb-01 Logging reinitialize succeeded
+2018-05-19 22:51:08.456 INFO  aahwebsite sfo-aahweb-01 I18n reinitialize succeeded
+2018-05-19 22:51:08.457 INFO  aahwebsite sfo-aahweb-01 Router reinitialize succeeded
+2018-05-19 22:51:08.564 INFO  aahwebsite sfo-aahweb-01 View engine reinitialize succeeded
+2018-05-19 22:51:08.564 INFO  aahwebsite sfo-aahweb-01 Security reinitialize succeeded
+2018-05-19 22:51:08.564 INFO  aahwebsite sfo-aahweb-01 Access logging reinitialize succeeded
+2018-05-19 22:51:08.564 INFO  aahwebsite sfo-aahweb-01 Application hot-reload and reinitialization was successful
+```
+
+## Know your Embedded Files
+
+<span class="badge lb-sm">Since v0.11.0</span> aah supports single binary build packaging.
+
+Once the single binary is build, there would be no easy way to know which files have got embedded into the binary. In real world scenario, it is important to have some mechanism to find out the contents. It could also be helpful for developers, devops, etc.
+
+So aah provides easy convenient input flag called `-list`. It accepts regular expression as an input and print the file/directory path which matches with given regex pattern.
+
+For regex syntax refer to https://golang.org/pkg/regexp or run `go doc regexp/syntax` on terminal.
+
+<script src="https://asciinema.org/a/JOvC4imBfHy3T4OQd1iF5hdNz.js" id="asciicast-JOvC4imBfHy3T4OQd1iF5hdNz" data-speed="2" data-theme="monokai" data-rows="14" async></script>
 
 ## Cross Compile Build
 

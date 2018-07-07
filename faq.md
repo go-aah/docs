@@ -3,12 +3,11 @@ Desc: aah framework Frequently Asked Questions (FAQ)
 Keywords: faq, aah, aah Go web framework
 ---
 # Frequently Asked Questions (FAQ)
-
+  
+  * [How to update aah to latest version?](#how-to-update-aah-to-latest-version)
   * [Does aah support Package Management Tools?](#does-aah-support-package-management-tools)
-  * [How to update aah framework to the latest version?](#how-to-update-aah-framework-to-the-latest-version)
-  * [How to update individual module bug fix release?](#how-to-update-individual-module-bug-fix-release)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
-  * [How to try aah framework edge version?](#how-to-try-aah-framework-edge-version)
+  * [How to try aah edge version?](#how-to-try-aah-edge-version)
   * [How to log all goroutine stacktrace?](#how-to-log-all-goroutine-stacktrace)
   * [Does aah has benchmark against other Go web framework?](#does-aah-has-benchmark-against-other-go-web-framework)
   * [Does aah supports Hot-Reload for Development?](#does-aah-supports-hot-reload-for-development)
@@ -16,73 +15,74 @@ Keywords: faq, aah, aah Go web framework
   * [Is it a problem that aah’s Anti-CSRF protection isn’t linked to a session?](#is-it-a-problem-that-aah-s-anti-csrf-protection-isn-t-linked-to-a-session)
   * [Why might a user encounter a Anti-CSRF validation failure after logging in?](#why-might-a-user-encounter-a-anti-csrf-validation-failure-after-logging-in)
 
-### Does aah support Package Management Tools?
+### How to update aah to latest version?
 
-Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works nicely with vendoring. Use your choice of tool (`glide`, `dep`, `govendor`, etc).
+#### Update aah CLI 
 
-For example: I have responded to aah user for `dep` tool, refer to [GitHub comment](https://github.com/go-aah/aah/issues/109#issuecomment-327225582).
-
-### How to update aah framework to the latest version?
-
-To update aah framework latest version run below command on your terminal/command prompt. This procedure updates the aah framework only on GOPATH.
-
-If you're using package management tool, then refer to respective tool documentation for update. For example: `glide update`, etc.
-
+macOS Homebrew support is introduced in `v0.11.0`, simply do -
 
 ```bash
-# Since v0.10 release, you could use -
+# First install
+brew install go-aah/tap/aah
+
+# If aah is already installed, do
+brew upgrade aah
+```
+
+#### Update aah framework
+
+```bash
+go get -u aahframework.org/aah.v0
+
+# To update aah framework using package management tool, refer the respective tool documentation. 
+# Example: `glide update`
+```
+
+#### `go get` way
+
+It updates aah CLI and framework in GOPATH. 
+
+```bash
+# Since v0.10 release
 aah update
 
 # OR
 go get -u aahframework.org/tools.v0/aah
 ```
 
-### How to update individual module bug fix release?
+### Does aah support Package Management Tools?
 
-aah is modularized implementation. So any bug/enhancement could be fixed and released at individual module level without releasing entire framework. How do I update it:
+Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works seamlessly with pacakge manangement tool (like `glide`, `dep`, `govendor`, etc).
 
-Let's say `i18n` module is released bug fix:
-```cfg
-# Check the existing version
-aah -v
-
-# Run the module update
-go get -u aahframework.org/i18n.v0
-
-# Update the aah CLI
-go install aahframework.org/tools.v0/aah
-
-# Finally check the module version
-aah -v
-```
+For example: I have responded to aah user for `dep` tool, refer to [GitHub comment]({{aah_issues_url}}/109#issuecomment-327225582).
 
 ### How to adapt to latest aah configuration?
 
-The quick and best way to know about latest configuration is to:
+The best way is to have a look at aah documentation https://docs.aahframework.org on respective configuration docs.
 
-  * Create a new project based on your choice (web or api).
-  * Compare your application configuration files (`config/*`) with new configurations then merge it to yours.
-  * Congrats! you're on new configurations.
+### How to try aah edge version?
 
-### How to try aah framework edge version?
+Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more, run `aah help switch`.
 
-Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more about [switch command](/aah-cli-tool.html#command-switch).
+Just run the below command and then run your app as usual using `aah run`:
 
-Just run the below command and the run your app as usual using `aah run`:
-```cfg
-aah switch   # default is edge version for this command
+```bash
+# Switches to latest edge version
+aah switch   
 
-# Switch back to stable/prog release version
+# Switching back to stable release version
 aah switch --value release
 
-# If you're already on aah edge version, then just refresh it
+# If you're already on aah edge version, 
+# you could refresh to get latest edge codebase
 aah switch --refresh
 ```
 
 ### How to log all goroutine stacktrace?
 
-It is very simple to do aah framework. Just set the below config to true. You will get all the stacktrace in the log.
-```cfg
+It is very simple to do in aah. Just set the below config to true.
+
+```bash
 runtime {
   debug {
     # Whether to collect all the Go routines details or not.
@@ -94,17 +94,16 @@ runtime {
 
 ### Does aah has benchmark against other Go web framework?
 
-Well, aah framework goal is to achieve full stack web framework capabilities for modern Web & API application. As you know we have many micro frameworks and few full stack in the Go community with own set of goals and own perspectives.
+Well, aah goal is to achieve full stack web framework capabilities for modern Web, API and WebSocket applications.
 
 I have responded to aah user on [Github Issue #81](https://github.com/go-aah/aah/issues/81#issuecomment-315589889), about what I have done. Thanks.
 
 ### Does aah supports Hot-Reload for Development?
 
-Yes, aah detects the file change(s) on aah project then it automatically stops the server, builds it and start the server with updated codebase. I'm sure it needs an improvement, so keep me posted. Thanks.
+Yes, aah detects the file change(s) on aah project then it automatically stops the server, builds it and start the server with updated codebase.
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong></p>
-<p>For static file changes server is not restarted, server is restarted only for Go Source code and Template files. Refer to <a href="https://github.com/go-aah/aah/issues/4">Github Issue #4</a> for implementation details.</p>
+<p><strong>Note:</strong> Static file and template file changes reflects without aah server restart; server is restarted only for Go Source code.</p>
 </div>
 
 ### Is posting an arbitrary CSRF token pair (cookie and POST data) a vulnerability?

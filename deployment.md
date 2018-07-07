@@ -12,32 +12,32 @@ Recommended way to deploy aah application is to create platform targeted binary.
 
   * [Preparation Checklist](#preparation-checklist)
   * [Getting started with systemd](getting-started-with-systemd.html)
-  * Getting started with Docker **`(upcoming)`**
+  * [Getting started with Docker](getting-started-with-docker.html)
 
 ### Preparation Checklist
 
   * Ensure all the necessary configuration have been done for targeted profile (for e.g: `prod`)
       - **Note:** It is recommended to keep sensitive details outside the application codebase.
-          * Use flag `-config /path/to/configfile.conf` on aah binary during a startup
+          * Use flag `-config /path/to/configfile.conf` from aah binary during a startup
           * Use Environment variables
-  * Add `prod.routes { ... }` into `prod.conf`.
+  * Add `prod.routes { ... }` into `prod.conf`. This step is **not applicable** if you have only one domain.
       - By nature of aah supports domains and sub-domains routing (aka domain routing) out-of-the-box. It is must to configure domain name and port information. You have to define route `host` name in the `prod` environment profile. [Refer to below example](#sample-route-host-name-config-in-prod-environment-profile).
   * Refer to [Cross Compile Build](aah-cli-tool.html#cross-compile-build) to create platform targeted build artifact.
-  * Refer to [aah application binary](aah-application-binary.html) to know how startup script. Feel free create your own, if you have specific need.
+  * Refer to [aah application binary](aah-application-binary.html) to know more about capabilities of binary.
 
 Deploy the application.
 
 ### Sample Route Host name config in prod Environment profile
 
-```conf
+```bash
 # This is configuration of aahframework.org and docs.aahframework.org websites.
-#
 env {
   prod {
     #...
     routes {
       domains {
-        aahframework { # this section name is same domain config name in the routes.conf
+        # this section name is same domain config name in the routes.conf
+        aahframework {
           host = "aahframework.org"
 
           # Define port no, if listening port different from serve port
@@ -47,7 +47,8 @@ env {
           port = "443"  
         }
 
-        docs_aahframework { # this section name is same domain config name in the routes.conf
+        # this section name is same domain config name in the routes.conf
+        docs_aahframework {
           host = "docs.aahframework.org"
 
           # Define port no, if listening port different from serve port

@@ -4,7 +4,7 @@ Keywords: template funcs, funcmap, template func map, aah template funcs
 ---
 # View Template Functions
 
-By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah framework provides template functions to access configuration, request parameters, security check, session values, flash values, etc.
+By default Go lang provides set of [template functions](https://golang.org/pkg/text/template/#hdr-Functions) and aah provides template functions to access configuration, request parameters, security check, session values, flash values, etc.
 
 ### Table of Contents
 
@@ -14,47 +14,30 @@ By default Go lang provides set of [template functions](https://golang.org/pkg/t
 
 ## aah Template Funcs
 
-  * [config](#func-config)
-  * [import or include](#func-import)
-  * [rurl](#func-rurl)
-  * [rurlm](#func-rurlm)
-  * [i18n](#func-i18n)
-  * [pparam](#func-pparam)
-  * [fparam](#func-fparam)
-  * [qparam](#func-qparam)
-  * [flash](#func-flash)
-  * [session](#func-session)
-  * [isauthenticated](#func-isauthenticated)
-  * [hasrole](#func-hasrole)
-  * [hasanyrole](#func-hasanyrole)
-  * [hasallroles](#func-hasallroles)
-  * [ispermitted](#func-ispermitted)
-  * [ispermittedall](#func-ispermittedall)
-  * [safeHTML](#func-safehtml)
+Function  | Description | Example
+----------- | ----------- | --------
+config | Accessing application configuration from `aah.AppConfig()` | `{{ config "format.datetime" }}`
+include | Renders the common file from `views/common` with ViewArgs and imports into caller template file | `{{ include "sidebar.html" . }}`
+i18n | Access internationalization and localization message from view templates | `{{ i18n . "label.pages.title.aboutus" }}`
+pparam | Access Path parameter values | `{{ pparam . "userId" }}`
+fparam | Access Form parameter values | `{{ fparam . "email" }}`
+qparam | Access URL Query parameter values | `{{ qparam . "lang" }}`
+flash | Access Flash values. Note: Flash value is deleted after accessing once | `{{ flash . "error.user.email.incorrect" }}`
+session | Access Session object values | `{{ session . "Username" }}`
+rurl | Create Route URL, Refer [here](#func-rurl) | 
+rurlm | Create Route URL, Refer [here](#func-rurlm) | 
+isauthenticated | Refer [here](#func-isauthenticated) | 
+hasrole | Refer [here](#func-hasrole) | 
+hasanyrole | Refer [here](#func-hasanyrole) | 
+hasallroles | Refer [here](#func-hasallroles) | 
+ispermitted | Refer [here](#func-ispermitted) | 
+ispermittedall | Refer [here](#func-ispermittedall) | 
+safeHTML | Refer [here](#func-safehtml) | 
 
-#### Func: config
-
-Accessing application configuration from `aah.AppConfig()`.
-
-```go
-{{ config "format.datetime" }}
-```
-
-#### Func: import
-
-Renders the common file from `views/common` with ViewArgs and imports into caller template file.
-
-```go
-{{ import "sidebar.html" . }}
-
-OR
-
-{{ include "sidebar.html" . }}
-```
 
 #### Func: rurl
 
-Creates the Reverse URL for the given route name with arguments. Additional arguments are discarded.
+Creates the Route URL for the given route name with arguments. Additional arguments are discarded.
 
   * How to access sub-domain URL for reverse route on root domain template file?
       - Ans: Use sub-domain (the one use have used in `routes.conf`) prefix before the route name
@@ -63,9 +46,9 @@ Creates the Reverse URL for the given route name with arguments. Additional argu
   * How to I get host url for root domain or sub-domain on template file?
       - Ans: `host` is the keyword or virtual route name
           - For example: this is applicable to `rurlm` func too.
-              - `{{ rurl "host" }}` - on root domain template file
-              - `{{ rurl "root.host" }}` - on sub-domain template file
-              - `{{ rurl "docs.host" }}` - on root domain template file access sub-domain host URL
+              - `{{ rurl . "host" }}` - on root domain template file
+              - `{{ rurl . "root.host" }}` - on sub-domain template file
+              - `{{ rurl . "docs.host" }}` - on root domain template file access sub-domain host URL
 
 ```go
 // route name and arguments
@@ -85,64 +68,16 @@ Creates the Reverse URL for the given route name with arguments. Additional argu
 
 #### Func: rurlm
 
-Creates the Reverse URL for given route name with `map` arguments. Additional arguments added as URL query parameters.
+Creates the Route URL for given route name with `map` arguments. Additional arguments added as URL query parameters.
 
 ```go
 // route name and arguments
 // Path: /v1/users/:userId/addresses/:addressId
-{{ rurlm . "user_address_info"  .MapArguments }}
+{{ rurlm . "user_address_info" .MapArguments }}
 
 // route name
 // Path: /login.html
 {{ rurlm . "login" }}
-```
-
-#### Func: i18n
-
-Access internationalization and localization message from view templates.
-
-```go
-{{ i18n . "label.pages.title.get_involved" }}
-```
-
-#### Func: pparam
-
-Access Path parameter values.
-
-```go
-{{ pparam . "userId" }}
-```
-
-#### Func: fparam
-
-Access Form parameter values.
-
-```go
-{{ fparam . "email" }}
-```
-
-#### Func: qparam
-
-Access URL Query parameter values.
-
-```go
-{{ qparam . "lang" }}
-```
-
-#### Func: flash
-
-Access Flash values. Note: Flash value is deleted after accessing once.
-
-```go
-{{ flash . "Username" }}
-```
-
-#### Func: session
-
-Access Session object values.
-
-```go
-{{ session . "Username" }}
 ```
 
 #### Func: isauthenticated

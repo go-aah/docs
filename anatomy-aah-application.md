@@ -6,29 +6,45 @@ Keywords: anatomy, layout, mvc, architectural, directories, aah application layo
 
 The layout of a aah application is standardized to keep things as simple as possible and has component of MVC architectural pattern.
 
-```cfg
+### Bird's-eye View
+
+```conf
+app                   ⇒ Application Go source codes directory
+config                ⇒ Configurations files directory
+   └ env              ⇒ Environment profile configurations directory
+i18n                  ⇒ Internationalization and Localization message files directory
+views                 ⇒ View Template files directory
+static                ⇒ Static public assets directory
+logs                  ⇒ Logs directory (default is console on 'dev' profile)
+tests                 ⇒ Go test source directory (upcoming), use Go standard way for unit tests
+build                 ⇒ Application build directory
+```
+
+### Detailed View
+
+```conf
 app                   ⇒ Application Go source codes directory
   └ controllers       ⇒ Application controllers
   └ models            ⇒ Application business layer
   └ security          ⇒ Application security implementation
   └ aah.go            ⇒ aah application main entry point (generated code)
-  └ init.go           ⇒ Application customization/configuration (Since v0.10)
-config                ⇒ Configurations files
+  └ init.go           ⇒ Application customization/configuration (Since v0.10.0)
+config                ⇒ Configurations files directory
   └ aah.conf          ⇒ Application configuration file
   └ routes.conf       ⇒ Application Routes configuration file
   └ security.conf     ⇒ Application Security configuration file
-  env                 ⇒ Environment profile configurations
-    └ dev.conf        ⇒ Dev - Environment profile config
-    └ prod.conf       ⇒ Prod - Environment profile config
-i18n                  ⇒ Internationalization and Localization message files
+  └ env               ⇒ Environment profile configurations directory
+      └ dev.conf      ⇒ Dev - Environment profile config
+      └ prod.conf     ⇒ Prod - Environment profile config
+i18n                  ⇒ Internationalization and Localization message files directory
   └ messages.en       ⇒ Message file
   └ messages.en-US    ⇒ Message file
   └ messages.en-CA    ⇒ Message file
-views                 ⇒ Template files - not created for API (aah supports partial inheritance)
+views                 ⇒ View Template files directory - not created for API
   └ common            ⇒ Common view template files, it can be imported to any page template
   └ layouts           ⇒ Application view layout files, master template for page template
   └ pages             ⇒ Page template files, corresponding template for controller action
-static                ⇒ Static public assets - not created for API
+static                ⇒ Static public assets directory - not created for API
   └ css               ⇒ CSS files
   └ js                ⇒ Javascript files
   └ img               ⇒ Image files
@@ -38,14 +54,12 @@ tests                 ⇒ Go test source directory (upcoming), use Go standard w
 build                 ⇒ Application build directory
 .gitignore            ⇒ Typical Go .gitignore file and aah project ignore files
 aah.project           ⇒ aah project configuration; build config, hot-reload, etc.
-app-name.pid          ⇒ Application PID file (created during app startup)
+app-name.pid          ⇒ Application PID file (created on every app startup)
 ```
 
 #### Packaged aah application will have following directories/files
 ```cfg
 bin              ⇒ Application binary under bin directory
-aah.sh           ⇒ *nix startup file
-aah.cmd          ⇒ Windows startup file
 ```
 
 #### Packaged aah application won't have following directories/files
@@ -72,15 +86,17 @@ The `config` directory contains the application's configuration files. aah confi
 
 ### The `i18n` directory (Not applicable to API application)
 
-The `i18n` directory contains internationalization and localization message files. Message filename format is  `message.<Language-ID>`. Language is combination of `Language + Region` value. aah framework implements Language code as per  two-letter `ISO 639-1` standard and Region code as per two-letter `ISO 3166-1` standard, [know more](i18n.html).
+The `i18n` directory contains internationalization and localization message files. Message filename format is  `message.<Language-ID>`. Language is combination of `Language + Region` value. aah implements Language code as per  two-letter `ISO 639-1` standard and Region code as per two-letter `ISO 3166-1` standard, [know more](i18n.html).
 
-***Note: If you want you can use `i18n` for your API application too.***
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> <code>i18n</code> feature can be used with API application too, if needed.</p>
+</div>
 
 ### The `views` directory (Not applicable to API application)
 
-The `views` directory contains application view templates. aah framework supports partial inheritance with Go template engine, [know more](views.html). There are three main directories:
+The `views` directory contains application view templates. aah supports partial inheritance with Go template engine, [know more](views.html). There are three main directories:
 
-  * `common` - Common view template files, it can be imported to any page template via `import` template func.
+  * `common` - Common view template files, it can be imported to any page template via `import` or `include` template func.
   * `layouts` - Application view layout template files. You can have as many you want.
   * `pages` - Page view template files. Respective view file for controllers action.
       - For example: `<controller-name>/<action-name>.<ext>`
@@ -94,7 +110,9 @@ The `static` directory contains static assets that are served directly. It conta
   * By default `static` directory mapped as `/static` in [routes.conf](routes-config.html). You can customize it in the config. For example: `/assets`
   * You can use several directories under `static` directory as per your need. Just organize it appropriately, it helps you :)
 
-***Note: If you want you can use `static` file delivery for your API application too.***
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> <code>static</code> file delivery feature can be used API application too, if needed.</p>
+</div>
 
 ### The `logs` directory
 
@@ -106,6 +124,6 @@ The `tests` directory is for application functional tests (`upcoming`). Use Go c
 
 ### The `.gitignore` file
 
-The `.gitignore` file includes standard Go language ignores from Github and additionally aah framework ignores:
+The `.gitignore` file includes standard Go language ignores from Github and additionally aah ignores:
 
   * `aah.go`, `*.pid`, `build/*`

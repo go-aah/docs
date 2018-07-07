@@ -1,30 +1,30 @@
 Title: Security Design & Implementation
 Desc: Understanding aah framework security design and implementation.
-Keywords: security design, architecture, security implementation
+Keywords: security design, security architecture, security implementation
 ---
 # aah Security Design & Implementation
 
-aah framework's design goals are to simplify application security by being intuitive and easy to use. aah core design models how most people think about application security - in the context of someone (or something) interacting with an application.
+aah's design goals are to simplify application security by being intuitive and easy to use. aah core design models how most people think about application security - in the context of someone (or something) interacting with an application.
 
 Software applications are usually designed based on user stories. That is, you'll often design user interfaces or service APIs based on how a user would (or should) interact with the software. For example, you might say, "If the user interacting with my application is logged in, I will show them a button they can click to view their account information. If they are not logged in, I will show a sign-up button."
 
 This example statement indicates that applications are largely written to satisfy user requirements and needs. Even if the ‘user’ is another software system and not a human being, you still write code to reflect behavior based on who (or what) is currently interacting with your software.
 
-aah framework reflects these concepts in its own design. By matching what is already intuitive for software developers, aah framework remains intuitive and easy to use in practically any application.
+aah reflects these concepts in its own design. By matching what is already intuitive for software developers, aah remains intuitive and easy to use in practically any application.
 
-aah framework security module is `aahframework.org/security.vX`.
+aah security module is `aahframework.org/security.vX`.
 
 ## Design
 
-At high level aah framework security implementations are all highly modular in design. It simplifies and enables flexible configuration with pluggability. The SecurityManager implementation does not do much at all. Instead, the SecurityManager implementations mostly act as a lightweight 'container', delegating almost all behavior to nested/wrapped components.
+At high level aah security implementations are all highly modular in design. It simplifies and enables flexible configuration with pluggability. The SecurityManager implementation does not do much at all. Instead, the SecurityManager implementations mostly act as a lightweight 'container', delegating almost all behavior to nested/wrapped components.
 
 **Components:** [SecurityManager](#securitymanager), [SessionManager](#sessionmanager), [Subject](#subject)
 
-**Interfaces:** [Schemer](#schemer), [Authenticator](#authenticator), [Authorizer](#authorizer), [PasswordEncoder](#passwordencoder)
+**Interfaces:** [Schemer](#schemer), [Authenticator](#authenticator), [PrincipalProvider](#principalprovider), [Authorizer](#authorizer), [PasswordEncoder](#passwordencoder)
 
 ### SecurityManager
 
-aah framework encourages a `security.Subject`-centric programming approach, most application developers will rarely, if ever, interact with the SecurityManager directly. Even so, it is still important to know how the SecurityManager functions.
+aah encourages a `security.Subject`-centric programming approach, most application developers will rarely, if ever, interact with the SecurityManager directly. Even so, it is still important to know how the SecurityManager functions.
 
 SecurityManager implementations, this includes:
 
@@ -37,7 +37,7 @@ SecurityManager implementations, this includes:
 
 ### SessionManager
 
-The `SessionManager` knows how to create and manage user Session lifecycles to provide a robust Session experience for users. The `session.Storer` interface provides an capability to use any backend of your choice for the session store. Out-of-the-box aah framework provides cookie and file store.
+The `SessionManager` knows how to create and manage user Session lifecycles to provide a robust Session experience for users. The `session.Storer` interface provides an capability to use any backend of your choice for the session store. Out-of-the-box aah provides cookie and file store.
 
 ### Subject
 
@@ -45,87 +45,102 @@ A `security.Subject` security-specific 'view' of the entity (user, 3rd-party ser
 
 ### Schemer
 
-The interface `scheme.Schemer` is way aah framework provides pluggable and configurable auth scheme for the application. You can configure one or more schemes and map it in the routes.conf per route basis also with default auth scheme if route doesn't have specific.
+The interface `scheme.Schemer` is a way to provides pluggable auth scheme for the application. You can configure one or more schemes and map it in the routes.conf per route basis also with default auth scheme if route doesn't have specific.
 
-Currently ready to use schemes are `scheme.FormAuth`, `scheme.BasicAuth` and `scheme.GenericAuth` direct implementation of interface `scheme.Schemer`.
+Ready to use schemes are `scheme.{FormAuth, BasicAuth, OAuth2Auth, GenericAuth}` direct implementation of interface `scheme.Schemer`.
 
 ```go
-Schemer interface {
-	// Init method gets called by framework during an application start.
+// Schemer interface is used to create Auth Scheme for aah.
+type Schemer interface {
+	// Init method gets called by aah during an application start.
+	//
+	// `keyName` is value of security auth scheme key.
+	// 		For e.g.:
+	// 			security.auth_schemes.<keyname>
 	Init(appCfg *config.Config, keyName string) error
 
-	// Scheme method returns the auth scheme name. For e.g.: form, basic, generic, etc.
+	// Key method returns auth scheme configuration KeyName.
+	// For e.g: `security.auth_schemes.<keyname>`.
+	Key() string
+
+	// Scheme method returns auth scheme name. For e.g.: form, basic, oauth2, generic, etc.
 	Scheme() string
 
-	// SetAuthenticator method is used to set user provided Authentication implementation.
-	SetAuthenticator(authenticator authc.Authenticator) error
-
-	// SetAuthorizer method is used to set user provided Authorization implementation.
-	SetAuthorizer(authorizer authz.Authorizer) error
-
-	// DoAuthenticate method called by SecurityManager to get Subject authentication
+	// DoAuthenticate method called by aah SecurityManager to get Subject authentication
 	// information.
 	DoAuthenticate(authcToken *authc.AuthenticationToken) (*authc.AuthenticationInfo, error)
 
-	// DoAuthorizationInfo method called by SecurityManager to get Subject authorization
-	// information.
+	// DoAuthorizationInfo method called by aah SecurityManager to get
+	// Subject's authorization information if successful authentication.
 	DoAuthorizationInfo(authcInfo *authc.AuthenticationInfo) *authz.AuthorizationInfo
 
-	// ExtractAuthenticationToken method called by SecurityManager to extract identity details
-	// from the HTTP request.
+	// ExtractAuthenticationToken method called by aah SecurityManager to
+	// extract identity details from the HTTP request.
 	ExtractAuthenticationToken(r *ahttp.Request) *authc.AuthenticationToken
 }
 ```
 
-
 ### Authenticator
 
-The interface `authc.Authenticator` is your pluggable authentication implementation for the application.
+The interface `authc.Authenticator` is pluggable authentication info provider for the application.
 
 ```go
-// Authenticator interface is implemented by user application to provide
-// authentication information during authentication process.
+// Authenticator interface is used to provide authentication information of application
+// during a login.
 type Authenticator interface {
-	// Init method gets called by framework during an application start.
-	Init(cfg *config.Config) error
+	// Init method gets called by aah during an application start.
+	Init(appCfg *config.Config) error
 
-	// GetAuthenticationInfo method gets called when authentication happens for
-	// user provided credentials.
+	// GetAuthenticationInfo method called by auth scheme to get subject's authentication
+  // info for given authentication token.
 	GetAuthenticationInfo(authcToken *AuthenticationToken) (*AuthenticationInfo, error)
+}
+```
+
+### PrincipalProvider
+
+The interface `authc.PrincipalProvider` is pluggable Subject's principals provider for third party authentication. For e.g.: OAuth2.
+
+```go
+// PrincipalProvider interface is used to provide Subject's principals
+// where authentication is done third party, for e.g. OAuth2, etc.
+type PrincipalProvider interface {
+	// Init method gets called by aah during an application start.
+	Init(appCfg *config.Config) error
+
+	// Principal method called by auth scheme to get Principals.
+	//
+	// 	For e.g: keyName is the auth scheme configuration KeyName.
+	// 		 security.auth_schemes.<keyname>
+	Principal(keyName string, v ess.Valuer) ([]*Principal, error)
 }
 ```
 
 ### Authorizer
 
-The interface `authz.Authorizer` is your pluggable authorization information of Subject.
+The interface `authz.Authorizer` is pluggable authorization info provider for Subject.
 
 ```go
-// Authorizer interface is gets implemented by user application to provide Subject's
-// (aka 'application user') access control information.
+// Authorizer interface is used to provide authorization info (roles and permissions)
+// after successful authentication.
 type Authorizer interface {
-	// Init method gets called by framework during an application start.
+	// Init method gets called by aah during an application start.
 	Init(cfg *config.Config) error
 
-	// GetAuthorizationInfo method gets called after authentication is successful
-	// to get Subject's aka User access control information such as roles and permissions.
+	// GetAuthorizationInfo method called by auth scheme after authentication
+  // successful to get Subject's (aka User) access control information
+  // such as roles and permissions.
 	GetAuthorizationInfo(authcInfo *authc.AuthenticationInfo) *AuthorizationInfo
 }
 ```
 
 ### PasswordEncoder
 
-The interface `PasswordEncoder` is used to implement user password encoding such as `bcrypt`, `scrypt`, `pbkdf2`, `sha1`, `sha256`, etc.
-
-**Note:**
-
-Currently aah framework supports `bcrypt` password encoder, remaining encoders are **`upcoming`**.
+The interface `PasswordEncoder` is used to implement user password encoding such as `bcrypt`, `scrypt`, and `pbkdf2`.
 
 ```go
 // PasswordEncoder interface is used to encode and compare given hash and password
-// based chosen hashing type. Such as `bcrypt`, `scrypt`, `pbkdf2`, `sha1`, `sha256`, `
-// sha512` and `md5`.
-//
-// Currently `bcrypt` is supported by aah framework, remaining encoders are `upcoming`.
+// based chosen hashing type. Such as `bcrypt`, `scrypt`, and `pbkdf2`.
 //
 // Caution: If you're using an unsecure hashing, your application is exposed to security
 // issues. Consider using `bcrypt`, `scrypt`, or `pbkdf2`. Good read about
@@ -136,6 +151,6 @@ type PasswordEncoder interface {
 ```
 
 ----
-## Acknowledgements
+## Attribution
 
-This page documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).
+This documentation includes content from [Shiro Security library](https://shiro.apache.org) and [hapijs framework](https://hapijs.com/).

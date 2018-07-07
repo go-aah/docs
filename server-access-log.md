@@ -4,36 +4,42 @@ Keywords: server access log, access log, request log, response log
 ---
 # Server Access Log
 
-<span class="badge lb-sm">Since v0.7</span>  To manage aah server effectively it is necessary to know details about the request, response, processing time, client IP address, etc. aah framework provides the flexible and configurable server access log capabilities.
+<span class="badge lb-sm">Since v0.7</span>  To manage aah server effectively it is necessary to know details about the request, response, processing time, client IP address, etc. aah provides the flexible and configurable server access log capabilities.
 
-### Supported Access Log flag or attribute
+Access log processing handled in separate goroutine, it won't stand in way.
 
-* `clientip` - Client IP address aka Remote IP address
-* `reqtime` - Time of the request is received by server. Local time in default format RFC3339 or you can provide your format
-* `requrl` - Relative request URL not including query string
-* `reqmethod` - Request HTTP method
-* `reqproto` - Request Protocol. For e.g: `HTTP/1.1`, `HTTP/2.0`
-* `reqid` - Request ID if present otherwise `-` is logged. Refer to config `request.id.header` in the `aah.conf`
-* `reqhdr:<header_name>` - Request header, if present otherwise `-` is logged
-* `querystr` - Request query string if present otherwise `-` is logged
-* `resstatus` - Response Status Code
-* `ressize` - Bytes sent, excluding response HTTP headers, otherwise it logs `-` if no bytes were sent
-* `reshdr:<header_name>` - Response header, if present otherwise `-` is logged
-* `restime` - Request processing time in `milliseconds`. The time elapsed between the request received by server and the last bytes were written on the wire by server
-* `custom` - Add non-space string into log string
+### Table of Contents
 
-Access log processing handled in separate routine, it won't stand in way.
+  * [Supported Access Log flag](#supported-access-log-flag)
+  * [Access Log Configuration](#access-log-configuration)
 
-#### Default access log pattern
+## Supported Access Log flag
+
+Log Flag | Description
+---- | -----------
+clientip | Client IP address aka Remote IP address
+reqtime | Time of the request is received by server. Local time in default format RFC3339 or you can provide your format
+requrl | Relative request URL not including query string
+reqmethod | Request HTTP method
+reqproto | Request Protocol. For e.g: `HTTP/1.1`, `HTTP/2.0`
+reqid | Request ID if present otherwise value `-` is logged. Refer to config `request.id.header` in the `aah.conf`
+reqhdr:&lt;header_name> | Request header, if present otherwise value `-` is logged
+querystr | Request query string if present otherwise value `-` is logged
+resstatus | Response Status Code
+ressize | Bytes sent, excluding response HTTP headers, otherwise value `-` is logged; if no bytes were sent
+reshdr:&lt;header_name> | Response header, if present otherwise value `-` is logged
+restime | Request processing time in `milliseconds`. The time elapsed between the request received by server and the last bytes were written on the wire by server
+custom | Add non-space string into log string
+
+### Default access log pattern
 
 ```cfg
 %clientip %custom:- %reqtime %reqmethod %requrl %reqproto %resstatus %ressize %restime %reqhdr:referer
 ```
 
-#### Sample Server Access Log of default pattern
+### Sample Server Access Log of default pattern
 
-<pre style="font-size:10px"><code>
-::1 - 2017-07-21T14:56:15-07:00 GET / HTTP/2.0 200 12735 0.7020 "https://aahframework.org/"
+<pre style="font-size:10.7px"><code>::1 - 2017-07-21T14:56:15-07:00 GET / HTTP/2.0 200 12735 0.7020 "https://aahframework.org/"
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/css/aah-f2f8e6e.css HTTP/2.0 200 7408 0.3377 "https://aahframework.org/"
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/js/aah-f2f8e6e.js HTTP/2.0 200 522 0.2688 "https://aahframework.org/"
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/css/bootstrap.min.css HTTP/2.0 200 125523 4.1035 "https://aahframework.org/"
@@ -42,39 +48,38 @@ Access log processing handled in separate routine, it won't stand in way.
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/fonts/timeburnerbold.ttf HTTP/2.0 200 78170 1.4987 "https://aahframework.org/assets/css/aah-f2f8e6e.css"
 </code></pre>
 
-### Access Log Configuration
+## Access Log Configuration
 
-Add `access_log` section under the config `server` section in the `aah.conf`.
+`access_log { ... }` configuration goes under config section `server { ... }` in the `aah.conf`..
 
-```cfg
-server {
-  # ...
+```bash
+# -----------------------------------------------------------------------------
+# Access Log configuration
+# To manage aah server effectively it is necessary to know details about the
+# request, response, processing time, client IP address, etc. aah provides
+# the configurable access log capabilities.
+#
+# Doc: https://docs.aahframework.org/server-access-log.html
+# -----------------------------------------------------------------------------
+access_log {
+  # Enabling server access log
+  # Default value is `false`
+  enable = true
 
-  # To manage aah server effectively it is necessary to know details about the
-  # request, response, processing time, client IP address, etc. aah framework
-  # provides the flexible and configurable access log capabilities.
-  access_log {
-    # Enabling server access log
-    # Default value is `false`
-    enable = true
+  # Absolute path to access log file or relative path.
+  # Default location is application logs directory
+  #file = "{{ .AppName }}-access.log"
 
-    # Absolute path to access log file or relative path.
-    # Default location is application logs directory
-    #file = "{{ .AppName }}-access.log"
+  # Default server access log pattern
+  #pattern = "%clientip %custom:- %reqtime %reqmethod %requrl %reqproto %resstatus %ressize %restime %reqhdr:referer"
 
-    # Default server access log pattern
-    #pattern = "%clientip %custom:- %reqtime %reqmethod %requrl %reqproto %resstatus %ressize %restime %reqhdr:referer"
+  # Access Log channel buffer size
+  # Default value is `500`
+  #channel_buffer_size = 500
 
-    # Access Log channel buffer size
-    # Default value is `500`
-    #channel_buffer_size = 500
-
-    # Include static files access log too.
-    # Default value is `true`.
-    #static_file = false
-  }
-
-  # ...
+  # Include static files access log too.
+  # Default value is `true`.
+  #static_file = false
 }
 ```
 

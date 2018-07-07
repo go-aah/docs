@@ -1,10 +1,10 @@
 Title: Middlewares
-Desc: aah framework provides a way to create user-defined Middleware for your application very similar to Go lang standard middleware. Bring Go lang native middleware into aah.
+Desc: aah framework provides a way to create user-defined Middleware for application very similar to Go lang standard middleware. Bring Go lang native middleware into aah.
 Keywords: middleware, writing middleware, abort middleware, native middleware into aah
 ---
 # Middlewares
 
-aah framework provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware.
+aah provides a way to create user-defined `Middleware` for your application very similar to Go lang standard middleware.
 
 ### Table of Contents
 
@@ -14,7 +14,7 @@ aah framework provides a way to create user-defined `Middleware` for your applic
 
 ## Writing Middleware
 
-To create your own custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function.
+To create custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function.
 
 You can add your middleware into aah in three ways-
 
@@ -44,11 +44,11 @@ func myCustomMiddleware2(ctx *Context, m *Middleware) {
 // Adding a Middleware into aah
 func init() {
   // executed in the order of middleware added
-  aah.Middlewares(myCustomMiddleware1, myCustomMiddleware2)
+  aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
 
   // OR
   aah.OnStart(func(e *aah.Event) {
-    aah.Middlewares(myCustomMiddleware1, myCustomMiddleware2)
+    aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
   })
 }
 ```
@@ -88,7 +88,7 @@ func customMiddleware(ctx *Context, m *Middleware) {
 
 ## Bring Go lang native middleware into aah
 
-aah framework expands the possibilities via reuse/existing middlewares.
+aah expands the possibilities via reuse/existing middlewares.
 
   * [http.Handler](https://golang.org/pkg/net/http/#Handler)
   * [http.HandlerFunc](https://golang.org/pkg/net/http/#HandlerFunc)
@@ -100,5 +100,5 @@ func printURL(w http.ResponseWriter, r *http.Request) {
   fmt.Println("URL:", r.URL.Path)
 }
 
-aah.Middlewares(aah.ToMiddleware(printURL))
+aah.AppHTTPEngine().Middlewares(aah.ToMiddleware(printURL))
 ```

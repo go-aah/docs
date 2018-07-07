@@ -4,7 +4,7 @@ Keywords: permissions, authorization, subject
 ---
 # Understanding Permissions in aah
 
-<span class="badge lb-sm">Since v0.8</span> aah framework defines a `Permission` as a statement that defines an explicit behavior or action. It is a statement of raw functionality in an application and nothing more. Permissions are the lowest-level constructs in security polices, and they explicitly define only `what` the application can do.
+<span class="badge lb-sm">Since v0.8</span> aah defines a `Permission` as a statement that defines an explicit behavior or action. It is a statement of raw functionality in an application and nothing more. Permissions are the lowest-level constructs in security polices, and they explicitly define only `what` the application can do.
 
 They do not at all describe `who` is able to perform the action(s).
 
@@ -37,7 +37,7 @@ There are many variations for how permissions could be granted to users - the ap
 
 The above examples of permissions, `Open a file`, `View the 'user/list' web page`, etc are all valid permission statements. However, it would be very difficult computationally to interpret those natural language strings and determine if a user is allowed to perform that behavior or not.
 
-So to enable easy-to-process yet still readable permission statements, aah framework provides powerful and intuitive permission syntax that is referred as the WildcardPermission.
+So to enable easy-to-process yet still readable permission statements, aah provides powerful and intuitive permission syntax that is referred as the WildcardPermission.
 
 ### Simple Usage
 
@@ -270,11 +270,11 @@ printer:print
 
 Permission checks are more complex than a simple equals comparison, so runtime implication logic must execute for each assigned Permission.
 
-For every permission check (for example, a call to `Subject().IsPermitted`), all of the permissions assigned to that user need to be checked individually for implication. aah framework 'short circuits' this process by returning immediately after the first successful check occurs to increase performance, but it is not a silver bullet.
+For every permission check (for example, a call to `Subject().IsPermitted`), all of the permissions assigned to that user need to be checked individually for implication. aah 'short circuits' this process by returning immediately after the first successful check occurs to increase performance, but it is not a silver bullet.
 
 Currently Authorization information is fetched on every request via registered `authz.Authorizer`. It is recommended to implement `Cache` on your application side. Just know that with this default behavior, as the number of permissions assigned to a user or their roles increase, the time to perform the check will necessarily increase.
 
 ----
-## Acknowledgement
+## Attribution
 
-This page documentation includes content from [Shiro Security library](https://shiro.apache.org).
+This documentation includes content from [Shiro Security library](https://shiro.apache.org).

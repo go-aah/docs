@@ -65,7 +65,7 @@ aah provides flexible and meaningful directory structure to organize application
 
 ## Template Auto Resolve OR User-Defined Inputs
 
-By default aah framework resolves and render view templates based on-
+By default aah resolves and render view templates based on-
 
   * Namespace `Controller` package path
   * Path `Controller` and `Action`
@@ -112,9 +112,13 @@ aah provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormP
 
 ## Adding User-Defined View Engine into aah
 
-Currently aah framework supports Go and Pug view engine. Don't feel bad, you can added your favorite view engine into aah.
+Currently aah supports Go. Don't feel bad, you can added your favorite view engine into aah.
 
-#### Create your own view engine using interface `view.Enginer`
+<div class="alert alert-info-blue">
+<p>Pug view engine support temporarly removed from aah due to upstream <a href="https://github.com/Joker/jade/issues/22">library issue</a>.</p>
+</div>
+
+#### Create your own view engine implementing interface `view.Enginer`
 
 ```go
 // Enginer interface defines a methods for pluggable view engine.
@@ -129,7 +133,7 @@ type Enginer interface {
 ```go
 func init()  {
   if err := aah.AddViewEngine("enginename", &MyViewEngine{}); err != nil {
-    log.Error(err)
+    aah.AppLog().Error(err)
   }
 }
 ```

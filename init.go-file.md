@@ -4,18 +4,26 @@ Keywords: init.go, application customization, application initialization, aah
 ---
 # aah init.go file
 
-<span class="badge lb-sm">Since v0.10</span> aah framework brought `init.go` file to evolves aah towards next step.
+<span class="badge lb-sm">Since v0.10</span> aah brought `init.go` file to evolve towards the next step.
 
 <div class="alert alert-info-green">
-<p><strong>Best Practice:</strong> Define your implementations in an appropriate package and register it in <code>init.go</code>. It adds more flexibility, organized and  maintainable aah application. Its located at <code>&lt;app-base-dir&gt;/app/init.go</code>.</p>
+<p><strong>Best Practice:</strong> Define extensions and custom implementations in an appropriate package and register it in <code>init.go</code>. It brings a more flexible, organized and maintainable aah application. It is located at <code>&lt;app-base-dir&gt;/app/init.go</code>.</p>
 </div>
 
 
-Register your -
+**Register -**
 
-  * Server Extensions
+  * Server Extensions Points
+      - Application Events
+      - Subscribe to HTTP Events
+      - Subscribe to WebSocket Events
   * Middleware's
-  * View engines
+  * Application Error Handler
+  * Custom Template Functions
+  * Custom Session Store
+  * Custom Value Parser - Auto bind
+  * Custom Validation Functions
+  * Custom View Engine
   * etc.
 
-For example, have a look at [aah website init.go](https://github.com/go-aah/website/blob/master/app/init.go) file.
+Create an application and have a look at the file `app-base-dir/app/init.go` to view a sample.

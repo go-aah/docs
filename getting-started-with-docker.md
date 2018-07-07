@@ -4,7 +4,7 @@ Keywords: docker, container, aah, application
 ---
 # Getting started with Docker
 
-Great news!! <span class="badge lb-sm">Since v0.10</span> release aah framework brings support for Docker Image on [Docker Hub](https://hub.docker.com/r/aahframework/) and aah CLI command for `Dockerfile` generation.
+Great news!! <span class="badge lb-sm">Since v0.10</span> release aah provides Docker Image on [Docker Hub](https://hub.docker.com/r/aahframework/) and aah CLI command to generate `Dockerfile` config.
 
 aah has automated build process for Docker Image creation. Supported Docker tags are -
 
@@ -15,7 +15,7 @@ aah has automated build process for Docker Image creation. Supported Docker tags
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>
 <ul>
-  <li>aah framework docker base image is <code>golang:latest</code>.</li>
+  <li>aah docker base image is <code>golang:latest</code>.</li>
   <li>Ensure to install <a href="https://www.docker.com/get-docker">Docker</a> on your machine.</li>
 </ul>
 </p>
@@ -25,7 +25,8 @@ aah has automated build process for Docker Image creation. Supported Docker tags
 
   * [Pull aah Docker Image](#pull-aah-docker-image)
   * [Handy `generate` Command](#handy-generate-command)
-  *
+  * [Using Dockerfile.*](#using-dockerfile)
+  * [Compile aah application inside the Docker container](#compile-aah-application-inside-the-docker-container)
 
 ## Pull aah Docker Image
 
@@ -89,7 +90,7 @@ docker run -it -p 8080:8080 "yourapp:dev" aah run
 docker run -p 8080:8080 "yourapp:latest"
 ```
 
-## Compile your app inside the Docker container
+## Compile aah application inside the Docker container
 
 There might a occasions you would like to build your application inside the container and get the build artifact. You can write something like:
 

@@ -1,10 +1,10 @@
 Title: Reply Builder (aka Response Builder)
-Desc: aah provides powerful Reply builder to compose your HTTP response effectively. You can do chained call.
+Desc: aah provides powerful Reply builder to compose your HTTP response effectively. Chained call supported.
 Keywords: reply builder, reply, response, html, json, jsonp, text, bytes, file, status code, cookie, redirect, custom
 ---
 # Reply Builder
 
-aah provides `Reply` builder (aka Response Builder) to compose your response effectively. You can do Chained call.
+aah provides powerful `Reply` builder (aka Response Builder) to compose your response effectively. Chained call supported.
 
 ### Table of Contents
 
@@ -15,11 +15,11 @@ aah provides `Reply` builder (aka Response Builder) to compose your response eff
   * [Cookie](#cookies)
   * [Disable Gzip](#disable-gzip)
   * [Done()](#done)
-  * [Implementing Custom Rendering](#implementing-custom-rendering)
-  * [Just Few Samples](#just-few-samples)
-  * [Registering External JSON Library into aah](external-json-library.html) <span class="badge lb-xs">Since v0.8</span>
+  * [Custom Rendering](#custom-rendering)
+  * [Few Samples](#few-samples)
 
 ## Response Status Codes
+
 As per RFC7231, `Reply()` provides method for frequently used ones.
 
   * `Ok()`
@@ -34,13 +34,16 @@ As per RFC7231, `Reply()` provides method for frequently used ones.
   * `Forbidden()`
   * `NotFound()`
   * `MethodNotAllowed()`
+  * `NotAcceptable()`
   * `Conflict()`
+  * `UnsupportedMediaType()`
   * `InternalServerError()`
   * `ServiceUnavailable()`
 
-ohh, the response status I need is not in the above list, no problem; just use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
+ohh, the response status I need is not in the above list, no problem; use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
 
 ## Response Content
+
 Rich reply methods for the response.
 
   * `HTML(data)`
@@ -49,50 +52,57 @@ Rich reply methods for the response.
   * `HTMLlf(layout, filename, data)`
   * `JSON(data)`
   * `JSONP(data, callback)`
+  * `JSONSecure(data)`
   * `XML(data)`
   * `Text(str)`
   * `Text(str, args)`
-  * `Readfrom(reader)`
+  * `FromReader(reader)`
   * `File(file)`
   * `FileDownload(file, targetName)` - Content-Disposition is attachment
   * `FileInline(file, targetName)` - Content-Disposition is inline
   * `Binary(bytes)`
-  * `Error(err)` <span class="badge lb-xs">Since v0.8</span> [know more](centralized-error-handler.html#reply-error-err).
-  * `Render(rdr)` - renders custom rendering implementation [know more](#)
+  * `Error(err)` - [know more](centralized-error-handler.html#reply-error-err).
+  * `Render(rdr)` - custom rendering implementation [know more](#custom-rendering)
 
 ## Redirect
+
   * `Redirect(url)`
-  * `RedirectSts(url, statusCode)`
+  * `RedirectWithStatus(url, statusCode)`
 
 ## Replying HTTP Headers
+
   * `Header(hdr, value)`
   * `HeaderAppend(hdr, value)`
 
 ## Cookies
+
   * `Cookie(cookie)`
 
 ## Disable Gzip
 
-By default framework doesn't apply Gzip compression for Status Codes 204, 304 and if client doesn't support gzip. On top of it framework provides `DisableGzip` method as an option to disable `gzip` compression for a particular response.
+By default aah doesn't apply Gzip compression for Status Codes 204, 304 and if client doesn't support gzip. On top of it aah provides method `DisableGzip` as an option to disable `gzip` compression for a particular response.
 
 ```go
 Reply().DisableGzip()
 ```
 
 ## Done()
-Done method indicates that reply has already been sent via `aah.Context.Res` and that no further action is needed.
+
+Done method indicates that reply has already been sent via `ctx.Res` and that no further action is needed.
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> Framework doesn't intervene with response if `Done()` method was called.</p>
+<p><strong>Note:</strong> aah doesn't intervene with response if `Done()` method was called.</p>
 </div>
 
-## Implementing Custom Rendering
+## Custom Rendering
+
 aah provides reply method called `Render` to supply your own implementation of rendering.
 
   * You could do by implementing interface `aah.Render`
-  * Or using adaptor func `aah.RenderFunc`.
+  * Or using adaptor func `aah.RenderFunc`
 
-**Example of interface aah.Render**
+**Example of implementing interface aah.Render**
+
 ```go
 // CustomRender implements the interface `aah.Render`.
 type CustomRender struct {
@@ -120,7 +130,7 @@ Reply().Render(aah.RenderFunc(func(w io.Writer) error {
 }))
 ```
 
-## Just Few Samples
+## Few Samples
 
 Refer to [Response Status Codes](#response-status-codes) and [Response Content](#response-content) to know more.
 
@@ -138,10 +148,12 @@ Reply().BadRequest().JSON(data)
 // Default Status Code is 200 OK
 Reply().FileDownload("/User/jeeva/songs/nice.mp3", "name-nice.mp3")
 
-// I just want serve file from controller
-// If file param is relative path, framework resolves it from `static` directory
-// like <app-base-dir>/static/reports/daily.pdf
-Reply().File("reports/daily.pdf")
+// I just want serve file from controller.
+// Path could absolute or relative path.
+// if its relative aah resolve the path app base directory
+// For e.g.: <app-base-dir>/assets/reports/daily.pdf
+Reply().File("assets/reports/daily.pdf")
+Reply().File("/mnt/may/reports/daily.pdf")
 
 // I would like to send binary data
 Reply().Binary(bytes)
@@ -150,7 +162,7 @@ Reply().Binary(bytes)
 Reply().Readfrom(reader)
 
 // Replying redirect login page using `route name`
-Reply().Redirect(c.ReverseURL("user_login"))
+Reply().Redirect(c.RouteURL("user_login"))
 
 // Replying HTML response with cookie and view arguments
 Reply().
@@ -166,6 +178,6 @@ Reply().HTMLl("master-custom.html", data)
 Reply().Error({
   Code: http.StatusNotFound,
   Message: "Resource not found",
-  Data: "relevant data if you would like to send", // this is interface{} type.
+  Data: "relevant data if you would like to send", // this is type interface{}.
 })
 ```

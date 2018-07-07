@@ -6,44 +6,15 @@ Keywords: validation, validator, data validation
 
 aah provides well integrated and seamless data validation feature for your application. It could be applied for URL Path Param, Form, JSON and XML.
 
-  * aah uses [`gopkg.in/go-playground/validator.v9`](https://github.com/go-playground/validator) as validator. It's simple and effective validation library.
+  * aah internally uses [`gopkg.in/go-playground/validator.v9`](https://github.com/go-playground/validator) as validator. It's simple and effective validation library.
 
 Validation errors are well integrated with aah [error handling mechanism](/error-handling.html).
 
 ### Table of Contents
 
-  * [Route Path Param Validation](#route-path-param-validation)
   * [Controller Action Parameters Validation](#controller-action-parameters-validation)
   * [How to Validate URL Query Parameters](#how-to-validate-url-query-parameters)
-  * [Adding Your Custom Validation Functions](#adding-your-custom-validation-functions)
-
-## Route Path Param Validation
-
-Defining route path parameter validation is very easy in aah. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9).
-
-**Syntax**
-
-```cfg
-:paramName[validation-rules]
-```
-
-**For example -**
-
-```cfg
-# User Info
-/v1/users/:emailAddress[email]/addresses
-
-# User Info - Requests
-/v1/users/sample@sample.com/addresses => would pass
-/v1/users/sample@sample/addresses     => would fail
-
-# Book Info
-/v1/books/:bookId[isbn13]/excerpt
-
-# Book Info - Requests
-/v1/books/978-1-56619-909-4/excerpt  => would pass
-/v1/books/dshgdshgdsjhgdshg/excerpt  => would fail
-```
+  * [Adding Custom Validation Functions](#adding-custom-validation-functions)
 
 ## Controller Action Parameters Validation
 
@@ -89,10 +60,10 @@ func (u *UserController) HandleError(e *aah.Error) bool  {
 ## How to Validate URL Query Parameters
 
 <div class="alert alert-info-green">
-<p><strong>Pro Tip:</strong> The best way to validate collective query parameters is to bind those values into <code>struct</code> then aah automatically does validation on struct gives you a result.</p>
+<p><strong>Tip:</strong> The best way to validate collective query parameters is to bind those values into <code>struct</code> then aah automatically does validation on struct and gives a result.</p>
 </div>
 
-You have do it manually for individual values on-demand basics. How to do?
+Doing it manually for individual values on-demand basics.
 
 Use method `aah.ValidateValue(value, "rules")`. Refer to [validator documentation](https://godoc.org/gopkg.in/go-playground/validator.v9)
 
@@ -114,9 +85,9 @@ color := "#e25657"
 result := aah.ValidateValue(color, "iscolor") // alias for 'hexcolor|rgb|rgba|hsl|hsla'
 ```
 
-## Adding Your Custom Validation Functions
+## Adding Custom Validation Functions
 
-You can use all capabilities provided by library [`gopkg.in/go-playground/validator.v9`](https://github.com/go-playground/validator) to add custom validator implementation.
+All capabilities provided by library [`gopkg.in/go-playground/validator.v9`](https://github.com/go-playground/validator) to add custom validation function.
 
 **To obtain aah validator instance**
 

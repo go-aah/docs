@@ -23,13 +23,9 @@ Those are all decisions determining what a user has access to.
       - [Implicit Roles](#implicit-roles)
       - [Explicit Roles](#explicit-roles)
   * [Users Defined](#users-defined)
-  * [How to perform Authorization in aah](#how-to-perform-authorization-in-aah)
-      - [Programmatic Authorization](#programmatic-authorization)
-          - [Role Check](#role-check)
-          - [Permission Check](#permission-check)
-      - [Template/View function](#template-view-function)
-      - Way to configure URL/Route Path based roles/permissions check **`Upcoming`**
-
+  * [How to do Authorization check?](#how-to-do-authorization-check)
+      - [In Application](#in-application)
+      - [In View/Template file](#in-view-template-file)
 
 ### Elements of Authorization
 
@@ -45,19 +41,27 @@ It is important to understand that permissions do not have knowledge of `who` ca
 
 ### Levels of permission granularity
 
-The permissions above all specify an actions (open, read, delete, etc) on a resource (door, file, customer record, etc). In aah framework, you can define a permission to `any depth` you like. Here are a few common permission levels in order of granularity.
+The permissions above all specify an actions (open, read, delete, etc) on a resource (door, file, customer record, etc). In aah, you can define a permission to `any depth` you like. Here are a few common permission levels in order of granularity.
 
   * **Resource Level** - This is the broadest and easiest to build. A user can edit customer records or open doors. The resource is specified but not a specific instance of that resource.
   * **Instance Level** - The permission specifies the instance of a resource. A user can edit the customer record for Apple or open the kitchen door.
   * **Attribute Level** - The permission now specifies an attribute of an instance or resource. A user can edit the address on the Apple customer record.
 
-For more information on `Permissions` please check out the [Understanding Permissions in aah](security-permissions.html) documentation.
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong>
+<ul>
+  <li>aah supports ACL, RBAC, ABAC, or custom (name your own). This is the capabilities of aah security design and implementation.</li>
+  <li>Construct the permission string the way application want; as long as <code>authz.Authorizer</code> knows how to work with it. aah <code>Permission</code> is powerful and intuitive, learn more <a href="security-permissions.html">Understanding Permissions in aah</a>.</li>
+  <li>aah supports dynamically add/remove roles and permissions at runtime with `Subject` instance. It means, you won’t have to force application users to logout and login back in order to get their new roles/permissions.</li>
+</ul>
+ </p>
+</div>
 
 ## Roles Defined
 
 In the context of Authorization, Roles are effectively a collection of permissions used to simplify the management of permissions and users. So users can be assigned roles instead of being assigned permissions directly, which can get complicated with larger user bases and more complex applications. So, for example, a bank application might have an `administrator` role or a `bank teller` role.
 
-There are two types of roles that you need to be aware of and aah framework will support both.
+There are two types of roles that you need to be aware of and aah supports both.
 
 ### Implicit Roles
 
@@ -69,11 +73,9 @@ An explicit role has permissions `explicitly` assigned to it and therefore is an
 
 The big benefits of explicit roles are _easier manageability_ and _lower maintenance_ of your application. If you ever need to add, remove, or change a role, you can do so without touching your source code.
 
-**`Upcoming`** In aah framework, you’ll also be able to dynamically add, remove, or change roles at runtime and your authorization checks will always have up to date values. This means you won’t have to force users to log out and log back in order to get their new permissions.
-
 ## Users Defined
 
-A user is the `who` of an application. In aah framework, though, the concept of a user is really the [Subject](security-subject.html) instance. aah use word `Subject` instead of user because user usually implies a human being and in aah a Subject can be anything interacting with your application– whether it be a human or a service.
+A user is the `who` of an application. In aah, though; the concept of a user is really the [Subject](security-subject.html) instance. aah use word `Subject` instead of user because user usually implies a human being and in aah a Subject can be anything interacting with your application– whether it be a human or a service.
 
 Users are allowed to perform certain actions in your application through their association with roles or direct permissions. So you are able to open a customer record because you've been assigned the _open customer record_ permission, either through a role you’ve been assigned or through a direct permission assignment.
 
@@ -81,73 +83,110 @@ For more information on Users, aka Subjects, please check out the [Understanding
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
-<p>Ultimately, your <code>authz.Authorizer</code> interface implementation is what communicates with your data source (RDBMS, NoSQL, LDAP, etc). So your <code>authorizer</code> is what will tell aah framework whether or not roles or permissions exist. You have full control over how your authorization model works.</p>
+<p>Ultimately, <code>authz.Authorizer</code> interface implementation is what communicates with data source (RDBMS, NoSQL, LDAP, etc). So <code>authorizer</code> is what will tell aah framework whether or not roles or permissions exist. aah provides  full control over how authorization model works.</p>
 </div>
 
-## How to perform Authorization in aah
+## How to do Authorization check?
 
-Authorization in aah framework can be handled in three ways.
+### In Application
 
-  * **Programmatically** - You can perform authorization checks in your `Go` code with structures like `if` and `else` blocks.
-  * **Template/View function** - You can control view page output based on roles and permissions
-  * **`Upcoming`** URL Path roles/permissions - You can control URL path access based on roles and permissions
+aah supports Authorization check by Configuration and `Go` code.
 
-### Programmatic Authorization
+### Via Configuration
 
-Checking for permissions and roles, programmatically in your `Go` code is the traditional way of handling authorization. Here's how you can perform a permission check or role check in aah framework.
+<span class="badge lb-sm">Since v0.11.0</span> Define roles and permissions per route in `routes.conf`; aah does the Authorization check automatically using provided configuration for the Route. On failure, it calls [Error Handling flow](error-handling.html).
 
-#### Role Check
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Child Route inherits parent <code>authorization { ... }</code> config if not defined.</p>
+</div>
 
-This is an example of how you do a role check programmatically in your application. We want to check if a user has the `administrator` role and if they do, then we'll allow access, otherwise we won't allow it.
+```bash
+# Authorization (access rights/privileges)
+authorization {
+  # Satisfy value is used to evaluate the result of `roles` and `permissions` attribute.
+  #
+  # Possible values are
+  #   - `either` => either roles or permissions should satisfy for Subject
+  #   - `both`   => both roles and permissions should satisfy for Subject
+  #
+  # Default value is `either`.
+  satisfy = "either"
 
-First we get access to the current user, the [Subject](security-subject.html). Then we pass the _administrator_ to the Subject's `.HasRole()` method. It will return `true` or `false`.
+  # Roles (Optional config)
+  # Result of role function is evaluated as AND.
+  #
+  # Supported functions are `hasrole`, `hasanyrole`, `hasallroles`.
+  # Roles are comma(,) separated values.
+  roles = [
+    "hasrole(manager)",
+    "hasanyrole(role1, role2, role3)"
+  ]
 
-You have these methods, you can use it appropriately as required:
-
-  * HasRole
-  * HasAnyRole
-  * HasAllRoles
-
-``` go
-// checking the role
-if ctx.Subject().HasRole("administrator") {
-    // allow access
-} else {
-    // don't allow access
+  # Permissions (Optional config)
+  # Doc: https://docs.aahframework.org/security-permissions.html
+  #
+  # Result of permission function is evaluated as AND.
+  #
+  # Supported functions are `ispermitted`, `ispermittedall`.
+  # Permissions are pipe(|) separated values.
+  permissions = [
+    "ispermitted(newsletter:read,write)",
+    "ispermittedall(newsletter:read,write | newsletter:12345)"
+  ]
 }
 ```
-Now a role based check is quick and easy to implement but it has a major drawback. It is implicit.
 
-What if you just want to add, remove, or redefine a role later? You'll have to open your source code and change all your role checks to reflect the change in your security model. You’ll have to shut down the application,  open the code, test it, and then restart it every time.
+### Via Go code
 
-In very simple applications this is probably good enough but for larger apps this can be a major problem throughout the life of your application and drive a large maintenance cost for your software.
+The user can check the roles and permissions programmatically on `Go` code with structures like `if` and `else` blocks.
 
-#### Permission Check
-
-This is an example of how you do security checks by permission. We want to check if a user has permission to print to `laserjet3000n` and if they do, then we’ll allow print, otherwise we won’t allow it. This is an example of an instance level permission or instance level authorization.
-
-Again, first you get access to the current user, the [Subject](security-subject.html).  In this case, the domain is `printer`, the resource is `laserjet3000n`, and the action is `print`. Then we pass `printer:print:LaserJet4400n` to the Subject's `.IsPermitted()` method. It will return `true` or `false`.
+Firstly, get access to the current [Subject/User](security-subject.html). Then, call appropriate authorization methods with `Subject` instance.
 
 ```go
-if ctx.Subject().IsPermitted("printer:print:LaserJet4400n") {
+subject := ctx.Subject()
+```
+
+**Authorization Methods**
+
+Method | Description
+------ | -----------
+HasRole | Returns true if Subject has the specified role, otherwise false.
+HasAnyRole | Returns true if Subject has any-one of the specified roles, otherwise false.
+HasAllRoles | Returns true if the Subject has all of the specified roles, otherwise false.
+IsPermitted | Returns true if Subject is permitted to perform an action or to access a resource summarized by the specified permission string, otherwise false.
+IsPermittedAll | Returns true if the Subject implies all of the specified permission strings, otherwise false.
+
+**For Example-**
+
+```go
+// Checks if Subject has role `administrator`.
+if ctx.Subject().HasRole("administrator") {
+  // allow access
+} else {
+  // don't allow access
+}
+
+// Checks if Subject has permission to read and edit newsletter.
+if ctx.Subject().IsPermitted("newsletter:read,write") {
   // allow access
 } else {
   // don't allow access
 }
 ```
 
-You can construct the permission string the way you want as long as your `authz.Authorizer` knows how to work with it. aah `Permission` is powerful and intuitive. If you’d like to learn more about them then check out the [Understanding Permissions in aah](security-permissions.html) documentation.
+### In View/Template file
 
-
-### Template/View function
-
-aah provides following templates/view function for authorization. You have more flexibility.
+aah provides templates/view functions to perform authorization in a flexible way on view files.
 
   * `hasrole`
   * `hasanyrole`
   * `hasallroles`
   * `ispermitted`
   * `ispermittedall`
+
+**For Example:**
+
+Checks if Subject has permission to manage users. If true, then shows the link.
 
 ```html
 <html>
@@ -160,6 +199,6 @@ aah provides following templates/view function for authorization. You have more 
 ```
 
 ----
-## Acknowledgement
+## Attribution
 
-This page documentation includes content from [Shiro security library](https://shiro.apache.org).
+This documentation includes content from [Shiro security library](https://shiro.apache.org).

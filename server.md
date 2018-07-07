@@ -17,6 +17,8 @@ Learn [Server Config](app-config.html#section-server), [Server Extension](server
   * [TLS Config](#tls-config)
       - [How to?](#how-to)
       - [Example: Hardening SSL Ciphers](#example-hardening-ssl-ciphers)
+  * [HTTP => HTTPS Redirect](app-config.html#section-server-ssl-redirect-http)
+  * [WWW => Non-WWW and Vice versa](app-config.html#section-server-redirect)
 
 ## HTTP
 
