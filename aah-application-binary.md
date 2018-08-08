@@ -36,7 +36,7 @@ Application binary supports following input flags.
 
 ## Start
 
-<span class="badge lb-sm">Since v0.11.0</span> No intermediate script to start, stop, etc.
+<span class="badge lb-sm">Since v0.11.0</span> [No intermediate script](/v0.10/anatomy-aah-application.html#packaged-aah-application-will-have-following-directories-files) to start, stop, etc.
 
 To start aah application, simply use the binary input flags.
 
