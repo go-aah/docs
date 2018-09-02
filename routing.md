@@ -6,9 +6,13 @@ Keywords: routing url, routing algorithm, routing, request routing
 
 aah supports domains and subdomains seamlessly. It provides route URL lookup by route name effectively.
 
-The router is optimized for high performance and a small memory footprint. It scales well with very long paths and a large number of routes. Radix tree structure is used for efficient matching.
+The router is optimized for high performance and very tiny bit allocation. It scales well with very long paths and a large number of routes. Radix tree structure is used for efficient matching.
 
-aah internally uses customized version of [httprouter](https://github.com/julienschmidt/httprouter), developed by [@julienschmidt](https://github.com/julienschmidt).
+<div class="alert alert-info-green">
+<p>Since <code>v0.12.0</code> release, aah implements own radix tree algorithm. One of the notable feature it brings is "static path segment and parameter path segment can co-exists". Static takes priority over parameter path segment. For e.g.: <code>/en/:version</code> and <code>/en/examples.html</code>.</p>
+</div>
+
+Before `v0.12.0`, aah was using customized version of [httprouter](https://github.com/julienschmidt/httprouter), developed by [@julienschmidt](https://github.com/julienschmidt).
 
 ### Table of Contents
 
@@ -24,7 +28,6 @@ aah internally uses customized version of [httprouter](https://github.com/julien
   * **Only explicit matches** - a request can only match exactly one or no route. As a result, there are also no unintended matches, which makes it great for SEO and improves the user experience.
   * **Stop caring about trailing slashes** - Choose the URL style you like, the router automatically redirects the client if a trailing slash is missing or if there is one extra. Of course, it does only if the new path has a controller action. Behavior could be disabled at domain level using `redirect_trailing_slash = false` in the [routes config](routes-config.html).
   * **Path auto-correction** - Besides detecting the missing or additional trailing slash at no extra cost, the router can also fix wrong cases and remove superfluous path elements (like `../` or `//`). Is [CAPTAIN CAPS LOCK](http://www.urbandictionary.com/define.php?term=Captain+Caps+Lock) one of your users? Router can help user by making a case-insensitive look-up and by redirecting to the correct URL.
-  * **Zero Garbage** - The matching and dispatching process generates zero bytes of garbage. In fact, the only heap allocations that are made, is by building the slice of the key-value pairs for path parameters. If the request path contains no parameters, not even a single heap allocation is necessary.
 
 ## Route Definitions
 
