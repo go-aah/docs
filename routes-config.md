@@ -13,6 +13,7 @@ Learn [configuration syntax](configuration.html).
   * [Domain Configuration](#domain-configuration) - `domain_key_name { ... }`
   * [Static Routes Configuration](static-files.html) - `static { ... }`
   * [Routes Configuration](#routes-configuration) - `routes { ... }`
+  * [Catch-All Route Configuration]()
   * [Samples of Nested Routes (aka Group Routes, Namespace)](#samples-of-nested-routes)
       - [Tips for nested Routes](#tips-for-nested-routes)
       - [Demo](#demo)
@@ -195,6 +196,23 @@ routes {
   }
 
   # and so on ..
+}
+```
+
+## Catch-All Route Configuration
+
+<span class="badge lb-sm">Since v0.12.0</span> Catch-all route support introduced at domain level as an Opt-In feature, its disabled by default. 
+
+  * If Catch-all route is not defined then existing flow applies (i.e. 404 route not found)
+  * Define section `catch_all { ... }` at domain level config in `routes.conf`
+  * All the [route configuration attributes](#routes-configuration) are supported. If `path` and `method` value provided in the catch-all section then its ignored, since those value is defaults to `*`
+
+**Example**
+
+```bash
+catch_all {
+  controller = "CatchAllController"
+  action = "Handle"
 }
 ```
 
