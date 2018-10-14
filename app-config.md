@@ -4,7 +4,7 @@ Keywords: app config, application configuration, aah.conf, HOCON, configuration,
 ---
 # Application Configuration
 
-aah configuration syntax and structure is easy and flexible. It is very much similar to HOCON syntax. Learn more about [configuration syntax](configuration.html).
+aah configuration syntax and structure is easy and flexible. It is very much similar to HOCON syntax. Learn more about [configuration syntax](configuration.md).
 
 aah supports the concept of profile that helps easily organize the configurations across different environments that are defined by profile.
 
