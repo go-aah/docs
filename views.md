@@ -108,7 +108,7 @@ aah provides following ways to add value into `ViewArgs`, templates are render w
     * For e.g.: adding view arg via middleware or in the controller.
   * Via `Reply().HTML*` methods as a `aah.Data{ ... }` param.
 
-aah provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` on view template via template function.
+aah provides access to `aah.App().Config()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` on view template via template function.
 
 ## Adding User-Defined View Engine into aah
 
@@ -133,7 +133,7 @@ type Enginer interface {
 ```go
 func init()  {
   if err := aah.AddViewEngine("enginename", &MyViewEngine{}); err != nil {
-    aah.AppLog().Error(err)
+    aah.App().Log().Error(err)
   }
 }
 ```

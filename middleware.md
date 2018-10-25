@@ -44,11 +44,11 @@ func myCustomMiddleware2(ctx *Context, m *Middleware) {
 // Adding a Middleware into aah
 func init() {
   // executed in the order of middleware added
-  aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
+  aah.App().HTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
 
   // OR
   aah.OnStart(func(e *aah.Event) {
-    aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
+    aah.App().HTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
   })
 }
 ```
@@ -100,5 +100,5 @@ func printURL(w http.ResponseWriter, r *http.Request) {
   fmt.Println("URL:", r.URL.Path)
 }
 
-aah.AppHTTPEngine().Middlewares(aah.ToMiddleware(printURL))
+aah.App().HTTPEngine().Middlewares(aah.ToMiddleware(printURL))
 ```

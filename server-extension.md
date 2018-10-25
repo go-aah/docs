@@ -30,7 +30,7 @@ Application extension points by default, a given function is executed as an adde
 
 ## Event: OnInit
 
-Event `OnInit` is published once the `aah.AppConfig()` is loaded. At this stage, only `aah.conf` config is initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
+Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `aah.conf` config is initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
 
 **Supports Multiple:** Yes
 
@@ -45,7 +45,7 @@ func init() {
 // Or define a func and supply it [recommended approach, name gets logged in log]
 func loadUserConfig(e *aah.Event)  {
   // loading user config from /etc/myapp/myapp.conf
-  // merge it to aah.AppConfig().Merge(...)
+  // merge it to aah.App().Config().Merge(...)
 }
 
 func init() {
@@ -86,7 +86,7 @@ func init() {
 
 ## Event: OnPreShutdown
 
-Event `OnPreShutdown` is published when application receives OS Signals `SIGINT` or `SIGTERM` and before the triggering graceful shutdown. After this event, aah triggers graceful shutdown with config value of `server.timeout.grace_shutdown`.
+<span class="badge lb-sm">Since v0.11.0</span> Event `OnPreShutdown` is published when application receives OS Signals `SIGINT` or `SIGTERM` and before the triggering graceful shutdown. After this event, aah triggers graceful shutdown with config value of `server.timeout.grace_shutdown`.
 
 **Supports Multiple:** Yes
 
@@ -148,7 +148,7 @@ Event `OnRequest` is published on each incoming request to the aah server.
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnRequest(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnRequest(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic comes here
@@ -162,7 +162,7 @@ func init() {
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPreAuth(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPreAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic comes here
@@ -176,7 +176,7 @@ func init() {
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPostAuth(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPostAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic comes here
@@ -194,7 +194,7 @@ Event `OnPreReply` is published just before writing a reply/response on the wire
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPreReply(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPreReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic comes here
@@ -212,7 +212,7 @@ func init() {
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnHeaderReply(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnHeaderReply(func(e *aah.Event)  {
     hdr := e.Data.(http.Header)
 
     // Header instance is the direct reference to http.ResponseWritter
@@ -233,7 +233,7 @@ Event `OnPostReply` is published right after the response gets written on the wi
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPostReply(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPostReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
     // logic comes here

@@ -25,7 +25,7 @@ aah initializes the application default logger based on configured values from `
 Simply use Log methods -
 
   * `ctx.Log()` - available on Controller : it log entry with context information such as `appname`, `insname`, `reqid`, `principal`.
-  * `aah.AppLog()` - application logger : use it for non request scenario's.
+  * `aah.App().Log()` - application logger : use it for non request scenario's.
 
 ```go
 func (a *AppController) MyAction(id string, info *models.MyModel) {
@@ -56,7 +56,7 @@ Refer [Log Configuration#Pattern](log-config.html#pattern)
 <span class="badge lb-sm">Since v0.9</span> context, fields and child logger is supported.
 
   * **Context:** You could create logger with context information via `log.Fields` values. Those values gets logged with every log entry.
-      * `aah.AppLog()` - creates log entry with application name and application instance name
+      * `aah.App().Log()` - creates log entry with application name and application instance name
       * `ctx.Log()` - incoming request creates log entry with `request id`, `user principal` plus application context information such as `app name` and `app instance name`
   * **Fields:** `WithFields` and `WithField` is used to log fields and values with current log entry.
   * **Child Logger:** You can create child logger from existing aah logger instance. Upon creation it inherits parent logger context values once.

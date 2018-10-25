@@ -8,7 +8,7 @@ aah introduced the Virtual FileSystem (VFS) feature in <span class="badge lb-sm"
 
   * In-memory FileSystem
   * Ability to `mount` FileSystem directory into virtual directory
-  * The `mounted` virtual directory is accessible via `aah.AppVFS()` within aah application
+  * The `mounted` virtual directory is accessible via `aah.App().VFS()` within aah application
   * A single consistent APIs for accessing Virtual and Physical FileSystem
 
 ### Table of Contents
@@ -24,7 +24,7 @@ aah introduced the Virtual FileSystem (VFS) feature in <span class="badge lb-sm"
 The signatures are the same as the standard Go filesystem APIs (package `os`, `filepath` and `ioutil`).
 
 ```go
-// FileSystem methods => aah.AppVFS()
+// FileSystem methods => aah.App().VFS()
 Open(name string) (File, error)
 Lstat(name string) (os.FileInfo, error)
 Stat(name string) (os.FileInfo, error)
@@ -35,13 +35,13 @@ Walk(root string, walkFn filepath.WalkFunc) error
 FindMount(name string) (*Mount, error)
 AddMount(mountPath, physicalPath string) error
 
-// FileSystem convenient methods => aah.AppVFS()
+// FileSystem convenient methods => aah.App().VFS()
 Dirs(root string) ([]string, error)
 Files(root string) ([]string, error)
 IsExists(name string) bool
 ```
 
-**File Interface returned by `aah.AppVFS().Open()`**
+**File Interface returned by `aah.App().VFS().Open()`**
 
 ```go
 // File interface returned by a vfs.FileSystem's Open method.
@@ -74,8 +74,8 @@ type Gziper interface {
   * By default, aah mounts the application base directory as `/app`.
   * Application base directory and its sub-directories are accessible via `/app/**`
     - For e.g.: accessing `/app/config/aah.conf`
-      - `aah.AppVFS().Open(path.Join(aah.AppVirtualBaseDir(), "config", "aah.conf"))`
-  * All the mounted directories are accessible via `aah.AppVFS()`.
+      - `aah.App().VFS().Open(path.Join(aah.App().VirtualBaseDir(), "config", "aah.conf"))`
+  * All the mounted directories are accessible via `aah.App().VFS()`.
 
 ## For Single Binary
 

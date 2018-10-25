@@ -61,7 +61,7 @@ func init()  {
 
 The TLS config can be added by using either of the following two ways-
 
-  * `aah.OnInit` event - This way is better since `aah.AppConfig()` values are readily accessible.
+  * `aah.OnInit` event - This way is better since `aah.App().Config()` values are readily accessible.
   * `func init()`
 
 ```go
@@ -69,7 +69,7 @@ The TLS config can be added by using either of the following two ways-
 func init() {
   // Using `aah.OnInit` event
   aah.OnInit(func(e *aah.Event) {
-    // `aah.AppConfig()` values are readily accessible
+    // `aah.App().Config()` values are readily accessible
 
     aah.SetTLSConfig(&tls.Config{
       // configure TLS
@@ -91,7 +91,7 @@ func init() {
 // On file <app-base-dir>/app/init.go
 func init() {
   aah.OnInit(func(e *aah.Event) {
-    // `aah.AppConfig()` values are readily accessible
+    // `aah.App().Config()` values are readily accessible
 
     // Customizing a TLS config
     tlsCfg := &tls.Config{

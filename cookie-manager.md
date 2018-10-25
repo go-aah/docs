@@ -31,8 +31,8 @@ opts := &cookie.Options{
 }
 
 // Get sign and encryption keys from configuration
-signKey := aah.AppConfig().StringDefault("myapp.mysecure.cookie.key.sign", ess.SecureRandomString(32))
-encKey := aah.AppConfig().StringDefault("myapp.mysecure.cookie.key.enc", ess.SecureRandomString(64))
+signKey := aah.App().Config().StringDefault("myapp.mysecure.cookie.key.sign", ess.SecureRandomString(32))
+encKey := aah.App().Config().StringDefault("myapp.mysecure.cookie.key.enc", ess.SecureRandomString(64))
 
 // Creating a secure cookie manager
 cookieMgr := cookie.NewManager(opts, signKey, encKey)

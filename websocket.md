@@ -85,7 +85,7 @@ aah support custom ID generation for each WebSocket connection. By default aah c
 type IDGenerator func(ctx *Context) string
 
 // Setting ID generator via
-aah.AppWSEngine().SetIDGenerator(MyCustomIDGenerator)
+aah.App().WSEngine().SetIDGenerator(MyCustomIDGenerator)
 ```
 
 ## Adding Route
@@ -157,7 +157,7 @@ func(eventName string, ctx *ws.Context)
 //
 // Subscribing WebSocket events on app start.
 func SubscribeWebSocketEvents(_ *aah.Event) {
-  wse := aah.AppWSEngine()
+  wse := aah.App().WSEngine()
 
   // Custom ID Generator
   wse.SetIDGenerator(websockets.MyCustomIDGenerator)

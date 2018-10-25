@@ -16,7 +16,7 @@ By default Go lang provides set of [template functions](https://golang.org/pkg/t
 
 Function  | Description | Example
 ----------- | ----------- | --------
-config | Accessing application configuration from `aah.AppConfig()` | `{{ config "format.datetime" }}`
+config | Accessing application configuration from `aah.App().Config()` | `{{ config "format.datetime" }}`
 i18n | Access internationalization and localization message from view templates | `{{ i18n . "label.pages.title.aboutus" }}`
 pparam | Access Path parameter values | `{{ pparam . "userId" }}`
 fparam | Access Form parameter values | `{{ fparam . "email" }}`
