@@ -66,7 +66,6 @@ func init()  {
   // unless `priority` is specified.
   aah.App().OnConfigHotReload(performActionAfterHotReload)
 }
-
 ```
 
 ## Sample Application Log

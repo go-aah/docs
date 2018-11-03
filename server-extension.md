@@ -15,6 +15,7 @@ aah server events are executed synchronously. Reference to [Event Emitter/Publis
       - [OnStart](#event-onstart)
       - [OnPreShutdown](#event-onpreshutdown)
       - [OnPostShutdown](#event-onpostshutdown)
+      - [OnConfigHotReload](/configuration-hot-reload.html#event-onconfighotreload)
   * [HTTP Engine Extension Points](#http-engine-extension-points)
       - [OnRequest](#event-onrequest)
       - [OnPreAuth](#event-onpreauth)
@@ -30,7 +31,7 @@ Application extension points by default, a given function is executed as an adde
 
 ## Event: OnInit
 
-Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `config/**/*.conf` files and external config file if supplied are initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
+Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `config/aah.conf` and external config file supplied via arg `--config` are initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
 
 **Supports Multiple:** Yes
 
