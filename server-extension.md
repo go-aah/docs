@@ -30,15 +30,15 @@ Application extension points by default, a given function is executed as an adde
 
 ## Event: OnInit
 
-Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `aah.conf` config is initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
+Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `config/**/*.conf` files and external config file if supplied are initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
 
 **Supports Multiple:** Yes
 
 ```go
 // As an anonymous func
 func init() {
-  aah.OnInit(func(e *Event) {
-		// logic comes here
+  aah.App().OnInit(func(e *aah.Event) {
+		// logic here
 	})
 }
 
@@ -49,10 +49,10 @@ func loadUserConfig(e *aah.Event)  {
 }
 
 func init() {
-  aah.OnInit(loadUserConfig)
+  aah.App().OnInit(loadUserConfig)
 
   // OR
-  aah.OnInit(loadUserConfig, 10) // with priority
+  aah.App().OnInit(loadUserConfig, 10) // with priority
 }
 ```
 
@@ -64,23 +64,25 @@ Event `OnStart` is published just before the start of `aah Server`. The applicat
 
 ```go
 func connectDatabase(e *aah.Event)  {
-  // logic comes here
+  // logic here
 }
 
 func connectRedis(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func refreshCache(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func init() {
-  // By default, a given function is executed as an added sequence
+  // By default, a given function is executed as added sequence
   // unless `priority` is specified.
-  aah.OnStart(connectDatabase)
-  aah.OnStart(refreshCache, 3) // with priority
-  aah.OnStart(connectRedis, 2) // with priority
+  app := aah.App()
+
+  app.OnStart(connectDatabase)
+  app.OnStart(refreshCache, 3) // with priority
+  app.OnStart(connectRedis, 2) // with priority
 }
 ```
 
@@ -91,16 +93,15 @@ func init() {
 **Supports Multiple:** Yes
 
 ```go
-func announceImGonnaShutdown()  {
+func announceImGonnaShutdown(e *aah.Event)  {
   // announce it
 }
 
 func init()  {
-  // By default, a given function is executed as an added sequence
+  // By default, a given function is executed as added sequence
   // unless `priority` is specified.
-  aah.OnPreShutdown(announceImGonnaShutdown)
+  aah.App().OnPreShutdown(announceImGonnaShutdown)
 }
-
 ```
 
 ## Event: OnPostShutdown
@@ -111,23 +112,25 @@ Event `OnPostShutdown` is published just after the successful grace shutdown of 
 
 ```go
 func disconnectDatabase(e *aah.Event)  {
-  // logic comes here
+  // logic here
 }
 
 func disconnectRedis(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func flushCache(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func init() {
-  // By default, a given function is executed as an added sequence
+  // By default, a given function is executed as added sequence
   // unless `priority` is specified.
-  aah.OnPostShutdown(flushCache)
-  aah.OnPostShutdown(disconnectDatabase)
-  aah.OnPostShutdown(disconnectRedis)
+  app := aah.App()
+
+  app.OnPostShutdown(flushCache)
+  app.OnPostShutdown(disconnectDatabase)
+  app.OnPostShutdown(disconnectRedis)
 }
 ```
 
@@ -151,7 +154,7 @@ func init() {
   aah.App().HTTPEngine().OnRequest(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
@@ -165,7 +168,7 @@ func init() {
   aah.App().HTTPEngine().OnPreAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
@@ -179,7 +182,7 @@ func init() {
   aah.App().HTTPEngine().OnPostAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
@@ -197,7 +200,7 @@ func init() {
   aah.App().HTTPEngine().OnPreReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
@@ -218,7 +221,7 @@ func init() {
     // Header instance is the direct reference to http.ResponseWritter
   	// Any changes reflect immediately :)
   	//
-  	// logic comes here
+  	// logic here
   })
 }
 ```
@@ -236,7 +239,7 @@ func init() {
   aah.App().HTTPEngine().OnPostReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```

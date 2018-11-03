@@ -9,7 +9,7 @@ aah supports domains and subdomains seamlessly. It provides route URL lookup by 
 The router is optimized for high performance and very tiny bit allocation. It scales well with very long paths and a large number of routes. Radix tree structure is used for efficient matching.
 
 <div class="alert alert-info-green">
-<p>Since <code>v0.12.0</code> release, aah implements own radix tree algorithm. One of the notable feature it brings is "static path segment and parameter path segment can co-exists". Static takes priority over parameter path segment. For e.g.: <code>/en/:version</code> and <code>/en/examples.html</code>.</p>
+<p>Since <code>v0.12.0</code> release, aah implements own radix tree algorithm. One of the notable feature it brings is "static path segment and parameter path segment can co-exists"<sup class="new-sup">new</sup>. Static takes priority over parameter path segment. For e.g.: <code>/en/:version</code> and <code>/en/examples.html</code>.</p>
 </div>
 
 Before `v0.12.0`, aah was using customized version of [httprouter](https://github.com/julienschmidt/httprouter), developed by [@julienschmidt](https://github.com/julienschmidt).
