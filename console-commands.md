@@ -73,14 +73,14 @@ var Sample = console.Command{
 	Name:    "sample",
 	Aliases: []string{"s"},
 	Usage:   "This is sample user-defined command for aah application",
-	Description: `This long multi-line description about sample command
+	Description: `This is long multi-line description about sample command
 
   Example:
     <app-binary> sample --message "hello sample command"
   `,
 	Flags: []console.Flag{
 		console.StringFlag{
-			Name:  "message, m", // long and short name
+			Name:  "message, m", // long and short flag name
 			Usage: "Greeting message to sample command",
 		},
 	},
@@ -102,10 +102,10 @@ var Sample = console.Command{
 	Name:    "sample",
 	Aliases: []string{"s"},
 	Usage:   "This is sample user-defined command for aah application",
-	Description: `This long multi-line description about sample command
+	Description: `This is long multi-line description about sample command
 
   Example:
-    <app-binary> sample --message "hello sample command"
+    <app-binary> sample <sub-command>
   `,
 	Subcommands: []console.Command{
 		{
@@ -114,12 +114,13 @@ var Sample = console.Command{
 			Usage:   "This is greet sub command for sample command",
 			Description: `This long multi-line description about greet sub-command.
 		
-		  Example:
-			<app-binary> sample greet --message "hello greet sub-command"
+      Example:
+        <app-binary> s g -m "hello greet sub-command"
+			  <app-binary> sample greet --message "hello greet sub-command"
 		  `,
 			Flags: []console.Flag{
 				console.StringFlag{
-					Name:  "message, m", // long and short name
+					Name:  "message, m", // long and short flag name
 					Usage: "Greeting message",
 				},
 			},
