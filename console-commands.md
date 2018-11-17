@@ -14,6 +14,7 @@ This document provides the insight into aah Console module  `aahframe.work/conso
   * [Creating Sub-Commands](#creating-sub-commands)
   * [Adding User-Defined Command](#adding-user-defined-commands)
   * [Customizing `version` and `help` Flag Description](#customizing-version-and-help-flag-description)
+  * [Running console command using aah CLI](#running-console-command-using-aah-cli)
 
 ## Overview
 
@@ -160,4 +161,18 @@ func init() {
 // Global Options:
 //   --help, -h     your custom help flag description
 //   --version, -v  your custom version flag description
+```
+
+## Running console command using aah CLI
+
+Typically aah user could run console command by building aah application and executing application binary.
+
+It just aah CLI provides handy command that does it for you.
+
+```bash
+# Syntax
+aah runcmd <command> <arguments>
+
+# Example of running command `vfs`
+aah runcmd vfs find --pattern "conf$"
 ```
