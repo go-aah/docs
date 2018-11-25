@@ -6,7 +6,7 @@ Keywords: anti-csrf, csrf protection, anti-xsrf, xsrf protection, csrf
 
 <span class="badge lb-sm">Since v0.9</span> aah provides automatic Anti-CSRF (Cross Site Request Forgery protection) for the aah web application. CSRF attack occurs when a malicious website contains a link, a form button or some JavaScript that is intended to perform some action on your website. CSRF uses the credentials of a logged-in user who visits the malicious site in their browser. A related type of attack, `login CSRF`, where an attacking site tricks user browser to log into a site with someone else's credentials, is also covered.
 
-The first defense against CSRF attack is to ensure that GET requests (and other `safe` methods, as defined by [RFC 7231, 4.2.1](https://tools.ietf.org/html/rfc7231.html#section-4.2.1)) are side effect free. Requests via `unsafe` methods, such as POST, PUT, and DELETE on HTML forms are automatically protected.
+The first defense against CSRF attack is to ensure that GET requests (and other `safe` methods, as defined by [RFC 7231, 4.2.1](https://tools.ietf.org/html/rfc7231.html#section-4.2.1)) are side effect free. Requests via `unsafe` methods, such as POST, PUT, and DELETE on **HTML forms are automatically protected**.
 
 ### Table of Contents
 
@@ -78,7 +78,7 @@ anti_csrf {
 
 ## How to use it?
 
-aah automatically protects all the HTML forms on the page. Anti-CSRF is enabled by default for web applications. Explicit action is required for Web forms.
+aah **automatically protects all the HTML forms** on the page. Anti-CSRF is enabled by default for web applications. Explicit action is required for Web forms.
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong>
@@ -146,7 +146,7 @@ The Anti-CSRF is based on the following things:
       - This also addresses a man-in-the-middle attack that's possible under HTTPS when using a session independent secret, due to the fact that HTTP `Set-Cookie` headers are (unfortunately) accepted by clients even when they are talking to a site under HTTPS. (Referer checking is not done for HTTP requests because the presence of the Referer header isn't reliable enough under HTTP.)
       - **`Upcoming`** Compare referer against configured domain. This setting supports subdomains. For example, `security.anti_csrf = ".example.com"` will allow POST requests from www.example.com and api.example.com. If the setting is not set, then the referer must match the HTTP Host header.
 
-      - **`Upcoming`** Expanding the accepted referers beyond the current host or cookie domain can be done with the `security.anti_csrf.trusted_origins = ["domain1.com", "domain2.com"]` setting.
+      - **`Upcoming`** Expanding the accepted referrers beyond the current host or cookie domain can be done with the `security.anti_csrf.trusted_origins = ["domain1.com", "domain2.com"]` setting.
 
 It deliberately ignores GET requests (and other requests that are defined as `safe` by [RFC 7231](https://tools.ietf.org/html/rfc7231.html)). These requests ought never to have any potentially dangerous side effects, and so a CSRF attack with a GET request ought to be harmless. RFC 7231 defines POST, PUT, and DELETE as `unsafe`, and all other methods are also assumed to be unsafe, for maximum protection.
 

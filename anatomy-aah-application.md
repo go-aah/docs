@@ -25,6 +25,7 @@ build                 ⇒ Application build directory
 ```conf
 app                   ⇒ Application Go source codes directory
   └ controllers       ⇒ Application controllers
+  └ websockets        ⇒ Application websockets
   └ models            ⇒ Application business layer
   └ security          ⇒ Application security implementation
   └ aah.go            ⇒ aah application main entry point (generated code)
@@ -42,18 +43,20 @@ i18n                  ⇒ Internationalization and Localization message files di
   └ messages.en-CA    ⇒ Message file
 views                 ⇒ View Template files directory - not created for API
   └ common            ⇒ Common view template files, it can be imported to any page template
+  └ errors            ⇒ Application error pages such as 500.html, 404.html, etc.
   └ layouts           ⇒ Application view layout files, master template for page template
   └ pages             ⇒ Page template files, corresponding template for controller action
 static                ⇒ Static public assets directory - not created for API
   └ css               ⇒ CSS files
   └ js                ⇒ Javascript files
   └ img               ⇒ Image files
+  └ robots.txt        ⇒ Search engine index allow, disallow definitions
 logs                  ⇒ Logs directory (default is console on 'dev' profile)
   └ app-name.log      ⇒ Application log file
 tests                 ⇒ Go test source directory (upcoming), use Go standard way for unit tests
 build                 ⇒ Application build directory
 .gitignore            ⇒ Typical Go .gitignore file and aah project ignore files
-aah.project           ⇒ aah project configuration; build config, hot-reload, etc.
+aah.project           ⇒ aah project configuration such as build config, hot-reload, vfs, etc.
 app-name.pid          ⇒ Application PID file (created on every app startup)
 ```
 
@@ -126,4 +129,4 @@ The `tests` directory is for application functional tests (`upcoming`). Use Go c
 
 The `.gitignore` file includes standard Go language ignores from Github and additionally aah ignores:
 
-  * `aah.go`, `*.pid`, `build/*`
+  * `aah.go`, `aah_*_vfs.go`, `*.pid`, `app/generated`, `build/`, `vendor/*/`

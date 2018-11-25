@@ -10,6 +10,7 @@ Keywords: controller, request, response, reply, view arg, cookies, extending con
 
   * [How to create a Controller?](#how-to-create-a-controller-in-aah)
   * [How to create a Nested Controller?](#how-to-create-a-nested-controller)
+  * [How to create a Controller Action?]()
   * [Controller provides access to](#controller-provides-access-to)
 
 ## How to create a Controller?
@@ -43,6 +44,10 @@ type UserController struct {
   AppController
 }
 ```
+
+## How to create a Controller Action?
+
+
 
 ## Controller provides access to
 

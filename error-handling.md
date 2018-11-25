@@ -8,8 +8,8 @@ aah is versatile and seamless about handling errors. It is made for modern Web a
 
 The propagation order is listed below -
 
-  * Controller level error handler <span class="badge lb-xs">Since v0.10</span>
-  * Centralized error handler <span class="badge lb-xs">Since v0.8</span>
+  * Controller level error handler <span class="badge lb-xs">Since v0.10.0</span>
+  * Centralized error handler <span class="badge lb-xs">Since v0.8.0</span>
   * Default error handler
 
 Benefits of aah error handling:
@@ -18,10 +18,10 @@ Benefits of aah error handling:
   * Achieve application level error handling
   * Send custom HTTP code with various response types after handling errors
   * Filter appropriate errors and send notification emails, slacks, etc in response.
-  * Log error informations and send messages to external systems such as Kibana, Prometheus, Splunk, Sentry and Airbrake.
+  * Log error informations and send messages to external systems such as Kibana, Prometheus, Splunk, Sentry, Airbrake, etc.
 
 <div class="alert alert-info-green">
-<p><strong>Tip:</strong> Easy to handle errors at each level. It is also amenable to propagate further if needed.</p>
+<p><strong>Tip:</strong> Easy to handle errors at each controller level. If needed, it is also feasiable to propagate errors further after handling.</p>
 </div>
 
 ### Table of Contents
@@ -37,7 +37,7 @@ Benefits of aah error handling:
 
 Let us take a look at aah error object structure and aah errors.
 
-#### `aah.Error` Struct
+### `aah.Error` Struct
 
 ```go
 // Error structure is used to represent the error information in aah framework.
@@ -48,9 +48,8 @@ type Error struct {
   Data    interface{} `json:"data,omitempty" xml:"data,omitempty"`
 }
 ```
-<br>
 
-#### aah errors
+### aah errors
 
 For framework generated errors, field `Reason` holds an appropriate text from any one of these common errors.
 
@@ -99,7 +98,7 @@ type ErrorHandler interface {
 
 ## Registering Centralized Error Handler
 
-Implement error func `aah.ErrorHandlerFunc` in a suitable package and register via [`init.go`](/init.go-file.html) file.
+Implement error func `aah.ErrorHandlerFunc` in an appropriate package and register via [`init.go`](/init.go-file.html) file.
 
 ```go
 // ErrorHandlerFunc is a function type. It is used to define a centralized error handler
@@ -112,10 +111,10 @@ Implement error func `aah.ErrorHandlerFunc` in a suitable package and register v
 type ErrorHandlerFunc func(ctx *Context, err *Error) bool
 ```
 
-All application errors can be handled via this function- handle by `Request Host`, `Error Code`, etc; then it replies appropriate error(s).
+All application errors can be handled via this function- handle by `Request Host`, `Error Code`, etc; then reply appropriate error(s).
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> If it is an application <code>panic</code>, then field <code>aah.Error.Data</code> holds the recovered value from panic.</p>
+<p><strong>Note:</strong> If it is application <code>panic</code>, then field <code>aah.Error.Data</code> holds the recovered value from panic.</p>
 </div>
 
 ### For Illustration Purposes
@@ -160,7 +159,7 @@ func AppErrorHandler(ctx *aah.Context, err *aah.Error) bool {
 
 // Register App Error Handler at `init.go` file
 func init()  {
-  aah.SetErrorHandler(util.AppErrorHandler)
+  aah.App().SetErrorHandler(util.AppErrorHandler)
 }
 ```
 
@@ -176,94 +175,126 @@ The default error handler looks for the error view file `views/errors/<http-stat
       - See `views/errors/500.html` and `views/errors/404.html` for examples
   * If not found, then it uses framework default HTML error template.
 
-<span class="badge lb-sm">Since v0.8</span> `aah new` command generates the web application with two error files (500.html, 404.html) under `views/errors`.
+<span class="badge lb-sm">Since v0.8.0</span> `aah new` command generates the web application with two error files (500.html, 404.html) under `views/errors`.
 
 ## Reply().Error(err)
 
 `Reply().Error()` reply gets processed by Controller level, Centralized Error Handler then the reply is written on the wire.
 
-It is highly recommended to use method `Error()` for all application error responses.
+<div class="alert alert-info-green">
+<p><strong>Tip:</strong> It is highly recommended to use method <code>Reply().Error()</code> for all application error responses. So that aah user could have extensible workflow of dealing application errors.</p>
+</div>
 
 ## Sample: Easy to read error stacktrace
 
 ```cfg
-2018-03-10 15:35:51.111 ERROR aahwebsite sfo-aahweb-01 STACKTRACE:
+2018-11-23 23:41:55.255 ERROR THUMBAI admin STACKTRACE:
 This is test panic message
 
-goroutine 148 [running]:
-    FILE                                                                    FUNCTION                                        LINE NO
+goroutine 58 [running]:
+    FILE                                                                  FUNCTION                                          LINE NO
     -------------------------------------------------------------------------------------------------------------------------------
-    /usr/local/opt/go@1.8/libexec/src/runtime/panic.go                      panic(...)                                      #489
-    /Users/jeeva/go/src/github.com/go-aah/website/app/controllers/doc.go    controllers.(*DocController).VersionHome(...)   #73
-    /usr/local/opt/go@1.8/libexec/src/reflect/value.go                      reflect.Value.call(...)                         #434
-    /usr/local/opt/go@1.8/libexec/src/reflect/value.go                      reflect.Value.Call(...)                         #302
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.invokeAction()                           #195
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.ActionMiddleware(...)                    #143
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    /Users/jeeva/go/src/aahframework.org/aah.v0/security.go                 aah.v0.AuthcAuthzMiddleware(...)                #96
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    /Users/jeeva/go/src/aahframework.org/aah.v0/security.go                 aah.v0.AntiCSRFMiddleware(...)                  #251
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    /Users/jeeva/go/src/aahframework.org/aah.v0/bind.go                     aah.v0.BindMiddleware(...)                      #121
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    /Users/jeeva/go/src/aahframework.org/aah.v0/router.go                   aah.v0.CORSMiddleware(...)                      #284
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    /Users/jeeva/go/src/aahframework.org/aah.v0/router.go                   aah.v0.RouteMiddleware(...)                     #39
-    /Users/jeeva/go/src/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    /Users/jeeva/go/src/aahframework.org/aah.v0/engine.go                   aah.v0.(*engine).ServeHTTP(...)                 #95
-    /usr/local/opt/go@1.8/libexec/src/net/http/server.go                    http.serverHandler.ServeHTTP(...)               #2568
-    /usr/local/opt/go@1.8/libexec/src/net/http/server.go                    http.(*conn).serve(...)                         #1825
-    /usr/local/opt/go@1.8/libexec/src/net/http/server.go                    http.(*Server).Serve                            #2668
+    /usr/local/Cellar/go/1.11.1/libexec/src/runtime/panic.go              panic(...)                                        #513
+    /Users/jeeva/scm/thumbai/app/controllers/admin/proxy_controller.go    admin.(*ProxyController).List()                   #39
+    /usr/local/Cellar/go/1.11.1/libexec/src/reflect/value.go              reflect.Value.call(...)                           #447
+    /usr/local/Cellar/go/1.11.1/libexec/src/reflect/value.go              reflect.Value.Call(...)                           #308
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/middleware.go           aahframe.work.ActionMiddleware(...)               #194
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/middleware.go           aahframe.work.(*Middleware).Next(...)             #78
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/security.go             aahframe.work.AuthcAuthzMiddleware(...)           #72
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/middleware.go           aahframe.work.(*Middleware).Next(...)             #78
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/security.go             aahframe.work.AntiCSRFMiddleware(...)             #318
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/middleware.go           aahframe.work.(*Middleware).Next(...)             #78
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/bind.go                 aahframe.work.BindMiddleware(...)                 #95
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/middleware.go           aahframe.work.(*Middleware).Next(...)             #78
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/router.go               aahframe.work.RouteMiddleware(...)                #29
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/middleware.go           aahframe.work.(*Middleware).Next(...)             #78
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/http_engine.go          aahframe.work.(*HTTPEngine).Handle(...)           #113
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/aah.go                  aahframe.work.(*Application).ServeHTTP(...)       #769
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go            http.serverHandler.ServeHTTP(...)                 #2741
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go            http.(*conn).serve(...)                           #1847
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go            http.(*Server).Serve                              #2851
 
-goroutine 1 [chan receive]:
-    FILE                                                        FUNCTION      LINE NO
-    ---------------------------------------------------------------------------------
-    /Users/jeeva/go/src/github.com/go-aah/website/app/aah.go    main.main()   #169
+goroutine 5 [syscall]:
+    FILE                                                                FUNCTION               LINE NO
+    --------------------------------------------------------------------------------------------------
+    /usr/local/Cellar/go/1.11.1/libexec/src/runtime/sigqueue.go         signal.signal_recv()   #139
+    /usr/local/Cellar/go/1.11.1/libexec/src/os/signal/signal_unix.go    signal.loop()          #23
+    /usr/local/Cellar/go/1.11.1/libexec/src/os/signal/signal_unix.go    signal.init.0          #29
 
-goroutine 17 [syscall, locked to thread]:
-    FILE                                                     FUNCTION           LINE NO
-    -----------------------------------------------------------------------------------
-    /usr/local/opt/go@1.8/libexec/src/runtime/asm_amd64.s    runtime.goexit()   #2197
+goroutine 135 [IO wait]:
+    FILE                                                                        FUNCTION                                                  LINE NO
+    ---------------------------------------------------------------------------------------------------------------------------------------------
+    /usr/local/Cellar/go/1.11.1/libexec/src/runtime/netpoll.go                  poll.runtime_pollWait(...)                                #173
+    /usr/local/Cellar/go/1.11.1/libexec/src/internal/poll/fd_poll_runtime.go    poll.(*pollDesc).wait(...)                                #85
+    /usr/local/Cellar/go/1.11.1/libexec/src/internal/poll/fd_poll_runtime.go    poll.(*pollDesc).waitRead(...)                            #90
+    /usr/local/Cellar/go/1.11.1/libexec/src/internal/poll/fd_unix.go            poll.(*FD).Accept(...)                                    #384
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/fd_unix.go                      net.(*netFD).accept(...)                                  #238
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/tcpsock_posix.go                net.(*TCPListener).accept(...)                            #139
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/tcpsock.go                      net.(*TCPListener).AcceptTCP(...)                         #247
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go                  http.tcpKeepAliveListener.Accept(...)                     #3232
+    /usr/local/Cellar/go/1.11.1/libexec/src/crypto/tls/tls.go                   tls.(*listener).Accept(...)                               #52
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go                  http.(*Server).Serve(...)                                 #2826
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go                  http.(*Server).ServeTLS(...)                              #2891
+    /usr/local/Cellar/go/1.11.1/libexec/src/net/http/server.go                  http.(*Server).ListenAndServeTLS(...)                     #3048
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/server.go                     aahframe.work.(*Application).startHTTPS()                 #236
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/server.go                     aahframe.work.(*Application).Start()                      #126
+    /Users/jeeva/go/pkg/mod/aahframe.work@v0.12.0/commands.go                   created by aahframe.work.(*Application).cliCmdRun.func1   #144
 ```
+
+<br>
 
 **And `runtime.debug.strip_src_base` set to `true`**
 
 ```cfg
-2018-03-10 15:34:24.126 ERROR aahwebsite sfo-aahweb-01 STACKTRACE:
+2018-11-23 23:53:14.160 ERROR THUMBAI admin STACKTRACE:
 This is test panic message
 
-goroutine 112 [running]:
-    FILE                                                            FUNCTION                                        LINE NO
-    -----------------------------------------------------------------------------------------------------------------------
-    #base-path#/runtime/panic.go                                    panic(...)                                      #489
-    #base-path#/github.com/go-aah/website/app/controllers/doc.go    controllers.(*DocController).VersionHome(...)   #73
-    #base-path#/reflect/value.go                                    reflect.Value.call(...)                         #434
-    #base-path#/reflect/value.go                                    reflect.Value.Call(...)                         #302
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.invokeAction()                           #195
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.ActionMiddleware(...)                    #143
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    #base-path#/aahframework.org/aah.v0/security.go                 aah.v0.AuthcAuthzMiddleware(...)                #96
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    #base-path#/aahframework.org/aah.v0/security.go                 aah.v0.AntiCSRFMiddleware(...)                  #251
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    #base-path#/aahframework.org/aah.v0/bind.go                     aah.v0.BindMiddleware(...)                      #121
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    #base-path#/aahframework.org/aah.v0/router.go                   aah.v0.CORSMiddleware(...)                      #284
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    #base-path#/aahframework.org/aah.v0/router.go                   aah.v0.RouteMiddleware(...)                     #39
-    #base-path#/aahframework.org/aah.v0/middleware.go               aah.v0.(*Middleware).Next(...)                  #78
-    #base-path#/aahframework.org/aah.v0/engine.go                   aah.v0.(*engine).ServeHTTP(...)                 #95
-    #base-path#/net/http/server.go                                  http.serverHandler.ServeHTTP(...)               #2568
-    #base-path#/net/http/server.go                                  http.(*conn).serve(...)                         #1825
-    #base-path#/net/http/server.go                                  http.(*Server).Serve                            #2668
+goroutine 200 [running]:
+    FILE                                             FUNCTION                                          LINE NO
+    ----------------------------------------------------------------------------------------------------------
+    .../runtime/panic.go                             panic(...)                                        #513
+    .../app/controllers/admin/proxy_controller.go    admin.(*ProxyController).List()                   #39
+    .../reflect/value.go                             reflect.Value.call(...)                           #447
+    .../reflect/value.go                             reflect.Value.Call(...)                           #308
+    .../aahframe.work@v0.12.0/middleware.go          aahframe.work.ActionMiddleware(...)               #194
+    .../aahframe.work@v0.12.0/middleware.go          aahframe.work.(*Middleware).Next(...)             #78
+    .../aahframe.work@v0.12.0/security.go            aahframe.work.AuthcAuthzMiddleware(...)           #72
+    .../aahframe.work@v0.12.0/middleware.go          aahframe.work.(*Middleware).Next(...)             #78
+    .../aahframe.work@v0.12.0/security.go            aahframe.work.AntiCSRFMiddleware(...)             #318
+    .../aahframe.work@v0.12.0/middleware.go          aahframe.work.(*Middleware).Next(...)             #78
+    .../aahframe.work@v0.12.0/bind.go                aahframe.work.BindMiddleware(...)                 #95
+    .../aahframe.work@v0.12.0/middleware.go          aahframe.work.(*Middleware).Next(...)             #78
+    .../aahframe.work@v0.12.0/router.go              aahframe.work.RouteMiddleware(...)                #29
+    .../aahframe.work@v0.12.0/middleware.go          aahframe.work.(*Middleware).Next(...)             #78
+    .../aahframe.work@v0.12.0/http_engine.go         aahframe.work.(*HTTPEngine).Handle(...)           #113
+    .../aahframe.work@v0.12.0/aah.go                 aahframe.work.(*Application).ServeHTTP(...)       #788
+    .../net/http/server.go                           http.serverHandler.ServeHTTP(...)                 #2741
+    .../net/http/server.go                           http.(*conn).serve(...)                           #1847
+    .../net/http/server.go                           http.(*Server).Serve                              #2851
 
-goroutine 1 [chan receive]:
-    FILE                                                FUNCTION      LINE NO
-    -------------------------------------------------------------------------
-    #base-path#/github.com/go-aah/website/app/aah.go    main.main()   #169
+goroutine 5 [syscall]:
+    FILE                            FUNCTION               LINE NO
+    --------------------------------------------------------------
+    .../runtime/sigqueue.go         signal.signal_recv()   #139
+    .../os/signal/signal_unix.go    signal.loop()          #23
+    .../os/signal/signal_unix.go    signal.init.0          #29
 
-goroutine 17 [syscall, locked to thread]:
-    FILE                               FUNCTION           LINE NO
-    -------------------------------------------------------------
-    #base-path#/runtime/asm_amd64.s    runtime.goexit()   #2197
+goroutine 119 [IO wait]:
+    FILE                                     FUNCTION                                                  LINE NO
+    ----------------------------------------------------------------------------------------------------------
+    .../runtime/netpoll.go                   poll.runtime_pollWait(...)                                #173
+    .../internal/poll/fd_poll_runtime.go     poll.(*pollDesc).wait(...)                                #85
+    .../internal/poll/fd_poll_runtime.go     poll.(*pollDesc).waitRead(...)                            #90
+    .../internal/poll/fd_unix.go             poll.(*FD).Accept(...)                                    #384
+    .../net/fd_unix.go                       net.(*netFD).accept(...)                                  #238
+    .../net/tcpsock_posix.go                 net.(*TCPListener).accept(...)                            #139
+    .../net/tcpsock.go                       net.(*TCPListener).AcceptTCP(...)                         #247
+    .../net/http/server.go                   http.tcpKeepAliveListener.Accept(...)                     #3232
+    .../crypto/tls/tls.go                    tls.(*listener).Accept(...)                               #52
+    .../net/http/server.go                   http.(*Server).Serve(...)                                 #2826
+    .../net/http/server.go                   http.(*Server).ServeTLS(...)                              #2891
+    .../net/http/server.go                   http.(*Server).ListenAndServeTLS(...)                     #3048
+    .../aahframe.work@v0.12.0/server.go      aahframe.work.(*Application).startHTTPS()                 #236
+    .../aahframe.work@v0.12.0/server.go      aahframe.work.(*Application).Start()                      #126
+    .../aahframe.work@v0.12.0/commands.go    created by aahframe.work.(*Application).cliCmdRun.func1   #144
 ```

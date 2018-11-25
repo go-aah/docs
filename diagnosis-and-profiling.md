@@ -4,7 +4,7 @@ Keywords: diagnosis, profiling, cpu profile, memory profile, block, trace, mutex
 ---
 # aah Diagnosis And Profiling
 
-This document provides the insight into aah Diagnosis And Profiling feature and its usage. Introduced in <span class="badge lb-sm">v0.12.0</span>.
+Introduced in <span class="badge lb-sm">v0.12.0</span>. This document provides the insight into aah Diagnosis And Profiling feature and its usage.
 
 ### Table of Contents
 
@@ -19,6 +19,8 @@ Diagnosis configuration goes under config section `runtime { ... }`.
 ```bash
 diagnosis {
     # Enable/Disable application diagnosis.
+    #
+    # Default value is `false`.
     enable = true
 
     # Profiling data collection mode. (Currently supports only HTTP mode

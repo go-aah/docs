@@ -26,9 +26,10 @@ build {
   # Default value is `name` attribute value from `aah.conf`
   #binary_name = "samplenamenew"
 
-  # Used as fallback if
-  #   - `git commit sha` or
-  #   - `AAH_APP_VERSION` environment value is not available.
+  # Used as fallback version, if
+  #   - `AAH_APP_VERSION` environment value
+  #   - `git commit sha`
+  # Not available
   version = "0.0.1"
 
   # If application misses any dependencies in `build import path`
@@ -59,7 +60,7 @@ build {
   #
   # For valid pattern syntax, refer to https://golang.org/pkg/path/filepath/#Match
   excludes = ["*.go", ".*", "*.bak", "*.tmp", "*.pid",
-    "vendor", "app", "build", "tests", "logs"]
+    "vendor", "app", "build", "tests", "logs", "sessions"]
 }
 ```
 
@@ -100,9 +101,9 @@ hot_reload {
   watch {
     # Note: static directory is not required to be monitored since aah server
     # delivers up-to-date file on environment profile `dev`.
-    dir_excludes = [".*"]
+    dir_excludes = [".*", "vendor", "build", "logs", "sessions"]
 
-    file_excludes = [".*", "*_test.go", "LICENSE", "README.md"]
+    file_excludes = [".*", "*.pid", "_test.go", "LICENSE", "README.md"]
   }
 }
 ```

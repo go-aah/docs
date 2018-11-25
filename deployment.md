@@ -6,7 +6,10 @@ Keywords: deployment, build, binary
 
 This document provides an information of deployment checklist and steps involved to prepare aah application for production use.
 
-Recommended way to deploy aah application is to create platform targeted binary. Use the build archive file on the server instead of `aah run`.
+<br>
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> For production use, it is recommended to create platform targeted application binary using command <code>aah build</code> and deploy. DO NOT USE <code>aah run</code>, its not optimized for production.</p>
+</div>
 
 ### Table of Contents
 
@@ -17,13 +20,13 @@ Recommended way to deploy aah application is to create platform targeted binary.
 ### Preparation Checklist
 
   * Ensure all the necessary configuration have been done for targeted profile (for e.g: `prod`)
-      - **Note:** It is recommended to keep sensitive details outside the application codebase.
-          * Use flag `-config /path/to/configfile.conf` from aah binary during a startup
+      - **Note:** It is highly recommended to keep sensitive details outside the application codebase.
+          * Use flag `--config /path/to/configfile.conf` on command `run`
           * Use Environment variables
   * Add `prod.routes { ... }` into `prod.conf`. This step is **not applicable** if you have only one domain.
       - By nature of aah supports domains and sub-domains routing (aka domain routing) out-of-the-box. It is must to configure domain name and port information. You have to define route `host` name in the `prod` environment profile. [Refer to below example](#sample-route-host-name-config-in-prod-environment-profile).
   * Refer to [Cross Compile Build](aah-cli-tool.html#cross-compile-build) to create platform targeted build artifact.
-  * Refer to [aah application binary](aah-application-binary.html) to know more about capabilities of binary.
+  * Refer to [aah application binary](aah-application-binary.html) to know more about capabilities of app binary.
 
 Deploy the application.
 
@@ -43,7 +46,7 @@ env {
           # Define port no, if listening port different from serve port
           # For example:
           #   aahframework.org website is running on port 8080
-          #   and get served on port 443 via nginx
+          #   and get served on port 443 via THUMBAI (https://thumbai.app)
           port = "443"  
         }
 
@@ -54,7 +57,7 @@ env {
           # Define port no, if listening port different from serve port
           # For example:
           #   docs.aahframework.org website is running on port 8080
-          #   and get served on port 443 via nginx
+          #   and get served on port 443 via THUMBAI (https://thumbai.app)
           port = "443"
         }
       }

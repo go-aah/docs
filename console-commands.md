@@ -4,7 +4,7 @@ Keywords: console, command, commands, app binary, cli
 ---
 # aah Console Commands
 
-This document provides the insight into aah Console module  `aahframe.work/console` usage. Introduced in <span class="badge lb-sm">v0.12.0</span>.
+Introduced in <span class="badge lb-sm">v0.12.0</span>. This document provides the insight into aah Console module  `aahframe.work/console` usage.
 
 ### Table of Contents
 
@@ -20,7 +20,7 @@ This document provides the insight into aah Console module  `aahframe.work/conso
 
 In <span class="badge lb-sm">v0.12.0</span> release, aah introduced the console commands feature. Ability to add **`N`** no. of user-defined behavior(s) as a console command into aah application binary easily. 
 
-By default application binary has with few important reserved commands - 
+By default application binary have few important reserved commands - 
 
   * Command `run` - Runs application server 
   * Command `vfs` - Provides access to app VFS instance to interact with it
