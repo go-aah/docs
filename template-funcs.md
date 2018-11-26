@@ -174,11 +174,11 @@ Go template strips the HTML comment while rendering the template file. To preser
 
 ## Adding your custom Funcs or Third-Party Funcs
 
-You add custom template func using `aah.AddTemplateFunc`.
+You add custom template func using `aah.App().AddTemplateFunc`.
 
 ```go
 func init() {
-	aah.AddTemplateFunc(template.FuncMap{
+	aah.App().AddTemplateFunc(template.FuncMap{
 		"myfuncname": func() string {
 			return "mycustom function value"
 		},
@@ -192,7 +192,7 @@ func init() {
 
 ```go
 func init() {
-  aah.AddTemplateFunc(gtf.GtfFuncMap)
+  aah.App().AddTemplateFunc(gtf.GtfFuncMap)
 }
 ```
 
@@ -200,6 +200,6 @@ func init() {
 
 ```go
 func init()  {
-  aah.AddTemplateFunc(sprig.FuncMap())
+  aah.App().AddTemplateFunc(sprig.FuncMap())
 }
 ```

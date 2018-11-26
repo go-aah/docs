@@ -4,7 +4,7 @@ Keywords: server access log, access log, request log, response log
 ---
 # Server Access Log
 
-<span class="badge lb-sm">Since v0.7</span>  To manage aah server effectively it is necessary to know details about the request, response, processing time, client IP address, etc. aah provides the flexible and configurable server access log capabilities.
+<span class="badge lb-sm">Since v0.7.0</span>  To manage aah server effectively it is necessary to know details about the request, response, processing time, client IP address, etc. aah provides the flexible and configurable server access log capabilities.
 
 Access log processing handled in separate goroutine, it won't stand in way.
 
@@ -39,7 +39,7 @@ custom | Add non-space string into log string
 
 ### Sample Server Access Log of default pattern
 
-<pre style="font-size:10.7px"><code>::1 - 2017-07-21T14:56:15-07:00 GET / HTTP/2.0 200 12735 0.7020 "https://aahframework.org/"
+<pre style="font-size:10.9px"><code>::1 - 2017-07-21T14:56:15-07:00 GET / HTTP/2.0 200 12735 0.7020 "https://aahframework.org/"
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/css/aah-f2f8e6e.css HTTP/2.0 200 7408 0.3377 "https://aahframework.org/"
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/js/aah-f2f8e6e.js HTTP/2.0 200 522 0.2688 "https://aahframework.org/"
 ::1 - 2017-07-21T14:56:15-07:00 GET /assets/css/bootstrap.min.css HTTP/2.0 200 125523 4.1035 "https://aahframework.org/"
@@ -88,6 +88,7 @@ access_log {
 Added respective flag into pattern config.
 
 #### Logging User-Agent
+
 ```cfg
 // header name in-casesensitive
 reqhdr:User-Agent
@@ -97,6 +98,7 @@ reqhdr:user-agent
 ```
 
 #### Logging Referer URL
+
 ```cfg
 // header name in-casesensitive
 reqhdr:referer

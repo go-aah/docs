@@ -10,7 +10,7 @@ Keywords: controller, request, response, reply, view arg, cookies, extending con
 
   * [How to create a Controller?](#how-to-create-a-controller-in-aah)
   * [How to create a Nested Controller?](#how-to-create-a-nested-controller)
-  * [How to create a Controller Action?]()
+  * [How to create a Controller Action?](#how-to-create-a-controller-action)
   * [Controller provides access to](#controller-provides-access-to)
 
 ## How to create a Controller?
@@ -47,7 +47,79 @@ type UserController struct {
 
 ## How to create a Controller Action?
 
+Creating an action in the controller means defining an exported method on targeted controller `struct`, define route mapping in the [routes.conf](routes-config.html#routes-configuration) and aah provides flexible way to obtain/bind [request values](request-parameters-auto-bind.html) on action method.
 
+**Examples:** Describes the REST action defintions, once you get an understanding of definitions you could define any combinations per use case(s).
+
+```go
+// Info method returns the user information for given user identifier.
+//
+// Example Request Info:
+//    Route Path: /:version/users/:userId
+//    Request URL: /v1/users/jeeva@myjeeva.com
+func (c *UserController) Info(version, userId string) {
+  c.Log().Infof("API Version: %s", version)
+  c.Log().Infof("User ID: %s", userId)
+
+  // Build response per use case content-type and its values.
+  // Here composing JSON reply.
+  c.Reply().Ok().JSON(aah.Data{
+    "version": version,
+    "user_id": userId,
+  })
+}
+
+// Create method creates a new user on the system with given request payload.
+// 
+// Example Request Info:
+//    Route Path: /:version/users
+//    Route Method: POST
+//    Request URL: /v1/users
+func (c *UserController) Create(version string, newUser *models.CreateUserRequest) {
+  c.Log().Infof("API Version: %s", version)
+
+  // aah parse and bind values into variable `newUser` based on `Content-Type`
+  // such as application/json, application/xml, application/x-www-form-urlencoded, etc.
+  //
+  // Doc: https://docs.aahframework.org/request-parameters-auto-bind.html
+  c.Log().Infof("Request Body: %#v", newUser)
+
+  // Build response per use case content-type and its values.
+  // Here composing JSON reply.
+  //
+  // Default response code is 200 OK
+  c.Reply().JSON(aah.Data{
+    "version": version,
+    "create_user_request": newUser, 
+  })
+}
+
+// Update method updates an user info on the system with given request payload.
+// 
+// Example Request Info:
+//    Route Path: /:version/users/:userId
+//    Route Method: PUT
+//    Request URL: /v1/users/jeeva@myjeeva.com
+func (c *UserController) Update(version, userId string, user *models.UpdateUserRequest) {
+  c.Log().Infof("API Version: %s", version)
+
+  // aah parse and bind values into variable `user` based on `Content-Type`
+  // such as application/json, application/xml, application/x-www-form-urlencoded, etc.
+  //
+  // Doc: https://docs.aahframework.org/request-parameters-auto-bind.html
+  c.Log().Infof("Request Body: %#v", user)
+
+  // Build response per use case content-type and its values.
+  // Here composing JSON reply.
+  //
+  // Default response code is 200 OK
+  c.Reply().JSON(aah.Data{
+    "version": version,
+    "user_id": userId,
+    "update_user_request": user, 
+  })
+}
+```
 
 ## Controller provides access to
 

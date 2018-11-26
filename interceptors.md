@@ -6,7 +6,7 @@ Keywords: interceptor, per controller interceptor, per action interceptor, befor
 
 An interceptor pattern offers a way to change or augment their usual processing cycle. Key aspects of the pattern are that the change is transparent and used automatically.
 
-aah provides per `Controller` and per `Action` level interceptor. To stop the execution flow, use `ctx.Abort()` within the interceptor.
+aah provides per `Controller` and per `Action` level interceptor. To stop the execution flow in-between, use `ctx.Abort()` within the interceptor.
 
 #### The order of interceptor execution in the request life cycle -
 
@@ -44,24 +44,24 @@ type UserController struct {
   *aah.Context
 }
 
-//‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+//‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 // Controller Level Interceptors
-//___________________________________
+//_____________________________________________________________________
 
 // Before interceptor is called for every action in the Controller.
-func (u *UserController) Before() {
-  u.Log().Info("UserController before interceptor is called")
+func (c *UserController) Before() {
+  c.Log().Info("UserController before interceptor is called")
 }
 
 // After interceptor is called for every action in the Controller.
-func (u *UserController) After() {
-  u.Log().Info("UserController after interceptor is called")
+func (c *UserController) After() {
+  c.Log().Info("UserController after interceptor is called")
 }
 
 // Finally interceptor is called for every action in the Controller
 // except when `ctx.Abort()`.
-func (u *UserController) Finally() {
-  u.Log().Info("UserController finally interceptor is called")
+func (c *UserController) Finally() {
+  c.Log().Info("UserController finally interceptor is called")
 }
 
 // Panic interceptor is called for every action in the Controller
@@ -72,35 +72,35 @@ func (u *UserController) Finally() {
 //  - action level Panic interceptor is present
 //
 // Note: Panic interceptor has a parameter
-func (u *UserController) Panic(r interface{}) {
-  u.Log().Info("UserController panic interceptor is called")
+func (c *UserController) Panic(r interface{}) {
+  c.Log().Info("UserController panic interceptor is called")
 }
 
-//‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
-// Actions
-//___________________________________
+//‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+// Controller Actions
+//_____________________________________________________________________
 
 // Login action to perform login.
-func (u *UserController) Login() {
-  u.Log().Info("UserController login action is called")
+func (c *UserController) Login() {
+  c.Log().Info("UserController login action is called")
 }
 
 // Logout action to perform logout.
-func (u *UserController) Logout() {
-  u.Log().Info("UserController logout action is called")
+func (c *UserController) Logout() {
+  c.Log().Info("UserController logout action is called")
 }
 
-//‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+//‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 // Controller Action Level Interceptors
-//_____________________________________
+//_______________________________________________________________________
 
 // BeforeLogin is called before `Login` action.
-func (u *UserController) BeforeLogin() {
+func (c *UserController) BeforeLogin() {
   u.Log().Info("UserController before login action interceptor is called")
 }
 
 // AfterLogout is called after `Logout` action.
-func (u *UserController) AfterLogout() {
-  u.Log().Info("UserController after logout action interceptor is called")
+func (c *UserController) AfterLogout() {
+  c.Log().Info("UserController after logout action interceptor is called")
 }
 ```

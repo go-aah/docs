@@ -4,9 +4,9 @@ Keywords: server extension point, aah server extensions, extension point, server
 ---
 # aah Server Extension Point
 
-aah server exposes the App and Request life cycle stages as server events. It is called as Server Extension Point. Function signature is the same as events (`aah.EventCallbackFunc`).
+aah server exposes the Application and Request life cycle stages as an events. It is called as Server Extension Point. Function signature is the same as events (`aah.EventCallbackFunc`).
 
-aah server events are executed synchronously. Reference to [Event Emitter/Publisher](event-publisher.html).
+aah server events are executed synchronously. Reference to [Event Publisher](event-publisher.html).
 
 ### Table of Contents
 
@@ -31,7 +31,7 @@ Application extension points by default, a given function is executed as an adde
 
 ## Event: OnInit
 
-Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `config/aah.conf` and external config file supplied via arg `--config` are initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
+Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `config/aah.conf` and external config file supplied via arg `--config` are initialized. Application Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
 
 **Supports Multiple:** Yes
 
@@ -162,7 +162,7 @@ func init() {
 
 ### Event: OnPreAuth
 
-<span class="badge lb-sm">Since v0.7</span> Event `OnPreAuth` is published just before the Authentication and Authorization.
+<span class="badge lb-sm">Since v0.7.0</span> Event `OnPreAuth` is published just before the Authentication and Authorization.
 
 ```go
 func init() {
@@ -176,7 +176,7 @@ func init() {
 
 ### Event: OnPostAuth
 
-<span class="badge lb-sm">Since v0.7</span> Event `OnPostAuth` is published once the Authentication and Authorization info gets populated into Subject.
+<span class="badge lb-sm">Since v0.7.0</span> Event `OnPostAuth` is published once the Authentication and Authorization info gets populated into Subject.
 
 ```go
 func init() {
@@ -220,7 +220,7 @@ func init() {
     hdr := e.Data.(http.Header)
 
     // Header instance is the direct reference to http.ResponseWritter
-  	// Any changes reflect immediately :)
+  	// All method calls to header reflects immediately :)
   	//
   	// logic here
   })

@@ -4,7 +4,7 @@ Keywords: cache, cache manager, cache provider, in-memory, inmemory, redis, memc
 ---
 # aah Cache Manager
 
-This document provides the insight into aah Cache Manager design and usage. Introduced in <span class="badge lb-sm">v0.12.0</span>.
+Introduced in <span class="badge lb-sm">v0.12.0</span>. This document provides the insight into aah Cache Manager design and usage. 
 
 ### Table of Contents
 

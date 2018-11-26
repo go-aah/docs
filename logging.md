@@ -9,7 +9,7 @@ aah provides simple logger for real world application needs. It supports context
 ### Table of Contents
 
   * [Understanding aah Logging](#understanding-aah-logging)
-  * [Context, Fields, Child Logger](#context-fields-child-logger) <span class="badge lb-xs">Since v0.9</span>
+  * [Context, Fields, Child Logger](#context-fields-child-logger) <span class="badge lb-xs">Since v0.9.0</span>
   * [Human Readable and Machine Parsable Logging](#human-readable-and-machine-parsable-logging)
   * [Unified Logging](#unified-logging)
   * [Logger Hook](#logger-hook)
@@ -39,7 +39,7 @@ func (a *AppController) MyAction(id string, info *models.MyModel) {
 
 ### Composable Log Pattern
 
-aah provides composable log pattern as follows. Note: log pattern is not applicable for JSON log. <span class="badge lb-sm">Since v0.9</span> `appname`, `insname`, `reqid`, `principal` flags supported.
+aah provides composable log pattern as follows. Note: log pattern is not applicable for JSON log. <span class="badge lb-sm">Since v0.9.0</span> `appname`, `insname`, `reqid`, `principal` flags supported.
 
 Refer [Log Configuration#Pattern](log-config.html#pattern)
 
@@ -53,7 +53,7 @@ Refer [Log Configuration#Pattern](log-config.html#pattern)
 
 ## Context, Fields, Child Logger
 
-<span class="badge lb-sm">Since v0.9</span> context, fields and child logger is supported.
+<span class="badge lb-sm">Since v0.9.0</span> context, fields and child logger is supported.
 
   * **Context:** You could create logger with context information via `log.Fields` values. Those values gets logged with every log entry.
       * `aah.App().Log()` - creates log entry with application name and application instance name
@@ -63,7 +63,7 @@ Refer [Log Configuration#Pattern](log-config.html#pattern)
       - After creation, any changes to context value on parent or child does not affect each other.
       - All the log entries made by child logger; logged in parent receiver.
       - Child logger is handy when you want have logger per functionality/package/file, etc. 
-          - For example: you could create new child logger via `aah.NewChildLogger(fields)`.
+          - For example: you could create new child logger via `aah.App().NewChildLogger(fields)`.
 
 ## Human Readable and Machine Parsable Logging
 
@@ -124,12 +124,12 @@ func kibanaHook(e log.Entry) {
 }
 
 func RegisterLoggerHooks(_ *aah.Event)  {
-  aah.AddLoggerHook("kibana", kibanaHook)
+  aah.App().AddLoggerHook("kibana", kibanaHook)
   // so on ...
 }
 
 // Register it on <app-base-dir>/app/init.go file
 func init() {
-  aah.OnStart(myloggerhook.RegisterLoggerHooks)  
+  aah.App().OnStart(myloggerhook.RegisterLoggerHooks)  
 }
 ```

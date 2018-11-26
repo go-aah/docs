@@ -6,10 +6,15 @@ Keywords: routing url, routing algorithm, routing, request routing
 
 aah supports domains and subdomains seamlessly. It provides route URL lookup by route name effectively.
 
-The router is optimized for high performance and very tiny bit allocation. It scales well with very long paths and a large number of routes. Radix tree structure is used for efficient matching.
+Router is optimized for high performance and very very tiny bit allocation. It scales well with very long paths and a large number of routes. [Radix tree](https://en.wikipedia.org/wiki/Radix_tree) structure is used for efficient matching.
 
 <div class="alert alert-info-green">
-<p>Since <code>v0.12.0</code> release, aah implements own radix tree algorithm. One of the notable feature it brings is "static path segment and parameter path segment can co-exists"<sup class="new-sup">new</sup>. Static takes priority over parameter path segment. For e.g.: <code>/en/:version</code> and <code>/en/examples.html</code>.</p>
+<p>Since <code>v0.12.0</code> release, aah provides in-home routing implementations using radix tree algorithm. 
+<ul>
+  <li>One of the notable feature is- <strong>Coexistence of static path segment and parameter path segment</strong>.</li>
+  <ul><li>Static takes priority over parameter path segment. For e.g.: <code>/en/:version</code> and <code>/en/examples.html</code>.</li></ul>
+</ul>
+</p>
 </div>
 
 Before `v0.12.0`, aah was using customized version of [httprouter](https://github.com/julienschmidt/httprouter), developed by [@julienschmidt](https://github.com/julienschmidt).
@@ -23,7 +28,7 @@ Before `v0.12.0`, aah was using customized version of [httprouter](https://githu
 
 ## Highlights
 
-  * **URI Parameters** - Give path segment a name and access it as action method parameters.
+  * **URL Path Parameters** - Give path segment a name and access it as action method parameters.
   * **Perfect for RESTful APIs** - Build sensible, hierarchical RESTful APIs. Router has builtin native support for [OPTIONS requests](http://zacstewart.com/2012/04/14/http-options-method.html) and `405 Method Not Allowed` replies.
   * **Only explicit matches** - a request can only match exactly one or no route. As a result, there are also no unintended matches, which makes it great for SEO and improves the user experience.
   * **Stop caring about trailing slashes** - Choose the URL style you like, the router automatically redirects the client if a trailing slash is missing or if there is one extra. Of course, it does only if the new path has a controller action. Behavior could be disabled at domain level using `redirect_trailing_slash = false` in the [routes config](routes-config.html).
@@ -100,7 +105,7 @@ domains {
 
 ## Route Constraints
 
-Route constraints give the capability to restrict/validate route parameters (aka URI parameters) before the request sent to controller action.
+Route constraints gives the capability to restrict/validate route parameters (aka URL Path parameters) before the request sent to controller action.
 
 ```bash
 # Syntax
@@ -119,7 +124,9 @@ Route constraints give the capability to restrict/validate route parameters (aka
 ### Examples
 
 ```bash
+#
 # Examples of route path parameters with constraints
+#
 
 #------------------------------------------------------------------------------
 # Example - Data type constraints are implicit in aah

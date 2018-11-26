@@ -47,27 +47,27 @@ Ok, so by now, we have a logged in user. What else can we do?
 ```go
 // get all the principals
 principals := ctx.Subject().AllPrincipals()
-log.Info(principals)
+ctx.Log().Info(principals)
 
 // print their identifying primary principal:
 primaryPrincipal := ctx.Subject().PrimaryPrincipal()
-log.Info(primaryPrincipal)
+ctx.Log().Info(primaryPrincipal)
 ```
 
 ##### Let's access the primary principal value (in this case username):
 
 ```go
 username := primaryPrincipal.Value
-log.Info("User", username, "logged in successfully.")
+ctx.Log().Info("User", username, "logged in successfully.")
 ```
 
 ##### We can also test to see if they have specific role or not:
 
 ```go
 if ctx.Subject().HasRole("schwartz") {
-    log.Info("May the Schwartz be with you!" )
+    ctx.Log().Info("May the Schwartz be with you!" )
 } else {
-    log.Info( "Hello, mere mortal." )
+    ctx.Log().Info( "Hello, mere mortal." )
 }
 ```
 
@@ -75,9 +75,9 @@ if ctx.Subject().HasRole("schwartz") {
 
 ```go
 if ctx.Subject().IsPermitted("lightsaber:weild") {
-    log.Info("You may use a lightsaber ring.  Use it wisely.")
+    ctx.Log().Info("You may use a lightsaber ring.  Use it wisely.")
 } else {
-    log.Info("Sorry, lightsaber rings are for schwartz masters only.")
+    ctx.Log().Info("Sorry, lightsaber rings are for schwartz masters only.")
 }
 ```
 
@@ -85,10 +85,10 @@ Also, we can perform an extremely powerful `instance-level` [permission](securit
 
 ```go
 if ctx.Subject().IsPermitted("winnebago:drive:eagle5") {
-    log.Info("You are permitted to 'drive' the 'winnebago' with license plate (id) 'eagle5'.  " +
+    ctx.Log().Info("You are permitted to 'drive' the 'winnebago' with license plate (id) 'eagle5'.  " +
                 "Here are the keys - have fun!")
 } else {
-    log.Info("Sorry, you aren't allowed to drive the 'eagle5' winnebago!")
+    ctx.Log().Info("Sorry, you aren't allowed to drive the 'eagle5' winnebago!")
 }
 ```
 

@@ -115,7 +115,6 @@ rotate {
   policy = "daily"
 }
 ```
-<br>
 
 ```bash
 # size based rotation
@@ -124,7 +123,6 @@ rotate {
   size = "512mb"
 }
 ```
-<br>
 
 ```bash
 # line based rotation

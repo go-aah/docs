@@ -12,10 +12,10 @@ aah session library provides HTTP state management for web applications and stat
   * AES Encrypted session data
   * Extensible `session.Storer` interface
 
-The library provides ready-to-use `Cookie` and `File` session store to persist signed and encrypted session data. For custom session store (Key-Value Database, NoSQL Database, RDBMS, etc.), implement interface `session.Storer` and register in file `<app-base-dir>/app/init.go` (refer `session.FileStore`; it is very easy to follow).
+aah provides ready-to-use `Cookie` and `File` session store to persist signed and encrypted session data. For custom session store (Key-Value Database, NoSQL Database, RDBMS, etc.), implement interface `session.Storer` and register in file `<app-base-dir>/app/init.go` (refer `session.FileStore` implementation; it is very easy to follow).
 
 <div class="alert alert-info-green">
-<p><strong>Note:</strong> In non-cookie session store, only `Session ID` is transmitted over the wire via Cookie.</p>
+<p><strong>Note:</strong> In non-cookie session store, only <code>Session ID</code> is transmitted over the wire via Cookie.</p>
 </div>
 
 To add values of custom data types in the session, register them using `gob.Register(...)`.
@@ -35,7 +35,7 @@ Current session can be accessed via `ctx.Session()`.
 Steps to add user-defined session store into aah:
 
   1. Implement interface `session.Storer` (Refer `session.FileStore`).
-  2. Register it in aah at `init.go` file.
+  2. Register it in aah at `<app-base-dir>/app/init.go` file.
   3. Configure it in app session config.
 
 ### Step 1: Implement interface `session.Storer`
@@ -58,7 +58,7 @@ type Storer interface {
 ```go
 // Refer `session.FileStore` for implementation
 func init() {
-  aah.AddSessionStore("redis", &RedisSessionStore{})
+  aah.App().AddSessionStore("redis", &RedisSessionStore{})
 }
 ```
 
