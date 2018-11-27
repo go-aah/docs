@@ -1,7 +1,8 @@
 ## What's new?
 
-  * WebSocket
-  * aah single binary
-  * Command `aah migrate`
-  * OAuth2 auth scheme 3-legged flow
-  * Configurable authorization on routes.conf
+  * Go Modules adapted fully
+  * Console Module
+  * Cache Manager with pluggable cache store
+  * Diagnosis & Profiling
+  * Improved routing implementation
+  * Upcoming new product called [THUMBAI](https://thumbai.app)

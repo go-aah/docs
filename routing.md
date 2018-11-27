@@ -11,7 +11,7 @@ Router is optimized for high performance and very very tiny bit allocation. It s
 <div class="alert alert-info-green">
 <p>Since <code>v0.12.0</code> release, aah provides in-home routing implementations using radix tree algorithm. 
 <ul>
-  <li>One of the notable feature is- <strong>Coexistence of static path segment and parameter path segment</strong>.</li>
+  <li>One of the notable feature is- <strong>Coexistence of static path segment and path parameter segment</strong>.</li>
   <ul><li>Static takes priority over parameter path segment. For e.g.: <code>/en/:version</code> and <code>/en/examples.html</code>.</li></ul>
 </ul>
 </p>
