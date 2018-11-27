@@ -27,7 +27,7 @@ This document would give an idea about aah Development and Release Process. I wi
   * Pull Request (PR) created from branch `edge` to `master`.
   * Release tag gets created from latest `commit sha` of branch `master`, typically readme file update commit of the release.
 
-For framework `v0.11.4` and below, aah internally uses `gopkg.in` codebase for Package Versioning and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
+For framework `v0.11.4` and below versions, aah internally uses `gopkg.in` codebase for Package Versioning and commitment to provide stable release version in-addition to the user choice of package management tools like glide, govendor, etc.
 
 ## Release Cycle
 
