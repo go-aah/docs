@@ -6,34 +6,44 @@ Keywords: getting started, aah, aah Go web framework
 
 It is very easy to start and work with aah. Let's make sure you have [Go environment ready](prerequisites.html).
 
+<br>
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Since <code>v0.12.0</code> aah requires minimum <code>go1.11</code>.</p>
+</div>
+
 ### Table of Contents
 
-  * [Installing aah CLI and framework](#installing-aah-cli-and-framework)
-    - [macOS](#macos)
-    - [go get](#go-get)
+  * [Installing aah CLI](#installing-aah-cli)
   * [Verifying aah CLI](#verify-aah-cli)
   * [Creating first aah application](#creating-first-aah-application)
   * [Running aah application](#running-aah-application)
 
-## Installing aah CLI and framework
+## Installing aah CLI
 
-### macOS
+aah user have multiple ways to install CLI into their system.
+
+#### Via Installer
+
+*nix systems and Windows (Cygwin, Cmder and ConEmu).
 
 ```bash
-# installing aah CLI
-brew install go-aah/tap/aah
-
-# installing aah framework in GOPATH
-go get -u aahframework.org/aah.v0
+$ curl https://aahframework.org/install-cli | bash
+# OR
+$ wget -qO- https://aahframework.org/install-cli | bash
 ```
 
-### go get
-
-`go get` install aah CLI as well as framework in $GOPATH.
+#### Via Homebrew - macOS and Linux
 
 ```bash
-# aah requires ≥ go1.8
-go get -u aahframework.org/tools.v0/aah
+$ brew install go-aah/tap/aah
+```
+
+#### Build & Install from Source
+
+```bash
+$ git clone https://github.com/go-aah/tools.git aah-cli-codebase
+$ cd aah-cli-codebase/aah
+$ env GO111MODULE=on go install
 ```
 
 ## Verify aah CLI
@@ -42,25 +52,21 @@ Checking aah CLI version. Learn more about [aah CLI](aah-cli-tool.html).
 
 ```bash
 aah --version
-
-# Output
-cli v0.12.0
-aah v0.11.0
-go  v1.10.1
 ```
 
-Congratulations, you have successfully installed aah CLI and framework and it's ready to use :).
+Congratulations, you have successfully installed aah CLI and it's ready to use :).
 
 ## Creating first aah application
 
-It is very easy to use aah framework CLI tool. Learn more about aah CLI using `aah help`.
+It is very easy to use aah CLI tool. Learn more about aah CLI using `aah help`.
 
 <script src="https://asciinema.org/a/yhDOMPv0lMrWRUMJXctGuuc5m.js" id="asciicast-yhDOMPv0lMrWRUMJXctGuuc5m" data-speed="2" data-theme="monokai" data-rows="22" async></script>
 
 ## Running aah application
 
 ```bash
-aah run --importpath github.com/jeevatkm/aah-first-app
+# Go to application base directory
+aah run
 ```
 
 <script src="https://asciinema.org/a/FyjDJHteWpGvjQ6mw15IP4342.js" id="asciicast-FyjDJHteWpGvjQ6mw15IP4342" data-speed="2" data-theme="monokai" data-rows="28" async></script>

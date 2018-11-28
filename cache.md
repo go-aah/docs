@@ -6,6 +6,9 @@ Keywords: cache, cache manager, cache provider, in-memory, inmemory, redis, memc
 
 Introduced in <span class="badge lb-sm">v0.12.0</span>. This document provides the insight into aah Cache Manager design and usage. 
 
+<br>
+<center>![aah-Cache-Manager-Design]({{aah_cdn_host}}/assets/img/docs/aah-cache-manager-design.svg)</center>
+
 ### Table of Contents
 
   * [Registering Cache Provider](#registering-cache-provider)
@@ -16,10 +19,6 @@ Introduced in <span class="badge lb-sm">v0.12.0</span>. This document provides t
   * [Configuration: Redis Cache Provider](#configuration-redis-cache-provider)
   * [Configuration: Memcache Cache Provider](#configuration-memcache-cache-provider)
   * [Adding your Own Cache Provider](#adding-your-own-cache-provider-and-cache)
-
-<br>
-<center>![aah-Cache-Manager-Design]({{aah_cdn_host}}/assets/img/docs/aah-cache-manager-design.svg)</center>
-<br>
 
 ## Registering Cache Provider
 

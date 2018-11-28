@@ -4,7 +4,13 @@
 
 ### Migrate application codebase
 
+Go to aah application base directory and run-
+
 ```bash
-# Go to aah application base directory and run
-aah migrate code
+# *nix systems and Windows (Cygwin, Cmder and ConEmu)
+$ env GO111MODULE=on aah migrate code
+
+# Windows
+$ set GO111MODULE=on
+$ aah migrate code
 ```
