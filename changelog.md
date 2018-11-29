@@ -15,6 +15,7 @@
     - Enhanced command `aah new` and quick start application template with Go Modules support
     - Removed command `aah update` and `aah switch` in-favor of Go modules
     - Removed `.v0` version strategies in-favor of Go Modules
+    - Removed `--importpath` argument from CLI commands
     - Introduced new face of import path name `aahframe.work`
   * Enhanced in-home routing implementation using Radix-tree algorithm - One of the notable feature is "Coexistence of static path segment and path parameter segment". [#160]({{aah_issues_url}}/160), [documentation](routing.html)
   * Configurable Signal for Hot-Reload on non-dev environment profiles and publishes Application event `OnConfigHotReload` [#218]({{aah_issues_url}}/218), [documentation](configuration-hot-reload.html)

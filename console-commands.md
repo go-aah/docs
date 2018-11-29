@@ -18,7 +18,7 @@ Introduced in <span class="badge lb-sm">v0.12.0</span>. This document provides t
 
 ## Overview
 
-In <span class="badge lb-sm">v0.12.0</span> release, aah introduced the console commands feature. Ability to add **`N`** no. of user-defined behavior(s) as a console command into aah application binary easily. 
+In <span class="badge lb-sm">v0.12.0</span> release, aah introduced the console commands feature. Easily add **`N`** no. of user-defined behavior(s) as a console command into aah application binary. 
 
 By default application binary have few important reserved commands - 
 

@@ -44,6 +44,7 @@ aah user have multiple ways to update CLI easily.
 <span class="badge lb-sm">Since v0.12.0</span> aah provides easy way to install CLI.
 
 ```bash
+# Installs lastest version of aah CLI
 $ curl https://aahframework.org/install-cli | bash
 #	OR
 $ wget -qO- https://aahframework.org/install-cli | bash

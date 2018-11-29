@@ -21,9 +21,8 @@ Introduced in <span class="badge lb-sm">v0.10.0</span>. aah brought `init.go` fi
   * Application Error Handler
   * Custom Template Functions
   * Custom Session Store
-  * Custom Value Parser - Auto bind
+  * Custom Value Parser - Auto bind request values
   * Custom Validation Functions
-  * Custom View Engine
   * etc.
 
-Create an application and have a look at the file `app-base-dir/app/init.go` to view a sample.
+Create an application and have a look at the file `<app-base-dir>/app/init.go` to view a sample.

@@ -8,7 +8,7 @@ This document provides an information of deployment checklist and steps involved
 
 <br>
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> For production use, it is recommended to create platform targeted application binary using command <code>aah build</code> and deploy. DO NOT USE <code>aah run</code>, its not optimized for production.</p>
+<p><strong>Note:</strong> For production use, it is recommended to create <a href="aah-cli-tool.html#cross-compile-build" target="_blank" title="Cross platform build">platform targeted application binary</a> using command <code>aah build</code> and deploy. DO NOT USE <code>aah run</code>, its not optimized for production.</p>
 </div>
 
 ### Table of Contents

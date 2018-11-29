@@ -27,6 +27,7 @@ aah user have multiple ways to install CLI into their system.
 *nix systems and Windows (Cygwin, Cmder and ConEmu).
 
 ```bash
+# Installs latest version of aah CLI
 $ curl https://aahframework.org/install-cli | bash
 # OR
 $ wget -qO- https://aahframework.org/install-cli | bash
@@ -38,7 +39,7 @@ $ wget -qO- https://aahframework.org/install-cli | bash
 $ brew install go-aah/tap/aah
 ```
 
-#### Build & Install from Source
+#### Install from Source Code
 
 ```bash
 $ git clone https://github.com/go-aah/tools.git aah-cli-codebase
