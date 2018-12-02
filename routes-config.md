@@ -143,10 +143,10 @@ routes {
     #
     # Examples- (controller is defined with or without package prefix)
     #   - UserController
-    #   - /v1/user/UserController
-    #   - /v2/user/UserController
-    #   - /v1/admin/permission/PermissionsController
-    #   - /v2/admin/permission/PermissionsController
+    #   - v1/user/UserController
+    #   - v2/user/UserController
+    #   - v1/admin/permission/PermissionsController
+    #   - v2/admin/permission/PermissionsController
     #
     # It is the required value and not a default one.
     controller = "AppController"

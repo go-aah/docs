@@ -44,7 +44,7 @@ Checking aah CLI version. Learn more about [aah CLI](aah-cli-tool.html).
 aah --version
 
 # Output
-cli v0.11.0
+cli v0.12.0
 aah v0.11.0
 go  v1.10.1
 ```
@@ -55,7 +55,7 @@ Congratulations, you have successfully installed aah CLI and framework and it's 
 
 It is very easy to use aah framework CLI tool. Learn more about aah CLI using `aah help`.
 
-<script src="https://asciinema.org/a/vbAA03dRtc1zhnQLHgmHddIIq.js" id="asciicast-vbAA03dRtc1zhnQLHgmHddIIq" data-speed="2" data-theme="monokai" data-rows="22" async></script>
+<script src="https://asciinema.org/a/yhDOMPv0lMrWRUMJXctGuuc5m.js" id="asciicast-yhDOMPv0lMrWRUMJXctGuuc5m" data-speed="2" data-theme="monokai" data-rows="22" async></script>
 
 ## Running aah application
 

@@ -44,6 +44,7 @@ Commands:
   help, h         Shows a list of commands or help for one command
 
 Global Options:
+  -y, --yes      Automatic yes to prompts. Assume "yes" as answer to all prompts and run non-interactively.
   -h, --help     Shows help
   -v, --version  Prints cli, aah, go and aah libraries version
 ```
