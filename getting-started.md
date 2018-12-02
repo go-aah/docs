@@ -28,7 +28,7 @@ aah user have multiple ways to install CLI into their system.
 
 ```bash
 # Installs latest version of aah CLI
-$ curl https://aahframework.org/install-cli | bash
+$ curl -s https://aahframework.org/install-cli | bash
 # OR
 $ wget -qO- https://aahframework.org/install-cli | bash
 ```
