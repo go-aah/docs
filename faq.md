@@ -4,6 +4,8 @@ Keywords: faq, aah, aah Go web framework
 ---
 # Frequently Asked Questions (FAQ)
   
+  * [How to customize the aah application version during a build?](#how-to-customize-the-aah-application-version-during-a-build)
+  * [How to customize the aah application Build Timestamp during a build?](#how-to-customize-the-aah-application-build-timestamp-during-a-build)
   * [How to update aah to latest version?](#how-to-update-aah-to-latest-version)
   * [Does aah support Package Management Tools?](#does-aah-support-package-management-tools)
   * [How to adapt to latest aah configuration?](#how-to-adapt-to-latest-aah-configuration)
@@ -15,42 +17,70 @@ Keywords: faq, aah, aah Go web framework
   * [Is it a problem that aah’s Anti-CSRF protection isn’t linked to a session?](#is-it-a-problem-that-aah-s-anti-csrf-protection-isn-t-linked-to-a-session)
   * [Why might a user encounter a Anti-CSRF validation failure after logging in?](#why-might-a-user-encounter-a-anti-csrf-validation-failure-after-logging-in)
 
+### How to customize the aah application version during a build?
+
+aah CLI command `build` process the application version in the following order-
+
+1. Environment variable - `AAH_APP_VERSION`.
+2. Git short commit-sha using command `git describe` (if project uses git VCS).
+3. `version` config value from file `aah.project`.
+
+### How to customize the aah application Build Timestamp during a build?
+
+aah CLI command `build` process the application build timestamp in the following order-
+
+1. Environment variable - `AAH_APP_BUILD_TIMESTAMP`.
+2. Environment variable - `AAH_APP_BUILD_DATE` (Deprecated, do not use).
+3. Creates build time stamp in the format of `RFC3339`.
+
 ### How to update aah to latest version?
 
-#### Update aah CLI 
+#### Install/Update aah CLI
 
-macOS Homebrew support is introduced in `v0.11.0`, simply do -
+aah user have multiple ways to update CLI easily.
+
+##### Via Installer
+
+<span class="badge lb-sm">Since v0.12.0</span> aah provides easy way to install CLI on macOS, Linux, BSD systems and Windows with Cygwin.
 
 ```bash
-# First install
-brew install go-aah/tap/aah
+# Installs lastest version of aah CLI
+$ curl https://aahframework.org/install-cli | bash
+#	OR
+$ wget -qO- https://aahframework.org/install-cli | bash
 
-# If aah is already installed, do
-brew upgrade aah
+# Also can be used with version number as a argument
+$ curl -s https://aahframework.org/install-cli | bash -s v0.13.0
+#	OR
+$ wget -qO- https://aahframework.org/install-cli | bash -s v0.13.0
 ```
 
 #### Update aah framework
 
+##### Go Modules (go.mod)
+
+```bash
+# Go to aah aplication base directory and run
+env GO111MODULE=on go get aahframe.work@latest
+```
+
+##### For v0.11.4 and below (Deprecated)
+
 ```bash
 go get -u aahframework.org/aah.v0
 
-# To update aah framework using package management tool, refer the respective tool documentation. 
+# To update aah CLI and framework in GOPATH.
+go get -u aahframework.org/tools.v0/aah
+
+# To update aah framework using package management tool, refer to the respective tool documentation. 
 # Example: `glide update`
 ```
 
-#### `go get` way
-
-It updates aah CLI and framework in GOPATH. 
-
-```bash
-# Since v0.10 release
-aah update
-
-# OR
-go get -u aahframework.org/tools.v0/aah
-```
-
 ### Does aah support Package Management Tools?
+
+<span class="badge lb-sm">Since v0.12.0</span> aah adapts and fully supports Go Modules. `go.mod` is a aah's officially supported package management tool. Refer to `go help modules` and `go help mod`.
+
+##### For v0.11.4 and below (Deprecated)
 
 Yes, of course. As described in [versioning documentation](versioning.html#package-management). aah works seamlessly with pacakge manangement tool (like `glide`, `dep`, `govendor`, etc).
 
@@ -61,6 +91,15 @@ For example: I have responded to aah user for `dep` tool, refer to [GitHub comme
 The best way is to have a look at aah documentation https://docs.aahframework.org on respective configuration docs.
 
 ### How to try aah edge version?
+
+<span class="badge lb-sm">Since v0.12.0</span> aah user could use Go Modules to get the `edge` version like -
+
+```bash
+# Go to aah aplication base directory and run
+env GO111MODULE=on go get aahframe.work@edge
+```
+
+##### For v0.11.4 and below (Deprecated)
 
 Of-course you can. <span class="badge lb-sm">Since v0.9</span> `aah switch` command makes it very easy to try edge version. Learn more, run `aah help switch`.
 
@@ -94,9 +133,13 @@ runtime {
 
 ### Does aah has benchmark against other Go web framework?
 
-Well, aah goal is to achieve full stack web framework capabilities for modern Web, API and WebSocket applications.
+Well, aah goal is to achieve full stack (yet micro framework nature) web framework capabilities for modern Web, API and WebSocket applications with best performance. ***Also I'm keep-on optimizing aah on every release, its getting better and better*** 😎.
 
-I have responded to aah user on [Github Issue #81](https://github.com/go-aah/aah/issues/81#issuecomment-315589889), about what I have done. Thanks.
+I have submitted aah benchmark application to community driven benchmark group called [TechEmpower](https://www.techempower.com/benchmarks/#section=code&hw=ph). Results of [Round 17 - aah v0.11.4](https://www.techempower.com/benchmarks/#section=data-r17&hw=ph&test=fortune&l=zijocf-1). It is benchmarked with ***6 simple use case***. Obviously it will not fit for every use case, however benchmark results certainly does provide prespective.
+
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Please keep in mind, performance is subjective when comes to each use case, implementation, environment, network, etc. I would request aah user do performance/load testing for their application use case respectively and let me know if you hit bottle neck.</p>
+</div>
 
 ### Does aah supports Hot-Reload for Development?
 

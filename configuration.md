@@ -44,9 +44,19 @@ The configuration syntax used by aah framework is `forge` developed by [@brettla
 
 An include statement tells the config parser to include the contents of another config file where the include statement is defined. Includes are in the format `include "<pattern>"`. The `<pattern>` can be any glob like pattern which is compatible with [path.filepath.Match](http://golang.org/pkg/path/filepath/#Match). It can be absolute path or relative path to `config` directory.
 
+```bash
+# Environment profile configurations
+# Load all the configuration files from `appbasedir/config/env/*.conf`.
+include "./env/*.conf"
+```
+
 ## Environment Variables
 
 An environment is a way to pull in environment variables into your config. Environment variables are identifiers which start with a dollar sign (For example: `$PATH`). Environment variables are always represented as strings and are evaluated at parse time. Adapted to supported value type.
+
+```bash
+instance_name = $AAH_INSTANCE_NAME
+```
 
 ## Substitutions/Reference
 

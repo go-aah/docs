@@ -2,25 +2,29 @@
 
 #### Features
 
-  * WebSocket [#126]({{aah_issues_url}}/126), [documentation](websocket.html)
-  * aah single binary `aah build --single` [#156]({{aah_issues_url}}/156), [documentation](vfs.html)
-  * Command `aah migrate` to fix/upgrade application codebase to latest aah version [#116]({{aah_issues_url}}/116)
-  * OAuth2 auth scheme 3-legged flow [#187]({{aah_issues_url}}/187), [documentation](auth-schemes/oauth2.html)
-  * File search option in aah single binary `<app-binary> -list "regex"` [#179]({{aah_issues_url}}/179)
-  * `JSONSecure` to prevent Cross Site Script Inclusion (XSSI) attacks [#158]({{aah_issues_url}}/158)
+  * Console Module - Ability to add CLI commands into aah application easily [#198]({{aah_issues_url}}/198), [documentation](console-commands.html)
+  * Cache Manager - Pluggable cache datastores. OOTB - In-memory, Redis, Memcache supported [#203]({{aah_issues_url}}/203), [documentation](cache.html)
+  * Diagnosis & Profiling - provides on-demand profiling feature [#216]({{aah_issues_url}}/216), [documentation](diagnosis-and-profiling.html)
+  * View Engine - added partials support for template include anywhere under `<app-base-dir>/views/**` [#217]({{aah_issues_url}}/217), [documentation](template-funcs.html#func-include)
 
 #### Enhancements
 
-  * Configurable option of Authorization (roles and permissions) for each route [#162]({{aah_issues_url}}/162), [documentation](authorization.html#via-configuration)
-  * Automatic semantic route configuration for auth scheme `form` [#184]({{aah_issues_url}}/184), [documentation](auth-schemes/form.html#auto-semantic-route-configuration)
-  * Hot-reload view files without watcher support (no server restart) on profile `dev` [#189]({{aah_issues_url}}/189)
-  * Added `OnPreShutdown` server extension point [#185]({{aah_issues_url}}/185), [documentation](server-extension.html#event-onpreshutdown)
-  * Added `OnHeaderReply` server extension point to manipulate response headers at application level [#181]({{aah_issues_url}}/181), [documentation](server-extension.html#event-onheaderreply)
-  * Added option to override the `path` value in nested routes using `^` [#190]({{aah_issues_url}}/190)
-  * No more intermediate startup scripts (aah.sh, aah.cmd). Brings same experience with single and non-single binary [#178]({{aah_issues_url}}/178), [#183]({{aah_issues_url}}/183) 
-  * Added server redirect support, `www => non-www` and vice versa [#177]({{aah_issues_url}}/177), [documentation](app-config.html#section-server-redirect)
-  * Single domain application does not need domain mapping configuration in environment profile [#163]({{aah_issues_url}}/163)
-  * Request and Response code optimization [#157]({{aah_issues_url}}/157)
-  * Most of the deprecated methods are removed in-favour of the new command `aah migrate code` [#186]({{aah_issues_url}}/186)
-  * Config `render.pretty` is removed in-favor of REST client editor tool and browser support [#165]({{aah_issues_url}}/165)
-  * Overall code and documentation improvements
+  * Go Modules - aah framework fully adapted to Go modules and supports as default package management [#200]({{aah_issues_url}}/200)
+    - Enhanced command `aah migrate` logic and grammar to do incremental code migration to current version aah    
+    - Enhanced command `aah list` to work with Go modules and aah applications
+    - Enhanced command `aah new` and quick start application template with Go Modules support
+    - Removed command `aah update` and `aah switch` in-favor of Go modules
+    - Removed `.v0` version strategies in-favor of Go Modules
+    - Removed `--importpath` argument from CLI commands
+    - Introduced new face of import path name `aahframe.work`
+  * Enhanced in-home routing implementation using Radix-tree algorithm - One of the notable feature is "Coexistence of static path segment and path parameter segment". [#160]({{aah_issues_url}}/160), [documentation](routing.html)
+  * Configurable Signal for Hot-Reload on non-dev environment profiles and publishes Application event `OnConfigHotReload` [#218]({{aah_issues_url}}/218), [documentation](configuration-hot-reload.html)
+  * Added optional `catch-all` route support in the router, disabled by default [#212]({{aah_issues_url}}/212), [documentation](routes-config.html#catch-all-route-configuration)
+  * Organized the auto-generated files under directory `<app-base-dir>/app/generated` [#199]({{aah_issues_url}}/199)
+  * Improved HTML minify library - now does inline CSS and JS minify too `aahframe.work/minify/html`
+  * Overall code, performance and documentation improvements along with Go Modules capability
+
+#### Bug Fixes
+
+  * Fixed - Access log: static files get logged always (twice) [#219]({{aah_issues_url}}/219)
+  * Fixed - Hot reload does not detect changes [#215]({{aah_issues_url}}/215)

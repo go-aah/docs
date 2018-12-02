@@ -41,12 +41,12 @@ subscribe := &EventCallback{
   CallOnce: false, // always called when event is published
 }
 
-aah.SubscribeEvent("ProductUpdated", subscribe)
+aah.App().SubscribeEvent("ProductUpdated", subscribe)
 
 // OR
 
 // subscribe using callback func
-aah.SubscribeEventFunc("ProductUpdated", productUpdated)
+aah.App().SubscribeEventFunc("ProductUpdated", productUpdated)
 ```
 
 ## Unsubscribe from the Event
@@ -60,20 +60,20 @@ subscribe := EventCallback{Callback: productUpdated}
 
 // you have subscribe it before
 
-aah.UnsubscribeEvent("ProductUpdated", subscribe)
+aah.App().UnsubscribeEvent("ProductUpdated", subscribe)
 
 // OR
 
 // unsubscribe by callback func
-aah.UnsubscribeEventFunc("ProductUpdated", productUpdated)
+aah.App().UnsubscribeEventFunc("ProductUpdated", productUpdated)
 ```
 
 ## Publish Event Asynchronously
 ```go
-aah.PublishEvent("UserEdited", data)
+aah.App().PublishEvent("UserEdited", data)
 ```
 
 ## Publish Event Synchronously
 ```go
-aah.PublishEventSync("UserEdited", data)
+aah.App().PublishEventSync("UserEdited", data)
 ```

@@ -10,7 +10,7 @@ As always, aah is structured, organized and maintainable. aah shines more with a
 
   * Enable WebSocket under `server` section in `aah.conf`.
   * Add WebSocket's under package `<app-base-dir>/app/websockets`.
-  * Add WebSocket's routing definition into `routes.conf`; it is similar to controllers, easy right.
+  * Add WebSocket's routing definition into `routes.conf`; it is similar to controllers, easy right!
 
 ### Table of Contents
 
@@ -24,7 +24,7 @@ As always, aah is structured, organized and maintainable. aah shines more with a
 
 ## Configuration
 
-As you know, one of the notable feature of aah is configuration. This configuration goes under section `server { ... }`.
+As you know, one of the notable feature of aah is configuration driven. This configuration goes under section `server { ... }`.
 
 ```bash
 # --------------------------------------------------------------------------
@@ -55,7 +55,7 @@ websocket {
 
 ## Creating WebSocket
 
-It is simple, similar to aah's Controller.  [![GoDoc](https://godoc.org/aahframework.org/ws.v0?status.svg)](https://godoc.org/aahframework.org/ws.v0)
+It is simple, similar to aah's Controller.  [![GoDoc](https://godoc.org/aahframe.work/ws?status.svg)](https://godoc.org/aahframe.work/ws)
 
 ```go
 // HotNewsWebSocket holds an implementation of News Broadcast.
@@ -64,7 +64,7 @@ type HotNewsWebSocket struct {
 }
 
 // ByTopic method handles topic related clients.
-func (h *HotNewsWebSocket) ByTopic(topic string)  {
+func (w *HotNewsWebSocket) ByTopic(topic string)  {
   for {
     // Implementation goes here
     // Refer to simple chat example to get an idea
@@ -77,7 +77,7 @@ func (h *HotNewsWebSocket) ByTopic(topic string)  {
 
 ## Custom ID
 
-aah support custom ID generation for each WebSocket connection. By default aah creates GUID using MongoDb Object ID alogrithm.
+aah support custom ID generation for each WebSocket connection. By default aah creates GUID using MongoDB Object ID alogrithm.
 
 ```go
 // IDGenerator func type used to implement custom WebSocket connection ID.
@@ -85,7 +85,7 @@ aah support custom ID generation for each WebSocket connection. By default aah c
 type IDGenerator func(ctx *Context) string
 
 // Setting ID generator via
-aah.AppWSEngine().SetIDGenerator(MyCustomIDGenerator)
+aah.App().WSEngine().SetIDGenerator(MyCustomIDGenerator)
 ```
 
 ## Adding Route
@@ -133,7 +133,7 @@ func AddHeaderIntoContext(eventName string, ctx *ws.Context)  {
 
 aah provides following events as part of the [WebSocket lifecycle](/request-life-cycle.html#websocket-request). It is published for each WebSocket connection made to the aah server.
 
-As a recommended approach, create an event handler in appropriate package and register it in the file `app/init.go`.
+As a recommended approach, create an event handler in appropriate package and register it in the file `<app-base-dir>/app/init.go`.
 
 Event | Description
 ----- | -----------
@@ -157,30 +157,18 @@ func(eventName string, ctx *ws.Context)
 //
 // Subscribing WebSocket events on app start.
 func SubscribeWebSocketEvents(_ *aah.Event) {
-  wse := aah.AppWSEngine()
+  wse := aah.App().WSEngine()
 
   // Custom ID Generator
   wse.SetIDGenerator(websockets.MyCustomIDGenerator)
 
-  // Event: OnPreConnect
-  //
   wse.OnPreConnect(websockets.HandleEvents)
-
-  // Event: OnPostConnect
-  //
   wse.OnPostConnect(websockets.HandleEvents)
-
-  // Event: OnPostDisconnect
-  //
   wse.OnPostDisconnect(websockets.HandleEvents)
-
-  // Event: OnError
-  //
   wse.OnError(websockets.HandleEvents)
 }
 
 // SubscribeWebSocketEvents method gets registered on App Start event to
 // subscribe WebSocket events from aah WebSocket Engine.
-//
-aah.OnStart(SubscribeWebSocketEvents)
+aah.App().OnStart(SubscribeWebSocketEvents)
 ```

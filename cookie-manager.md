@@ -7,7 +7,7 @@ Keywords: secure cookie manager, cookie manager, cookie
 aah provides a secure cookie manager to fulfill custom secure cookie purpose. It does AES encryption and HMAC SHA signing.
 
 ```go
-import "aahframework.org/security.v0/cookie"
+import "aahframe.work/security/cookie"
 ```
 
 ### Table of Contents
@@ -20,6 +20,8 @@ import "aahframework.org/security.v0/cookie"
 A sample code snippet to create a secure cookie manager is below.  For non-secure cookie manager, simply supply `signKey`.
 
 ```go
+import ess "aahframe.work/essentials"
+
 // Create cookie options
 opts := &cookie.Options{
     Name: "mycustomcookie",
@@ -31,8 +33,9 @@ opts := &cookie.Options{
 }
 
 // Get sign and encryption keys from configuration
-signKey := aah.AppConfig().StringDefault("myapp.mysecure.cookie.key.sign", ess.SecureRandomString(32))
-encKey := aah.AppConfig().StringDefault("myapp.mysecure.cookie.key.enc", ess.SecureRandomString(64))
+cfg := aah.App().Config()
+signKey := cfg.StringDefault("myapp.mysecure.cookie.key.sign", ess.SecureRandomString(32)) 
+encKey := cfg.StringDefault("myapp.mysecure.cookie.key.enc", ess.SecureRandomString(64))
 
 // Creating a secure cookie manager
 cookieMgr := cookie.NewManager(opts, signKey, encKey)
@@ -40,7 +43,7 @@ cookieMgr := cookie.NewManager(opts, signKey, encKey)
 
 ## Reply Cookie via Reply Builder
 
-Using secure cookie manager, manipulating cookie value is a breeze.
+Using secure cookie manager, manipulating cookie value is like a breeze.
 
 #### Creating new cookie
 

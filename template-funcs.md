@@ -16,14 +16,14 @@ By default Go lang provides set of [template functions](https://golang.org/pkg/t
 
 Function  | Description | Example
 ----------- | ----------- | --------
-config | Accessing application configuration from `aah.AppConfig()` | `{{ config "format.datetime" }}`
-include | Renders the common file from `views/common` with ViewArgs and imports into caller template file | `{{ include "sidebar.html" . }}`
+config | Accessing application configuration from `aah.App().Config()` | `{{ config "format.datetime" }}`
 i18n | Access internationalization and localization message from view templates | `{{ i18n . "label.pages.title.aboutus" }}`
 pparam | Access Path parameter values | `{{ pparam . "userId" }}`
 fparam | Access Form parameter values | `{{ fparam . "email" }}`
 qparam | Access URL Query parameter values | `{{ qparam . "lang" }}`
 flash | Access Flash values. Note: Flash value is deleted after accessing once | `{{ flash . "error.user.email.incorrect" }}`
 session | Access Session object values | `{{ session . "Username" }}`
+include | Refer [here](#func-include) | 
 rurl | Create Route URL, Refer [here](#func-rurl) | 
 rurlm | Create Route URL, Refer [here](#func-rurlm) | 
 isauthenticated | Refer [here](#func-isauthenticated) | 
@@ -33,6 +33,26 @@ hasallroles | Refer [here](#func-hasallroles) |
 ispermitted | Refer [here](#func-ispermitted) | 
 ispermittedall | Refer [here](#func-ispermittedall) | 
 safeHTML | Refer [here](#func-safehtml) | 
+
+
+#### Func: include
+
+Include and render template file from anywhere under `<app-base-dir>/views/**` sub-tree with ViewArgs.
+
+<span class="badge lb-sm">Since v0.12.0</span> new behaviour introduced.
+
+```html
+{{ include "/common/sidebar.html" . }}
+
+{{ include "/users/form.html" . }}
+```
+
+Previous behaviour is deprecated, to be removed in subsequent future release.
+
+```html
+<!-- from common directory --> 
+{{ include "sidebar.html" . }}
+```
 
 
 #### Func: rurl
@@ -154,11 +174,11 @@ Go template strips the HTML comment while rendering the template file. To preser
 
 ## Adding your custom Funcs or Third-Party Funcs
 
-You add custom template func using `aah.AddTemplateFunc`.
+You add custom template func using `aah.App().AddTemplateFunc`.
 
 ```go
 func init() {
-	aah.AddTemplateFunc(template.FuncMap{
+	aah.App().AddTemplateFunc(template.FuncMap{
 		"myfuncname": func() string {
 			return "mycustom function value"
 		},
@@ -172,7 +192,7 @@ func init() {
 
 ```go
 func init() {
-  aah.AddTemplateFunc(gtf.GtfFuncMap)
+  aah.App().AddTemplateFunc(gtf.GtfFuncMap)
 }
 ```
 
@@ -180,6 +200,6 @@ func init() {
 
 ```go
 func init()  {
-  aah.AddTemplateFunc(sprig.FuncMap())
+  aah.App().AddTemplateFunc(sprig.FuncMap())
 }
 ```

@@ -4,14 +4,16 @@ Keywords: password, password encoder, authentication
 ---
 # aah Password Encoders
 
-Out-of-the-box aah supports three password encoders for authenticating users in your application. A good  read about [password hashing security](https://crackstation.net/hashing-security.htm).
+Out-of-the-box aah supports three password encoders for authenticating users in your application. A good read about [password hashing security](https://crackstation.net/hashing-security.htm).
+
+### Table of Contents
 
   * [bcrypt Algorithm](#bcrypt-algorithm)
   * [scrypt Algorithm](#scrypt-algorithm)
   * [pbkdf2 Algorithm](#pbkdf2-algorithm)
   * [Adding additional password encoder into aah](#adding-additional-password-encoder-into-aah)
 
-Password encoders implements the interface `PasswordEncoder`.
+Password encoders implements the interface `acrypto.PasswordEncoder`.
 
 ```go
 // PasswordEncoder interface is used to implement generate password hash and compare given hash & password
@@ -31,7 +33,7 @@ type PasswordEncoder interface {
 #### To hash your password
 
 ```go
-import "aahframework.org/security.v0"
+import "aahframe.work/security"
 
 // To hash your password
 hashedPassword, err := security.Bcrypt.Generate([]byte(passwordString))
@@ -46,7 +48,7 @@ bcrypt {
 
   # https://godoc.org/golang.org/x/crypto/bcrypt#pkg-constants
   # Default value is `12`.
-  cost = 12
+  cost = 14
 }
 ```
 
@@ -57,7 +59,7 @@ bcrypt {
 #### To hash your password
 
 ```go
-import "aahframework.org/security.v0"
+import "aahframe.work/security"
 
 // To hash your password
 hashedPassword, err := security.Scrypt.Generate([]byte(passwordString))
@@ -94,13 +96,13 @@ scrypt {
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
-<p>It's commonly recommended to use `bcrypt` password hashing algorithm. However real world usage different per application. If you're using `pbkdf2` hashing algorithm, it's highly advised to use pbkdf2 with SHA-512 or SHA-256. Good read <a href="https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/">here</a>, <a href="https://crypto.stackexchange.com/questions/15218/is-pbkdf2-hmac-sha1-really-broken">here</a>.</p>
+<p>It's commonly recommended to use `bcrypt` password hashing algorithm. However real world usage is different per application. If you're using `pbkdf2` hashing algorithm, it's highly advised to use pbkdf2 with SHA-512 or SHA-256. Good read <a href="https://security.stackexchange.com/questions/4781/do-any-security-experts-recommend-bcrypt-for-password-storage/">here</a>, <a href="https://crypto.stackexchange.com/questions/15218/is-pbkdf2-hmac-sha1-really-broken">here</a>.</p>
 </div>
 
 #### To hash your password
 
 ```go
-import "aahframework.org/security.v0"
+import "aahframe.work/security"
 
 // To hash your password
 hashedPassword, err := security.Pbkdf2.Generate([]byte(passwordString))
@@ -138,14 +140,14 @@ aah provides extensibility to add additional password encoder into aah easily. I
 // Choose whichever the argon2 library and implement interface `acrypto.PasswordEncoder`
 // then register it here.
 func init()  {
-  aah.AddPasswordAlgorithm("argon2", &Argon2Encoder{})
+  aah.App().AddPasswordAlgorithm("argon2", &Argon2Encoder{})
 }
 ```
 
 #### Using registered encoder in auth schemes
 
 ```bash
-# In your auth scheme, simply mention the name you have used for the registering. That's it very easy!
+# In your auth scheme, simply mention the name you have used for the registering. That's it,  very easy right!
 form_auth {
   #...
   password_encoder = "argon2"

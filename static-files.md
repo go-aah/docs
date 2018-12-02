@@ -16,13 +16,13 @@ For e.g: RESTful APIs typically does not need this section.
   * [HTTP Cache-Control: By `mime` types](#http-cache-control)
   * [Simple Cache Busting: By filename](#simple-cache-busting)
 
-Pick your choice of a `unique name` for each `directory` or `individual` file static route definition. It is called as `route name`.
+Pick your choice of a `unique name` for each `directory` or `individual` file static route definition. It is called `route name`.
 
 ## Static Routes Configuration
 
-## Section: static { ... }
+### Section: static { ... }
 
-`static { ... }` configuration goes into domain level in the `routes.conf`.
+`static { ... }` configuration goes into domain level section in the `routes.conf`.
 
 ```bash
 #------------------------------------------------------------------------------
@@ -64,7 +64,7 @@ static {
     file = "img/favicon.ico"
 
     # Default value for relative path file mapping is `public_assets.dir`
-    #base_dir = "assets"
+    #base_dir = "static"
   }
 
   # Robots Configuration file.
@@ -78,7 +78,7 @@ static {
 
 ## HTTP Cache Control
 
-<span class="badge lb-sm">Since v0.6</span> aah provides a flexible way to configure static file `Cache-Control` header by `MIME` types. Default cache header is used if mime type is not configured.
+<span class="badge lb-sm">Since v0.6.0</span> aah provides a flexible way to configure static file `Cache-Control` header by `MIME` types. Default cache header is used if mime type is not configured.
 
 **Configuration**
 
@@ -115,7 +115,7 @@ static {
 
 ## Simple Cache Busting
 
-<span class="badge lb-sm">Since v0.7</span> aah provides simple filename `Cache Busting` support.
+<span class="badge lb-sm">Since v0.7.0</span> aah provides simple filename `Cache Busting` support.
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong> <code>Upcoming feature</code> asset pipeline capability (such as minify while build packing).</p>
@@ -123,7 +123,7 @@ static {
 
 ### How simple cache bust works?
 
-Simple cache bust works with filename (prefix or suffix) using `AppBuildInfo().Version` value.
+Simple cache bust works with filename (prefix or suffix) using `aah.App().BuildInfo().Version` value.
 
 * Prefix: `813e524-aah.css` or
 * Suffix: `aah-813e524.css`

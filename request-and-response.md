@@ -13,20 +13,19 @@ This document provides an insights into aah `Request` and `Response` capabilitie
 
 ## Request
 
-aah [Request](https://godoc.org/aahframework.org/ahttp.v0#Request) extends form of standard request struct. It provides necessary values (derived and processed per RFCs).
+aah [Request](https://godoc.org/aahframe.work/ahttp#Request) extends form of standard request struct. It provides necessary values (derived and processed per RFCs).
 
 ### Fields
 
 Field Name | Description
 ----------- | -----------
-Scheme | Request protocol value `https` or `http`, it's a inferred value. [Know more](https://godoc.org/aahframework.org/ahttp.v0#Scheme)
+Scheme | Request protocol value `https` or `http`, it's a inferred value. [Know more](https://godoc.org/aahframe.work/ahttp#Scheme)
 Host | Value of correct Host source from HTTP request
+Proto | Value of current HTTP request protocol. (e.g. HTTP/1.1, HTTP/2.0)
 Method | Value of HTTP verb name, such as GET, POST, etc
 Path | Request URL Path e.g. `/app/login.html`
 Header | HTTP request headers
-PathParams | URL path parameters values that was defined routes.conf
-Referer | Value of HTTP header `Referer` or `Referrer`
-UserAgent | Value of HTTP header `User-Agent`
+URLParams | URL path parameters values that was defined routes.conf
 IsGzipAccepted | Inferred value as bool, whether HTTP client supports Gzip compression or not.
 
 ### Methods
@@ -45,6 +44,8 @@ Cookies | Returns all the cookies from HTTP request
 IsJSONP | Returns true if request URL query string has `callback=<function_name>`
 IsAJAX | Returns true if request header `X-Requested-With` is `XMLHttpRequest` otherwise false
 URL | Returns request URL instance
+Referer | Returns value of HTTP 'Referrer' (or 'Referer') header.
+UserAgent | Returns value of HTTP 'User-Agent' header.
 Unwrap | Returns the underlying *http.Request instance of Go HTTP server, direct interaction with raw object is not encouraged.
 
 <div class="alert alert-info-green">
@@ -69,7 +70,7 @@ aah resposne writer implements interfaces `http.ResponseWriter`, `http.CloseNoti
 And captuers following details -
 
   * `Status()` - returns response status code
-  * `BytesWritten()` - returns the total number of bytes written into response
+  * `BytesWritten()` - returns the total number of bytes written into response. Does not include response header bytes size.
   * `Unwrap()` - returns the underlying `ResponseWriter`
 
 <div class="alert alert-info-green">

@@ -159,7 +159,7 @@ Reply().File("/mnt/may/reports/daily.pdf")
 Reply().Binary(bytes)
 
 // I would like to use Reader
-Reply().Readfrom(reader)
+Reply().FromReader(reader)
 
 // Replying redirect login page using `route name`
 Reply().Redirect(c.RouteURL("user_login"))
@@ -178,6 +178,6 @@ Reply().HTMLl("master-custom.html", data)
 Reply().Error({
   Code: http.StatusNotFound,
   Message: "Resource not found",
-  Data: "relevant data if you would like to send", // this is type interface{}.
+  Data: "relevant data if you would like to add for error handler", // this is type interface{}.
 })
 ```

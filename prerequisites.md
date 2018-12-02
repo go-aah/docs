@@ -22,7 +22,7 @@ Follow the Go official [installation guide](https://golang.org/doc/install). The
 Don't forget to add your `bin` directory on the `PATH`.
 
 ```bash
-# On *nix systems
+# On *nix operating system
 # Set value and then open new terminal session to reflect your change.
 echo 'export PATH=$PATH:$GOPATH/bin' >> $HOME/.profile
 ```
