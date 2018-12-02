@@ -41,7 +41,7 @@ aah user have multiple ways to update CLI easily.
 
 ##### Via Installer
 
-<span class="badge lb-sm">Since v0.12.0</span> aah provides easy way to install CLI.
+<span class="badge lb-sm">Since v0.12.0</span> aah provides easy way to install CLI on macOS, Linux, BSD systems and Windows with Cygwin.
 
 ```bash
 # Installs lastest version of aah CLI
@@ -53,18 +53,6 @@ $ wget -qO- https://aahframework.org/install-cli | bash
 $ curl -s https://aahframework.org/install-cli | bash -s v0.13.0
 #	OR
 $ wget -qO- https://aahframework.org/install-cli | bash -s v0.13.0
-```
-
-##### Via Homebrew - macOS and Linux
-
-<span class="badge lb-sm">Since v0.11.0</span> aah provides Homebrew support.
-
-```bash
-# First install
-$ brew install go-aah/tap/aah
-
-# If aah is already installed, do
-$ brew upgrade aah
 ```
 
 #### Update aah framework
