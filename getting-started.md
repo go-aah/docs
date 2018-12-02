@@ -8,7 +8,7 @@ It is very easy to start and work with aah. Let's make sure you have [Go environ
 
 <br>
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> Since <code>v0.12.0</code> aah requires minimum <code>go1.11</code>.</p>
+<p><strong>Note:</strong> Since <code>v0.12.0</code> aah requires >= <code>go1.11</code>.</p>
 </div>
 
 ### Table of Contents
@@ -31,11 +31,6 @@ aah user have multiple ways to install CLI into their system.
 $ curl https://aahframework.org/install-cli | bash
 # OR
 $ wget -qO- https://aahframework.org/install-cli | bash
-
-# Also with version number argument
-$ curl -s https://aahframework.org/install-cli | bash -s v0.13.0
-#	OR
-$ wget -qO- https://aahframework.org/install-cli | bash -s v0.13.0
 ```
 
 #### Via Homebrew - macOS and Linux
@@ -66,7 +61,7 @@ Congratulations, you have successfully installed aah CLI and it's ready to use :
 
 It is very easy to use aah CLI tool. Learn more about aah CLI using `aah help`.
 
-<script src="https://asciinema.org/a/yhDOMPv0lMrWRUMJXctGuuc5m.js" id="asciicast-yhDOMPv0lMrWRUMJXctGuuc5m" data-speed="2" data-theme="monokai" data-rows="22" async></script>
+<script src="https://asciinema.org/a/hz07lUuceCmDxdfMfjrv7nJhr.js" id="asciicast-hz07lUuceCmDxdfMfjrv7nJhr" data-speed="2" data-theme="monokai" data-rows="22" async></script>
 
 ## Running aah application
 
@@ -75,7 +70,7 @@ It is very easy to use aah CLI tool. Learn more about aah CLI using `aah help`.
 aah run
 ```
 
-<script src="https://asciinema.org/a/FyjDJHteWpGvjQ6mw15IP4342.js" id="asciicast-FyjDJHteWpGvjQ6mw15IP4342" data-speed="2" data-theme="monokai" data-rows="28" async></script>
+<script src="https://asciinema.org/a/pBDbLienJ9FzgFFoXKMDKT5Jn.js" id="asciicast-pBDbLienJ9FzgFFoXKMDKT5Jn" data-speed="2" data-theme="monokai" data-rows="30" async></script>
 
 Open up the browser then navigate to address [http://localhost:8080](http://localhost:8080) to see aah application in action.
 

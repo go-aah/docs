@@ -48,6 +48,11 @@ aah user have multiple ways to update CLI easily.
 $ curl https://aahframework.org/install-cli | bash
 #	OR
 $ wget -qO- https://aahframework.org/install-cli | bash
+
+# Also can be used with version number as a argument
+$ curl -s https://aahframework.org/install-cli | bash -s v0.13.0
+#	OR
+$ wget -qO- https://aahframework.org/install-cli | bash -s v0.13.0
 ```
 
 ##### Via Homebrew - macOS and Linux
