@@ -36,7 +36,7 @@ $ wget -qO- https://aahframework.org/install-cli | bash
 #### Install from Source for all platforms
 
 ```bash
-$ git clone -b 'v0.13.0' --single-branch --depth 1 https://github.com/go-aah/tools.git aah-cli
+$ git clone -b 'version-number' --single-branch --depth 1 https://github.com/go-aah/tools.git aah-cli
 
 # on *nix systems
 $ cd aah-cli/aah && env GO111MODULE=on go install
