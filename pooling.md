@@ -4,7 +4,7 @@ Keywords: pooling, memory pooling, object pooling, gc, garbage collection, heap 
 ---
 # Pooling aka Memory Pooling
 
-aah effectively uses the `sync.Pool` for memory pooling to reduce overhead on heap allocation and garbage collection.
+aah effectively uses the `sync.Pool` appropriately where it's required for memory pooling to reduce overhead on heap allocation and garbage collection.
 
 A Pool set of objects that may be individually saved and retrieved. A Pool is safe from by multiple goroutines simultaneously.
 

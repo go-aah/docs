@@ -12,7 +12,7 @@ This example statement indicates that applications are largely written to satisf
 
 aah reflects these concepts in its own design. By matching what is already intuitive for software developers, aah remains intuitive and easy to use in practically any application.
 
-aah security module is `aahframework.org/security.vX`.
+aah security package/module is `aahframe.work/security`.
 
 ## Design
 
@@ -93,7 +93,7 @@ type Authenticator interface {
 
 	// GetAuthenticationInfo method called by auth scheme to get subject's authentication
   // info for given authentication token.
-	GetAuthenticationInfo(authcToken *AuthenticationToken) (*AuthenticationInfo, error)
+	GetAuthenticationInfo(authcToken *authc.AuthenticationToken) (*authc.AuthenticationInfo, error)
 }
 ```
 
@@ -112,7 +112,7 @@ type PrincipalProvider interface {
 	//
 	// 	For e.g: keyName is the auth scheme configuration KeyName.
 	// 		 security.auth_schemes.<keyname>
-	Principal(keyName string, v ess.Valuer) ([]*Principal, error)
+	Principal(keyName string, v ess.Valuer) ([]*authc.Principal, error)
 }
 ```
 
@@ -130,13 +130,13 @@ type Authorizer interface {
 	// GetAuthorizationInfo method called by auth scheme after authentication
   // successful to get Subject's (aka User) access control information
   // such as roles and permissions.
-	GetAuthorizationInfo(authcInfo *authc.AuthenticationInfo) *AuthorizationInfo
+	GetAuthorizationInfo(authcInfo *authc.AuthenticationInfo) *authc.AuthorizationInfo
 }
 ```
 
 ### PasswordEncoder
 
-The interface `PasswordEncoder` is used to implement user password encoding such as `bcrypt`, `scrypt`, and `pbkdf2`.
+The interface `acrypto.PasswordEncoder` is used to implement user password encoding such as `bcrypt`, `scrypt`, and `pbkdf2`.
 
 ```go
 // PasswordEncoder interface is used to encode and compare given hash and password

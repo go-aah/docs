@@ -16,14 +16,15 @@ aah provides a way to create user-defined `Middleware` for your application very
 
 To create custom middleware, just comply to `aah.MiddlewareFunc`. Once you created the middleware function.
 
-You can add your middleware into aah in three ways-
+**Steps to add user-defined middleware(s) into aah**
 
-  * Using standard `func init()`
-  * Using `OnInit` event
-  * Using `OnStart` event
+  * Create a middleware in appropriate package
+  * Go to file `<app-base-dir>/app/init.go`
+  * Look for `HTTPEngine().Middlewares(`
+  * Add your middleware into the chain
 
 ```go
-func myCustomMiddleware1(ctx *Context, m *Middleware) {
+func MyCustomMiddleware1(ctx *Context, m *Middleware) {
   // do your logic before calling next middleware
 
   // continue the chain
@@ -32,7 +33,7 @@ func myCustomMiddleware1(ctx *Context, m *Middleware) {
   // do your logic after the continues of middleware chain
 }
 
-func myCustomMiddleware2(ctx *Context, m *Middleware) {
+func MyCustomMiddleware2(ctx *Context, m *Middleware) {
   // do your logic before calling next middleware
 
   // continue the chain
@@ -41,16 +42,17 @@ func myCustomMiddleware2(ctx *Context, m *Middleware) {
   // do your logic after the continues of middleware chain
 }
 
-// Adding a Middleware into aah
-func init() {
-  // executed in the order of middleware added
-  aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
-
-  // OR
-  aah.OnStart(func(e *aah.Event) {
-    aah.AppHTTPEngine().Middlewares(myCustomMiddleware1, myCustomMiddleware2)
-  })
-}
+// Add it on file `<app-base-dir>/app/init.go`
+app.HTTPEngine().Middlewares(
+  aah.RouteMiddleware,
+  aah.CORSMiddleware,
+  aah.BindMiddleware,
+  aah.AntiCSRFMiddleware,
+  aah.AuthcAuthzMiddleware,
+  MyCustomMiddleware1,
+  MyCustomMiddleware2,
+  aah.ActionMiddleware,
+)
 ```
 
 ## Abort the Middleware Flow
@@ -95,10 +97,19 @@ aah expands the possibilities via reuse/existing middlewares.
   * `func(http.ResponseWriter, *http.Request)`
 
 ```go
-// sample
-func printURL(w http.ResponseWriter, r *http.Request) {
+// PrintRequestURL middleware
+func PrintRequestURL(w http.ResponseWriter, r *http.Request) {
   fmt.Println("URL:", r.URL.Path)
 }
 
-aah.AppHTTPEngine().Middlewares(aah.ToMiddleware(printURL))
+// Add it on file `<app-base-dir>/app/init.go`
+app.HTTPEngine().Middlewares(
+  aah.RouteMiddleware,
+  aah.CORSMiddleware,
+  aah.BindMiddleware,
+  aah.AntiCSRFMiddleware,
+  aah.AuthcAuthzMiddleware,
+  aah.ToMiddleware(PrintRequestURL),
+  aah.ActionMiddleware,
+)
 ```

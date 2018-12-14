@@ -134,7 +134,7 @@ session {
 
 ## Section: http_header { ... }
 
-<span class="badge lb-sm">Since v0.8</span> aah provides response secure headers with many safe defaults. Typically `non-empty` header values from configuration gets added into response header.
+<span class="badge lb-sm">Since v0.8.0</span> aah provides response secure headers with many safe defaults. Typically `non-empty` header values from configuration gets added into response header.
 
 `http_header { ... }` configuration goes under the config section `security { ... }`.
 

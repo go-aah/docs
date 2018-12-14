@@ -7,7 +7,7 @@ Keywords: crypto, cryptography, aah, AES, HMAC, HMAC SHA
 This document describes the cryptograhy methods provided by aah. All of aah cryptography methods are developed using Go standard libraries. aah cryptography methods are ready to use and completely tested. It could save hours of efforts that require in research and implementation.
 
 ```go
-import "aahframework.org/security.v0/acrypto"
+import "aahframe.work/security/acrypto"
 ```
 
 ## Encryption Methods

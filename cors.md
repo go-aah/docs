@@ -6,7 +6,7 @@ Keywords: CORS, cors, Cross-Origin Resource Sharing, aah, aah framework
 
 Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to let a user agent gain permission to access selected resources from a server on a different origin (domain) than the site that is currently in use. [Read more](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS).
 
-<span class="badge lb-sm">Since v0.10</span> aah provides an easier and flexible way to configure CORS for domain level as well as for route level. CORS could be disabled at route level too.
+<span class="badge lb-sm">Since v0.10.0</span> aah provides an easier and flexible way to configure CORS for domain level as well as for route level. CORS could be disabled at route level too.
 
 CORS configuration resides in [`routes.conf`](routes-config.html). It has two parts with the same set of configuration attributes.
 

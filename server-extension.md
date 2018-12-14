@@ -4,9 +4,9 @@ Keywords: server extension point, aah server extensions, extension point, server
 ---
 # aah Server Extension Point
 
-aah server exposes the App and Request life cycle stages as server events. It is called as Server Extension Point. Function signature is the same as events (`aah.EventCallbackFunc`).
+aah server exposes the Application and Request life cycle stages as an events. It is called as Server Extension Point. Function signature is the same as events (`aah.EventCallbackFunc`).
 
-aah server events are executed synchronously. Reference to [Event Emitter/Publisher](event-publisher.html).
+aah server events are executed synchronously. Reference to [Event Publisher](event-publisher.html).
 
 ### Table of Contents
 
@@ -15,6 +15,7 @@ aah server events are executed synchronously. Reference to [Event Emitter/Publis
       - [OnStart](#event-onstart)
       - [OnPreShutdown](#event-onpreshutdown)
       - [OnPostShutdown](#event-onpostshutdown)
+      - [OnConfigHotReload](/configuration-hot-reload.html#event-onconfighotreload)
   * [HTTP Engine Extension Points](#http-engine-extension-points)
       - [OnRequest](#event-onrequest)
       - [OnPreAuth](#event-onpreauth)
@@ -30,29 +31,29 @@ Application extension points by default, a given function is executed as an adde
 
 ## Event: OnInit
 
-Event `OnInit` is published once the `aah.AppConfig()` is loaded. At this stage, only `aah.conf` config is initialized. App Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
+Event `OnInit` is published once the `aah.App().Config()` is loaded. At this stage, only `config/aah.conf` and external config file supplied via arg `--config` are initialized. Application Variables, Routes, i18n, Security, View Engine, Logs and so on will be initialized after this event.
 
 **Supports Multiple:** Yes
 
 ```go
 // As an anonymous func
 func init() {
-  aah.OnInit(func(e *Event) {
-		// logic comes here
+  aah.App().OnInit(func(e *aah.Event) {
+		// logic here
 	})
 }
 
 // Or define a func and supply it [recommended approach, name gets logged in log]
 func loadUserConfig(e *aah.Event)  {
   // loading user config from /etc/myapp/myapp.conf
-  // merge it to aah.AppConfig().Merge(...)
+  // merge it to aah.App().Config().Merge(...)
 }
 
 func init() {
-  aah.OnInit(loadUserConfig)
+  aah.App().OnInit(loadUserConfig)
 
   // OR
-  aah.OnInit(loadUserConfig, 10) // with priority
+  aah.App().OnInit(loadUserConfig, 10) // with priority
 }
 ```
 
@@ -64,43 +65,44 @@ Event `OnStart` is published just before the start of `aah Server`. The applicat
 
 ```go
 func connectDatabase(e *aah.Event)  {
-  // logic comes here
+  // logic here
 }
 
 func connectRedis(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func refreshCache(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func init() {
-  // By default, a given function is executed as an added sequence
+  // By default, a given function is executed as added sequence
   // unless `priority` is specified.
-  aah.OnStart(connectDatabase)
-  aah.OnStart(refreshCache, 3) // with priority
-  aah.OnStart(connectRedis, 2) // with priority
+  app := aah.App()
+
+  app.OnStart(connectDatabase)
+  app.OnStart(refreshCache, 3) // with priority
+  app.OnStart(connectRedis, 2) // with priority
 }
 ```
 
 ## Event: OnPreShutdown
 
-Event `OnPreShutdown` is published when application receives OS Signals `SIGINT` or `SIGTERM` and before the triggering graceful shutdown. After this event, aah triggers graceful shutdown with config value of `server.timeout.grace_shutdown`.
+<span class="badge lb-sm">Since v0.11.0</span> Event `OnPreShutdown` is published when application receives OS Signals `SIGINT` or `SIGTERM` and before the triggering graceful shutdown. After this event, aah triggers graceful shutdown with config value of `server.timeout.grace_shutdown`.
 
 **Supports Multiple:** Yes
 
 ```go
-func announceImGonnaShutdown()  {
+func announceImGonnaShutdown(e *aah.Event)  {
   // announce it
 }
 
 func init()  {
-  // By default, a given function is executed as an added sequence
+  // By default, a given function is executed as added sequence
   // unless `priority` is specified.
-  aah.OnPreShutdown(announceImGonnaShutdown)
+  aah.App().OnPreShutdown(announceImGonnaShutdown)
 }
-
 ```
 
 ## Event: OnPostShutdown
@@ -111,23 +113,25 @@ Event `OnPostShutdown` is published just after the successful grace shutdown of 
 
 ```go
 func disconnectDatabase(e *aah.Event)  {
-  // logic comes here
+  // logic here
 }
 
 func disconnectRedis(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func flushCache(e *aah.Event) {
-  // logic comes here
+  // logic here
 }
 
 func init() {
-  // By default, a given function is executed as an added sequence
+  // By default, a given function is executed as added sequence
   // unless `priority` is specified.
-  aah.OnPostShutdown(flushCache)
-  aah.OnPostShutdown(disconnectDatabase)
-  aah.OnPostShutdown(disconnectRedis)
+  app := aah.App()
+
+  app.OnPostShutdown(flushCache)
+  app.OnPostShutdown(disconnectDatabase)
+  app.OnPostShutdown(disconnectRedis)
 }
 ```
 
@@ -148,38 +152,38 @@ Event `OnRequest` is published on each incoming request to the aah server.
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnRequest(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnRequest(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
 
 ### Event: OnPreAuth
 
-<span class="badge lb-sm">Since v0.7</span> Event `OnPreAuth` is published just before the Authentication and Authorization.
+<span class="badge lb-sm">Since v0.7.0</span> Event `OnPreAuth` is published just before the Authentication and Authorization.
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPreAuth(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPreAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
 
 ### Event: OnPostAuth
 
-<span class="badge lb-sm">Since v0.7</span> Event `OnPostAuth` is published once the Authentication and Authorization info gets populated into Subject.
+<span class="badge lb-sm">Since v0.7.0</span> Event `OnPostAuth` is published once the Authentication and Authorization info gets populated into Subject.
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPostAuth(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPostAuth(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
@@ -194,10 +198,10 @@ Event `OnPreReply` is published just before writing a reply/response on the wire
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPreReply(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPreReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```
@@ -212,13 +216,13 @@ func init() {
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnHeaderReply(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnHeaderReply(func(e *aah.Event)  {
     hdr := e.Data.(http.Header)
 
     // Header instance is the direct reference to http.ResponseWritter
-  	// Any changes reflect immediately :)
+  	// All method calls to header reflects immediately :)
   	//
-  	// logic comes here
+  	// logic here
   })
 }
 ```
@@ -233,10 +237,10 @@ Event `OnPostReply` is published right after the response gets written on the wi
 
 ```go
 func init() {
-  aah.AppHTTPEngine().OnPostReply(func(e *aah.Event)  {
+  aah.App().HTTPEngine().OnPostReply(func(e *aah.Event)  {
     ctx := e.Data.(*aah.Context)
 
-    // logic comes here
+    // logic here
   })
 }
 ```

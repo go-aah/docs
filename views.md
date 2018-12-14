@@ -10,7 +10,7 @@ OOTB supported view engines are -
 
   * Default view engine: Go - with flexible, inheritance
   * External view engines
-    - Pug (formerly known as Jade) [github.com/Joker/jade](https://github.com/Joker/jade)
+    - `Upcoming`
 
 Reference to [View Config](app-config.html#section-view).
 
@@ -25,15 +25,15 @@ Reference to [View Config](app-config.html#section-view).
 
 ## View Directory Structure and Usage
 
-aah provides flexible and meaningful directory structure to organize application view files. Use your creativity, organize and make best use of it.
+aah provides flexible and meaningful directory structure to organize application view files. Use your creativity, organize and make a best use of it.
 
-  * `common` - common template segments/parts goes here, Don't Repeat Yourself (`DRY`). Use `import` or `include` template function include wherever you need it.
-  * `errors` - application error pages for 404, 500, 403, etc. Status codes used as file name. <span class="badge lb-sm">Since v0.8</span>
-  * `layouts` - You can define one or more view layout. Default layout name is `master.<ext>` and file extension based on view engine from config `view.ext`.
-  * `pages` - template of each controller and it's action. Also you can have your custom page templates.
+  * `common` - Common template segments/parts goes here, Don't Repeat Yourself (`DRY`). Use `import` or `include` template function include wherever you need it.
+  * `errors` - Application error pages for 404, 500, 403, etc. Status codes used as file name. <span class="badge lb-sm">Since v0.8.0</span>
+  * `layouts` - Define one or more view layout. Default layout name is `master.<ext>` and file extension based on view engine from config `view.ext`.
+  * `pages` - Page template of each controller and it's action. Also aah user can have your custom page templates.
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> each controller and its action can have same template filename like Rails. You can have <code>index</code> template for every controller.</p>
+<p><strong>Note:</strong> each controller and its action can have same template filename like Rails. You can have <code>index</code> page template for every controller.</p>
 </div>
 
 ```cfg
@@ -72,7 +72,7 @@ By default aah resolves and render view templates based on-
   * View extension `view.ext`
   * Case-sensitive `view.case_sensitive`
   * Default layout is `master.html` if not provided
-  * <span class="badge lb-sm">Since v0.6</span> Config option to disable default layout.
+  * <span class="badge lb-sm">Since v0.6.0</span> Config option to disable default layout.
 
 Reference to [View Config](app-config.html#section-view).
 
@@ -96,7 +96,7 @@ Besides the aah auto view resolve when using method `HTML(data)` and framework g
   * `Reply().HTMLl(layout, data)` - layout is user input and framework resolves view template file.
   * `Reply().HTMLf(filename, data)` - view filename is user input and default `master.<ext>` layout.
   * `Reply().HTMLlf(layout, filename, data)` - layout and view filename is user input.
-    * <span class="badge lb-sm">Since v0.6</span> if the `filename` starts with `/`; framework uses as-is from `pages` directory.
+    * <span class="badge lb-sm">Since v0.6.0</span> if the `filename` starts with `/`; framework uses as-is from `pages` directory.
     * For e.g: `HTMLf("/mydir/file.html", data)` => becomes `views/pages/mydir/file.html`
     * For e.g: `HTMLf("mydir/file.html", data)` => becomes `views/pages/<packages>/<controller>/mydir/file.html`
 
@@ -108,11 +108,11 @@ aah provides following ways to add value into `ViewArgs`, templates are render w
     * For e.g.: adding view arg via middleware or in the controller.
   * Via `Reply().HTML*` methods as a `aah.Data{ ... }` param.
 
-aah provides access to `aah.AppConfig()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` on view template via template function.
+aah provides access to `aah.App().Config()`, `Session`, `Flash` `PathParam`, `FormParam`, and `QueryParam` on view template via template function.
 
 ## Adding User-Defined View Engine into aah
 
-Currently aah supports Go. Don't feel bad, you can added your favorite view engine into aah.
+Currently aah supports Go template engine. Don't feel bad, you can added your favorite view engine into aah.
 
 <div class="alert alert-info-blue">
 <p>Pug view engine support temporarly removed from aah due to upstream <a href="https://github.com/Joker/jade/issues/22">library issue</a>.</p>
@@ -132,8 +132,9 @@ type Enginer interface {
 
 ```go
 func init()  {
-  if err := aah.AddViewEngine("enginename", &MyViewEngine{}); err != nil {
-    aah.AppLog().Error(err)
+  app := aah.App()
+  if err := app.AddViewEngine("enginename", &MyViewEngine{}); err != nil {
+    app.Log().Error(err)
   }
 }
 ```

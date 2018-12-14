@@ -14,6 +14,8 @@ aah application configuration file called `aah.conf`.
 
   * [name](#name)
   * [description](#description)
+  * [usage](#usage) <sup class="new-sup">new</sup>
+  * [copyright](#copyright) <sup class="new-sup">new</sup>
   * [type](#type)
   * [instance_name](#instance-name)
   * [pid_file](#pid-file)
@@ -57,10 +59,28 @@ name = "mysampleapp"
 
 ## description
 
-A friendly description of application.
+A friendly description of application. It is used on application binary description with CLI.
 
 ```bash
 desc = "aah framework web application"
+```
+
+## usage
+
+One line usage text of application binary. Introduced in <span class="badge lb-sm">Since v0.12.0</span> in-favor of [console commands](console-commands.html).
+
+```bash
+# Example of THUMBAI application 
+usage = "A Go Mod Repository, Go Vanity and Simple Proxy Server"
+```
+
+## copyright
+
+Application copyright information. Displayed when application binary `--help`. Introduced in <span class="badge lb-sm">Since v0.12.0</span> in-favor of [console commands](console-commands.html).
+
+```bash
+# Example of THUMBAI application 
+copyright = "© Jeevanandam M. (https://github.com/jeevatkm), All rights reserved."
 ```
 
 ## type
@@ -308,11 +328,6 @@ lets_encrypt {
   # If the Client's account key is already registered, then Email is not used.
   email = "youremail@example.com"
 
-  # Force RSA makes the autocert generate certificates with 2048-bit RSA keys.
-  # If false, a default is used. Currently, the default is EC-based keys
-  # using the P-256 curve.
-  force_rsa = false
-
   # Cache optionally stores and retrieves previously-obtained certificates
   # autocert manager. By default, certs will only be cached for the lifetime
   # of the autocert manager.
@@ -321,7 +336,7 @@ lets_encrypt {
   # with private/public parts combined in a single `Cache.Put` call,
   # private key first.
   #
-  # Default value is `empty` string.
+  # Default value is `<app-base-dir/autocert>`.
   cache_dir = "/Users/jeeva/autocert"
 }
 ```

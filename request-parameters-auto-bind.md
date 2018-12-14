@@ -8,7 +8,7 @@ This document provides insights into aah's Request Parameters auto parse and bin
 
 aah provides two ways to access your request parameters:
 
-  * <span class="badge lb-xm">Since v0.8</span> [Auto Parse and Bind](#auto-parse-and-bind), this should be the preferred method.
+  * <span class="badge lb-xm">Since v0.8.0</span> [Auto Parse and Bind](#auto-parse-and-bind), this should be the preferred method.
   * Use `ctx.Req.*` [methods](request-and-response.html#methods) to get values.
 
 <div class="alert alert-info-blue">
@@ -49,7 +49,7 @@ Binding of both pointer and non-pointer is supported.
 <p><strong>Note:</strong>
 <ul>
   <li>Any auto parse error will result into <code>400 Bad Request</code>, error details gets logged.</li>
-  <li>Multipart file binding is intentionally not supported by auto bind. It is mainly to use resources effectively. So aah provides dedicated methods <code>ctx.Req.SaveFile</code>, <code>ctx.Req.SaveFiles</code> for your convenience to save uploaded multipart-form files into disk easily.</li>
+  <li>Multipart file binding is <code>intentionally not supported</code> by auto bind. It is mainly to use resources effectively. Instead aah provides dedicated method called <code>ctx.Req.SaveFile</code> for convenience to save uploaded multipart-form files into disk easily.</li>
 </ul>
 </p>
 </div>
@@ -65,10 +65,10 @@ Go with your creativity and use case to exploit the auto parse and bind feature.
 ```go
 // Let's say we have `/v1/products`
 // Request is `/v1/products?page=3&count=25&sort=desc`
-func (p *ProductController) Products(page, count int, sort string) {
-  fmt.Println("Page No:", page)
-  fmt.Println("Count Per Page:", count)
-  fmt.Println("Sort Order:", sort)
+func (c *ProductController) Products(page, count int, sort string) {
+  c.Log().Info("Page No: ", page)
+  c.Log().Info("Count Per Page: ", count)
+  c.Log().Info("Sort Order: ", sort)
 
   // ...
 }
@@ -87,15 +87,16 @@ type Pagination struct {
 
 // Let's say we have `/v1/products`
 // It receives GET request with `/v1/products?page=3&count=25`
-func (p *ProductController) Products(pagination *models.Pagination) {
-  fmt.Println("Page No:", pagination.No)
-  fmt.Println("Count Per Page:", pagination.Count)
+func (c *ProductController) Products(pagination *models.Pagination) {
+  c.Log().Info("Page No: ", pagination.No)
+  c.Log().Info("Count Per Page: ", pagination.Count)
 
   // ...
 }
 ```
 
 ### Getting JSON Request Body into `struct`
+
 Same principle is applicable for `XML` content-type too.
 
 ```go
@@ -111,8 +112,8 @@ type Product struct {
 
 // Let's say we have `/v1/products`
 // It receives POST request to create product as JSON payload
-func (p *ProductController) Products(product *models.Product) {
-  fmt.Printf("%+v\n", product)
+func (c *ProductController) Products(product *models.Product) {
+  c.Log().Infof("%+v\n", product)
 
   // ...
 }
@@ -158,8 +159,8 @@ type User struct {
 
 // Let's say we have `/user/profile`
 // It receives POST Form request to store user information.
-func (u *UserController) Profile(user *models.User) {
-  fmt.Printf("%+v\n", user)
+func (c *UserController) Profile(user *models.User) {
+  c.Log().Infof("%+v\n", user)
 
   // ...
 }
@@ -176,8 +177,8 @@ type Parser func(key string, typ reflect.Type, params url.Values) (reflect.Value
 Then add your parser into aah as follows:
 ```go
 func init()  {
-  if err := aah.AddValueParser(reflect.TypeOf(CustomType{}), customParser); err != nil {
-    log.Error(err)
+  if err := aah.App().AddValueParser(reflect.TypeOf(CustomType{}), customParser); err != nil {
+    aah.App().Log().Error(err)
   }
 }
 ```

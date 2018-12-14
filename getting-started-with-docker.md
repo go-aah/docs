@@ -4,96 +4,58 @@ Keywords: docker, container, aah, application
 ---
 # Getting started with Docker
 
-Great news!! <span class="badge lb-sm">Since v0.10</span> release aah provides Docker Image on [Docker Hub](https://hub.docker.com/r/aahframework/) and aah CLI command to generate `Dockerfile` config.
+aah CLI provides command to generate `Dockerfile` for development and production purpose. aah provides very good starter Dockerfile(s) for your application, enhance it per your use case.
 
-aah has automated build process for Docker Image creation. Supported Docker tags are -
-
-  * `aahframework/aah:latest` - Latest production release.
-  * `aahframework/aah:{version}` - Specific release version, for e.g.: `aahframework/aah:v0.9`.
-  * `aahframework/aah:edge` - Latest development edge version.
+Ensure to install <a href="https://www.docker.com/get-docker">Docker</a> on your machine.
 
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong>
-<ul>
-  <li>aah docker base image is <code>golang:latest</code>.</li>
-  <li>Ensure to install <a href="https://www.docker.com/get-docker">Docker</a> on your machine.</li>
-</ul>
-</p>
+<p><strong>Note:</strong> Since <code>v0.12.0</code> aah does not provide docker images <code>aahframework/aah:*</code> in-favor of Go modules.</p>
 </div>
 
 **Table of Contents**
 
-  * [Pull aah Docker Image](#pull-aah-docker-image)
   * [Handy `generate` Command](#handy-generate-command)
-  * [Using Dockerfile.*](#using-dockerfile)
-  * [Compile aah application inside the Docker container](#compile-aah-application-inside-the-docker-container)
-
-## Pull aah Docker Image
-
-Pull docker image from Docker Hub.
-
-```bash
-# Pull latest production release
-docker pull aahframework/aah:latest
-
-# Pull edge version
-docker pull aahframework/aah:edge
-
-# Pull specific version
-docker pull aahframework/aah:v0.9
-```
+  * [Using Dockerfile.*](#using-dockerfile-dev-prod)
 
 ## Handy `generate` Command
 
-aah CLI includes `generate` command to help developers in their application development path. This command generates `two` docker files -
+Introduced in <span class="badge lb-sm">v0.10.0</span> aah CLI. Command `generate` is to help developer(s) in their application development path. It generates `two` docker files -
 
-  * `Dockerfile.dev` - For development usage with aah docker image.
-  * `Dockerfile.prod` - Using Multistage-build to create very small docker image for production purpose. More info, refer to https://docs.docker.com/develop/develop-images/multistage-build/.
+  * `Dockerfile.dev` - For development purpose.
+  * `Dockerfile.prod` - Uses [Multistage-build](https://docs.docker.com/develop/develop-images/multistage-build/) to create very `tiny` docker image for production purpose.
 
-<div class="alert alert-info-blue">
-<p><strong>Note:</strong> aah CLI provides very good starter Dockerfile(s) for your application, enhance it per your need.</p>
-</div>
+### Example
 
-#### Example
 ```bash
-# run from anywhere
-aah generate script --name docker --importpath github.com/user/appname
-
-# OR if you're in app directory or path
+# Go to application base directory and run
 aah generate script --name docker
 
-# OR short form
+# OR shorthand
 aah g s -n docker
 ```
 
-## Using Dockerfile.*
+## Using Dockerfile.{dev, prod}
+
+Various sample usage commands.
 
 #### To Build Docker Image
 
 ```bash
 # Using Dockerfile.dev
-docker build --no-cache -t "yourapp:dev" -f Dockerfile.dev .
+docker build --no-cache -t "your-app-image-name:dev" -f Dockerfile.dev .
 
 # Using Dockerfile.prod
-docker build --no-cache -t "yourapp:latest" -f Dockerfile.prod .
+docker build --no-cache -t "your-app-image-name:latest" -f Dockerfile.prod .
 ```
 
 #### Running built Docker Image
 
 ```bash
-# To run Dockerfile.dev image
-# To stop press Ctrl + C
-docker run -it -p 8080:8080 "yourapp:dev" aah run
+# Run docker image created using `Dockerfile.dev`
+# To stop: press Ctrl + C
+docker run -it -p 8080:8080 "your-app-image-name:dev" aah run
 
-# To run Dockerfile.prod image
-# To stop, do it via container stop
-docker run -p 8080:8080 "yourapp:latest"
-```
-
-## Compile aah application inside the Docker container
-
-There might a occasions you would like to build your application inside the container and get the build artifact. You can write something like:
-
-```bash
-docker run --rm -v "$PWD":/go/src/github.com/user/appname -w /go/src/github.com/user/appname aahframework/aah:latest aah build
+# Run docker image created using `Dockerfile.prod`
+# To stop: do it via container stop
+docker run -p 8080:8080 "your-app-image-name:latest"
 ```
