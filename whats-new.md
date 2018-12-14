@@ -6,7 +6,6 @@
   * Diagnosis & Profiling
   * Improved routing implementation
 
-<div class="alert alert-info-green">
-<p style="text-align:center">Upcoming new app called <a href="https://github.com/thumbai/thumbai" target="_blank">THUMBAI</a> - Go Mod Repository and Go Vanity from author of aah</p>
-<p style="text-align:center">Try out live instance here <a href="https://aahframework.org/thumbai" target="_blank">https://aahframework.org/thumbai</a> with username/password: <code>readonly/readonly</code></p>
+<div class="alert alert-info-blue">
+<p style="text-align:center">A new app "<a href="https://thumbai.app" target="_blank">THUMBAI</a> - Go Mod Repository, Go Vanity" from author of aah</p>
 </div>
