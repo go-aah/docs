@@ -2,6 +2,10 @@
 
 aah aims to make the process of upgrading application to the latest release version as easy & convenient as possible. It just few steps away-
 
+<div class="alert alert-info-blue">
+<p><strong>Note:</strong> Since <code>v0.12.0</code> aah requires >= <code>go1.11</code>.</p>
+</div>
+
 ### Step 1: Install latest aah CLI
 
 ```bash
