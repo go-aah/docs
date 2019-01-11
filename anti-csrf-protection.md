@@ -64,15 +64,20 @@ anti_csrf {
   # should be same in all instance. For HMAC sign & verify it recommend to use
   # key size is `32` or `64` bytes.
   #
-  # Default value is `64` bytes (`aah new` generates strong one using `crypto/rand`).
+  # Default value is `64` bytes (Command `aah new` generates strong one using `crypto/rand`).
   sign_key = "a0b4537382d31be684ad7a92537ecca96367f151309201abbdc6df2f976776c7"
 
   # Anti-CSRF cookie value encryption and decryption using `AES`. For server
   # farm this should be same in all instance. AES algorithm is used, valid
   # lengths are `16`, `24`, or `32` bytes to select `AES-128`, `AES-192`, or `AES-256`.
   #
-  # Default value is `32` bytes (`aah new` generates strong one using `crypto/rand`).
+  # Default value is `32` bytes (Command `aah new` generates strong one using `crypto/rand`).
   enc_key = "2976a9d457266ef2f864c1d94055f9bf"
+
+  # Configure trusted origin hosts here.
+  #
+  # Introduced in v0.13.0 release.
+  trusted_origins = ["example1.com", "example.com", "example3.com:8080"]
 }
 ```
 
@@ -144,9 +149,7 @@ The Anti-CSRF is based on the following things:
       - When validating the `anti_csrf_token` field value or `X-Anti-CSRF-Token` header value, only the secret, not the full token, is compared with the secret in the cookie value. This allows the use of ever-changing tokens. While each request may use its own token, the secret remains common to all.
   * In addition, for `HTTPS` requests, strict `referer` checking is done. This means that even if a subdomain can set or modify cookies on your domain, it can't force a user to post to your application since that request won't come from your own exact domain.
       - This also addresses a man-in-the-middle attack that's possible under HTTPS when using a session independent secret, due to the fact that HTTP `Set-Cookie` headers are (unfortunately) accepted by clients even when they are talking to a site under HTTPS. (Referer checking is not done for HTTP requests because the presence of the Referer header isn't reliable enough under HTTP.)
-      - **`Upcoming`** Compare referer against configured domain. This setting supports subdomains. For example, `security.anti_csrf = ".example.com"` will allow POST requests from www.example.com and api.example.com. If the setting is not set, then the referer must match the HTTP Host header.
-
-      - **`Upcoming`** Expanding the accepted referrers beyond the current host or cookie domain can be done with the `security.anti_csrf.trusted_origins = ["domain1.com", "domain2.com"]` setting.
+      - Expanding the accepted `origin` referrers beyond the current host or cookie domain can be done via  `security.anti_csrf.trusted_origins = ["domain1.com", "domain2.com"]` setting.
 
 It deliberately ignores GET requests (and other requests that are defined as `safe` by [RFC 7231](https://tools.ietf.org/html/rfc7231.html)). These requests ought never to have any potentially dangerous side effects, and so a CSRF attack with a GET request ought to be harmless. RFC 7231 defines POST, PUT, and DELETE as `unsafe`, and all other methods are also assumed to be unsafe, for maximum protection.
 
