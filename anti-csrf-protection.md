@@ -60,6 +60,15 @@ anti_csrf {
   # Default value is `24h`.
   #ttl = "24h"
 
+  # SameSite attribute support
+  # Refer to https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00
+  #
+  # Introduced in v0.13.0 release.
+  #
+  # Supported values are `default`, `lax` and `strict`.
+  # Default value is `default`.
+  samesite = "default"
+
   # Anti-CSRF cookie value signing using `HMAC`. For server farm this
   # should be same in all instance. For HMAC sign & verify it recommend to use
   # key size is `32` or `64` bytes.
@@ -74,9 +83,27 @@ anti_csrf {
   # Default value is `32` bytes (Command `aah new` generates strong one using `crypto/rand`).
   enc_key = "2976a9d457266ef2f864c1d94055f9bf"
 
+  # Old sign key for the smooth key rotation of Anti-CSRF cookie signing into 
+  # new signing key. Refer to `sign_key` for more information.
+  #
+  # Introduced in v0.13.0 release.
+  #
+  # Default value is `empty` string.
+  old_sign_key = "729f9a8596d04815c0ee5667a96434fc067c7917b2ed45bbbdb817856f608b0c"
+
+  # Old encryption key for the smooth key rotation of Anti-CSRF cookie encryption 
+  # into new key. Refer to `enc_key` for more information.
+  #
+  # Introduced in v0.13.0 release.
+  #
+  # Default value is `empty` string.
+  old_enc_key = "50549e23027862586ec20c3c87664edd"
+
   # Configure trusted origin hosts here.
   #
   # Introduced in v0.13.0 release.
+  #
+  # Default value is `[]` empty list.
   trusted_origins = ["example1.com", "example.com", "example3.com:8080"]
 }
 ```

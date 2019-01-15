@@ -106,6 +106,15 @@ session {
   # then aah sets this value as false.
   secure = true
 
+  # SameSite attribute support
+  # Refer to https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00
+  #
+  # Introduced in v0.13.0 release.
+  #
+  # Supported values are `default`, `lax` and `strict`.
+  # Default value is `default`.
+  samesite = "default"
+
   # HTTP session cookie value signing using `HMAC`. For server farm this
   # value should be same in all instance. For HMAC sign & verify it recommend to use
   # key size is `32` or `64` bytes.
@@ -119,6 +128,22 @@ session {
   #
   # Default value is `32` bytes (`aah new` generates strong one using `crypto/rand`).
   enc_key = "d98b1966eb94e9fa35e25e611beba369"
+
+  # Old sign key for the smooth key rotation of cookie signing into new signing key.
+  # Refer to `sign_key` for more information.
+  #
+  # Introduced in v0.13.0 release.
+  #
+  # Default value is `empty` string.
+  old_sign_key = "04a55b202f98a4bc01e16752e66a52eb2b734a7615ac1f3057574ac45f9ea63a"
+
+  # Old encryption key for the smooth key rotation of cookie encryption into new 
+  # key. Refer to `enc_key` for more information.
+  #
+  # Introduced in v0.13.0 release.
+  #
+  # Default value is `empty` string.
+  old_enc_key = "e0ec243c1c4558c2be532a92a36d6325"
 
   # Cleanup Interval is used to clean the expired session data from session store.
   # It is only applicable for non-cookie store type.

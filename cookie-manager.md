@@ -30,6 +30,7 @@ opts := &cookie.Options{
     MaxAge: 2629746, // 1 month in seconds
     HTTPOnly: true,
     Secure: true, // use only SSL enabled website
+    SameSite: "lax",
 }
 
 // Get sign and encryption keys from configuration
@@ -69,6 +70,5 @@ func (c *ProductController) Show(id string) {
 
     value := string(b)
     c.Log().Info("Cookie value: ", value)
-
 }
 ```
