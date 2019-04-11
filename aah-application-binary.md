@@ -12,7 +12,7 @@ This document describes the aah application binary capabilities and its artifact
 
 <div class="alert alert-info-blue">
 <p><strong>Note:</strong></p>
-<p>Go binary have no runtime dependencies (such as Go installation, GOPATH, libraries, etc.), once binary is built for targeted Operating System (OS); then it runs on any machine of targeted OS.</p>
+<p>Go binaries have no runtime dependencies (such as Go installation, GOPATH, libraries, etc.), once a binary is built for the targeted Operating System (OS), it runs on any machine of such targeted OS.</p>
 <p><u>For example:</u></p>
 <p>Building aah binary for Linux 64-bit OS - <code>env GOOS=linux GOARCH=amd64 aah build &lt;args></code></p>
 </div>
@@ -99,7 +99,7 @@ $ /home/app/thumbai/bin/thumbai run --envprofile prod --config /home/app/thumbai
 
 ## Stop
 
-aah application binary listens to `SIGINT` and `SIGTERM` OS signal. On receiving these signals -
+aah application binary listens to `SIGINT` and `SIGTERM` OS signal. On receiving these signals:
 
   * Application publishes `OnPreShutdown` server extension event.
   * Application performs the graceful shutdown with timeout of `server.timeout.grace_shutdown` from `aah.conf`.
@@ -113,7 +113,7 @@ $ kill -INT <process-id>
 
 ## Reload
 
-<span class="badge lb-sm">Since v0.10.0</span> aah application binary supports `Hot-Reload` via `SIGHUP`. Basically application perform same steps as application start but reloading config, i18n, views, etc. without restart.
+<span class="badge lb-sm">Since v0.10.0</span> aah application binary supports `Hot-Reload` via `SIGHUP`. Basically the app performs the same steps as `Start` but reloading config, i18n, views, etc. without actually restarting itself.
 
 ```bash
 $ kill -HUP <process-id>
@@ -121,7 +121,7 @@ $ kill -HUP <process-id>
 $ systemctl reload thumbai.service   # service thumbai reload 
 ```
 
-Application logs information would appear similar to below-
+Application logs inform of this reload process. Example below:
 
 ```bash
 2018-05-19 22:51:08.452 WARN  aahwebsite sfo-aahweb-01 Hangup signal (SIGHUP) received
@@ -141,9 +141,9 @@ Application logs information would appear similar to below-
 
 <span class="badge lb-sm">Since v0.11.0</span> aah supports single binary build packaging.
 
-aah provides command `vfs` and its sub-commands to explore files got embedded into application binary . It accepts regular expression as an input via flag `pattern` and print the file/directory path which matches with given regex pattern.
+aah provides command `vfs` and its sub-commands to explore files embedded into the application binary. It accepts regular expression as an input via flag `pattern` and will print the file/directory path which matches the given regex pattern.
 
-**Idea behind command `vfs`**: Typically once the single binary is build, there would be no easy way to know which files have got embedded into the binary. In real world scenario, it is important to have some mechanism to find out the contents. It could also be helpful for developers, devops, etc.
+**Idea behind command `vfs`**: Typically once the single binary is built, there would be no easy way to know which files have been embedded into the binary. In a real world scenario, it's important to have some mechanism to find out the contents. It could also be helpful for developers, devops, etc.
 
 <br>
 
