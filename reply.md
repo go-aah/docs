@@ -40,7 +40,7 @@ As per RFC7231, `Reply()` provides method for frequently used ones.
   * `InternalServerError()`
   * `ServiceUnavailable()`
 
-ohh, the response status I need is not in the above list, no problem; use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
+Oh, the response status you need is not in the above list? no problem! just use `Reply().Status(http.StatusPartialContent)` or `Reply().Status(206)`
 
 ## Response Content
 
