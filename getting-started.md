@@ -24,7 +24,7 @@ aah user have multiple ways to install CLI into their system.
 
 <br>
 <div class="alert alert-info-blue">
-<p><strong>Note:</strong> Everytime you update Go, you must reinstall aah, using one of the methods below.</p>
+<p><strong>Note:</strong> Everytime you update Go, you must reinstall aah CLI, using one of the methods below.</p>
 </div>
 
 #### Via Installer
