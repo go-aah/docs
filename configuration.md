@@ -34,6 +34,7 @@ The configuration syntax used by aah framework is `forge` developed by [@brettla
   * `Boolean` - true or false of any case (e.g. TRUE, True, true, FALSE, False, false)
   * `Null` - null
   * `List/Array` - string, integer, float supported. Values are separated by commas and surrounded by brackets. It can be multi line too
+  * `OS Environment variables` - $ENV_VAR - [More info below](#environment-variables)
 
 ## Key-value and separator
 

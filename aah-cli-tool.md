@@ -4,7 +4,7 @@ Keywords: aah CLI tool, ClI tool, hot-reload, cross compile, commands, run, new,
 ---
 # aah CLI Tool
 
-Introduction to aah CLI tool, it's very handy tool for development, Continuous Integration (CI) and deployment preparation.
+aah CLI it's a very handy tool for development, Continuous Integration (CI) and deployment preparation.
 
 aah CLI is fully POSIX compliant flags (includes short and long versions) and command aliases too.
 
@@ -25,14 +25,14 @@ aah CLI is fully POSIX compliant flags (includes short and long versions) and co
 
 ## Commands
 
-The best way to learn about aah CLI commands is to do `aah help`, explore further -
+The best way to learn about aah CLI commands is to run `aah help` and explore further:
 
   * For command - `aah help <command>` 
   * Also for sub-commands - `aah <command> help` or `aah <command> help <sub-command>`
 
 ### Command: aah new
 
-It is an interactive program to assist you to quick start aah application. Quick start include `web`, `api` or `websocket` types.
+It's an interactive program that will make generate skeleton code to assist you to quick start aah application. It supports `web`, `api` or `websocket` types.
 
 ### Command: aah run
 
@@ -48,22 +48,22 @@ Builds aah application for deployment. It supports `single` & `non-single` binar
 
 ### Command: aah list
 
-It helps you to view/discover all the aah application projects on your System. It automatically learns about new aah project when created via `aah new` and also you could teach it via `aah list --scan /base/dir/to/scan/aah-projects`.
+It helps you view/discover all the aah application projects on your System. It automatically learns about new aah project when created via `aah new` and you can also teach it via `aah list --scan /base/dir/to/scan/aah-projects`.
 
 ### Command: aah clean
 
-Cleans the aah generated files and build directory. Might be helpful once in while.
+Cleans the aah generated files and build directory. Might be helpful once in a while.
 
 ### Command: aah generate
 
-It used to increases productivity and helps developer on tedious tasks during application development. Such as boilerplate code, configuration files, complement scripts (systemd, docker), etc.
+Increases productivity and helps developer on tedious tasks during application development - such as boilerplate code, configuration files, complementary scripts (systemd, docker), etc.
 
-Currently it supports only complement script generation, remaining items are upcoming 😄.
+Currently it only supports complementary script generation. Remaining items are upcoming 😄.
 
 ### Command: aah migrate
 
-It is one of the very helpful command and it shines brightly during new releases. 
-
+This command will auto-migrate your aah code - it should be run everytime we release a new version of aah framework,
+to make your code work and be compatible with the new aah version.
 ### Command: aah help
 
 Of-course name speaks for itself.
@@ -83,7 +83,7 @@ env GOOS=linux GOARCH=amd64 aah build --single --output /Users/jeeva/build
 Application artifact is here: /Users/jeeva/build/myapp-99bf7df-linux-amd64.zip
 ```
 
-#### Building windows exe on macOS
+#### Building Windows .exe on macOS
 
 ```bash
 # Use `aah help build` to learn more
@@ -96,7 +96,7 @@ Application artifact is here: /Users/jeeva/build/myapp-99bf7df-windows-amd64.zip
 
 ## AAHPATH
 
-`AAHPATH` environment variable is introduced in v0.11.0.
+`AAHPATH` environment variable was introduced in v0.11.0.
 
   * It is step towards aah CLI binary distribution. Also `v0.11.0` includes Homebrew channel 
 
