@@ -1,5 +1,9 @@
 ## Changelog
 
+#### v0.12.4
+
+  * Fixed - Path traversal vulnerability [#266]({{aah_issues_url}}/266)
+
 #### Features
 
   * Console Module - Ability to add CLI commands into aah application easily [#198]({{aah_issues_url}}/198), [documentation](console-commands.html)
