@@ -1,5 +1,8 @@
 ## Changelog
 
+#### v0.12.5
+  * Cleanup the debug print line
+
 #### v0.12.4
 
   * Fixed - Path traversal vulnerability [#266]({{aah_issues_url}}/266)
