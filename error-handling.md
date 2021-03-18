@@ -159,7 +159,10 @@ func AppErrorHandler(ctx *aah.Context, err *aah.Error) bool {
 
 // Register App Error Handler at `init.go` file
 func init()  {
-  aah.App().SetErrorHandler(util.AppErrorHandler)
+  app := aah.App()
+  app.OnStart(func(e *aah.Event) {
+    app.SetErrorHandler(util.AppErrorHandler)
+  })
 }
 ```
 
